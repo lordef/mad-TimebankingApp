@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">MAD_lab02</string>
+    <string name="antonio_neri">Antonio Neri</string>
+    <string name="email">Email</string>
+    <string name="antonioneri_gmail_com">Antonioneri@gmail.com</string>
+    <string name="location">Location</string>
+    <string name="address">address</string>
+    <string name="skills">Skills</string>
+    <string name="gardening">- Gardening</string>
+    <string name="chess_player">- Chess player</string>
+    <string name="swimming_trainer">- Swimming trainer</string>
+    <string name="description">Description</string>
+    <string name="userDescription">userDescription</string>
+    <string name="name">Name</string>
+    <string name="addressNew">Via Roma 53, Torino, Italia</string>
 </resources>
