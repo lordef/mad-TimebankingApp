@@ -3,40 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ShowProfileActivity">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="474dp"
+        android:layout_height="410dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider4"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:contentDescription="@string/user_profile_picture"
-                app:srcCompat="@android:mipmap/sym_def_app_icon"
-                tools:ignore="ImageContrastCheck"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="379dp"
-                android:layout_height="16dp"
-                android:background="?android:attr/listDivider"
-                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/nameLabelTextView"
@@ -132,10 +114,33 @@
                 android:id="@+id/userTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/userDescription2"
+                android:text="Hi, I'm a student attending the fourth year of high school. I have thousands of interests and a great curiosity in whatever activity related sports and logic games. I have a lot of time and i really can't wait to meet new people! Contact me if you are interested in any of my skills!"
                 android:textSize="24sp" />
 
         </LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/profileImageView2"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:contentDescription="@string/user_profile_picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:mipmap/sym_def_app_icon"
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="16dp"
+        android:layout_height="match_parent"
+        android:background="?android:attr/listDivider"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="238dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
