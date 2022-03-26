@@ -6,136 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".ShowProfileActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <!--Comment -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/profileImageView"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:contentDescription="@string/user_profile_picture"
-                app:srcCompat="@android:mipmap/sym_def_app_icon"
-                tools:ignore="ImageContrastCheck"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="379dp"
-                android:layout_height="16dp"
-                android:background="?android:attr/listDivider"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/nameLabelTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:lineSpacingExtra="8sp"
-                android:text="@string/name"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                app:srcCompat="@drawable/user_48"
+                tools:srcCompat="@drawable/user_48" />
 
             <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/antonio_neri"
-                android:textSize="24sp" />
+                android:text="TextView" />
 
             <TextView
-                android:id="@+id/emailLabelTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:text="TextView" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/emailTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/antonioneri_gmail_com"
-                android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/locationLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/location"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/addressTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/addressNew"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/skillsLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/skills"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/gardening"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/chess_player"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/swimming_trainer"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/descriptionLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/userTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/userDescription2"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
