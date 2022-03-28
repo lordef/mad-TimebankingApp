@@ -6,8 +6,11 @@
     <string name="fullName">Antonio Neri</string>
     <string name="nickname">Antonio_Nerone64</string>
 
-    <string name="ratingCard">Rating</string>
+    <string name="ratingLabel">Rating</string>
     <string name="ratingValue">4.7/5</string>
+
+    <string name="balanceLabel">Balance</string>
+    <string name="balanceValue">+10h</string>
 
 
     <!-->Labels<-->
