@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--Comment
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="474dp"
@@ -142,5 +142,5 @@
         android:visibility="invisible"
         tools:layout_editor_absoluteX="238dp"
         tools:layout_editor_absoluteY="0dp" />
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>
