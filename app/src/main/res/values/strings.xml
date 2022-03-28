@@ -6,5 +6,8 @@
     <string name="fullName">Antonio Neri</string>
     <string name="nickname">Antonio_Nerone64</string>
 
+    <string name="ratingCard">Rating</string>
+    <string name="ratingValue">4.7/5</string>
+
 
 </resources>
