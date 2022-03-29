@@ -12,8 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,24 +19,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_weight="2"
-            android:background="#00BCD4">
+            android:layout_weight="5"
+            android:background="@drawable/gradient">
+
 
             <ImageView
                 android:id="@+id/profileImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentBottom="false"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/imageDescription"
-                app:srcCompat="@drawable/user_48"
-                tools:srcCompat="@drawable/user_48" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/profile_image"
+                tools:ignore="ImageContrastCheck"
+                tools:srcCompat="@drawable/profile_image" />
 
             <TextView
                 android:id="@+id/fullNameTextView"
@@ -50,7 +51,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_toEndOf="@id/profileImageView"
                 android:text="@string/fullName"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,6 +63,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_toEndOf="@id/profileImageView"
                 android:text="@string/nickname"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -77,15 +79,16 @@
                 android:id="@+id/ratingCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="2"
+                app:cardCornerRadius="0dp"
                 app:cardElevation="20dp">
 
                 <RelativeLayout
                     android:id="@+id/ratingRelativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:background="#C400BCD4"
+                    android:background="@drawable/gradient"
                     android:padding="5dp">
 
                     <ImageView
@@ -123,15 +126,16 @@
                 android:id="@+id/balanceCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="2"
+                app:cardCornerRadius="0dp"
                 app:cardElevation="20dp">
 
                 <RelativeLayout
                     android:id="@+id/balanceRelativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="#B900BCD4"
+                    android:background="@drawable/gradient"
                     android:padding="5dp">
 
                     <ImageView
@@ -168,6 +172,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -187,8 +193,6 @@
                         android:id="@+id/emailTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/email"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -205,8 +209,6 @@
                         android:id="@+id/locationTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
                         android:text="@string/location"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -219,7 +221,7 @@
 
                 </ListView-->
 
-                    <!--com.google.android.material.textfield.TextInputLayout
+                <!--com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/skill2TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -249,7 +251,6 @@
                                 android:text="@string/skill3"
                                 android:textSize="20sp" />
                     </com.google.android.material.textfield.TextInputLayout-->
-
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -314,8 +315,6 @@
                         android:id="@+id/descriptionTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
                         android:text="@string/description"
                         android:textSize="20sp" />
 
