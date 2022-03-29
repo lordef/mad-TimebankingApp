@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShowProfileActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +65,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -71,7 +74,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <TextView
+                    android:id="@+id/emailTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/email"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_email_icon" />
+
+                <TextView
+                    android:id="@+id/locationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/location"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_location_icon" />
+
+                <TextView
+                    android:id="@+id/skill1TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:orientation="vertical"
+                    android:text="@string/skill1"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_skills_icon" />
+
+                <TextView
+                    android:id="@+id/descriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/description"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_description_icon" />
+
+                <!--com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,6 +129,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
+                        android:drawableStart="@drawable/ic_email_icon"
+                        android:drawablePadding="10dp"
                         android:text="@string/email"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -103,6 +149,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_location_icon"
+                        android:drawablePadding="10dp"
                         android:text="@string/location"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -120,6 +168,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:drawableStart="@drawable/ic_skills_icon"
+                        android:drawablePadding="10dp"
                         android:text="@string/skill1"
                         android:textSize="20sp" />
 
@@ -139,10 +189,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_description_icon"
+                        android:drawablePadding="10dp"
                         android:text="@string/description"
                         android:textSize="20sp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout-->
 
             </LinearLayout>
 

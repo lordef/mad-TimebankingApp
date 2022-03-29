@@ -15,7 +15,8 @@
 
     <!-->Labels<-->
     <string name="fullNameLabel">Full Name</string>
-    <string name="emailLabel">email</string>
+    <string name="nicknameLabel">Nickname</string>
+    <string name="emailLabel">Email</string>
     <string name="locationLabel">Location</string>
     <string name="skillsLabel">Skills</string>
     <string name="descriptionLabel">Description</string>
