@@ -1,18 +1,36 @@
 <resources>
     <string name="app_name">MAD_lab02</string>
-    <string name="antonio_neri">Antonio Neri</string>
-    <string name="email">Email</string>
-    <string name="antonioneri_gmail_com">Antonioneri@gmail.com</string>
-    <string name="location">Location</string>
-    <string name="address">address</string>
-    <string name="skills">Skills</string>
-    <string name="gardening">- Gardening</string>
-    <string name="chess_player">- Chess player</string>
-    <string name="swimming_trainer">- Swimming trainer</string>
-    <string name="description">Description</string>
-    <string name="userDescription">userDescription</string>
-    <string name="name">Name</string>
-    <string name="addressNew">Via Roma 53, Torino, Italia</string>
-    <string name="userDescription2">Hi, I\'m a student attending the fourth year of high school. I have thousands of interests and a great curiosity in whatever activity related sports and logic games. I have a lot of time and i really can\'t wait to meet new people! Contact me if you are interested in any of my skills!</string>
-    <string name="userDescription3">Hi, i\'m an high shool student</string>
+
+    <string name="imageDescription">Userprofile image</string>
+
+    <string name="fullName">Antonio Neri</string>
+    <string name="nickname">Antonio_Nerone64</string>
+
+    <string name="ratingLabel">Rating</string>
+    <string name="ratingValue">4.7/5</string>
+
+    <string name="balanceLabel">Balance</string>
+    <string name="balanceValue">+10h</string>
+
+
+    <!-->Labels<-->
+    <string name="fullNameLabel">Full Name</string>
+    <string name="nicknameLabel">Nickname</string>
+    <string name="emailLabel">Email</string>
+    <string name="locationLabel">Location</string>
+    <string name="skillsLabel">Skills</string>
+    <string name="descriptionLabel">Description</string>
+
+
+    <string name="email">nerone64@gmail.com</string>
+    <string name="location">via Monginevro 2, Torino</string>
+
+
+    <string name="skill1">Gardening\nChess player\nSwimming trainer</string>
+    <string name="skill2">Chess player</string>
+    <string name="skill3">Swimming trainer</string>
+
+
+    <string name="description">Hi, I\'m a student attending the fourth year of high school. I have thousands of interests and a great curiosity in whatever activity related sports and logic games. I have a lot of time and i really can\'t wait to meet new people! Contact me if you are interested in any of my skills!</string>
+
 </resources>

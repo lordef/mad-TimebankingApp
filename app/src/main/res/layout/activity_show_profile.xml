@@ -6,136 +6,304 @@
     android:layout_height="match_parent"
     tools:context=".ShowProfileActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+    <!--Comment -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:background="@drawable/gradient">
+
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/imageDescription"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/profile_image"
+                tools:ignore="ImageContrastCheck"
+                tools:srcCompat="@drawable/profile_image" />
+
+            <TextView
+                android:id="@+id/fullNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@id/profileImageView"
+                android:text="@string/fullName"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nicknameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fullNameTextView"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@id/profileImageView"
+                android:text="@string/nickname"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="-50dp"
+            android:orientation="horizontal"
+            android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:contentDescription="@string/user_profile_picture"
-                app:srcCompat="@android:mipmap/sym_def_app_icon"
-                tools:ignore="ImageContrastCheck"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="379dp"
-                android:layout_height="16dp"
-                android:background="?android:attr/listDivider"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/nameLabelTextView"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ratingCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:lineSpacingExtra="8sp"
-                android:text="@string/name"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="20dp">
 
-            <TextView
-                android:id="@+id/nameTextView"
+                <RelativeLayout
+                    android:id="@+id/ratingRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/ratingImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/ratingLabel"
+                        tools:srcCompat="@drawable/ic_rating_icon" />
+
+                    <TextView
+                        android:id="@+id/ratingLabelTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ratingImageView"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/ratingLabel"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ratingValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ratingLabelTextView"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/ratingValue"
+                        android:textSize="20sp" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/balanceCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/antonio_neri"
-                android:textSize="24sp" />
+                android:layout_marginStart="10dp"
+                android:layout_weight="2"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="20dp">
 
-            <TextView
-                android:id="@+id/emailLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                <RelativeLayout
+                    android:id="@+id/balanceRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient"
+                    android:padding="5dp">
 
-            <TextView
-                android:id="@+id/emailTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/antonioneri_gmail_com"
-                android:textSize="24sp" />
+                    <ImageView
+                        android:id="@+id/balanceImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/balanceLabel"
+                        app:srcCompat="@drawable/ic_bank_icon24" />
 
-            <TextView
-                android:id="@+id/locationLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/location"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/balanceLabeltextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/balanceImageView"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/balanceLabel"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/addressTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/addressNew"
-                android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/balanceValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/balanceLabeltextView"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/balanceValue"
+                        android:textSize="20sp" />
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/skillsLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/skills"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/gardening"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/chess_player"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/swimming_trainer"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/descriptionLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/userTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/userDescription2"
-                android:textSize="24sp" />
-
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/emailTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/email"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_email_icon" />
+
+                <TextView
+                    android:id="@+id/locationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/location"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_location_icon" />
+
+                <TextView
+                    android:id="@+id/skill1TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:orientation="vertical"
+                    android:text="@string/skill1"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_skills_icon" />
+
+                <TextView
+                    android:id="@+id/descriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/description"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_description_icon" />
+
+                <!--com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/emailLabel"
+                    android:textColorHint="#5B5E71"
+                    app:boxBackgroundColor="#FFFFFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_email_icon"
+                        android:drawablePadding="10dp"
+                        android:text="@string/email"
+                        android:textSize="20sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/locationTextInputLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/locationLabel"
+                    android:textColorHint="#5B5E71"
+                    app:boxBackgroundColor="#FFFFFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/locationTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_location_icon"
+                        android:drawablePadding="10dp"
+                        android:text="@string/location"
+                        android:textSize="20sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/skill1TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/skillsLabel"
+                    android:textColorHint="#5B5E71"
+                    app:boxBackgroundColor="#FFFFFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/skill1TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_skills_icon"
+                        android:drawablePadding="10dp"
+                        android:orientation="vertical"
+                        android:text="@string/skill1"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/descriptionTextInputLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/descriptionLabel"
+                    android:textColorHint="#5B5E71"
+                    app:boxBackgroundColor="#FFFFFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/descriptionTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_description_icon"
+                        android:drawablePadding="10dp"
+                        android:text="@string/description"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.textfield.TextInputLayout-->
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
