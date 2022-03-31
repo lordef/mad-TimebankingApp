@@ -23,6 +23,10 @@ private const val CAMERA_REQUEST = 1888
 private const val MY_CAMERA_PERMISSION_CODE = 100
 private const val RESULT_LOAD_IMAGE = 1
 
+import android.view.View
+import android.widget.ImageButton
+import android.widget.Toast
+
 
 class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +80,10 @@ class EditProfileActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.commitItem -> {
                 onBackPressed()
-                Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
+                
+                
+                
+                .makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
