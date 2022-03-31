@@ -30,42 +30,32 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
 
         /* Divide screen in 1/3 and 2/3 */
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val father = findViewById<LinearLayout>(R.id.mainLinearLayout)
+        val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
+        val secondLayer =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                findViewById<LinearLayout>(R.id.mainLinearLayout)
+            else
+                findViewById<ScrollView>(R.id.mainScrollView)
 
-            father.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = father.height
-                    val w = father.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w/3, h)
-                    }
-                    father.viewTreeObserver.removeOnGlobalLayoutListener(this)
+        secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val h = secondLayer.height
+                val w = secondLayer.width
+                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
+                firstLayout.post {
+                    firstLayout.layoutParams =
+                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                            LinearLayout.LayoutParams(w / 3, h)
+                        else
+                            LinearLayout.LayoutParams(w, h / 3)
                 }
-            })
-        } else {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val sv = findViewById<ScrollView>(R.id.mainScrollView)
+                secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
 
-            sv.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = sv.height
-                    val w = sv.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w, h / 3)
-                    }
-                    sv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-            })
-        }
-        
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
-        profileImageButton.setOnClickListener{onButtonClickEvent(profileImageButton)}
+        profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve a Bundle object : TODO
         // val extras:Bundle? = intent.extras
@@ -108,12 +98,12 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Confirm edited fields */
-    private fun editedProfile(){
+    private fun editedProfile() {
         val i = Intent(this, ShowProfileActivity::class.java)
 
         //Create a Bundle object
         val extras = Bundle()
-        extras.putString("RESULT","OK")
+        extras.putString("RESULT", "OK")
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
@@ -123,10 +113,11 @@ class EditProfileActivity : AppCompatActivity() {
 
     /******* CAMERA ********/
     /* Context menu for Camera */
-    override fun onCreateContextMenu(menu: ContextMenu,
-                                     v: View,
-                                     menuInfo: ContextMenu.ContextMenuInfo?)
-    {
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
         super.onCreateContextMenu(menu, v, menuInfo)
 
         val inflater: MenuInflater = menuInflater
@@ -144,7 +135,7 @@ class EditProfileActivity : AppCompatActivity() {
                     this,
                     "Option selectImageOption selected", Toast.LENGTH_SHORT
                 ).show()
-                val i = Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI )
+                val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(i, RESULT_LOAD_IMAGE)
                 true
             }
@@ -180,7 +171,7 @@ class EditProfileActivity : AppCompatActivity() {
         //get result from the gallery
         //TODO: https://www.youtube.com/watch?v=KaDwSvOpU5E
         if (requestCode === RESULT_LOAD_IMAGE && resultCode === RESULT_OK && null != data) {
-            val selectedImage: Uri? = data.getData()
+            val selectedImage: Uri? = data.data
             val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
             val cursor = selectedImage?.let {
                 contentResolver.query(
