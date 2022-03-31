@@ -1,5 +1,6 @@
 package it.polito.mad.lab02
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,8 @@ class ShowProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
 
+
+        /* Divide screen in 1/3 and 2/3 */
         val firstLayout = findViewById<LinearLayout>(R.id.upperLinearLayout)
         val sv = findViewById<ScrollView>(R.id.mainScrollView)
 
@@ -27,8 +30,6 @@ class ShowProfileActivity : AppCompatActivity() {
                 sv.viewTreeObserver.removeOnGlobalLayoutListener(this )
             }
         })
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,10 +41,23 @@ class ShowProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.item1 -> {
-                Toast.makeText(this, "Menu selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Edit profile selected", Toast.LENGTH_SHORT).show()
+                editProfile()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    /* TODO */
+    private fun editProfile(){
+        val i = Intent(this, EditProfileActivity::class.java)
+
+        //Create a Bundle object
+        val extras = Bundle()
+        extras.putString("DEFAULTTEXT","Tizio Doe")
+        i.putExtras(extras)
+
+        startActivityForResult(i, 1)
     }
 }
