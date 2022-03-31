@@ -1,21 +1,27 @@
 package it.polito.mad.lab02
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Log
-import android.view.ViewTreeObserver
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.view.*
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import android.view.View
-import android.widget.ImageButton
-import android.widget.Toast
+import androidx.annotation.RequiresApi
+
+/* Constants for CAMERA */
+private const val CAMERA_REQUEST = 1888
+private const val MY_CAMERA_PERMISSION_CODE = 100
+private const val RESULT_LOAD_IMAGE = 1
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -114,9 +120,82 @@ class EditProfileActivity : AppCompatActivity() {
         //finish() //TODO: useful?
     }
 
-    /******* CAMERA ********/
-    //TODO
 
+    /******* CAMERA ********/
+    /* Context menu for Camera */
+    override fun onCreateContextMenu(menu: ContextMenu,
+                                     v: View,
+                                     menuInfo: ContextMenu.ContextMenuInfo?)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        val inflater: MenuInflater = menuInflater
+        menu.setHeaderTitle("Choose your option")
+        inflater.inflate(R.menu.camera_menu, menu)
+    }
+
+    /* Options for Camera */
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.selectImageOption -> {
+                Toast.makeText(
+                    this,
+                    "Option selectImageOption selected", Toast.LENGTH_SHORT
+                ).show()
+                val i = Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI )
+                startActivityForResult(i, RESULT_LOAD_IMAGE)
+                true
+            }
+            R.id.useCameraOption -> {
+                Toast.makeText(this, "Option useCameraOption selected", Toast.LENGTH_SHORT).show()
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CAMERA),
+                        MY_CAMERA_PERMISSION_CODE
+                    )
+                } else {
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST)
+                }
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    /* Use the returned picture from the camera */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
+
+        //get result from the camera
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            val photo = data?.extras!!["data"] as Bitmap?
+            editProfileImageView.setImageBitmap(photo)
+        }
+
+        //get result from the gallery
+        //TODO: https://www.youtube.com/watch?v=KaDwSvOpU5E
+        if (requestCode === RESULT_LOAD_IMAGE && resultCode === RESULT_OK && null != data) {
+            val selectedImage: Uri? = data.getData()
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = selectedImage?.let {
+                contentResolver.query(
+                    it,
+                    filePathColumn, null, null, null
+                )
+            }
+            cursor!!.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val picturePath = cursor.getString(columnIndex)
+            cursor.close()
+            println(picturePath)
+            editProfileImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+        }
+    }
 
 }
 

@@ -14,7 +14,7 @@
     <string name="balanceValue">+10h</string>
 
 
-    <!-->Labels<-->
+    <!-- Labels -->
     <string name="fullNameLabel">Full Name</string>
     <string name="nicknameLabel">Nickname</string>
     <string name="emailLabel">Email</string>
@@ -34,5 +34,8 @@
 
     <string name="description">Hi,I\'m a student attending the fourth year of high school. I have thousands of interests and a great curiosity in whatever activity related sports and logic games. I have a lot of time and i really can\'t wait to meet new people! Contact me if you are interested in any of my skills!</string>
 
+    <!-- Edit mode -->
+    <string name="selectImageOption">Select an image from the phone gallery</string>
+    <string name="useCameraOption">Use the camera to take a picture</string>
 
 </resources>
