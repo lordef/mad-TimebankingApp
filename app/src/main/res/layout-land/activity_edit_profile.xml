@@ -7,49 +7,44 @@
     tools:context=".EditProfileActivity">
 
     <LinearLayout
+        android:id="@id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/upperConstraintLayout"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="2">
+            android:background="@drawable/gradient">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/upperConstraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient">
+            <ImageButton
+                android:id="@+id/profileImageButton"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/imageDescription"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/profile_image"
+                tools:ignore="ImageContrastCheck"
+                tools:srcCompat="@drawable/profile_image" />
 
-                <ImageButton
-                    android:id="@+id/profileImageButton"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/imageDescription"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/profile_image"
-                    tools:ignore="ImageContrastCheck"
-                    tools:srcCompat="@drawable/profile_image" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
@@ -71,6 +66,7 @@
                         android:id="@+id/fullNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
@@ -91,6 +87,7 @@
                         android:id="@+id/nicknameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
@@ -111,6 +108,7 @@
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
                         android:inputType="textEmailAddress"
@@ -131,6 +129,7 @@
                         android:id="@+id/locationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
@@ -151,8 +150,10 @@
                         android:id="@+id/skillEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="none"
                         android:orientation="vertical"
                         android:text="@string/skill1"
                         android:textSize="20sp" />
@@ -172,6 +173,7 @@
                         android:id="@+id/descriptionEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
                         android:inputType="textMultiLine"

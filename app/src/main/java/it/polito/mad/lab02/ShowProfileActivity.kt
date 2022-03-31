@@ -1,6 +1,7 @@
 package it.polito.mad.lab02
 
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,19 +20,42 @@ class ShowProfileActivity : AppCompatActivity() {
 
 
         /* Divide screen in 1/3 and 2/3 */
-        val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-        val sv = findViewById<ScrollView>(R.id.mainScrollView)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
+            val father = findViewById<LinearLayout>(R.id.mainLinearLayout)
 
-        sv.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener{
-             override fun onGlobalLayout() {
-                val h = sv.height
-                val w = sv.width
-                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                firstLayout.post{firstLayout.layoutParams = LinearLayout.LayoutParams(w, h/3)}
-                sv.viewTreeObserver.removeOnGlobalLayoutListener(this )
-            }
-        })
+            father.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val h = father.height
+                    val w = father.width
+                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
+                    firstLayout.post {
+                        firstLayout.layoutParams = LinearLayout.LayoutParams(w/3, h)
+                    }
+                    father.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+        } else {
+            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
+            val sv = findViewById<ScrollView>(R.id.mainScrollView)
+
+            sv.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val h = sv.height
+                    val w = sv.width
+                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
+                    firstLayout.post {
+                        firstLayout.layoutParams = LinearLayout.LayoutParams(w, h / 3)
+                    }
+                    sv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+        }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater : MenuInflater = menuInflater
