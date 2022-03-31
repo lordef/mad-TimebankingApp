@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.ViewTreeObserver
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class ShowProfileActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class ShowProfileActivity : AppCompatActivity() {
 
 
         /* Divide screen in 1/3 and 2/3 */
-        val firstLayout = findViewById<LinearLayout>(R.id.upperLinearLayout)
+        val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
         val sv = findViewById<ScrollView>(R.id.mainScrollView)
 
         sv.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener{
