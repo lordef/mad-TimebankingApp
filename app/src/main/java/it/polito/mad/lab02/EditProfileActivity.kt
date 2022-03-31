@@ -31,13 +31,13 @@ class EditProfileActivity : AppCompatActivity() {
     /* Useful for tick -> once pressed it commit changes */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.pencil_menu, menu) //TODO: create tick_menu.xml
+        inflater.inflate(R.menu.commit_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) { //TODO: change id
-            R.id.item1 -> {
+        return when (item.itemId) {
+            R.id.commitItem -> {
                 onBackPressed()
                 Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true

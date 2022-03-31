@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/editItem"
-        android:icon="@drawable/ic_pencil_icon"
-        android:title="editItem"
+    <item android:id="@+id/commitItem"
+        android:icon="@drawable/ic_commit_icon"
+        android:title="commitItem"
         app:showAsAction="always"/>
 
 </menu>
