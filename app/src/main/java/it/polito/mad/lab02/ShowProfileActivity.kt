@@ -22,6 +22,9 @@ class ShowProfileActivity : AppCompatActivity() {
         var listView : ListView = findViewById(R.id.skillsListView)
         listView.adapter = adapter*/
 
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

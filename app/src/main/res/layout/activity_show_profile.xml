@@ -9,176 +9,202 @@
     <!--Comment -->
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="100"
-            android:background="@drawable/gradient">
-
-
-            <ImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentBottom="false"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/imageDescription"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/profile_image"
-                tools:ignore="ImageContrastCheck"
-                tools:srcCompat="@drawable/profile_image" />
-
-            <TextView
-                android:id="@+id/fullNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toEndOf="@id/profileImageView"
-                android:text="@string/fullName"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/nicknameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/fullNameTextView"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toEndOf="@id/profileImageView"
-                android:text="@string/nickname"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
         <LinearLayout
+            android:id="@+id/fatherLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-50dp"
-            android:orientation="horizontal"
-            android:padding="20dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ratingCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="2"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="20dp">
-
-                <RelativeLayout
-                    android:id="@+id/ratingRelativeLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/ratingImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:contentDescription="@string/ratingLabel"
-                        tools:srcCompat="@drawable/ic_rating_icon" />
-
-                    <TextView
-                        android:id="@+id/ratingLabelTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/ratingImageView"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/ratingLabel"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/ratingValueTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/ratingLabelTextView"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/ratingValue"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/balanceCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="2"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="20dp">
-
-                <RelativeLayout
-                    android:id="@+id/balanceRelativeLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gradient"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/balanceImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:contentDescription="@string/balanceLabel"
-                        app:srcCompat="@drawable/ic_bank_icon24" />
-
-                    <TextView
-                        android:id="@+id/balanceLabeltextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/balanceImageView"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/balanceLabel"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/balanceValueTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/balanceLabeltextView"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/balanceValue"
-                        android:textSize="20sp" />
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/upperLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/upperRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient">
+
+
+                    <ImageView
+                        android:id="@+id/profileImageView"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="32dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/imageDescription"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/nameConstraintLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/profile_image"
+                        tools:ignore="ImageContrastCheck"
+                        tools:srcCompat="@drawable/profile_image" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/nameConstraintLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/fullNameTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:text="@string/fullName"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/nicknameTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nickname"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/additionalInfoLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-50dp"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ratingCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="2"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="20dp">
+
+                        <RelativeLayout
+                            android:id="@+id/ratingRelativeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/ratingImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/ratingLabel"
+                                tools:srcCompat="@drawable/ic_rating_icon" />
+
+                            <TextView
+                                android:id="@+id/ratingLabelTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/ratingImageView"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/ratingLabel"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/ratingValueTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/ratingLabelTextView"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/ratingValue"
+                                android:textSize="20sp"
+                                tools:ignore="TextContrastCheck" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/balanceCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="20dp">
+
+                        <RelativeLayout
+                            android:id="@+id/balanceRelativeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/gradient"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/balanceImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/balanceLabel"
+                                app:srcCompat="@drawable/ic_bank_icon24" />
+
+                            <TextView
+                                android:id="@+id/balanceLabeltextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/balanceImageView"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/balanceLabel"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/balanceValueTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/balanceLabeltextView"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/balanceValue"
+                                android:textSize="20sp" />
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lowerLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -299,11 +325,9 @@
 
             </LinearLayout>
 
-        </ScrollView>
 
-
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
