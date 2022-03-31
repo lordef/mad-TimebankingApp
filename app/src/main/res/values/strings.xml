@@ -2,7 +2,7 @@
     <string name="app_name">MAD_lab02</string>
 
     <string name="imageDescription">Userprofile image</string>
-    <string name="imageButtonDescription">Userprofile image button</string>
+    <string name="imageButtonDescription">Userprofile image btn</string>
 
     <string name="fullName">Antonio Neri</string>
     <string name="nickname">Antonio_Nerone64</string>
@@ -33,5 +33,6 @@
 
 
     <string name="description">Hi,I\'m a student attending the fourth year of high school. I have thousands of interests and a great curiosity in whatever activity related sports and logic games. I have a lot of time and i really can\'t wait to meet new people! Contact me if you are interested in any of my skills!</string>
+
 
 </resources>

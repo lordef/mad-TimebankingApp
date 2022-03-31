@@ -58,7 +58,7 @@ class EditProfileActivity : AppCompatActivity() {
             })
         }
         
-        val profileImageButton = findViewById<ImageButton>(R.id.profileImageButton)
+        val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener{onButtonClickEvent(profileImageButton)}
 
         //Retrieve a Bundle object : TODO
