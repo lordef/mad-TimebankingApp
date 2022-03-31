@@ -17,15 +17,14 @@ import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.annotation.RequiresApi
+import android.view.View
+import android.widget.ImageButton
+import android.widget.Toast
 
 /* Constants for CAMERA */
 private const val CAMERA_REQUEST = 1888
 private const val MY_CAMERA_PERMISSION_CODE = 100
 private const val RESULT_LOAD_IMAGE = 1
-
-import android.view.View
-import android.widget.ImageButton
-import android.widget.Toast
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -83,7 +82,7 @@ class EditProfileActivity : AppCompatActivity() {
                 
                 
                 
-                .makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
