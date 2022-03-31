@@ -14,15 +14,6 @@ class ShowProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
-        /*var skills = ArrayList<String>()
-        skills.add("Gardening")
-        skills.add("Chess player")
-        skills.add("Swimming trainer")
-        var adapter = ArrayAdapter<String>(this, R.layout.rows, skills)
-        var listView : ListView = findViewById(R.id.skillsListView)
-        listView.adapter = adapter*/
-
-
 
         val firstLayout = findViewById<LinearLayout>(R.id.upperLinearLayout)
         val sv = findViewById<ScrollView>(R.id.mainScrollView)
