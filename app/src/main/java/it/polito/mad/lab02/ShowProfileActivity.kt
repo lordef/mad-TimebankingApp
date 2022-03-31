@@ -1,5 +1,6 @@
 package it.polito.mad.lab02
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,7 +31,8 @@ class ShowProfileActivity : AppCompatActivity() {
                 firstLayout.post{firstLayout.layoutParams = LinearLayout.LayoutParams(w, h/3)}
                 sv.viewTreeObserver.removeOnGlobalLayoutListener(this )
             }
-        })
+        }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,7 +42,7 @@ class ShowProfileActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when(item.itemId){ //TODO: change id
             R.id.item1 -> {
                 Toast.makeText(this, "Edit profile selected", Toast.LENGTH_SHORT).show()
                 editProfile()
@@ -60,5 +62,17 @@ class ShowProfileActivity : AppCompatActivity() {
         i.putExtras(extras)
 
         startActivityForResult(i, 1)
+    }
+
+    /* TODO */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK){
+                val result: String? = data!!.extras!!.getString("RESULT")
+                println("result: ${result}")
+            }
+        }
     }
 }

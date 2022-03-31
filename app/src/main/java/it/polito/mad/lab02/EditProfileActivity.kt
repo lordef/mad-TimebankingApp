@@ -17,7 +17,9 @@ class EditProfileActivity : AppCompatActivity() {
 
 /* Useful for register a Context Menu - allows sigle click instead of long press */
 private fun onButtonClickEvent(sender: View?) {
+    /*
     registerForContextMenu(sender)
     openContextMenu(sender)
     unregisterForContextMenu(sender)
+    */
 }
