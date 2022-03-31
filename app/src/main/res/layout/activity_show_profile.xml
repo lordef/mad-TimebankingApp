@@ -10,12 +10,15 @@
 
 
     <ScrollView
+        android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
 
         <LinearLayout
             android:id="@+id/fatherLinearLayout"
@@ -30,7 +33,7 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/upperRelativeLayout"
+                    android:id="@+id/upperConstraintLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient">
@@ -47,62 +50,58 @@
                         android:contentDescription="@string/imageDescription"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/nameConstraintLayout"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/profile_image"
                         tools:ignore="ImageContrastCheck"
                         tools:srcCompat="@drawable/profile_image" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/nameConstraintLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <TextView
+                        android:id="@+id/fullNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fullName"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/nicknameTextView"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.2"
                         app:layout_constraintStart_toEndOf="@+id/profileImageView"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="@+id/profileImageView"
+                        app:layout_constraintVertical_chainStyle="packed" />
 
-                        <TextView
-                            android:id="@+id/fullNameTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:text="@string/fullName"
-                            android:textSize="28sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/nicknameTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nickname"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/nicknameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:text="@string/nickname"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lowerLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/additionalInfoLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-50dp"
                     android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:padding="15dp">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/ratingCardView"
@@ -116,7 +115,7 @@
                         <RelativeLayout
                             android:id="@+id/ratingRelativeLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/gradient"
                             android:padding="5dp">
 
@@ -126,7 +125,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:contentDescription="@string/ratingLabel"
-                                tools:srcCompat="@drawable/ic_rating_icon" />
+                                app:srcCompat="@drawable/ic_rating_icon" />
 
                             <TextView
                                 android:id="@+id/ratingLabelTextView"
@@ -145,8 +144,7 @@
                                 android:layout_below="@id/ratingLabelTextView"
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/ratingValue"
-                                android:textSize="20sp"
-                                tools:ignore="TextContrastCheck" />
+                                android:textSize="20sp" />
 
                         </RelativeLayout>
 
@@ -198,14 +196,6 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lowerLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/emailTextView"
