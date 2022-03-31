@@ -65,8 +65,8 @@ class ShowProfileActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){ //TODO: change id
-            R.id.item1 -> {
+        return when(item.itemId){
+            R.id.editItem -> {
                 Toast.makeText(this, "Edit profile selected", Toast.LENGTH_SHORT).show()
                 editProfile()
                 true
