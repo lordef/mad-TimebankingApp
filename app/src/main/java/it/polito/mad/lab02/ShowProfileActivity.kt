@@ -19,41 +19,30 @@ class ShowProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
 
-
         /* Divide screen in 1/3 and 2/3 */
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val father = findViewById<LinearLayout>(R.id.mainLinearLayout)
+        val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
+        val secondLayer =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                findViewById<LinearLayout>(R.id.mainLinearLayout)
+            else
+                findViewById<ScrollView>(R.id.mainScrollView)
 
-            father.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = father.height
-                    val w = father.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w/3, h)
-                    }
-                    father.viewTreeObserver.removeOnGlobalLayoutListener(this)
+        secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val h = secondLayer.height
+                val w = secondLayer.width
+                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
+                firstLayout.post {
+                    firstLayout.layoutParams =
+                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                            LinearLayout.LayoutParams(w / 3, h)
+                        else
+                            LinearLayout.LayoutParams(w, h / 3)
                 }
-            })
-        } else {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val sv = findViewById<ScrollView>(R.id.mainScrollView)
-
-            sv.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = sv.height
-                    val w = sv.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w, h / 3)
-                    }
-                    sv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-            })
-        }
+                secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
     }
 
 
@@ -75,12 +64,16 @@ class ShowProfileActivity : AppCompatActivity() {
         }
     }
 
-    /* TODO */
+    /* TODO:
+        In order to reduce the risk of name clashes with existing keys, name your item out
+        of your project package name, e.g. “group07.lab2.FULL_NAME”
+    */
     private fun editProfile(){
         val i = Intent(this, EditProfileActivity::class.java)
 
         //Create a Bundle object
         val extras = Bundle()
+
         extras.putString("DEFAULTTEXT","Tizio Doe")
         i.putExtras(extras)
 

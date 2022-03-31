@@ -19,8 +19,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/gradient">
 
-            <ImageButton
-                android:id="@+id/profileImageButton"
+            <ImageView
+                android:id="@+id/editProfileImageView"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="32dp"
@@ -30,12 +30,29 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile_image"
                 tools:ignore="ImageContrastCheck"
                 tools:srcCompat="@drawable/profile_image" />
+
+            <ImageButton
+                android:id="@+id/editProfileImageButton"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="@string/imageDescription"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_camera_icon"
+                tools:ignore="ImageContrastCheck,DuplicateSpeakableTextCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

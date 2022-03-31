@@ -1,21 +1,30 @@
 package it.polito.mad.lab02
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Log
-import android.view.ViewTreeObserver
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.view.*
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.annotation.RequiresApi
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+
+/* Constants for CAMERA */
+private const val CAMERA_REQUEST = 1888
+private const val MY_CAMERA_PERMISSION_CODE = 100
+private const val RESULT_LOAD_IMAGE = 1
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -24,42 +33,32 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
 
         /* Divide screen in 1/3 and 2/3 */
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val father = findViewById<LinearLayout>(R.id.mainLinearLayout)
+        val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
+        val secondLayer =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                findViewById<LinearLayout>(R.id.mainLinearLayout)
+            else
+                findViewById<ScrollView>(R.id.mainScrollView)
 
-            father.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = father.height
-                    val w = father.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w/3, h)
-                    }
-                    father.viewTreeObserver.removeOnGlobalLayoutListener(this)
+        secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val h = secondLayer.height
+                val w = secondLayer.width
+                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
+                firstLayout.post {
+                    firstLayout.layoutParams =
+                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                            LinearLayout.LayoutParams(w / 3, h)
+                        else
+                            LinearLayout.LayoutParams(w, h / 3)
                 }
-            })
-        } else {
-            val firstLayout = findViewById<ConstraintLayout>(R.id.upperConstraintLayout)
-            val sv = findViewById<ScrollView>(R.id.mainScrollView)
+                secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
 
-            sv.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val h = sv.height
-                    val w = sv.width
-                    Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                    firstLayout.post {
-                        firstLayout.layoutParams = LinearLayout.LayoutParams(w, h / 3)
-                    }
-                    sv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-            })
-        }
-        
-        val profileImageButton = findViewById<ImageButton>(R.id.profileImageButton)
-        profileImageButton.setOnClickListener{onButtonClickEvent(profileImageButton)}
+        val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
+        profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve a Bundle object : TODO
         // val extras:Bundle? = intent.extras
@@ -80,6 +79,9 @@ class EditProfileActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.commitItem -> {
                 onBackPressed()
+                
+                
+                
                 Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true
             }
@@ -102,21 +104,95 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Confirm edited fields */
-    private fun editedProfile(){
+    private fun editedProfile() {
         val i = Intent(this, ShowProfileActivity::class.java)
 
         //Create a Bundle object
         val extras = Bundle()
-        extras.putString("RESULT","OK")
+        extras.putString("RESULT", "OK")
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
         //finish() //TODO: useful?
     }
 
-    /******* CAMERA ********/
-    //TODO
 
+    /******* CAMERA ********/
+    /* Context menu for Camera */
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        val inflater: MenuInflater = menuInflater
+        menu.setHeaderTitle("Choose your option")
+        inflater.inflate(R.menu.camera_menu, menu)
+    }
+
+    /* Options for Camera */
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.selectImageOption -> {
+                Toast.makeText(
+                    this,
+                    "Option selectImageOption selected", Toast.LENGTH_SHORT
+                ).show()
+                val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(i, RESULT_LOAD_IMAGE)
+                true
+            }
+            R.id.useCameraOption -> {
+                Toast.makeText(this, "Option useCameraOption selected", Toast.LENGTH_SHORT).show()
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CAMERA),
+                        MY_CAMERA_PERMISSION_CODE
+                    )
+                } else {
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST)
+                }
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    /* Use the returned picture from the camera */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
+
+        //get result from the camera
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            val photo = data?.extras!!["data"] as Bitmap?
+            editProfileImageView.setImageBitmap(photo)
+        }
+
+        //get result from the gallery
+        //TODO: https://www.youtube.com/watch?v=KaDwSvOpU5E
+        if (requestCode === RESULT_LOAD_IMAGE && resultCode === RESULT_OK && null != data) {
+            val selectedImage: Uri? = data.data
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = selectedImage?.let {
+                contentResolver.query(
+                    it,
+                    filePathColumn, null, null, null
+                )
+            }
+            cursor!!.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val picturePath = cursor.getString(columnIndex)
+            cursor.close()
+            println(picturePath)
+            editProfileImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+        }
+    }
 
 }
 
