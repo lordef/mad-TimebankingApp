@@ -71,7 +71,8 @@
                         android:drawablePadding="10dp"
                         android:inputType="text"
                         android:text="@string/fullName"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/fullNameLabel"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +93,8 @@
                         android:drawablePadding="10dp"
                         android:inputType="text"
                         android:text="@string/nickname"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/nicknameLabel"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +115,8 @@
                         android:drawablePadding="10dp"
                         android:inputType="textEmailAddress"
                         android:text="@string/email"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/emailLabel"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -134,7 +137,8 @@
                         android:drawablePadding="10dp"
                         android:inputType="text"
                         android:text="@string/location"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/locationLabel"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -156,7 +160,8 @@
                         android:inputType="none"
                         android:orientation="vertical"
                         android:text="@string/skill1"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/skillsLabel"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,7 +183,8 @@
                         android:drawablePadding="10dp"
                         android:inputType="textMultiLine"
                         android:text="@string/description"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:hint="@string/descriptionLabel"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
