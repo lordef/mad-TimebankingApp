@@ -10,31 +10,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:baselineAligned="false">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:background="@drawable/gradient">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/upperConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient">
 
-        </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/profileImageButton"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/imageDescription"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/profile_image"
+                    tools:ignore="ImageContrastCheck"
+                    tools:srcCompat="@drawable/profile_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_weight="1">
-
             <LinearLayout
+                android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -46,12 +67,13 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fullNameTextInputEditText"
+                    <EditText
+                        android:id="@+id/fullNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="text"
                         android:text="@string/fullName"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -65,12 +87,13 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nicknameTextInputEditText"
+                    <EditText
+                        android:id="@+id/nicknameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="text"
                         android:text="@string/nickname"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -84,12 +107,13 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailTextInputEditText"
+                    <EditText
+                        android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="textEmailAddress"
                         android:text="@string/email"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -103,12 +127,13 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/locationTextInputEditText"
+                    <EditText
+                        android:id="@+id/locationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="text"
                         android:text="@string/location"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -122,8 +147,8 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/skill1TextInputEditText"
+                    <EditText
+                        android:id="@+id/skillEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_skills_icon"
@@ -143,21 +168,20 @@
                     app:boxBackgroundColor="#FFFFFF"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/descriptionTextInputEditText"
+                    <EditText
+                        android:id="@+id/descriptionEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
+                        android:inputType="textMultiLine"
                         android:text="@string/description"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
