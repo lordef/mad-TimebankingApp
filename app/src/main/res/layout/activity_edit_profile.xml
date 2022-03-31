@@ -36,8 +36,8 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient">
 
-                    <ImageView
-                        android:id="@+id/profileImageView"
+                    <ImageButton
+                        android:id="@+id/profileImageButton"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginTop="32dp"

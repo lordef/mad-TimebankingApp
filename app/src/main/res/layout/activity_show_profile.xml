@@ -26,67 +26,59 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/upperLinearLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/upperConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/upperConstraintLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient">
+                android:background="@drawable/gradient">
 
 
-                    <ImageView
-                        android:id="@+id/profileImageView"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginBottom="32dp"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/imageDescription"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/profile_image"
-                        tools:ignore="ImageContrastCheck"
-                        tools:srcCompat="@drawable/profile_image" />
+                <ImageView
+                    android:id="@+id/profileImageView"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/imageDescription"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/profile_image"
+                    tools:ignore="ImageContrastCheck"
+                    tools:srcCompat="@drawable/profile_image" />
 
-                    <TextView
-                        android:id="@+id/fullNameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fullName"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/nicknameTextView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.2"
-                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-                        app:layout_constraintTop_toTopOf="@+id/profileImageView"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                <TextView
+                    android:id="@+id/fullNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fullName"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/nicknameTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toEndOf="@+id/profileImageView"
+                    app:layout_constraintTop_toTopOf="@+id/profileImageView"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-                    <TextView
-                        android:id="@+id/nicknameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:text="@string/nickname"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.2"
-                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+                <TextView
+                    android:id="@+id/nicknameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:text="@string/nickname"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toEndOf="@+id/profileImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/lowerLinearLayout"
