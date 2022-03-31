@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/fullNameLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fullNameTextInputEditText"
@@ -61,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/nicknameLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nicknameTextInputEditText"
@@ -79,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/emailLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailTextInputEditText"
@@ -97,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/locationLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/locationTextInputEditText"
@@ -115,7 +119,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/skillsLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/skill1TextInputEditText"
@@ -135,7 +140,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/descriptionLabel"
                     android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF">
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/descriptionTextInputEditText"
