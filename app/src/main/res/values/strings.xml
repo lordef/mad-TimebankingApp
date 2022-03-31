@@ -2,6 +2,7 @@
     <string name="app_name">MAD_lab02</string>
 
     <string name="imageDescription">Userprofile image</string>
+    <string name="imageButtonDescription">Userprofile image button</string>
 
     <string name="fullName">Antonio Neri</string>
     <string name="nickname">Antonio_Nerone64</string>
