@@ -2,6 +2,7 @@ package it.polito.mad.lab02
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import androidx.annotation.RequiresApi
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+import com.google.gson.Gson
 
 /* Constants for CAMERA */
 private const val CAMERA_REQUEST = 1888
@@ -192,6 +194,36 @@ class EditProfileActivity : AppCompatActivity() {
             println(picturePath)
             editProfileImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
+    }
+
+    fun onSave(view: View) {
+        val pref = getPreferences(Context.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        val fullName = findViewById<EditText>(R.id.fullNameEditText)
+        val nickname = findViewById<EditText>(R.id.nicknameEditText)
+        val email = findViewById<EditText>(R.id.emailEditText)
+        val location = findViewById<EditText>(R.id.locationEditText)
+        val skills = findViewById<EditText>(R.id.skillEditText)
+        val description = findViewById<EditText>(R.id.descriptionEditText)
+
+        val obj = ProfileClass(fullName = fullName.text.toString(),
+            nickname = nickname.text.toString(),
+            email = email.text.toString(),
+            location = location.text.toString(),
+            skills = skills.text.toString(),
+            description = description.text.toString()
+        )
+
+        val gson = Gson()
+        val json = gson.toJson(obj)
+        editor.putString("profile", json)
+        editor.commit()
+
+        val toast = Toast.makeText(applicationContext, "Saved", Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.TOP, 0, 140)
+        toast.show()
+
     }
 
 }

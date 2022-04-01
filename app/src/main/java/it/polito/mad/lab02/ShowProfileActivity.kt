@@ -1,6 +1,7 @@
 package it.polito.mad.lab02
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import android.view.MenuItem
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.gson.Gson
 
 class ShowProfileActivity : AppCompatActivity() {
 
@@ -43,6 +45,26 @@ class ShowProfileActivity : AppCompatActivity() {
                 secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
+
+        // Retrieve json object of class ProfileClass
+        val pref = getPreferences(Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = pref.getString("profile", "")
+        val obj = gson.fromJson(json, ProfileClass::class.java)
+        // Put it into the TextViews
+        val fullName = findViewById<TextView>(R.id.fullNameTextView)
+        val nickname = findViewById<TextView>(R.id.nicknameTextView)
+        val email = findViewById<TextView>(R.id.emailTextView)
+        val location = findViewById<TextView>(R.id.locationTextView)
+        val skills = findViewById<TextView>(R.id.skillEditText)
+        val description = findViewById<TextView>(R.id.descriptionTextView)
+
+        /*fullName.setText(obj.fullName)
+        nickname.text = obj.nickname
+        email.text = obj.email
+        location.text = obj.location
+        skills.text = obj.skills
+        description.text = obj.description*/
     }
 
 
