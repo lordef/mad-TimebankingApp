@@ -1,7 +1,6 @@
 package it.polito.mad.lab02
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -47,7 +46,6 @@ class ShowProfileActivity : AppCompatActivity() {
         })
 
         // Retrieve json object of class ProfileClass
-        //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
         val pref = SharedPreference(this)
         val gson = Gson()
         val json = pref.getProfile()
@@ -60,13 +58,13 @@ class ShowProfileActivity : AppCompatActivity() {
             val location = findViewById<TextView>(R.id.locationTextView)
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
-            if(obj.skills!==null) {
-                fullName.text = obj.fullName.toString()
-                nickname.text = obj.nickname.toString()
-                email.text = obj.email.toString()
-                location.text = obj.location.toString()
-                skills.text = obj.skills.toString()
-                description.text = obj.description.toString()
+            if(obj!==null) {
+                fullName.text = obj.fullName
+                nickname.text = obj.nickname
+                email.text = obj.email
+                location.text = obj.location
+                skills.text = obj.skills
+                description.text = obj.description
             }
         }
     }
@@ -100,7 +98,7 @@ class ShowProfileActivity : AppCompatActivity() {
         //Create a Bundle object
         val extras = Bundle()
 
-        extras.putString("DEFAULTTEXT","Tizio Doe")
+        extras.putString("DEFAULTTEXT","John Doe")
         i.putExtras(extras)
 
         startActivityForResult(i, 1)

@@ -5,10 +5,10 @@ import com.google.gson.Gson
 
 class SharedPreference(context : Context){
 
-    val PREFERENCE_NAME = "SharedPreference"
-    val PEFERENCE_POFILE = "profile"
+    private val PREFERENCE_NAME = "SharedPreference"
+    private val PREFERENCE_PROFILE = "profile"
 
-    val obj = ProfileClass(
+    private val obj = ProfileClass(
         fullName = "Full name",
         nickname = "Nickname",
         email = "Email",
@@ -16,18 +16,18 @@ class SharedPreference(context : Context){
         skills = "Skills",
         description = "Description"
     )
-    val gson = Gson()
-    val json = gson.toJson(obj)
+    private val gson = Gson()
+    private val json = gson.toJson(obj)
 
-    val pref = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+    private val pref = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getProfile() : String? {
-        return pref.getString(PEFERENCE_POFILE, json)
+        return pref.getString(PREFERENCE_PROFILE, json)
     }
 
     fun setProfile(profile: String){
         val editor = pref.edit()
-        editor.putString(PEFERENCE_POFILE, profile)
+        editor.putString(PREFERENCE_PROFILE, profile)
         editor.apply()
     }
 }

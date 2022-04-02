@@ -2,7 +2,6 @@ package it.polito.mad.lab02
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +61,30 @@ class EditProfileActivity : AppCompatActivity() {
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
+
+        // Retrieve json object of class ProfileClass
+        //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val pref = SharedPreference(this)
+        val gson = Gson()
+        val json = pref.getProfile()
+        if(!json.equals("")) {
+            val obj = gson.fromJson(json, ProfileClass::class.java)
+            // Put it into the TextViews
+            val fullName = findViewById<EditText>(R.id.fullNameEditText)
+            val nickname = findViewById<EditText>(R.id.nicknameEditText)
+            val email = findViewById<EditText>(R.id.emailEditText)
+            val location = findViewById<EditText>(R.id.locationEditText)
+            val skills = findViewById<EditText>(R.id.skillEditText)
+            val description = findViewById<EditText>(R.id.descriptionEditText)
+            if(obj!==null) {
+                fullName.setText(obj.fullName)
+                nickname.setText(obj.nickname)
+                email.setText(obj.email)
+                location.setText(obj.location)
+                skills.setText(obj.skills)
+                description.setText(obj.description)
+            }
+        }
         //Retrieve a Bundle object : TODO
         // val extras:Bundle? = intent.extras
 
@@ -91,7 +114,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    /* Useful for register a Context Menu - allows sigle click instead of long press */
+    /* Useful for register a Context Menu - allows single click instead of long press */
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender)
         openContextMenu(sender)
@@ -195,11 +218,9 @@ class EditProfileActivity : AppCompatActivity() {
             editProfileImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
     }
-
+    // TODO: Put this part in the commit button/menu
     fun onSave(view: View) {
-        //val pref = getSharedPreferences("EditProfileActvity.xml", Context.MODE_PRIVATE)
         val pref = SharedPreference(this)
-        //val editor = pref.edit()
 
         val fullName = findViewById<EditText>(R.id.fullNameEditText)
         val nickname = findViewById<EditText>(R.id.nicknameEditText)
@@ -218,14 +239,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         val gson = Gson()
         val json = gson.toJson(obj)
-        //editor.putString("profile", json)
-        //editor.commit()
         pref.setProfile(json)
-        val prova=findViewById<TextView>(R.id.tv)
-        prova.text = json
+
 
         val toast = Toast.makeText(applicationContext, "Saved", Toast.LENGTH_LONG)
-        //toast.setGravity(Gravity.TOP, 0, 140)
         toast.show()
 
     }
