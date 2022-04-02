@@ -81,6 +81,21 @@ class ShowProfileActivity : AppCompatActivity() {
         val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
 
+        val nicknameText = findViewById<TextView>(R.id.nicknameTextView).text
+        showActivityHashMap[keyPrefix + "NICKNAME"] = nicknameText.toString()
+
+        val emailText = findViewById<TextView>(R.id.emailTextView).text
+        showActivityHashMap[keyPrefix + "NICKNAME"] = emailText.toString()
+
+        val locationText = findViewById<TextView>(R.id.locationTextView).text
+        showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
+
+        val skillsText = findViewById<TextView>(R.id.skill1TextView).text
+        showActivityHashMap[keyPrefix + "SKILLS"] = skillsText.toString()
+
+        val descriptionText = findViewById<TextView>(R.id.descriptionTextView).text
+        showActivityHashMap[keyPrefix + "DESCRIPTION"] = descriptionText.toString()
+
 
         extras.putSerializable("showActivityValuesHashMap", showActivityHashMap)
 
