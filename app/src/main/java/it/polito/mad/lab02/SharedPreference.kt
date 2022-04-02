@@ -1,14 +1,19 @@
 package it.polito.mad.lab02
 
 import android.content.Context
+import android.net.Uri
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.gson.Gson
 
 class SharedPreference(context : Context){
 
     private val PREFERENCE_NAME = "SharedPreference"
     private val PREFERENCE_PROFILE = "profile"
+    val profileImage = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
 
     private val obj = ProfileClass(
+        imageUri = profileImage,
         fullName = "Full name",
         nickname = "Nickname",
         email = "Email",

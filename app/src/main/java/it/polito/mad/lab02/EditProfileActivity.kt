@@ -222,6 +222,7 @@ class EditProfileActivity : AppCompatActivity() {
     fun onSave(view: View) {
         val pref = SharedPreference(this)
 
+        val editProfileImage = findViewById<ImageView>(R.id.editProfileImageView)
         val fullName = findViewById<EditText>(R.id.fullNameEditText)
         val nickname = findViewById<EditText>(R.id.nicknameEditText)
         val email = findViewById<EditText>(R.id.emailEditText)
@@ -229,7 +230,9 @@ class EditProfileActivity : AppCompatActivity() {
         val skills = findViewById<EditText>(R.id.skillEditText)
         val description = findViewById<EditText>(R.id.descriptionEditText)
         // TODO: evaluate ProfileClass
-        val obj = ProfileClass(fullName = fullName.text.toString(),
+        val obj = ProfileClass(
+            imageUri = editProfileImage.setImageBitmap(),
+            fullName = fullName.text.toString(),
             nickname = nickname.text.toString(),
             email = email.text.toString(),
             location = location.text.toString(),
