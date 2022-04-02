@@ -70,7 +70,10 @@ class EditProfileActivity : AppCompatActivity() {
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve a Bundle object : TODO
-        // val extras:Bundle? = intent.extras
+        val extras:Bundle? = intent.extras
+
+//        val showActivityValuesHashMap = extras.
+        println(extras!!.getSerializable("showActivityValuesHashMap"))
 
         // val testTextView = findViewById<TextView>(R.id.edit4TextView)
         // testTextView.text = extras!!.getString("DEFAULTTEXT")

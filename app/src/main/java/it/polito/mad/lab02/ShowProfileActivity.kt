@@ -3,7 +3,6 @@ package it.polito.mad.lab02
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.ViewTreeObserver
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 
 class ShowProfileActivity : AppCompatActivity() {
@@ -73,8 +73,9 @@ class ShowProfileActivity : AppCompatActivity() {
 
         //Create a Bundle object
         val extras = Bundle()
+        val showActivityValuesHashMap = HashMap<String, String>()
 
-        extras.putString("DEFAULTTEXT","Tizio Doe")
+        extras.putSerializable("showActivityValuesHashMap", showActivityValuesHashMap)
         i.putExtras(extras)
 
         startActivityForResult(i, 1)
