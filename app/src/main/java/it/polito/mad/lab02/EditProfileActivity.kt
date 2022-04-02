@@ -70,15 +70,29 @@ class EditProfileActivity : AppCompatActivity() {
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
-        //Retrieve a Bundle object : TODO
+        //Retrieve a Bundle object
         val extras:Bundle? = intent.extras
         val showActivityHashMap = extras!!.getSerializable("showActivityValuesHashMap") as HashMap<String, String>
 
         val keyPrefix = "group07.lab2."
-        val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
-//        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
 
-        /* end - TODO */
+        val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
+        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
+
+        val nickNameEditText = findViewById<TextView>(R.id.nicknameEditText)
+        nickNameEditText.text = showActivityHashMap.getValue(keyPrefix+"NICKNAME")
+
+        val emailEditText = findViewById<TextView>(R.id.emailEditText)
+        emailEditText.text = showActivityHashMap.getValue(keyPrefix+"EMAIL")
+
+        val locationEditText = findViewById<TextView>(R.id.locationEditText)
+        locationEditText.text = showActivityHashMap.getValue(keyPrefix+"LOCATION")
+
+        val skillsEditText = findViewById<TextView>(R.id.skillEditText)
+        skillsEditText.text = showActivityHashMap.getValue(keyPrefix+"SKILLS")
+
+        val descriptionEditText = findViewById<TextView>(R.id.descriptionEditText)
+        descriptionEditText.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
     }
 
     /* Useful for tick -> once pressed it commit changes */

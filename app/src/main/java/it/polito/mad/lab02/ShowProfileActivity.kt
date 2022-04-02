@@ -85,7 +85,7 @@ class ShowProfileActivity : AppCompatActivity() {
         showActivityHashMap[keyPrefix + "NICKNAME"] = nicknameText.toString()
 
         val emailText = findViewById<TextView>(R.id.emailTextView).text
-        showActivityHashMap[keyPrefix + "NICKNAME"] = emailText.toString()
+        showActivityHashMap[keyPrefix + "EMAIL"] = emailText.toString()
 
         val locationText = findViewById<TextView>(R.id.locationTextView).text
         showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
