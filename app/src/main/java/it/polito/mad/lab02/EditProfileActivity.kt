@@ -27,6 +27,7 @@ import android.widget.Toast
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.gson.Gson
 
 /* Constants for CAMERA */
 private val CAMERA_REQUEST = 1888
@@ -69,6 +70,30 @@ class EditProfileActivity : AppCompatActivity() {
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
+
+        // Retrieve json object of class ProfileClass
+        //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val pref = SharedPreference(this)
+        val gson = Gson()
+        val json = pref.getProfile()
+        if(!json.equals("")) {
+            val obj = gson.fromJson(json, ProfileClass::class.java)
+            // Put it into the TextViews
+            val fullName = findViewById<EditText>(R.id.fullNameEditText)
+            val nickname = findViewById<EditText>(R.id.nicknameEditText)
+            val email = findViewById<EditText>(R.id.emailEditText)
+            val location = findViewById<EditText>(R.id.locationEditText)
+            val skills = findViewById<EditText>(R.id.skillEditText)
+            val description = findViewById<EditText>(R.id.descriptionEditText)
+            if(obj!==null) {
+                fullName.setText(obj.fullName)
+                nickname.setText(obj.nickname)
+                email.setText(obj.email)
+                location.setText(obj.location)
+                skills.setText(obj.skills)
+                description.setText(obj.description)
+            }
+        }
         //Retrieve a Bundle object : TODO
         // val extras:Bundle? = intent.extras
 
@@ -95,7 +120,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    /* Useful for register a Context Menu - allows sigle click instead of long press */
+    /* Useful for register a Context Menu - allows single click instead of long press */
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender)
         openContextMenu(sender)
@@ -137,7 +162,6 @@ class EditProfileActivity : AppCompatActivity() {
         inflater.inflate(R.menu.camera_menu, menu)
     }
 
-    /* Options for Camera */
     /* Options for Camera */
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -295,6 +319,38 @@ class EditProfileActivity : AppCompatActivity() {
         } else if (requestCode == CAPTURE_IMAGE) {
             setPic(editProfileImageView)
         }
+    }
+
+    // TODO: Put this part in the commit button/menu
+    fun onSave(view: View) {
+        val pref = SharedPreference(this)
+
+        val editProfileImage = findViewById<ImageView>(R.id.editProfileImageView)
+        val fullName = findViewById<EditText>(R.id.fullNameEditText)
+        val nickname = findViewById<EditText>(R.id.nicknameEditText)
+        val email = findViewById<EditText>(R.id.emailEditText)
+        val location = findViewById<EditText>(R.id.locationEditText)
+        val skills = findViewById<EditText>(R.id.skillEditText)
+        val description = findViewById<EditText>(R.id.descriptionEditText)
+        // TODO: evaluate ProfileClass
+        val obj = ProfileClass(
+            imageUri = editProfileImage.setImageBitmap(),
+            fullName = fullName.text.toString(),
+            nickname = nickname.text.toString(),
+            email = email.text.toString(),
+            location = location.text.toString(),
+            skills = skills.text.toString(),
+            description = description.text.toString()
+        )
+
+        val gson = Gson()
+        val json = gson.toJson(obj)
+        pref.setProfile(json)
+
+
+        val toast = Toast.makeText(applicationContext, "Saved", Toast.LENGTH_LONG)
+        toast.show()
+
     }
 
 }
