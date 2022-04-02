@@ -238,7 +238,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == MY_CAMERA_PERMISSION_CODE || requestCode == MY_CAMERA_PERMISSION_CODE + 1 || requestCode == MY_CAMERA_PERMISSION_CODE + 2) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "permission granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show()
                 super.onRequestPermissionsResult(
                     requestCode + 1,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -255,7 +255,7 @@ class EditProfileActivity : AppCompatActivity() {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
                 startActivityForResult(intent, CAPTURE_IMAGE)
             } else {
-                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -270,7 +270,7 @@ class EditProfileActivity : AppCompatActivity() {
             inJustDecodeBounds = true
 
             //BitmapFactory.decodeFile(imgPath)
-            BitmapFactory.decodeStream(getContentResolver().openInputStream(imgPath))
+            BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
 
             val photoW: Int = outWidth
             val photoH: Int = outHeight
@@ -283,7 +283,7 @@ class EditProfileActivity : AppCompatActivity() {
             inSampleSize = scaleFactor
             inPurgeable = true
         }
-        BitmapFactory.decodeStream(getContentResolver().openInputStream(imgPath), null, bmOptions)
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath), null, bmOptions)
             ?.also { bitmap ->
                 imageView.setImageBitmap(bitmap)
             }

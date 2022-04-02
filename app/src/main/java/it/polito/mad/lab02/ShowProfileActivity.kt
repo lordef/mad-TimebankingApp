@@ -78,6 +78,9 @@ class ShowProfileActivity : AppCompatActivity() {
         //Fill out hashmap
         val keyPrefix = "group07.lab2."
 
+        val profileImageUrl = findViewById<ImageView>(R.id.profileImageView)
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URL"] = profileImageUrl.toString()
+
         val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
 
@@ -104,7 +107,7 @@ class ShowProfileActivity : AppCompatActivity() {
         startActivityForResult(i, 1)
     }
 
-    /* TODO */
+    /* Set up fields from edit Activity result  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

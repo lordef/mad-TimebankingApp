@@ -32,9 +32,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile_image"
-                tools:ignore="ImageContrastCheck"
-                tools:srcCompat="@drawable/profile_image" />
+                tools:ignore="ImageContrastCheck" />
 
             <ImageButton
                 android:id="@+id/editProfileImageButton"
@@ -86,10 +84,9 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/fullNameLabel"
                         android:inputType="text"
-                        android:text="@string/fullName"
-                        android:textSize="20sp"
-                        android:hint="@string/fullNameLabel"/>
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -108,10 +105,9 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/nicknameLabel"
                         android:inputType="text"
-                        android:text="@string/nickname"
-                        android:textSize="20sp"
-                        android:hint="@string/nicknameLabel"/>
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -130,10 +126,9 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/emailLabel"
                         android:inputType="textEmailAddress"
-                        android:text="@string/email"
-                        android:textSize="20sp"
-                        android:hint="@string/emailLabel"/>
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -152,10 +147,9 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/locationLabel"
                         android:inputType="text"
-                        android:text="@string/location"
-                        android:textSize="20sp"
-                        android:hint="@string/locationLabel"/>
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -174,11 +168,10 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/skillsLabel"
                         android:inputType="none"
                         android:orientation="vertical"
-                        android:text="@string/skill1"
-                        android:textSize="20sp"
-                        android:hint="@string/skillsLabel"/>
+                        android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
