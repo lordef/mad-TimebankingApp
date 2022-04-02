@@ -78,8 +78,11 @@ class ShowProfileActivity : AppCompatActivity() {
         //Fill out hashmap
         val keyPrefix = "group07.lab2."
 
+        /* TODO: insert image */
+        /*
         val profileImageUrl = findViewById<ImageView>(R.id.profileImageView)
         showActivityHashMap[keyPrefix + "PROFILE_IMG_URL"] = profileImageUrl.toString()
+        */
 
         val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
