@@ -161,7 +161,6 @@ class EditProfileActivity : AppCompatActivity() {
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
-        //finish() //TODO: useful?
     }
 
 
@@ -180,13 +179,12 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Options for Camera */
-    /* Options for Camera */
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onContextItemSelected(item: MenuItem): Boolean {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.selectImageOption -> {
-                Toast.makeText(this, "Option 1 selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Option select image selected", Toast.LENGTH_SHORT).show()
                 val intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_GET_CONTENT
@@ -194,7 +192,7 @@ class EditProfileActivity : AppCompatActivity() {
                 true
             }
             R.id.useCameraOption -> {
-                Toast.makeText(this, "Option 2 selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Option use camera selected", Toast.LENGTH_SHORT).show()
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
                         arrayOf(Manifest.permission.CAMERA),
