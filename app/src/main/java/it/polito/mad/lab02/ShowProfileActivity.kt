@@ -47,24 +47,28 @@ class ShowProfileActivity : AppCompatActivity() {
         })
 
         // Retrieve json object of class ProfileClass
-        val pref = getPreferences(Context.MODE_PRIVATE)
+        //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val pref = SharedPreference(this)
         val gson = Gson()
-        val json = pref.getString("profile", "")
-        val obj = gson.fromJson(json, ProfileClass::class.java)
-        // Put it into the TextViews
-        val fullName = findViewById<TextView>(R.id.fullNameTextView)
-        val nickname = findViewById<TextView>(R.id.nicknameTextView)
-        val email = findViewById<TextView>(R.id.emailTextView)
-        val location = findViewById<TextView>(R.id.locationTextView)
-        val skills = findViewById<TextView>(R.id.skillEditText)
-        val description = findViewById<TextView>(R.id.descriptionTextView)
-
-        /*fullName.setText(obj.fullName)
-        nickname.text = obj.nickname
-        email.text = obj.email
-        location.text = obj.location
-        skills.text = obj.skills
-        description.text = obj.description*/
+        val json = pref.getProfile()
+        if(!json.equals("")) {
+            val obj = gson.fromJson(json, ProfileClass::class.java)
+            // Put it into the TextViews
+            val fullName = findViewById<TextView>(R.id.fullNameTextView)
+            val nickname = findViewById<TextView>(R.id.nicknameTextView)
+            val email = findViewById<TextView>(R.id.emailTextView)
+            val location = findViewById<TextView>(R.id.locationTextView)
+            val skills = findViewById<TextView>(R.id.skill1TextView)
+            val description = findViewById<TextView>(R.id.descriptionTextView)
+            if(obj.skills!==null) {
+                fullName.text = obj.fullName.toString()
+                nickname.text = obj.nickname.toString()
+                email.text = obj.email.toString()
+                location.text = obj.location.toString()
+                skills.text = obj.skills.toString()
+                description.text = obj.description.toString()
+            }
+        }
     }
 
 

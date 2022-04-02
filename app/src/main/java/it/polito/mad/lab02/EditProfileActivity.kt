@@ -197,8 +197,9 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun onSave(view: View) {
-        val pref = getPreferences(Context.MODE_PRIVATE)
-        val editor = pref.edit()
+        //val pref = getSharedPreferences("EditProfileActvity.xml", Context.MODE_PRIVATE)
+        val pref = SharedPreference(this)
+        //val editor = pref.edit()
 
         val fullName = findViewById<EditText>(R.id.fullNameEditText)
         val nickname = findViewById<EditText>(R.id.nicknameEditText)
@@ -206,7 +207,7 @@ class EditProfileActivity : AppCompatActivity() {
         val location = findViewById<EditText>(R.id.locationEditText)
         val skills = findViewById<EditText>(R.id.skillEditText)
         val description = findViewById<EditText>(R.id.descriptionEditText)
-
+        // TODO: evaluate ProfileClass
         val obj = ProfileClass(fullName = fullName.text.toString(),
             nickname = nickname.text.toString(),
             email = email.text.toString(),
@@ -217,11 +218,14 @@ class EditProfileActivity : AppCompatActivity() {
 
         val gson = Gson()
         val json = gson.toJson(obj)
-        editor.putString("profile", json)
-        editor.commit()
+        //editor.putString("profile", json)
+        //editor.commit()
+        pref.setProfile(json)
+        val prova=findViewById<TextView>(R.id.tv)
+        prova.text = json
 
         val toast = Toast.makeText(applicationContext, "Saved", Toast.LENGTH_LONG)
-        toast.setGravity(Gravity.TOP, 0, 140)
+        //toast.setGravity(Gravity.TOP, 0, 140)
         toast.show()
 
     }
