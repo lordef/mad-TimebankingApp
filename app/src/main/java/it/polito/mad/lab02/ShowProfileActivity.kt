@@ -13,6 +13,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 
+/* Constants for communicating with EditProfileActivity  */
+private const val EDIT_REQUEST_CODE = 1
+
 class ShowProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,22 +110,18 @@ class ShowProfileActivity : AppCompatActivity() {
 
         i.putExtras(extras)
 
-        startActivityForResult(i, 1)
+        startActivityForResult(i, EDIT_REQUEST_CODE)
     }
 
     /* Set up fields from edit Activity result  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1){
+        if (requestCode == EDIT_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
-                //Print OK result
-                val result: String? = data!!.extras!!.getString("RESULT")
-                println("result: ${result}")
-
                 //Fill fields
-                //Retrieve a Bundle object
-                val extras:Bundle? = data.extras
+                //Retrieve a Bundle object from EditProfileActivity
+                val extras:Bundle? = data!!.extras
                 val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
                 val keyPrefix = "group07.lab2."
@@ -144,6 +143,11 @@ class ShowProfileActivity : AppCompatActivity() {
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
                 descriptionTextView.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
+            }
+            else{
+                //Print edit result code
+                val result: String? = data!!.extras!!.getString("RESULT")
+                println("Edit result code: $result")
             }
         }
     }

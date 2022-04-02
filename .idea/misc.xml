@@ -20,8 +20,9 @@
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
-        <entry key="app/src/main/res/menu/commit_menu.xml" value="0.1234375" />
-        <entry key="app/src/main/res/menu/pencil_menu.xml" value="0.165" />
+        <entry key="app/src/main/res/menu/camera_menu.xml" value="0.375" />
+        <entry key="app/src/main/res/menu/commit_menu.xml" value="0.45" />
+        <entry key="app/src/main/res/menu/pencil_menu.xml" value="0.45" />
       </map>
     </option>
   </component>
