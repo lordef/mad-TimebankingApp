@@ -144,7 +144,7 @@ class EditProfileActivity : AppCompatActivity() {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.selectImageOption -> {
-                Toast.makeText(this, "Option 1 selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Select an image from the phone gallery", Toast.LENGTH_SHORT).show()
                 val intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_GET_CONTENT
@@ -152,7 +152,7 @@ class EditProfileActivity : AppCompatActivity() {
                 true
             }
             R.id.useCameraOption -> {
-                Toast.makeText(this, "Option 2 selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Use the camera to take a picture", Toast.LENGTH_SHORT).show()
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
                         arrayOf(Manifest.permission.CAMERA),
