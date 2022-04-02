@@ -1,11 +1,16 @@
 package it.polito.mad.lab02
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -25,6 +30,7 @@ class ShowProfileActivity : AppCompatActivity() {
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
 
+    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
@@ -69,12 +75,27 @@ class ShowProfileActivity : AppCompatActivity() {
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
-                /*profileImage.setImageBitmap(
-                    MediaStore.Images.Media.getBitmap(
-                        this.contentResolver,
-                        Uri.parse(obj.imageUri)
+                openFile(Uri.parse(obj.imageUri))
+                val resolver = applicationContext.contentResolver
+                /*resolver.openInputStream(Uri.parse(obj.imageUri)).use { stream ->
+                    val bitmap = BitmapFactory.decodeStream(stream)
+                    profileImage.setImageBitmap(bitmap)
+                }*/
+                //setPic(profileImage, Uri.parse(obj.imageUri))
+                /*
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    val source = ImageDecoder.createSource(this.contentResolver, Uri.parse(obj.imageUri))
+                    val bitmap = ImageDecoder.decodeBitmap(source)
+                    profileImage.setImageBitmap(bitmap)
+                } else {
+                    profileImage.setImageBitmap(
+                        MediaStore.Images.Media.getBitmap(
+                            this.contentResolver,
+                            Uri.parse(obj.imageUri)
+                        )
                     )
-                )*/
+                }
+                */
                 profileImageUri = obj.imageUri
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
@@ -86,6 +107,50 @@ class ShowProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun openFile(pickerInitialUri: Uri) {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+
+            // Optionally, specify a URI for the file that should appear in the
+            // system file picker when it loads.
+            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+        }
+        startActivityForResult(intent, 777)
+    }
+
+    private fun setPic(imageView: ImageView, imgPath: Uri) {
+        // Get the dimensions of the View
+        var targetW: Int = 1
+        var targetH: Int = 1
+        if (imageView.width != 0) {
+            targetW = imageView.width
+            targetH = imageView.height
+        }
+
+
+        val bmOptions = BitmapFactory.Options().apply {
+            // Get the dimensions of the bitmap
+            inJustDecodeBounds = true
+
+            BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
+
+            val photoW: Int = outWidth
+            val photoH: Int = outHeight
+
+            // Determine how much to scale down the image
+            val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
+
+            // Decode the image file into a Bitmap sized to fill the View
+            inJustDecodeBounds = false
+            inSampleSize = scaleFactor
+            inPurgeable = true
+        }
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath), null, bmOptions)
+            ?.also { bitmap ->
+                imageView.setImageBitmap(bitmap)
+            }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -168,6 +233,7 @@ class ShowProfileActivity : AppCompatActivity() {
                         Uri.parse(profileImageUri)
                     )
                 )
+                this.profileImageUri = profileImageUri!!
 
                 val fullNameTextView = findViewById<TextView>(R.id.fullNameTextView)
                 fullNameTextView.text = showActivityHashMap.getValue(keyPrefix + "FULL_NAME")
@@ -186,10 +252,12 @@ class ShowProfileActivity : AppCompatActivity() {
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
                 descriptionTextView.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
-            } else {
-                //Print edit result code
-                val result: String? = data!!.extras!!.getString("RESULT")
-                println("Edit result code: $result")
+            }
+        }
+        else if(requestCode == 777){
+            val profileImage = findViewById<ImageView>(R.id.profileImageView)
+            if (data != null) {
+                setPic(profileImage, data!!.data!!)
             }
         }
     }
