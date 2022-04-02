@@ -29,16 +29,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.google.gson.Gson
 
-/* Constants for CAMERA */
-private val CAMERA_REQUEST = 1888
-private val MY_CAMERA_PERMISSION_CODE = 100
-private val RESULT_LOAD_IMAGE = 1
-private val CAPTURE_IMAGE = 3
-private val PICK_IMAGE = 2
-
 
 class EditProfileActivity : AppCompatActivity() {
 
+    /* Variables for CAMERA */
+    private val CAMERA_REQUEST = 1888
+    private val MY_CAMERA_PERMISSION_CODE = 100
+    private val RESULT_LOAD_IMAGE = 1
+    private val CAPTURE_IMAGE = 3
+    private val PICK_IMAGE = 2
     private var imgPath: Uri = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
