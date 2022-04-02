@@ -16,7 +16,11 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
 
+
 class ShowProfileActivity : AppCompatActivity() {
+
+    /* Variables for communicating with EditProfileActivity  */
+    private val EDIT_REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,20 +110,58 @@ class ShowProfileActivity : AppCompatActivity() {
 
         //Create a Bundle object
         val extras = Bundle()
+        val showActivityHashMap = HashMap<String, String>()
 
-        extras.putString("DEFAULTTEXT","John Doe")
+        //Fill out hashmap
+        val keyPrefix = "group07.lab2."
+
+        /* TODO: insert image */
+        /*
+        val profileImageUrl = findViewById<ImageView>(R.id.profileImageView)
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URL"] = profileImageUrl.toString()
+        */
+
+        val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
+        showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
+
+        val nicknameText = findViewById<TextView>(R.id.nicknameTextView).text
+        showActivityHashMap[keyPrefix + "NICKNAME"] = nicknameText.toString()
+
+        val emailText = findViewById<TextView>(R.id.emailTextView).text
+        showActivityHashMap[keyPrefix + "EMAIL"] = emailText.toString()
+
+        val locationText = findViewById<TextView>(R.id.locationTextView).text
+        showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
+
+        val skillsText = findViewById<TextView>(R.id.skill1TextView).text
+        showActivityHashMap[keyPrefix + "SKILLS"] = skillsText.toString()
+
+        val descriptionText = findViewById<TextView>(R.id.descriptionTextView).text
+        showActivityHashMap[keyPrefix + "DESCRIPTION"] = descriptionText.toString()
+
+
+        extras.putSerializable("showActivityHashMap", showActivityHashMap)
+
         i.putExtras(extras)
 
-        startActivityForResult(i, 1)
+        startActivityForResult(i, EDIT_REQUEST_CODE)
     }
 
-    /* TODO */
+    /* Set up fields from edit Activity result  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1){
+        if (requestCode == EDIT_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
-                val result: String? = data!!.extras!!.getString("RESULT")
+                //Fill fields
+                //Retrieve a Bundle object from EditProfileActivity
+                val extras:Bundle? = data!!.extras
+                val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
+
+                val keyPrefix = "group07.lab2."
+
+
+                /* TODO: IMAGE*/
                 val imgUri = Uri.parse(data!!.extras!!.getString("ImgUri"))
                 val profileImage = findViewById<ImageView>(R.id.profileImageView)
                 println("ImageUri: ${imgUri}")
@@ -129,7 +171,30 @@ class ShowProfileActivity : AppCompatActivity() {
                         imgUri
                     )
                 )
-                println("result: ${result}")
+                /****************/
+
+                val fullNameTextView = findViewById<TextView>(R.id.fullNameTextView)
+                fullNameTextView.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
+
+                val nicknameTextView = findViewById<TextView>(R.id.nicknameTextView)
+                nicknameTextView.text = showActivityHashMap.getValue(keyPrefix+"NICKNAME")
+
+                val emailTextView = findViewById<TextView>(R.id.emailTextView)
+                emailTextView.text = showActivityHashMap.getValue(keyPrefix+"EMAIL")
+
+                val locationTextView = findViewById<TextView>(R.id.locationTextView)
+                locationTextView.text = showActivityHashMap.getValue(keyPrefix+"LOCATION")
+
+                val skillsTextView = findViewById<TextView>(R.id.skill1TextView)
+                skillsTextView.text = showActivityHashMap.getValue(keyPrefix+"SKILLS")
+
+                val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
+                descriptionTextView.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
+            }
+            else{
+                //Print edit result code
+                val result: String? = data!!.extras!!.getString("RESULT")
+                println("Edit result code: $result")
             }
         }
     }

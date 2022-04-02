@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.res.Configuration
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
@@ -27,6 +26,7 @@ import android.widget.Toast
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 import com.google.gson.Gson
 
 
@@ -73,7 +73,30 @@ class EditProfileActivity : AppCompatActivity() {
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
+        //Retrieve a Bundle object
+        val extras:Bundle? = intent.extras
+        val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
+        val keyPrefix = "group07.lab2."
+
+        val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
+        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
+
+        val nickNameEditText = findViewById<TextView>(R.id.nicknameEditText)
+        nickNameEditText.text = showActivityHashMap.getValue(keyPrefix+"NICKNAME")
+
+        val emailEditText = findViewById<TextView>(R.id.emailEditText)
+        emailEditText.text = showActivityHashMap.getValue(keyPrefix+"EMAIL")
+
+        val locationEditText = findViewById<TextView>(R.id.locationEditText)
+        locationEditText.text = showActivityHashMap.getValue(keyPrefix+"LOCATION")
+
+        val skillsEditText = findViewById<TextView>(R.id.skillEditText)
+        skillsEditText.text = showActivityHashMap.getValue(keyPrefix+"SKILLS")
+
+        val descriptionEditText = findViewById<TextView>(R.id.descriptionEditText)
+        descriptionEditText.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
+        //TODO
         // Retrieve json object of class ProfileClass
         //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
         val pref = SharedPreference(this)
@@ -100,9 +123,6 @@ class EditProfileActivity : AppCompatActivity() {
         //Retrieve a Bundle object : TODO
         // val extras:Bundle? = intent.extras
 
-        // val testTextView = findViewById<TextView>(R.id.edit4TextView)
-        // testTextView.text = extras!!.getString("DEFAULTTEXT")
-        /* end - TODO */
     }
 
     /* Useful for tick -> once pressed it commit changes */
@@ -115,7 +135,7 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.commitItem -> {
-                editedProfile()
+                onBackPressed()
                 Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true
             }
@@ -123,28 +143,61 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    /* Useful for register a Context Menu - allows single click instead of long press */
+    /* Useful for register a Context Menu - allows sigle click instead of long press */
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender)
         openContextMenu(sender)
         unregisterForContextMenu(sender)
     }
 
+    /* Confirm edited fields on back press */
+    override fun onBackPressed() {
+        commitProfileEdited()
+
+        super.onBackPressed()
+    }
+
     /* Confirm edited fields */
-    private fun editedProfile() {
+    private fun commitProfileEdited() {
         onSave()
 
         val i = Intent(this, ShowProfileActivity::class.java)
 
         //Create a Bundle object
         val extras = Bundle()
+        val showActivityHashMap = HashMap<String, String>()
+
+        //TODO: undestand if correct
+        val keyPrefix = "group07.lab2."
+
+        val fullNameText = findViewById<TextView>(R.id.fullNameEditText).text
+        showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
+
+        val nicknameText = findViewById<TextView>(R.id.nicknameEditText).text
+        showActivityHashMap[keyPrefix + "NICKNAME"] = nicknameText.toString()
+
+        val emailText = findViewById<TextView>(R.id.emailEditText).text
+        showActivityHashMap[keyPrefix + "EMAIL"] = emailText.toString()
+
+        val locationText = findViewById<TextView>(R.id.locationEditText).text
+        showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
+
+        val skillsText = findViewById<TextView>(R.id.skillEditText).text
+        showActivityHashMap[keyPrefix + "SKILLS"] = skillsText.toString()
+
+        val descriptionText = findViewById<TextView>(R.id.descriptionEditText).text
+        showActivityHashMap[keyPrefix + "DESCRIPTION"] = descriptionText.toString()
+
+        extras.putSerializable("showActivityHashMap", showActivityHashMap)
         extras.putString("RESULT", "OK")
+
+        //TODO
         println("ImgUri: ${imgPath}")
         extras.putString("ImgUri", imgPath.toString())
+
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
-        finish()
     }
 
 
@@ -162,6 +215,7 @@ class EditProfileActivity : AppCompatActivity() {
         inflater.inflate(R.menu.camera_menu, menu)
     }
 
+    /* Options for Camera */
     /* Options for Camera */
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -220,7 +274,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == MY_CAMERA_PERMISSION_CODE || requestCode == MY_CAMERA_PERMISSION_CODE + 1 || requestCode == MY_CAMERA_PERMISSION_CODE + 2) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "permission granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show()
                 super.onRequestPermissionsResult(
                     requestCode + 1,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -237,7 +291,7 @@ class EditProfileActivity : AppCompatActivity() {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
                 startActivityForResult(intent, CAPTURE_IMAGE)
             } else {
-                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -252,7 +306,7 @@ class EditProfileActivity : AppCompatActivity() {
             inJustDecodeBounds = true
 
             //BitmapFactory.decodeFile(imgPath)
-            BitmapFactory.decodeStream(getContentResolver().openInputStream(imgPath))
+            BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
 
             val photoW: Int = outWidth
             val photoH: Int = outHeight
@@ -265,7 +319,7 @@ class EditProfileActivity : AppCompatActivity() {
             inSampleSize = scaleFactor
             inPurgeable = true
         }
-        BitmapFactory.decodeStream(getContentResolver().openInputStream(imgPath), null, bmOptions)
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath), null, bmOptions)
             ?.also { bitmap ->
                 imageView.setImageBitmap(bitmap)
             }
@@ -319,7 +373,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    // TODO: Put this part in the commit button/menu
     private fun onSave() {
         val pref = SharedPreference(this)
 
@@ -330,7 +383,6 @@ class EditProfileActivity : AppCompatActivity() {
         val location = findViewById<EditText>(R.id.locationEditText)
         val skills = findViewById<EditText>(R.id.skillEditText)
         val description = findViewById<EditText>(R.id.descriptionEditText)
-        // TODO: evaluate ProfileClass
         val obj = ProfileClass(
             imageUri = imgPath.toString(),
             fullName = fullName.text.toString(),
