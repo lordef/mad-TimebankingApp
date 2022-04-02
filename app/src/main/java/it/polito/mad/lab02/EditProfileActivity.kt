@@ -27,6 +27,7 @@ import android.widget.Toast
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 /* Constants for CAMERA */
 private val CAMERA_REQUEST = 1888
@@ -71,12 +72,12 @@ class EditProfileActivity : AppCompatActivity() {
 
         //Retrieve a Bundle object : TODO
         val extras:Bundle? = intent.extras
+        val showActivityHashMap = extras!!.getSerializable("showActivityValuesHashMap") as HashMap<String, String>
 
-//        val showActivityValuesHashMap = extras.
-        println(extras!!.getSerializable("showActivityValuesHashMap"))
+        val keyPrefix = "group07.lab2."
+        val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
+//        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
 
-        // val testTextView = findViewById<TextView>(R.id.edit4TextView)
-        // testTextView.text = extras!!.getString("DEFAULTTEXT")
         /* end - TODO */
     }
 

@@ -73,9 +73,17 @@ class ShowProfileActivity : AppCompatActivity() {
 
         //Create a Bundle object
         val extras = Bundle()
-        val showActivityValuesHashMap = HashMap<String, String>()
+        val showActivityHashMap = HashMap<String, String>()
 
-        extras.putSerializable("showActivityValuesHashMap", showActivityValuesHashMap)
+        //TODO: fill out hashmap
+        val keyPrefix = "group07.lab2."
+
+        val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
+        showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
+
+
+        extras.putSerializable("showActivityValuesHashMap", showActivityHashMap)
+
         i.putExtras(extras)
 
         startActivityForResult(i, 1)
