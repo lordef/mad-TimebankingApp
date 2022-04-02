@@ -116,7 +116,6 @@
                         android:drawablePadding="10dp"
                         android:hint="@string/nicknameLabel"
                         android:inputType="text"
-                        android:text="@string/nickname"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,9 +135,8 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/locationLabel"
+                        android:hint="@string/emailLabel"
                         android:inputType="textEmailAddress"
-                        android:text="@string/email"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +158,6 @@
                         android:drawablePadding="10dp"
                         android:hint="@string/locationLabel"
                         android:inputType="text"
-                        android:text="@string/location"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,7 +180,6 @@
                         android:hint="@string/skillsLabel"
                         android:inputType="text"
                         android:orientation="vertical"
-                        android:text="@string/skill1"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -206,7 +202,6 @@
                         android:drawablePadding="10dp"
                         android:hint="@string/descriptionLabel"
                         android:inputType="textMultiLine"
-                        android:text="@string/description"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
