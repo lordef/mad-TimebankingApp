@@ -38,7 +38,8 @@ class EditProfileActivity : AppCompatActivity() {
     private val RESULT_LOAD_IMAGE = 1
     private val CAPTURE_IMAGE = 3
     private val PICK_IMAGE = 2
-    private var imgPath: Uri = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    private var imgPath: Uri =
+        Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,54 +75,40 @@ class EditProfileActivity : AppCompatActivity() {
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve a Bundle object
-        val extras:Bundle? = intent.extras
-        val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
+        val extras: Bundle? = intent.extras
+        val showActivityHashMap =
+            extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
         val keyPrefix = "group07.lab2."
 
+        val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
+        // val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
+        val editProfileImageUri = imgPath.toString()
+        imgPath = Uri.parse(editProfileImageUri)
+        editProfileImageView.setImageBitmap(
+            MediaStore.Images.Media.getBitmap(
+                this.contentResolver,
+                Uri.parse(editProfileImageUri)
+            )
+        )
+
         val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
-        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
+        fullNameEditText.text = showActivityHashMap.getValue(keyPrefix + "FULL_NAME")
 
         val nickNameEditText = findViewById<TextView>(R.id.nicknameEditText)
-        nickNameEditText.text = showActivityHashMap.getValue(keyPrefix+"NICKNAME")
+        nickNameEditText.text = showActivityHashMap.getValue(keyPrefix + "NICKNAME")
 
         val emailEditText = findViewById<TextView>(R.id.emailEditText)
-        emailEditText.text = showActivityHashMap.getValue(keyPrefix+"EMAIL")
+        emailEditText.text = showActivityHashMap.getValue(keyPrefix + "EMAIL")
 
         val locationEditText = findViewById<TextView>(R.id.locationEditText)
-        locationEditText.text = showActivityHashMap.getValue(keyPrefix+"LOCATION")
+        locationEditText.text = showActivityHashMap.getValue(keyPrefix + "LOCATION")
 
         val skillsEditText = findViewById<TextView>(R.id.skillEditText)
-        skillsEditText.text = showActivityHashMap.getValue(keyPrefix+"SKILLS")
+        skillsEditText.text = showActivityHashMap.getValue(keyPrefix + "SKILLS")
 
         val descriptionEditText = findViewById<TextView>(R.id.descriptionEditText)
-        descriptionEditText.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
-        //TODO
-        // Retrieve json object of class ProfileClass
-        //val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
-        val pref = SharedPreference(this)
-        val gson = Gson()
-        val json = pref.getProfile()
-        if(!json.equals("")) {
-            val obj = gson.fromJson(json, ProfileClass::class.java)
-            // Put it into the TextViews
-            val fullName = findViewById<EditText>(R.id.fullNameEditText)
-            val nickname = findViewById<EditText>(R.id.nicknameEditText)
-            val email = findViewById<EditText>(R.id.emailEditText)
-            val location = findViewById<EditText>(R.id.locationEditText)
-            val skills = findViewById<EditText>(R.id.skillEditText)
-            val description = findViewById<EditText>(R.id.descriptionEditText)
-            if(obj!==null) {
-                fullName.setText(obj.fullName)
-                nickname.setText(obj.nickname)
-                email.setText(obj.email)
-                location.setText(obj.location)
-                skills.setText(obj.skills)
-                description.setText(obj.description)
-            }
-        }
-        //Retrieve a Bundle object : TODO
-        // val extras:Bundle? = intent.extras
+        descriptionEditText.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
 
     }
 
@@ -167,8 +154,9 @@ class EditProfileActivity : AppCompatActivity() {
         val extras = Bundle()
         val showActivityHashMap = HashMap<String, String>()
 
-        //TODO: undestand if correct
         val keyPrefix = "group07.lab2."
+
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = imgPath.toString() //TODO
 
         val fullNameText = findViewById<TextView>(R.id.fullNameEditText).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
@@ -190,10 +178,6 @@ class EditProfileActivity : AppCompatActivity() {
 
         extras.putSerializable("showActivityHashMap", showActivityHashMap)
         extras.putString("RESULT", "OK")
-
-        //TODO
-        println("ImgUri: ${imgPath}")
-        extras.putString("ImgUri", imgPath.toString())
 
         i.putExtras(extras)
 
@@ -222,7 +206,8 @@ class EditProfileActivity : AppCompatActivity() {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.selectImageOption -> {
-                Toast.makeText(this, "Select an image from the phone gallery", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Select an image from the phone gallery", Toast.LENGTH_SHORT)
+                    .show()
                 val intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_GET_CONTENT
@@ -305,7 +290,6 @@ class EditProfileActivity : AppCompatActivity() {
             // Get the dimensions of the bitmap
             inJustDecodeBounds = true
 
-            //BitmapFactory.decodeFile(imgPath)
             BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
 
             val photoW: Int = outWidth
@@ -396,11 +380,6 @@ class EditProfileActivity : AppCompatActivity() {
         val gson = Gson()
         val json = gson.toJson(obj)
         pref.setProfile(json)
-
-
-        val toast = Toast.makeText(applicationContext, "Saved", Toast.LENGTH_LONG)
-        toast.show()
-
     }
 
 }

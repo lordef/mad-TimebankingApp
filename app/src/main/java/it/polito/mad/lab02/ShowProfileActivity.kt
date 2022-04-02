@@ -19,8 +19,11 @@ import com.google.gson.Gson
 
 class ShowProfileActivity : AppCompatActivity() {
 
-    /* Variables for communicating with EditProfileActivity  */
+    /* Variable for communicating with EditProfileActivity  */
     private val EDIT_REQUEST_CODE = 1
+
+    private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +58,7 @@ class ShowProfileActivity : AppCompatActivity() {
         val pref = SharedPreference(this)
         val gson = Gson()
         val json = pref.getProfile()
-        if(!json.equals("")) {
+        if (!json.equals("")) {
             val obj = gson.fromJson(json, ProfileClass::class.java)
             // Put it into the TextViews
             val profileImage = findViewById<ImageView>(R.id.profileImageView)
@@ -65,13 +68,14 @@ class ShowProfileActivity : AppCompatActivity() {
             val location = findViewById<TextView>(R.id.locationTextView)
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
-            if(obj!==null) {
+            if (obj !== null) {
                 /*profileImage.setImageBitmap(
                     MediaStore.Images.Media.getBitmap(
                         this.contentResolver,
                         Uri.parse(obj.imageUri)
                     )
                 )*/
+                profileImageUri = obj.imageUri
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
                 email.text = obj.email
@@ -83,15 +87,14 @@ class ShowProfileActivity : AppCompatActivity() {
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater : MenuInflater = menuInflater
+        val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.pencil_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.editItem -> {
                 Toast.makeText(this, "Edit profile selected", Toast.LENGTH_SHORT).show()
                 editProfile()
@@ -105,7 +108,7 @@ class ShowProfileActivity : AppCompatActivity() {
         In order to reduce the risk of name clashes with existing keys, name your item out
         of your project package name, e.g. “group07.lab2.FULL_NAME”
     */
-    private fun editProfile(){
+    private fun editProfile() {
         val i = Intent(this, EditProfileActivity::class.java)
 
         //Create a Bundle object
@@ -115,11 +118,7 @@ class ShowProfileActivity : AppCompatActivity() {
         //Fill out hashmap
         val keyPrefix = "group07.lab2."
 
-        /* TODO: insert image */
-        /*
-        val profileImageUrl = findViewById<ImageView>(R.id.profileImageView)
-        showActivityHashMap[keyPrefix + "PROFILE_IMG_URL"] = profileImageUrl.toString()
-        */
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = profileImageUri
 
         val fullNameText = findViewById<TextView>(R.id.fullNameTextView).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
@@ -151,47 +150,43 @@ class ShowProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == EDIT_REQUEST_CODE){
-            if (resultCode == Activity.RESULT_OK){
+        if (requestCode == EDIT_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
                 //Fill fields
                 //Retrieve a Bundle object from EditProfileActivity
-                val extras:Bundle? = data!!.extras
-                val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
+                val extras: Bundle? = data!!.extras
+                val showActivityHashMap =
+                    extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
                 val keyPrefix = "group07.lab2."
 
-
-                /* TODO: IMAGE*/
-                val imgUri = Uri.parse(data!!.extras!!.getString("ImgUri"))
-                val profileImage = findViewById<ImageView>(R.id.profileImageView)
-                println("ImageUri: ${imgUri}")
-                profileImage.setImageBitmap(
+                val profileImageView = findViewById<ImageView>(R.id.profileImageView)
+                val profileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
+                profileImageView.setImageBitmap(
                     MediaStore.Images.Media.getBitmap(
                         this.contentResolver,
-                        imgUri
+                        Uri.parse(profileImageUri)
                     )
                 )
-                /****************/
 
                 val fullNameTextView = findViewById<TextView>(R.id.fullNameTextView)
-                fullNameTextView.text = showActivityHashMap.getValue(keyPrefix+"FULL_NAME")
+                fullNameTextView.text = showActivityHashMap.getValue(keyPrefix + "FULL_NAME")
 
                 val nicknameTextView = findViewById<TextView>(R.id.nicknameTextView)
-                nicknameTextView.text = showActivityHashMap.getValue(keyPrefix+"NICKNAME")
+                nicknameTextView.text = showActivityHashMap.getValue(keyPrefix + "NICKNAME")
 
                 val emailTextView = findViewById<TextView>(R.id.emailTextView)
-                emailTextView.text = showActivityHashMap.getValue(keyPrefix+"EMAIL")
+                emailTextView.text = showActivityHashMap.getValue(keyPrefix + "EMAIL")
 
                 val locationTextView = findViewById<TextView>(R.id.locationTextView)
-                locationTextView.text = showActivityHashMap.getValue(keyPrefix+"LOCATION")
+                locationTextView.text = showActivityHashMap.getValue(keyPrefix + "LOCATION")
 
                 val skillsTextView = findViewById<TextView>(R.id.skill1TextView)
-                skillsTextView.text = showActivityHashMap.getValue(keyPrefix+"SKILLS")
+                skillsTextView.text = showActivityHashMap.getValue(keyPrefix + "SKILLS")
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
-                descriptionTextView.text = showActivityHashMap.getValue(keyPrefix+"DESCRIPTION")
-            }
-            else{
+                descriptionTextView.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
+            } else {
                 //Print edit result code
                 val result: String? = data!!.extras!!.getString("RESULT")
                 println("Edit result code: $result")
