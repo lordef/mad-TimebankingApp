@@ -3,8 +3,10 @@ package it.polito.mad.lab02
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -52,6 +54,7 @@ class ShowProfileActivity : AppCompatActivity() {
         if(!json.equals("")) {
             val obj = gson.fromJson(json, ProfileClass::class.java)
             // Put it into the TextViews
+            val profileImage = findViewById<ImageView>(R.id.profileImageView)
             val fullName = findViewById<TextView>(R.id.fullNameTextView)
             val nickname = findViewById<TextView>(R.id.nicknameTextView)
             val email = findViewById<TextView>(R.id.emailTextView)
@@ -59,6 +62,12 @@ class ShowProfileActivity : AppCompatActivity() {
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if(obj!==null) {
+                /*profileImage.setImageBitmap(
+                    MediaStore.Images.Media.getBitmap(
+                        this.contentResolver,
+                        Uri.parse(obj.imageUri)
+                    )
+                )*/
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
                 email.text = obj.email
@@ -111,6 +120,15 @@ class ShowProfileActivity : AppCompatActivity() {
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
                 val result: String? = data!!.extras!!.getString("RESULT")
+                val imgUri = Uri.parse(data!!.extras!!.getString("ImgUri"))
+                val profileImage = findViewById<ImageView>(R.id.profileImageView)
+                println("ImageUri: ${imgUri}")
+                profileImage.setImageBitmap(
+                    MediaStore.Images.Media.getBitmap(
+                        this.contentResolver,
+                        imgUri
+                    )
+                )
                 println("result: ${result}")
             }
         }

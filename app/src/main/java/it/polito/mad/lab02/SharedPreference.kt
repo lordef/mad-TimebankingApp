@@ -10,7 +10,7 @@ class SharedPreference(context : Context){
 
     private val PREFERENCE_NAME = "SharedPreference"
     private val PREFERENCE_PROFILE = "profile"
-    val profileImage = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    val profileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
     private val obj = ProfileClass(
         imageUri = profileImage,

@@ -38,6 +38,10 @@ private val PICK_IMAGE = 2
 
 
 class EditProfileActivity : AppCompatActivity() {
+
+    private var imgPath: Uri = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    private var imgName = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -112,7 +116,7 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.commitItem -> {
-                onBackPressed()
+                editedProfile()
                 Toast.makeText(this, "Changes sent", Toast.LENGTH_SHORT).show()
                 true
             }
@@ -127,24 +131,21 @@ class EditProfileActivity : AppCompatActivity() {
         unregisterForContextMenu(sender)
     }
 
-    /* Confirm edited fields on back press */
-    override fun onBackPressed() {
-        editedProfile()
-
-        super.onBackPressed()
-    }
-
     /* Confirm edited fields */
     private fun editedProfile() {
+        onSave()
+
         val i = Intent(this, ShowProfileActivity::class.java)
 
         //Create a Bundle object
         val extras = Bundle()
         extras.putString("RESULT", "OK")
+        println("ImgUri: ${imgPath}")
+        extras.putString("ImgUri", imgPath.toString())
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
-        //finish() //TODO: useful?
+        finish()
     }
 
 
@@ -271,9 +272,6 @@ class EditProfileActivity : AppCompatActivity() {
             }
     }
 
-    private var imgPath: Uri = Uri.EMPTY
-    private var imgName = ""
-
     private fun setImageUri(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         imgName = "JPEG_${timeStamp}_" + ".jpg"
@@ -309,6 +307,7 @@ class EditProfileActivity : AppCompatActivity() {
         //get result from the camera
         if (requestCode == PICK_IMAGE) {
             if (data != null) {
+                imgPath = data!!.data!!
                 editProfileImageView.setImageBitmap(
                     MediaStore.Images.Media.getBitmap(
                         this.contentResolver,
@@ -322,7 +321,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     // TODO: Put this part in the commit button/menu
-    fun onSave(view: View) {
+    private fun onSave() {
         val pref = SharedPreference(this)
 
         val editProfileImage = findViewById<ImageView>(R.id.editProfileImageView)
@@ -334,7 +333,7 @@ class EditProfileActivity : AppCompatActivity() {
         val description = findViewById<EditText>(R.id.descriptionEditText)
         // TODO: evaluate ProfileClass
         val obj = ProfileClass(
-            imageUri = editProfileImage.setImageBitmap(),
+            imageUri = imgPath.toString(),
             fullName = fullName.text.toString(),
             nickname = nickname.text.toString(),
             email = email.text.toString(),

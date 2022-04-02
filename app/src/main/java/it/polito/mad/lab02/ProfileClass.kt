@@ -1,8 +1,8 @@
 package it.polito.mad.lab02
 
-import android.net.Uri
 
-data class ProfileClass(val imageUri: Uri,
+
+data class ProfileClass(val imageUri: String,
                         val fullName: String,
                         val nickname: String,
                         val email: String,

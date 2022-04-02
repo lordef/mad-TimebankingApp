@@ -47,8 +47,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/profile_image"
-                    tools:ignore="ImageContrastCheck"
-                    tools:srcCompat="@drawable/profile_image" />
+                    tools:ignore="ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/fullNameTextView"
