@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.res.Configuration
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
@@ -72,7 +71,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         //Retrieve a Bundle object
         val extras:Bundle? = intent.extras
-        val showActivityHashMap = extras!!.getSerializable("showActivityValuesHashMap") as HashMap<String, String>
+        val showActivityHashMap = extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
         val keyPrefix = "group07.lab2."
 
@@ -122,13 +121,13 @@ class EditProfileActivity : AppCompatActivity() {
 
     /* Confirm edited fields on back press */
     override fun onBackPressed() {
-        editedProfile()
+        commitProfileEdited()
 
         super.onBackPressed()
     }
 
     /* Confirm edited fields */
-    private fun editedProfile() {
+    private fun commitProfileEdited() {
         val i = Intent(this, ShowProfileActivity::class.java)
 
         //Create a Bundle object
@@ -136,7 +135,6 @@ class EditProfileActivity : AppCompatActivity() {
         val showActivityHashMap = HashMap<String, String>()
 
         //TODO: undestand if correct
-        /*
         val keyPrefix = "group07.lab2."
 
         val fullNameText = findViewById<TextView>(R.id.fullNameEditText).text
@@ -157,10 +155,9 @@ class EditProfileActivity : AppCompatActivity() {
         val descriptionText = findViewById<TextView>(R.id.descriptionEditText).text
         showActivityHashMap[keyPrefix + "DESCRIPTION"] = descriptionText.toString()
 
-        extras.putSerializable("showActivityValuesHashMap", showActivityHashMap)
-        */
-
+        extras.putSerializable("showActivityHashMap", showActivityHashMap)
         extras.putString("RESULT", "OK")
+
         i.putExtras(extras)
 
         setResult(Activity.RESULT_OK, i)
