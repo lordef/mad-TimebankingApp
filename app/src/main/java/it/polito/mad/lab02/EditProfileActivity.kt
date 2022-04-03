@@ -1,7 +1,6 @@
 package it.polito.mad.lab02
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -39,6 +38,7 @@ class EditProfileActivity : AppCompatActivity() {
     private val MY_CAMERA_PERMISSION_CODE = 100
     private var imgUri: Uri =
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    private var imgUriOld: Uri = Uri.parse("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,12 @@ class EditProfileActivity : AppCompatActivity() {
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
         val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
         imgUri = Uri.parse(editProfileImageUri!!)
-        Utils.setUriInImageView(editProfileImageView, Uri.parse(editProfileImageUri), contentResolver)
+        imgUriOld = imgUri
+        Utils.setUriInImageView(
+            editProfileImageView,
+            Uri.parse(editProfileImageUri),
+            contentResolver
+        )
 
 
         val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
@@ -255,7 +260,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun clonePic(uri: Uri) : Uri {
+    private fun clonePic(uri: Uri): Uri {
         val resultUri = setImageUri()
         BitmapFactory.decodeStream(contentResolver.openInputStream(uri)).also { bitmap ->
             val fos: OutputStream? = contentResolver.openOutputStream(resultUri)
@@ -286,6 +291,17 @@ class EditProfileActivity : AppCompatActivity() {
         return photoURI
     }
 
+    private fun deleteOldImage(): Boolean {
+        if (imgUriOld != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
+
+            val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUriOld.lastPathSegment)
+            if(file.exists()) {
+                return file.delete()
+            }
+        }
+        return false
+    }
+
     // Receiver For Camera (updated version of startActivityForResult)
     private val getImageFromCamera =
         registerForActivityResult(
@@ -304,8 +320,8 @@ class EditProfileActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 if (it != null) {
-                    println("Test ${parseResult(Activity.RESULT_OK ,it.data)!![0]!!}")
-                    imgUri = clonePic(parseResult(Activity.RESULT_OK ,it.data)?.get(0)!!)
+                    println("Test ${parseResult(Activity.RESULT_OK, it.data)!![0]!!}")
+                    imgUri = clonePic(parseResult(Activity.RESULT_OK, it.data)?.get(0)!!)
                     val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
                     Utils.setUriInImageView(editProfileImageView, imgUri, contentResolver)
                 }
@@ -313,6 +329,9 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
     private fun onSave() {
+
+        deleteOldImage()
+
         val pref = SharedPreference(this)
 
         val fullName = findViewById<EditText>(R.id.fullNameEditText)
