@@ -3,7 +3,6 @@ package it.polito.mad.lab02
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +10,10 @@ import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.os.Environment.DIRECTORY_DCIM
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-import android.provider.MediaStore.MediaColumns.*
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +28,6 @@ import java.util.*
 import kotlin.collections.HashMap
 import com.google.gson.Gson
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -50,7 +43,6 @@ class EditProfileActivity : AppCompatActivity() {
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
-    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -63,22 +55,7 @@ class EditProfileActivity : AppCompatActivity() {
             else
                 findViewById<ScrollView>(R.id.mainScrollView)
 
-        secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                val h = secondLayer.height
-                val w = secondLayer.width
-                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                firstLayout.post {
-                    firstLayout.layoutParams =
-                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                            LinearLayout.LayoutParams(w / 3, h)
-                        else
-                            LinearLayout.LayoutParams(w, h / 3)
-                }
-                secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
-        })
+        Utils.divideDisplayInPortion(firstLayout, secondLayer, resources.configuration.orientation)
 
         val profileImageButton = findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
@@ -290,12 +267,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun setPic(imageView: ImageView) {
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath)).also { bitmap ->
-            imageView.setImageBitmap(bitmap)
-        }
-    }
-
     private fun clonePic(uri: Uri) : Uri {
         val resultUri = setImageUri()
         BitmapFactory.decodeStream(contentResolver.openInputStream(uri)).also { bitmap ->
@@ -345,7 +316,7 @@ class EditProfileActivity : AppCompatActivity() {
                 )
             }
         } else if (requestCode == CAPTURE_IMAGE) {
-            setPic(editProfileImageView)
+            Utils.setUriInImageView(editProfileImageView, imgPath, contentResolver)
         }
     }
 

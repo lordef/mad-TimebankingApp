@@ -1,19 +1,15 @@
 package it.polito.mad.lab02
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
@@ -27,7 +23,6 @@ class ShowProfileActivity : AppCompatActivity() {
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
 
-    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
@@ -40,22 +35,7 @@ class ShowProfileActivity : AppCompatActivity() {
             else
                 findViewById<ScrollView>(R.id.mainScrollView)
 
-        secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                val h = secondLayer.height
-                val w = secondLayer.width
-                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
-                firstLayout.post {
-                    firstLayout.layoutParams =
-                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                            LinearLayout.LayoutParams(w / 3, h)
-                        else
-                            LinearLayout.LayoutParams(w, h / 3)
-                }
-                secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
-        })
+        Utils.divideDisplayInPortion(firstLayout, secondLayer, resources.configuration.orientation)
 
         // Retrieve json object of class ProfileClass
         val pref = SharedPreference(this)
@@ -73,7 +53,7 @@ class ShowProfileActivity : AppCompatActivity() {
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
                 profileImageUri = obj.imageUri
-                setPicInImageView(profileImage, Uri.parse(profileImageUri))
+                Utils.setUriInImageView(profileImage, Uri.parse(profileImageUri), contentResolver)
 
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
@@ -83,12 +63,6 @@ class ShowProfileActivity : AppCompatActivity() {
                 description.text = obj.description
             }
         }
-    }
-
-    private fun setPicInImageView(imageView: ImageView, imgUri: Uri) {
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri)).also { bitmap ->
-                imageView.setImageBitmap(bitmap)
-            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
