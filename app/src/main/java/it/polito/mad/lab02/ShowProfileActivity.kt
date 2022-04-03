@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
 
@@ -117,18 +118,18 @@ class ShowProfileActivity : AppCompatActivity() {
 
         i.putExtras(extras)
 
-        startActivityForResult(i, EDIT_REQUEST_CODE)
+        getEditProfileData.launch(i)
     }
 
-    /* Set up fields from edit Activity result  */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == EDIT_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+    // Receiver For EditProfile
+    private val getEditProfileData =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
                 //Fill fields
                 //Retrieve a Bundle object from EditProfileActivity
-                val extras: Bundle? = data!!.extras
+                val extras: Bundle? = it!!.data!!.extras
                 val showActivityHashMap =
                     extras!!.getSerializable("showActivityHashMap") as HashMap<String, String>
 
@@ -163,5 +164,4 @@ class ShowProfileActivity : AppCompatActivity() {
                 descriptionTextView.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
             }
         }
-    }
 }
