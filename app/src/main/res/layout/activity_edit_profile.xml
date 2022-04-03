@@ -177,7 +177,7 @@
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
                         android:hint="@string/skillsLabel"
-                        android:inputType="text"
+                        android:inputType="textMultiLine|text"
                         android:orientation="vertical"
                         android:textSize="20sp" />
 
