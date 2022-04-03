@@ -36,8 +36,8 @@
 
             <ImageButton
                 android:id="@+id/editProfileImageButton"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:adjustViewBounds="true"
                 android:background="@color/background_text_cards"
                 android:backgroundTint="#B7FFFFFF"
