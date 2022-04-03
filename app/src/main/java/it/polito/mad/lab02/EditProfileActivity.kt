@@ -3,7 +3,6 @@ package it.polito.mad.lab02
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,22 +10,20 @@ import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.os.Environment.DIRECTORY_DCIM
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-import android.provider.MediaStore.MediaColumns.*
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.annotation.RequiresApi
 import android.view.View
+import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import java.io.OutputStream
 import java.text.SimpleDateFormat
@@ -34,7 +31,6 @@ import java.util.*
 import kotlin.collections.HashMap
 import com.google.gson.Gson
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -46,7 +42,7 @@ class EditProfileActivity : AppCompatActivity() {
     private val RESULT_LOAD_IMAGE = 1
     private val CAPTURE_IMAGE = 3
     private val PICK_IMAGE = 2
-    private var imgPath: Uri =
+    private var imgUri: Uri =
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
@@ -92,7 +88,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
         val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
-        imgPath = Uri.parse(editProfileImageUri!!)
+        imgUri = Uri.parse(editProfileImageUri!!)
         setPicInImageView(editProfileImageView, Uri.parse(editProfileImageUri))
 
 
@@ -166,7 +162,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val keyPrefix = "group07.lab2."
 
-        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = imgPath.toString()
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = imgUri.toString()
 
         val fullNameText = findViewById<TextView>(R.id.fullNameEditText).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
@@ -220,7 +216,7 @@ class EditProfileActivity : AppCompatActivity() {
                 val intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_GET_CONTENT
-                startActivityForResult(Intent.createChooser(intent, ""), PICK_IMAGE)
+                getImageFromGallery.launch(Intent.createChooser(intent, ""))
                 true
             }
             R.id.useCameraOption -> {
@@ -243,13 +239,10 @@ class EditProfileActivity : AppCompatActivity() {
                                 MY_CAMERA_PERMISSION_CODE + 2
                             )
                         } else {
-                            //val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                            //startActivityForResult(cameraIntent, CAMERA_REQUEST)
                             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
-                            startActivityForResult(intent, CAPTURE_IMAGE)
-
+                            getImageFromCamera.launch(intent)
                         }
                     }
                 }
@@ -283,20 +276,20 @@ class EditProfileActivity : AppCompatActivity() {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
-                startActivityForResult(intent, CAPTURE_IMAGE)
+                getImageFromCamera.launch(intent)
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun setPic(imageView: ImageView) {
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath)).also { bitmap ->
+    private fun setPicInImageView(imageView: ImageView) {
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri)).also { bitmap ->
             imageView.setImageBitmap(bitmap)
         }
     }
 
-    private fun clonePic(uri: Uri) : Uri {
+    private fun clonePic(uri: Uri): Uri {
         val resultUri = setImageUri()
         BitmapFactory.decodeStream(contentResolver.openInputStream(uri)).also { bitmap ->
             val fos: OutputStream? = contentResolver.openOutputStream(resultUri)
@@ -324,30 +317,35 @@ class EditProfileActivity : AppCompatActivity() {
             "it.polito.mad.lab02.provider",
             uri!!
         )
-        imgPath = photoURI
+        imgUri = photoURI
         return photoURI
     }
 
-    /* Use the returned picture from the camera */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
-
-        //get result from the camera
-        if (requestCode == PICK_IMAGE) {
-            if (data != null) {
-                imgPath = clonePic(data!!.data!!)
-                editProfileImageView.setImageBitmap(
-                    MediaStore.Images.Media.getBitmap(
-                        this.contentResolver,
-                        data.data
-                    )
-                )
+    // Receiver For Camera (updated version of startActivityForResult)
+    private val getImageFromCamera =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
+                setPicInImageView(editProfileImageView)
             }
-        } else if (requestCode == CAPTURE_IMAGE) {
-            setPic(editProfileImageView)
         }
-    }
+
+    // Receiver For Gallery
+    private val getImageFromGallery =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                if (it != null) {
+                    println("Test ${parseResult(Activity.RESULT_OK ,it.data)!![0]!!}")
+                    imgUri = clonePic(parseResult(Activity.RESULT_OK ,it.data)?.get(0)!!)
+                    val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
+                    setPicInImageView(editProfileImageView)
+                }
+            }
+        }
 
     private fun onSave() {
         val pref = SharedPreference(this)
@@ -359,7 +357,7 @@ class EditProfileActivity : AppCompatActivity() {
         val skills = findViewById<EditText>(R.id.skillEditText)
         val description = findViewById<EditText>(R.id.descriptionEditText)
         val obj = ProfileClass(
-            imageUri = imgPath.toString(),
+            imageUri = imgUri.toString(),
             fullName = fullName.text.toString(),
             nickname = nickname.text.toString(),
             email = email.text.toString(),
