@@ -5,12 +5,9 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -20,7 +17,6 @@ import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
-import java.io.File
 
 
 class ShowProfileActivity : AppCompatActivity() {
@@ -76,30 +72,8 @@ class ShowProfileActivity : AppCompatActivity() {
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
-                println("Fname = ${profileImageUri}")
                 profileImageUri = obj.imageUri
-                setPic(profileImage, Uri.parse(profileImageUri))
-                //openFile(Uri.parse(obj.imageUri))
-                /*val resolver = applicationContext.contentResolver
-                resolver.openInputStream(Uri.parse(obj.imageUri)).use { stream ->
-                    val bitmap = BitmapFactory.decodeStream(stream)
-                    profileImage.setImageBitmap(bitmap)
-                }*/
-                //setPic(profileImage, Uri.parse(obj.imageUri))
-                /*
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    val source = ImageDecoder.createSource(this.contentResolver, Uri.parse(obj.imageUri))
-                    val bitmap = ImageDecoder.decodeBitmap(source)
-                    profileImage.setImageBitmap(bitmap)
-                } else {
-                    profileImage.setImageBitmap(
-                        MediaStore.Images.Media.getBitmap(
-                            this.contentResolver,
-                            Uri.parse(obj.imageUri)
-                        )
-                    )
-                }
-                */
+                setPicInImageView(profileImage, Uri.parse(profileImageUri))
 
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
@@ -111,20 +85,8 @@ class ShowProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun openFile(pickerInitialUri: Uri) {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "image/*"
-
-            // Optionally, specify a URI for the file that should appear in the
-            // system file picker when it loads.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-        }
-        startActivityForResult(intent, 777)
-    }
-
-    private fun setPic(imageView: ImageView, imgPath: Uri) {
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath)).also { bitmap ->
+    private fun setPicInImageView(imageView: ImageView, imgUri: Uri) {
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri)).also { bitmap ->
                 imageView.setImageBitmap(bitmap)
             }
     }

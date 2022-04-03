@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -33,6 +34,7 @@ import java.util.*
 import kotlin.collections.HashMap
 import com.google.gson.Gson
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -44,7 +46,8 @@ class EditProfileActivity : AppCompatActivity() {
     private val RESULT_LOAD_IMAGE = 1
     private val CAPTURE_IMAGE = 3
     private val PICK_IMAGE = 2
-    private var imgPath: Uri = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    private var imgPath: Uri =
+        Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
     @SuppressLint("WrongThread")
@@ -90,19 +93,7 @@ class EditProfileActivity : AppCompatActivity() {
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
         val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
         imgPath = Uri.parse(editProfileImageUri!!)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val source =
-                ImageDecoder.createSource(this.contentResolver, Uri.parse(editProfileImageUri))
-            val bitmap = ImageDecoder.decodeBitmap(source)
-            editProfileImageView.setImageBitmap(bitmap)
-        } else {
-            editProfileImageView.setImageBitmap(
-                MediaStore.Images.Media.getBitmap(
-                    this.contentResolver,
-                    Uri.parse(editProfileImageUri)
-                )
-            )
-        }
+        setPicInImageView(editProfileImageView, Uri.parse(editProfileImageUri))
 
 
         val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
@@ -123,6 +114,12 @@ class EditProfileActivity : AppCompatActivity() {
         val descriptionEditText = findViewById<TextView>(R.id.descriptionEditText)
         descriptionEditText.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
 
+    }
+
+    private fun setPicInImageView(imageView: ImageView, imgUri: Uri) {
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri)).also { bitmap ->
+            imageView.setImageBitmap(bitmap)
+        }
     }
 
     /* Useful for tick -> once pressed it commit changes */
@@ -213,7 +210,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Options for Camera */
-    /* Options for Camera */
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onContextItemSelected(item: MenuItem): Boolean {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
@@ -300,6 +296,19 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun clonePic(uri: Uri) : Uri {
+        val resultUri = setImageUri()
+        BitmapFactory.decodeStream(contentResolver.openInputStream(uri)).also { bitmap ->
+            val fos: OutputStream? = contentResolver.openOutputStream(resultUri)
+
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+
+        }
+        return resultUri
+    }
+
+
     @Throws(IOException::class)
     private fun setImageUri(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -327,7 +336,7 @@ class EditProfileActivity : AppCompatActivity() {
         //get result from the camera
         if (requestCode == PICK_IMAGE) {
             if (data != null) {
-                imgPath = data!!.data!!
+                imgPath = clonePic(data!!.data!!)
                 editProfileImageView.setImageBitmap(
                     MediaStore.Images.Media.getBitmap(
                         this.contentResolver,
@@ -343,7 +352,6 @@ class EditProfileActivity : AppCompatActivity() {
     private fun onSave() {
         val pref = SharedPreference(this)
 
-        val editProfileImage = findViewById<ImageView>(R.id.editProfileImageView)
         val fullName = findViewById<EditText>(R.id.fullNameEditText)
         val nickname = findViewById<EditText>(R.id.nicknameEditText)
         val email = findViewById<EditText>(R.id.emailEditText)
