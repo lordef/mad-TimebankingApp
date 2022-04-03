@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.Environment.DIRECTORY_DCIM
 import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -25,11 +26,14 @@ import androidx.annotation.RequiresApi
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 import com.google.gson.Gson
+import java.io.File
+import java.io.IOException
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -40,8 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
     private val RESULT_LOAD_IMAGE = 1
     private val CAPTURE_IMAGE = 3
     private val PICK_IMAGE = 2
-    private var imgPath: Uri =
-        Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
+    private var imgPath: Uri = Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
     @SuppressLint("WrongThread")
@@ -86,9 +89,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
         val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
-        imgPath = Uri.parse(editProfileImageUri)
+        imgPath = Uri.parse(editProfileImageUri!!)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val source = ImageDecoder.createSource(this.contentResolver, Uri.parse(editProfileImageUri))
+            val source =
+                ImageDecoder.createSource(this.contentResolver, Uri.parse(editProfileImageUri))
             val bitmap = ImageDecoder.decodeBitmap(source)
             editProfileImageView.setImageBitmap(bitmap)
         } else {
@@ -165,7 +169,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val keyPrefix = "group07.lab2."
 
-        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = imgPath.toString() //TODO
+        showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"] = imgPath.toString()
 
         val fullNameText = findViewById<TextView>(R.id.fullNameEditText).text
         showActivityHashMap[keyPrefix + "FULL_NAME"] = fullNameText.toString()
@@ -291,58 +295,28 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun setPic(imageView: ImageView) {
-        // Get the dimensions of the View
-        val targetW: Int = imageView.width
-        val targetH: Int = imageView.height
-
-        val bmOptions = BitmapFactory.Options().apply {
-            // Get the dimensions of the bitmap
-            inJustDecodeBounds = true
-
-            BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
-
-            val photoW: Int = outWidth
-            val photoH: Int = outHeight
-
-            // Determine how much to scale down the image
-            val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
-
-            // Decode the image file into a Bitmap sized to fill the View
-            inJustDecodeBounds = false
-            inSampleSize = scaleFactor
-            inPurgeable = true
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath)).also { bitmap ->
+            imageView.setImageBitmap(bitmap)
         }
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath), null, bmOptions)
-            ?.also { bitmap ->
-                imageView.setImageBitmap(bitmap)
-            }
     }
 
+    @Throws(IOException::class)
     private fun setImageUri(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         imgName = "JPEG_${timeStamp}_" + ".jpg"
-        val fos: OutputStream?
-        val contentValues = ContentValues().apply {
-            put(DISPLAY_NAME, imgName)
-            put(MIME_TYPE, "image/png")
-            put(RELATIVE_PATH, DIRECTORY_DCIM)
-            put(IS_PENDING, 1)
-        }
-
-        //use application context to get contentResolver
-        val uri = contentResolver.insert(EXTERNAL_CONTENT_URI, contentValues)
-        uri?.let { contentResolver.openOutputStream(it) }.also { fos = it }
-        fos?.flush()
-        fos?.close()
-
-        contentValues.clear()
-        contentValues.put(IS_PENDING, 0)
-        uri?.let {
-            contentResolver.update(it, contentValues, null, null)
-        }
-        this.contentResolver.takePersistableUriPermission(uri!!,  Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        this.imgPath = uri!!
-        return uri!!
+        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        val uri = File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        )
+        val photoURI: Uri = FileProvider.getUriForFile(
+            this,
+            "it.polito.mad.lab02.provider",
+            uri!!
+        )
+        imgPath = photoURI
+        return photoURI
     }
 
     /* Use the returned picture from the camera */

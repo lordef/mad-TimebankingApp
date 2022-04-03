@@ -20,6 +20,7 @@ import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
+import java.io.File
 
 
 class ShowProfileActivity : AppCompatActivity() {
@@ -75,9 +76,12 @@ class ShowProfileActivity : AppCompatActivity() {
             val skills = findViewById<TextView>(R.id.skill1TextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
-                openFile(Uri.parse(obj.imageUri))
-                val resolver = applicationContext.contentResolver
-                /*resolver.openInputStream(Uri.parse(obj.imageUri)).use { stream ->
+                println("Fname = ${profileImageUri}")
+                profileImageUri = obj.imageUri
+                setPic(profileImage, Uri.parse(profileImageUri))
+                //openFile(Uri.parse(obj.imageUri))
+                /*val resolver = applicationContext.contentResolver
+                resolver.openInputStream(Uri.parse(obj.imageUri)).use { stream ->
                     val bitmap = BitmapFactory.decodeStream(stream)
                     profileImage.setImageBitmap(bitmap)
                 }*/
@@ -96,7 +100,7 @@ class ShowProfileActivity : AppCompatActivity() {
                     )
                 }
                 */
-                profileImageUri = obj.imageUri
+
                 fullName.text = obj.fullName
                 nickname.text = obj.nickname
                 email.text = obj.email
@@ -120,34 +124,7 @@ class ShowProfileActivity : AppCompatActivity() {
     }
 
     private fun setPic(imageView: ImageView, imgPath: Uri) {
-        // Get the dimensions of the View
-        var targetW: Int = 1
-        var targetH: Int = 1
-        if (imageView.width != 0) {
-            targetW = imageView.width
-            targetH = imageView.height
-        }
-
-
-        val bmOptions = BitmapFactory.Options().apply {
-            // Get the dimensions of the bitmap
-            inJustDecodeBounds = true
-
-            BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath))
-
-            val photoW: Int = outWidth
-            val photoH: Int = outHeight
-
-            // Determine how much to scale down the image
-            val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
-
-            // Decode the image file into a Bitmap sized to fill the View
-            inJustDecodeBounds = false
-            inSampleSize = scaleFactor
-            inPurgeable = true
-        }
-        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath), null, bmOptions)
-            ?.also { bitmap ->
+        BitmapFactory.decodeStream(contentResolver.openInputStream(imgPath)).also { bitmap ->
                 imageView.setImageBitmap(bitmap)
             }
     }
@@ -169,10 +146,6 @@ class ShowProfileActivity : AppCompatActivity() {
         }
     }
 
-    /* TODO:
-        In order to reduce the risk of name clashes with existing keys, name your item out
-        of your project package name, e.g. “group07.lab2.FULL_NAME”
-    */
     private fun editProfile() {
         val i = Intent(this, EditProfileActivity::class.java)
 
@@ -252,12 +225,6 @@ class ShowProfileActivity : AppCompatActivity() {
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
                 descriptionTextView.text = showActivityHashMap.getValue(keyPrefix + "DESCRIPTION")
-            }
-        }
-        else if(requestCode == 777){
-            val profileImage = findViewById<ImageView>(R.id.profileImageView)
-            if (data != null) {
-                setPic(profileImage, data!!.data!!)
             }
         }
     }
