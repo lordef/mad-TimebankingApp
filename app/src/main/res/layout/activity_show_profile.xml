@@ -190,7 +190,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/emailCardView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -198,15 +198,32 @@
                     app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/emailTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/email"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_email_icon" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/emailLabel"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            app:drawableStartCompat="@drawable/ic_email_icon" />
+
+                        <TextView
+                            android:id="@+id/emailTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/email"
+                            android:textSize="20sp"
+                             />
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -220,15 +237,31 @@
                     app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/locationTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/location"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_location_icon" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/locationLabel"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            app:drawableStartCompat="@drawable/ic_location_icon" />
+
+                        <TextView
+                            android:id="@+id/locationTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/location"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -242,16 +275,32 @@
                     app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/skill1TextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:orientation="vertical"
-                        android:text="@string/skill1"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_skills_icon" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/skillsLabel"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            app:drawableStartCompat="@drawable/ic_skills_icon" />
+
+                        <TextView
+                            android:id="@+id/skill1TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:orientation="vertical"
+                            android:text="@string/skill1"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -265,15 +314,31 @@
                     app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/descriptionTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/description"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_description_icon" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/descriptionLabel"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            app:drawableStartCompat="@drawable/ic_description_icon" />
+
+                        <TextView
+                            android:id="@+id/descriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/description"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
 

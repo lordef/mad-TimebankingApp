@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MAD_lab02" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/background_menu</item>
+        <item name="colorPrimary">@color/background_upper_menu</item>
         <item name="colorPrimaryVariant">@color/background_upper_menu</item>
         <item name="colorOnPrimary">@color/color_text_menu</item>
         <!-- Secondary brand color. -->

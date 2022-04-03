@@ -14,12 +14,12 @@ class SharedPreference(context : Context){
 
     private val obj = ProfileClass(
         imageUri = profileImage,
-        fullName = "Full name",
-        nickname = "Nickname",
-        email = "Email",
-        location = "Location",
-        skills = "Skills",
-        description = "Description"
+        fullName = "",
+        nickname = "",
+        email = "",
+        location = "",
+        skills = "",
+        description = ""
     )
     private val gson = Gson()
     private val json = gson.toJson(obj)

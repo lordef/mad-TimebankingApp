@@ -60,6 +60,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_camera_icon"
                         app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
+                        app:layout_constraintStart_toEndOf="@+id/editProfileImageView"
                         app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
                         tools:ignore="ImageContrastCheck" />
 
@@ -98,7 +99,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/fullNameLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -127,7 +127,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/nicknameLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -156,7 +155,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/emailLabel"
                         android:inputType="textEmailAddress"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -185,7 +183,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/locationLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -214,7 +211,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/skillsLabel"
                         android:inputType="textMultiLine|text"
                         android:orientation="vertical"
                         android:textSize="20sp" />
@@ -245,7 +241,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/descriptionLabel"
                         android:inputType="textMultiLine"
                         android:textSize="20sp" />
 
