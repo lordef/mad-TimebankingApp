@@ -1,6 +1,7 @@
 package it.polito.mad.lab02
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment.DIRECTORY_DCIM
@@ -42,6 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgName = ""
 
+    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -82,15 +85,21 @@ class EditProfileActivity : AppCompatActivity() {
         val keyPrefix = "group07.lab2."
 
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
-        // val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
-        val editProfileImageUri = imgPath.toString()
+        val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
         imgPath = Uri.parse(editProfileImageUri)
-        editProfileImageView.setImageBitmap(
-            MediaStore.Images.Media.getBitmap(
-                this.contentResolver,
-                Uri.parse(editProfileImageUri)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val source = ImageDecoder.createSource(this.contentResolver, Uri.parse(editProfileImageUri))
+            val bitmap = ImageDecoder.decodeBitmap(source)
+            editProfileImageView.setImageBitmap(bitmap)
+        } else {
+            editProfileImageView.setImageBitmap(
+                MediaStore.Images.Media.getBitmap(
+                    this.contentResolver,
+                    Uri.parse(editProfileImageUri)
+                )
             )
-        )
+        }
+
 
         val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
         fullNameEditText.text = showActivityHashMap.getValue(keyPrefix + "FULL_NAME")
@@ -321,7 +330,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         //use application context to get contentResolver
-        val contentResolver = applicationContext.contentResolver
         val uri = contentResolver.insert(EXTERNAL_CONTENT_URI, contentValues)
         uri?.let { contentResolver.openOutputStream(it) }.also { fos = it }
         fos?.flush()
@@ -332,6 +340,7 @@ class EditProfileActivity : AppCompatActivity() {
         uri?.let {
             contentResolver.update(it, contentValues, null, null)
         }
+        this.contentResolver.takePersistableUriPermission(uri!!,  Intent.FLAG_GRANT_READ_URI_PERMISSION)
         this.imgPath = uri!!
         return uri!!
     }
