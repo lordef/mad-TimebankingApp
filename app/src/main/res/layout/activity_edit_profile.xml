@@ -55,12 +55,14 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:adjustViewBounds="true"
-                        android:background="#00FFFFFF"
+                        android:background="@color/background_text_cards"
+                        android:backgroundTint="#B7FFFFFF"
                         android:contentDescription="@string/imageButtonDescription"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_camera_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"
                         app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
-                        app:layout_constraintStart_toEndOf="@+id/editProfileImageView"
+                        app:layout_constraintStart_toStartOf="@+id/editProfileImageView"
                         app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
                         tools:ignore="ImageContrastCheck" />
 

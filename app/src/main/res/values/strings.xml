@@ -20,12 +20,12 @@
     <string name="skillsLabel">Skills</string>
     <string name="descriptionLabel">Description</string>
 
-    <string name="fullName">Antonio Neri</string>
+    <string name="fullName">Full name</string>
     <string name="nickname">Nickname</string>
     <string name="email">Email</string>
     <string name="location">Location</string>
 
-    <string name="skill1">Skill 1</string>
+    <string name="skill1">Skills</string>
 
     <string name="description">Description</string>
 
