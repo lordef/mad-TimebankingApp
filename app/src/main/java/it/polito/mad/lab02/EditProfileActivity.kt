@@ -36,14 +36,9 @@ import java.io.IOException
 class EditProfileActivity : AppCompatActivity() {
 
     /* Variables for CAMERA */
-    private val CAMERA_REQUEST = 1888
     private val MY_CAMERA_PERMISSION_CODE = 100
-    private val RESULT_LOAD_IMAGE = 1
-    private val CAPTURE_IMAGE = 3
-    private val PICK_IMAGE = 2
     private var imgUri: Uri =
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
-    private var imgName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +67,7 @@ class EditProfileActivity : AppCompatActivity() {
         val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
         val editProfileImageUri = showActivityHashMap[keyPrefix + "PROFILE_IMG_URI"]
         imgUri = Uri.parse(editProfileImageUri!!)
-        Utils.setUriInImageView(editProfileImageView, Uri.parse(editProfileImageUri))
+        Utils.setUriInImageView(editProfileImageView, Uri.parse(editProfileImageUri), contentResolver)
 
 
         val fullNameEditText = findViewById<TextView>(R.id.fullNameEditText)
@@ -276,7 +271,6 @@ class EditProfileActivity : AppCompatActivity() {
     @Throws(IOException::class)
     private fun setImageUri(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        imgName = "JPEG_${timeStamp}_" + ".jpg"
         val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         val uri = File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
