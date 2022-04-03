@@ -285,7 +285,7 @@ class EditProfileActivity : AppCompatActivity() {
         val photoURI: Uri = FileProvider.getUriForFile(
             this,
             "it.polito.mad.lab02.provider",
-            uri!!
+            uri
         )
         imgUri = photoURI
         return photoURI
@@ -294,7 +294,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun deleteOldImage(): Boolean {
         if (imgUriOld != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
 
-            val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUriOld.lastPathSegment)
+            val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUriOld.lastPathSegment!!)
             if(file.exists()) {
                 return file.delete()
             }
