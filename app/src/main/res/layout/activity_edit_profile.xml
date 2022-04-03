@@ -10,6 +10,7 @@
         android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_text_cards"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,13 +27,13 @@
                 android:id="@+id/upperLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/background_upper_layout"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/upperConstraintLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/editProfileImageView"
@@ -51,16 +52,15 @@
 
                     <ImageButton
                         android:id="@+id/editProfileImageButton"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
                         android:contentDescription="@string/imageButtonDescription"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_camera_icon"
-                        app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
+                        app:layout_constraintStart_toEndOf="@+id/editProfileImageView"
                         app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
                         tools:ignore="ImageContrastCheck" />
 
@@ -72,17 +72,24 @@
                 android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:background="@color/background_text_cards"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/fullNameTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/fullNameLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -92,7 +99,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/fullNameLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,9 +107,17 @@
                     android:id="@+id/nicknameTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/nicknameLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -113,7 +127,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/nicknameLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -122,9 +135,17 @@
                     android:id="@+id/emailTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/emailLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -134,7 +155,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/emailLabel"
                         android:inputType="textEmailAddress"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -143,9 +163,17 @@
                     android:id="@+id/locationTextInputLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/locationLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -155,7 +183,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/locationLabel"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -164,9 +191,17 @@
                     android:id="@+id/skill1TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/skillsLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -176,7 +211,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/skillsLabel"
                         android:inputType="textMultiLine|text"
                         android:orientation="vertical"
                         android:textSize="20sp" />
@@ -187,9 +221,17 @@
                     android:id="@+id/descriptionTextInputLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/descriptionLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -199,7 +241,6 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
-                        android:hint="@string/descriptionLabel"
                         android:inputType="textMultiLine"
                         android:textSize="20sp" />
 

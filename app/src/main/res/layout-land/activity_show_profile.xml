@@ -20,7 +20,7 @@
             android:id="@+id/upperConstraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient">
+            android:background="@color/background_upper_layout">
 
 
             <ImageView
@@ -70,7 +70,7 @@
 
         <ScrollView
             android:id="@+id/mainScrollView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             >
@@ -86,23 +86,23 @@
                     android:id="@+id/additionalInfoLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/ratingCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="2"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="20dp">
+                        app:cardBackgroundColor="@color/background_intermidiate_cards"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
                             android:id="@+id/ratingRelativeLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/gradient"
                             android:padding="5dp">
 
                             <ImageView
@@ -140,16 +140,17 @@
                         android:id="@+id/balanceCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="2"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="20dp">
+                        app:cardBackgroundColor="@color/background_intermidiate_cards"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <RelativeLayout
                             android:id="@+id/balanceRelativeLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/gradient"
                             android:padding="5dp">
 
                             <ImageView
@@ -187,50 +188,96 @@
                     android:id="@+id/lowerLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/emailTextView"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/emailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/email"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_email_icon" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardBackgroundColor="@color/background_text_cards"
+                        app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/locationTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/location"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_location_icon" />
+                        <TextView
+                            android:id="@+id/emailTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/email"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_email_icon" />
+                    </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/skill1TextView"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/locationCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:orientation="vertical"
-                        android:text="@string/skill1"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_skills_icon" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardBackgroundColor="@color/background_text_cards"
+                        app:cardCornerRadius="10dp">
 
-                    <TextView
-                        android:id="@+id/descriptionTextView"
+                        <TextView
+                            android:id="@+id/locationTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/location"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_location_icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/skillsCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/description"
-                        android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_description_icon" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardBackgroundColor="@color/background_text_cards"
+                        app:cardCornerRadius="10dp">
+
+                        <TextView
+                            android:id="@+id/skill1TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:orientation="vertical"
+                            android:text="@string/skill1"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_skills_icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/descriptionCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardBackgroundColor="@color/background_text_cards"
+                        app:cardCornerRadius="10dp">
+
+                        <TextView
+                            android:id="@+id/descriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/description"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_description_icon" />
+                    </androidx.cardview.widget.CardView>
 
                     <!--com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailTextInputLayout"
