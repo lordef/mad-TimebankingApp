@@ -3,27 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_edit_profile.xml" value="0.5541666666666667" />
-        <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
-        <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/menu/commit_menu.xml" value="0.4140625" />
-        <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/menu/pencil_menu.xml" value="0.4140625" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3285" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/border_shape.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_camera_icon.xml" value="0.269" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_description_icon.xml" value="0.1655" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_email_icon.xml" value="0.2425" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3285" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_location_icon.xml" value="0.1655" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_pencil_icon.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_rating_icon.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_skills_icon.xml" value="0.1655" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_user_icon.xml" value="0.335" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout-land/activity_edit_profile.xml" value="0.5" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout-land/activity_show_profile.xml" value="0.33" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.26358695652173914" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.33" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/layout/rows.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/menu/camera_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/menu/commit_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/menu/pencil_menu.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/menu/pencil_mnu.xml" value="0.30277777777777776" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/drawable/bank_24.xml" value="0.19" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3135" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/drawable/ic_pencil_icon.xml" value="0.19" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/drawable/ic_rating_icon.xml" value="0.223" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/drawable/user_24.xml" value="0.246" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout-land/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
-        <entry key="app/src/main/res/drawable/ic_pencil_icon.xml" value="0.1395" />
-        <entry key="app/src/main/res/layout-land/activity_edit_profile.xml" value="0.18298059964726632" />
-        <entry key="app/src/main/res/layout-land/activity_show_profile.xml" value="0.10449735449735449" />
-        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
-        <entry key="app/src/main/res/menu/camera_menu.xml" value="0.375" />
-        <entry key="app/src/main/res/menu/commit_menu.xml" value="0.45" />
-        <entry key="app/src/main/res/menu/pencil_menu.xml" value="0.45" />
       </map>
     </option>
   </component>

@@ -39,6 +39,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:adjustViewBounds="true"
+                android:background="@color/background_text_cards"
                 android:backgroundTint="#B7FFFFFF"
                 android:contentDescription="@string/imageDescription"
                 android:scaleType="centerCrop"
