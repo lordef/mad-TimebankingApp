@@ -30,7 +30,7 @@
                 android:id="@+id/upperConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#BBDED6">
+                android:background="@color/background_upper_layout">
 
 
                 <ImageView
@@ -95,10 +95,10 @@
                         android:id="@+id/ratingCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
+                        android:layout_margin="16dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="2"
-                        app:cardBackgroundColor="#FFB6B9"
+                        app:cardBackgroundColor="@color/background_intermidiate_cards"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
@@ -143,10 +143,10 @@
                         android:id="@+id/balanceCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
+                        android:layout_margin="16dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="2"
-                        app:cardBackgroundColor="#FFB6B9"
+                        app:cardBackgroundColor="@color/background_intermidiate_cards"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
 
@@ -195,7 +195,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#BBDED6"
+                    app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
                     <TextView
@@ -217,7 +217,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#BBDED6"
+                    app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
                     <TextView
@@ -239,7 +239,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#BBDED6"
+                    app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
                     <TextView
@@ -262,7 +262,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#BBDED6"
+                    app:cardBackgroundColor="@color/background_text_cards"
                     app:cardCornerRadius="10dp">
 
                     <TextView

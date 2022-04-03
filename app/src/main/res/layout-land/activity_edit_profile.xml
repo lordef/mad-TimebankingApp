@@ -17,7 +17,7 @@
             android:id="@+id/upperConstraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient">
+            android:background="@color/background_upper_layout">
 
             <ImageView
                 android:id="@+id/editProfileImageView"
@@ -36,19 +36,14 @@
 
             <ImageButton
                 android:id="@+id/editProfileImageButton"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="@string/imageDescription"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
+                app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
                 app:srcCompat="@drawable/ic_camera_icon"
                 tools:ignore="ImageContrastCheck,DuplicateSpeakableTextCheck" />
 
@@ -58,23 +53,31 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/background_text_cards"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:background="@color/background_text_cards"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/fullNameTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/fullNameLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -93,9 +96,17 @@
                     android:id="@+id/nicknameTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/nicknameLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -114,9 +125,17 @@
                     android:id="@+id/emailTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/emailLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -135,9 +154,17 @@
                     android:id="@+id/locationTextInputLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/locationLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -156,9 +183,17 @@
                     android:id="@+id/skill1TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/skillsLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -179,9 +214,17 @@
                     android:id="@+id/descriptionTextInputLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/descriptionLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
                     <EditText
@@ -191,10 +234,10 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/descriptionLabel"
                         android:inputType="textMultiLine"
                         android:text="@string/description"
-                        android:textSize="20sp"
-                        android:hint="@string/descriptionLabel"/>
+                        android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
