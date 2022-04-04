@@ -41,48 +41,50 @@
                     android:background="@color/background_upper_layout">
 
 
-                    <ImageView
-                        android:id="@+id/profileImageView"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/imageDescription"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toTopOf="@+id/fullNameTextView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/profile_image"
-                        tools:ignore="ImageContrastCheck"
-                        tools:srcCompat="@drawable/profile_image" />
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/imageDescription"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/fullNameTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/profile_image"
+                tools:ignore="ImageContrastCheck"
+                tools:srcCompat="@drawable/profile_image" />
 
-                    <TextView
-                        android:id="@+id/fullNameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fullName"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/nicknameTextView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+            <TextView
+                android:id="@+id/fullNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fullName"
+                android:textColor="@color/color_text"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/nicknameTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
 
-                    <TextView
-                        android:id="@+id/nicknameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nickname"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+            <TextView
+                android:id="@+id/nicknameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nickname"
+                android:textColor="@color/color_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -99,6 +101,7 @@
                 android:id="@+id/fatherLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -141,6 +144,7 @@
                                 android:layout_below="@id/ratingImageView"
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/ratingLabel"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -151,6 +155,7 @@
                                 android:layout_below="@id/ratingLabelTextView"
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/ratingValue"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
 
                         </RelativeLayout>
@@ -191,6 +196,7 @@
                                 android:layout_below="@id/balanceImageView"
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/balanceLabel"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -201,6 +207,7 @@
                                 android:layout_below="@id/balanceLabeltextView"
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/balanceValue"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
                         </RelativeLayout>
 
@@ -246,6 +253,7 @@
                                 android:layout_margin="8dp"
                                 android:drawablePadding="10dp"
                                 android:text="@string/email"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
@@ -284,6 +292,7 @@
                                 android:layout_margin="8dp"
                                 android:drawablePadding="10dp"
                                 android:text="@string/location"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
@@ -323,6 +332,7 @@
                                 android:drawablePadding="10dp"
                                 android:orientation="vertical"
                                 android:text="@string/skill1"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
@@ -361,6 +371,7 @@
                                 android:layout_margin="8dp"
                                 android:drawablePadding="10dp"
                                 android:text="@string/description"
+                                android:textColor="@color/color_text"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
