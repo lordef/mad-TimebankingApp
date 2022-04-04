@@ -119,6 +119,7 @@
                         android:drawablePadding="10dp"
                         android:hint="@string/fullNameLabel"
                         android:inputType="text"
+                        android:maxLength="30"
                         android:textColor="@color/color_text"
                         android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
@@ -150,6 +151,7 @@
                         android:drawablePadding="10dp"
                         android:hint="@string/nicknameLabel"
                         android:inputType="text"
+                        android:maxLength="15"
                         android:textColor="@color/color_text"
                         android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
