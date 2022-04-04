@@ -10,46 +10,68 @@
         android:id="@id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:background="@color/background_text_cards"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/upperConstraintLayout"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/background_upper_layout">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/editProfileImageView"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/imageDescription"
-                android:scaleType="centerCrop"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/upperCardView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ImageContrastCheck" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/editProfileImageButton"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:adjustViewBounds="true"
-                android:background="@color/background_text_cards"
-                android:backgroundTint="#B7FFFFFF"
-                android:contentDescription="@string/imageDescription"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"
-                app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
-                app:layout_constraintStart_toStartOf="@+id/editProfileImageView"
-                app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
-                app:srcCompat="@drawable/ic_camera_icon"
-                tools:ignore="ImageContrastCheck,DuplicateSpeakableTextCheck" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardConstraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_upper_layout">
 
+                    <ImageView
+                        android:id="@+id/editProfileImageView"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="32dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/imageDescription"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ImageContrastCheck" />
+
+                    <ImageButton
+                        android:id="@+id/editProfileImageButton"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:adjustViewBounds="true"
+                        android:background="@color/background_text_cards"
+                        android:backgroundTint="#B7FFFFFF"
+                        android:contentDescription="@string/imageDescription"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"
+                        app:layout_constraintEnd_toEndOf="@+id/editProfileImageView"
+                        app:layout_constraintStart_toStartOf="@+id/editProfileImageView"
+                        app:layout_constraintTop_toTopOf="@+id/editProfileImageView"
+                        app:srcCompat="@drawable/ic_camera_icon"
+                        tools:ignore="ImageContrastCheck,DuplicateSpeakableTextCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
@@ -71,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/fullNameLabel"
@@ -215,7 +237,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:hint="@string/descriptionLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
