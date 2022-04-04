@@ -1,35 +1,34 @@
 package it.polito.mad.lab02
 
 import android.Manifest
+import android.R.attr.bitmap
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.*
-import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.annotation.RequiresApi
-import android.view.View
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
-import java.io.OutputStream
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
 import com.google.gson.Gson
 import java.io.File
 import java.io.IOException
+import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -183,7 +182,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Options for Camera */
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onContextItemSelected(item: MenuItem): Boolean {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
@@ -230,6 +229,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Get permissions to use the camera */
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -267,7 +267,6 @@ class EditProfileActivity : AppCompatActivity() {
 
             // Use the compress method on the BitMap object to write image to the OutputStream
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-
         }
         return resultUri
     }
@@ -302,12 +301,40 @@ class EditProfileActivity : AppCompatActivity() {
         return false
     }
 
+    private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
+
     // Receiver For Camera (updated version of startActivityForResult)
+    @RequiresApi(Build.VERSION_CODES.R)
     private val getImageFromCamera =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
+                val imageFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUri.lastPathSegment!!)
+                val ei = ExifInterface(imageFile)
+                val orientation: Int = ei.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED
+                )
+
+                var rotatedBitmap: Bitmap? = null
+                val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri))
+                rotatedBitmap = when (orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+                    ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+                    ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+                    ExifInterface.ORIENTATION_NORMAL -> bitmap
+                    else -> bitmap
+                }
+                val fos: OutputStream? = contentResolver.openOutputStream(imgUri)
+                rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                 val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
                 Utils.setUriInImageView(editProfileImageView, imgUri, contentResolver)
             }
