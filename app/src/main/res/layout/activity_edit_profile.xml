@@ -117,8 +117,9 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="text"
                         android:hint="@string/fullNameLabel"
+                        android:inputType="text"
+                        android:textColor="@color/color_text"
                         android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -147,10 +148,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="text"
-                        android:textSize="20sp"
                         android:hint="@string/nicknameLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:inputType="text"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -177,10 +179,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="textEmailAddress"
-                        android:textSize="20sp"
                         android:hint="@string/emailLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -207,10 +210,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="text"
-                        android:textSize="20sp"
                         android:hint="@string/locationLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:inputType="text"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -237,11 +241,12 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/skillsLabel"
                         android:inputType="textMultiLine|text"
                         android:orientation="vertical"
-                        android:textSize="20sp"
-                        android:hint="@string/skillsLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -269,10 +274,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="textMultiLine"
-                        android:textSize="20sp"
                         android:hint="@string/descriptionLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:inputType="textMultiLine"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

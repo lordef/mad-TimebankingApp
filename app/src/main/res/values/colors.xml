@@ -15,4 +15,7 @@
     <color name="background_upper_menu">#457784</color>
     <color name="color_text_menu">#FFFFFF</color>
     <color name="camera">#457784</color>
+    <color name="color_scrollView">#FFFFFF</color>
+    <color name="color_text">#FF424242</color>
+    <color name="color_icons">#FF424242</color>
 </resources>

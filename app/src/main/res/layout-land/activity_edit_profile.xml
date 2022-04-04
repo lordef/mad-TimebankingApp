@@ -113,6 +113,7 @@
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +142,7 @@
                         android:drawableStart="@drawable/ic_user_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,6 +171,7 @@
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
                         android:inputType="textEmailAddress"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,6 +200,7 @@
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
                         android:inputType="text"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -226,6 +230,7 @@
                         android:drawablePadding="10dp"
                         android:inputType="textMultiLine"
                         android:orientation="vertical"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -255,6 +260,7 @@
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
                         android:inputType="textMultiLine"
+                        android:textColor="@color/color_text"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
