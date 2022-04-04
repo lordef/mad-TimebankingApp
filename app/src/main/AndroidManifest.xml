@@ -27,7 +27,8 @@
 
         <activity
             android:name=".EditProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/app_name_edit"/>
         <activity
             android:name=".ShowProfileActivity"
             android:exported="true">
