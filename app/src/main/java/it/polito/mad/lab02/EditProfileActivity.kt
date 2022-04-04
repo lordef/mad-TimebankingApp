@@ -9,7 +9,6 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
+import androidx.exifinterface.media.ExifInterface
 import com.google.gson.Gson
 import java.io.File
 import java.io.IOException
@@ -182,7 +182,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Options for Camera */
-    @RequiresApi(Build.VERSION_CODES.R)
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onContextItemSelected(item: MenuItem): Boolean {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
@@ -229,7 +229,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     /* Get permissions to use the camera */
-    @RequiresApi(Build.VERSION_CODES.R)
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -311,7 +310,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     // Receiver For Camera (updated version of startActivityForResult)
-    @RequiresApi(Build.VERSION_CODES.R)
     private val getImageFromCamera =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
