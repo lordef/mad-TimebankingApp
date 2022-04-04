@@ -292,8 +292,11 @@ class EditProfileActivity : AppCompatActivity() {
     private fun deleteOldImage(): Boolean {
         if (imgUriOld != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
 
-            val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUriOld.lastPathSegment!!)
-            if(file.exists()) {
+            val file = File(
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                imgUriOld.lastPathSegment!!
+            )
+            if (file.exists()) {
                 return file.delete()
             }
         }
@@ -315,24 +318,29 @@ class EditProfileActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val imageFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), imgUri.lastPathSegment!!)
-                val ei = ExifInterface(imageFile)
-                val orientation: Int = ei.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED
-                )
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    val imageFile = File(
+                        getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                        imgUri.lastPathSegment!!
+                    )
+                    val ei = ExifInterface(imageFile)
+                    val orientation: Int = ei.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED
+                    )
 
-                var rotatedBitmap: Bitmap? = null
-                val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri))
-                rotatedBitmap = when (orientation) {
-                    ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
-                    ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
-                    ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
-                    ExifInterface.ORIENTATION_NORMAL -> bitmap
-                    else -> bitmap
+                    var rotatedBitmap: Bitmap? = null
+                    val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imgUri))
+                    rotatedBitmap = when (orientation) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+                        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+                        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+                        ExifInterface.ORIENTATION_NORMAL -> bitmap
+                        else -> bitmap
+                    }
+                    val fos: OutputStream? = contentResolver.openOutputStream(imgUri)
+                    rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                 }
-                val fos: OutputStream? = contentResolver.openOutputStream(imgUri)
-                rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                 val editProfileImageView = findViewById<ImageView>(R.id.editProfileImageView)
                 Utils.setUriInImageView(editProfileImageView, imgUri, contentResolver)
             }
