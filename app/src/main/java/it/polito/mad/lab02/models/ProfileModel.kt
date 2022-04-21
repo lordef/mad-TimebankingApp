@@ -1,7 +1,7 @@
-package it.polito.mad.lab02
+package it.polito.mad.lab02.models
 
 
-data class ProfileClass(
+data class ProfileModel(
     val imageUri: String,
     val fullName: String,
     val nickname: String,

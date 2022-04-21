@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
+import it.polito.mad.lab02.models.ProfileModel
 
 
 class ShowProfileActivity : AppCompatActivity() {
@@ -43,14 +44,14 @@ class ShowProfileActivity : AppCompatActivity() {
         val gson = Gson()
         val json = pref.getProfile()
         if (!json.equals("")) {
-            val obj = gson.fromJson(json, ProfileClass::class.java)
+            val obj = gson.fromJson(json, ProfileModel::class.java)
             // Put it into the TextViews
             val profileImage = findViewById<ImageView>(R.id.profileImageView)
             val fullName = findViewById<TextView>(R.id.fullNameTextView)
             val nickname = findViewById<TextView>(R.id.nicknameTextView)
             val email = findViewById<TextView>(R.id.emailTextView)
             val location = findViewById<TextView>(R.id.locationTextView)
-            val skills = findViewById<TextView>(R.id.skill1TextView)
+            val skills = findViewById<TextView>(R.id.skillTextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
                 profileImageUri = obj.imageUri
@@ -107,7 +108,7 @@ class ShowProfileActivity : AppCompatActivity() {
         val locationText = findViewById<TextView>(R.id.locationTextView).text
         showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
 
-        val skillsText = findViewById<TextView>(R.id.skill1TextView).text
+        val skillsText = findViewById<TextView>(R.id.skillTextView).text
         showActivityHashMap[keyPrefix + "SKILLS"] = skillsText.toString()
 
         val descriptionText = findViewById<TextView>(R.id.descriptionTextView).text
@@ -157,7 +158,7 @@ class ShowProfileActivity : AppCompatActivity() {
                 val locationTextView = findViewById<TextView>(R.id.locationTextView)
                 locationTextView.text = showActivityHashMap.getValue(keyPrefix + "LOCATION")
 
-                val skillsTextView = findViewById<TextView>(R.id.skill1TextView)
+                val skillsTextView = findViewById<TextView>(R.id.skillTextView)
                 skillsTextView.text = showActivityHashMap.getValue(keyPrefix + "SKILLS")
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)
