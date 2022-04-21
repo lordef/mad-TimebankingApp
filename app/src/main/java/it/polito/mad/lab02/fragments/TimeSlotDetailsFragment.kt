@@ -1,4 +1,4 @@
-package it.polito.mad.lab02
+package it.polito.mad.lab02.fragments
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.Gson
+import it.polito.mad.lab02.R
+import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlotDetailsModel
 
 
