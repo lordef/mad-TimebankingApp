@@ -21,6 +21,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
         // Retrieve json object of class TimeSlotClass
         val pref = this.context?.let { SharedPreference(it) }
         val gson = Gson()
