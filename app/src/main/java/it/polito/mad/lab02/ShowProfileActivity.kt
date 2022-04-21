@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
+import it.polito.mad.lab02.models.ProfileModel
 
 
 class ShowProfileActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class ShowProfileActivity : AppCompatActivity() {
         val gson = Gson()
         val json = pref.getProfile()
         if (!json.equals("")) {
-            val obj = gson.fromJson(json, ProfileClass::class.java)
+            val obj = gson.fromJson(json, ProfileModel::class.java)
             // Put it into the TextViews
             val profileImage = findViewById<ImageView>(R.id.profileImageView)
             val fullName = findViewById<TextView>(R.id.fullNameTextView)

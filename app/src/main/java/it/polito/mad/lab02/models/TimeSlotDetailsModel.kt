@@ -1,6 +1,6 @@
-package it.polito.mad.lab02
+package it.polito.mad.lab02.models
 
-data class TimeSlotClass (
+data class TimeSlotDetailsModel (
     val title: String,
     val description: String,
     val dateTime: String,

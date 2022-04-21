@@ -1,6 +1,5 @@
 package it.polito.mad.lab02
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -8,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
 import com.google.gson.Gson
+import it.polito.mad.lab02.models.TimeSlotDetailsModel
 
 
 /**
@@ -23,9 +23,9 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         // Retrieve json object of class TimeSlotClass
         val pref = this.context?.let { SharedPreference(it) }
         val gson = Gson()
-        val json = pref?.getTimeSlot(title)
+        val json = pref?.getTimeSlotDetails(title)
         if (!json.equals("")) {
-            val obj = gson.fromJson(json, TimeSlotClass::class.java)
+            val obj = gson.fromJson(json, TimeSlotDetailsModel::class.java)
             // Put it into the TextViews
             val title = view.findViewById<TextView>(R.id.titleTextView)
             val description = view.findViewById<TextView>(R.id.descriptionTextView)

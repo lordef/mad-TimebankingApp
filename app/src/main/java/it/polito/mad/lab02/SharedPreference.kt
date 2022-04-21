@@ -1,10 +1,9 @@
 package it.polito.mad.lab02
 
 import android.content.Context
-import android.net.Uri
-import android.widget.ImageView
-import android.widget.TextView
 import com.google.gson.Gson
+import it.polito.mad.lab02.models.ProfileModel
+import it.polito.mad.lab02.models.TimeSlotDetailsModel
 
 class SharedPreference(context : Context){
 
@@ -17,7 +16,7 @@ class SharedPreference(context : Context){
     fun getProfile() : String? {
         val profileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
-        val obj = ProfileClass(
+        val obj = ProfileModel(
             imageUri = profileImage,
             fullName = "",
             nickname = "",
@@ -38,9 +37,9 @@ class SharedPreference(context : Context){
     }
 
     // get/set timeslot details
-    fun getTimeSlot(title: String) : String? {
+    fun getTimeSlotDetails(title: String) : String? {
 
-        val obj = TimeSlotClass(
+        val obj = TimeSlotDetailsModel(
             title = "new title",
             description = "new desc",
             dateTime = "new date and time",
@@ -52,7 +51,7 @@ class SharedPreference(context : Context){
         return pref.getString(title, json)
     }
 
-    fun setTimeSlot(title: String, timeslot: String){
+    fun setTimeSlotDetails(title: String, timeslot: String){
         val editor = pref.edit()
         editor.putString(title, timeslot)
         editor.apply()
