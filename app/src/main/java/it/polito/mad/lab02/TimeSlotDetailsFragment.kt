@@ -3,23 +3,22 @@ package it.polito.mad.lab02
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.TimeSlotDetailsModel
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TimeSlotDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
-    val title = "timeslot1"
+    private val title = "timeslot1"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         // Retrieve json object of class TimeSlotClass
         val pref = this.context?.let { SharedPreference(it) }
         val gson = Gson()
@@ -46,6 +45,19 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.pencil_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.editItem -> {
+                Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT).show()
+                // TODO: manage transition to TimeSlotEditFragment
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 
 
