@@ -50,7 +50,7 @@ class ShowProfileActivity : AppCompatActivity() {
             val nickname = findViewById<TextView>(R.id.nicknameTextView)
             val email = findViewById<TextView>(R.id.emailTextView)
             val location = findViewById<TextView>(R.id.locationTextView)
-            val skills = findViewById<TextView>(R.id.skill1TextView)
+            val skills = findViewById<TextView>(R.id.skillTextView)
             val description = findViewById<TextView>(R.id.descriptionTextView)
             if (obj !== null) {
                 profileImageUri = obj.imageUri
@@ -107,7 +107,7 @@ class ShowProfileActivity : AppCompatActivity() {
         val locationText = findViewById<TextView>(R.id.locationTextView).text
         showActivityHashMap[keyPrefix + "LOCATION"] = locationText.toString()
 
-        val skillsText = findViewById<TextView>(R.id.skill1TextView).text
+        val skillsText = findViewById<TextView>(R.id.skillTextView).text
         showActivityHashMap[keyPrefix + "SKILLS"] = skillsText.toString()
 
         val descriptionText = findViewById<TextView>(R.id.descriptionTextView).text
@@ -157,7 +157,7 @@ class ShowProfileActivity : AppCompatActivity() {
                 val locationTextView = findViewById<TextView>(R.id.locationTextView)
                 locationTextView.text = showActivityHashMap.getValue(keyPrefix + "LOCATION")
 
-                val skillsTextView = findViewById<TextView>(R.id.skill1TextView)
+                val skillsTextView = findViewById<TextView>(R.id.skillTextView)
                 skillsTextView.text = showActivityHashMap.getValue(keyPrefix + "SKILLS")
 
                 val descriptionTextView = findViewById<TextView>(R.id.descriptionTextView)

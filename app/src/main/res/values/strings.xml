@@ -36,4 +36,18 @@
     <string name="selectImageOption">Select an image from the phone gallery</string>
     <string name="useCameraOption">Use the camera to take a picture</string>
 
+    <!-- TimeSlotDetailsFragment labels -->
+    <string name="timeslotTitleLabel">Title</string>
+    <string name="timeslotDescriptionLabel">Description</string>
+    <string name="timeslotDateTimeLabel">Date and Time</string>
+    <string name="timeslotDurationLabel">Duration</string>
+    <string name="timeslotLocationLabel">Location</string>
+
+    <string name="title">Title</string>
+    <!--string name="description">Description</string-->
+    <string name="dateTime">Date and Time</string>
+    <string name="duration">Duration</string>
+    <!--string name="location">Location</string-->
+
+
 </resources>

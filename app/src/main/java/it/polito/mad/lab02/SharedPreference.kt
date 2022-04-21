@@ -10,23 +10,24 @@ class SharedPreference(context : Context){
 
     private val PREFERENCE_NAME = "SharedPreference"
     private val PREFERENCE_PROFILE = "profile"
-    val profileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
-
-    private val obj = ProfileClass(
-        imageUri = profileImage,
-        fullName = "",
-        nickname = "",
-        email = "",
-        location = "",
-        skills = "",
-        description = ""
-    )
-    private val gson = Gson()
-    private val json = gson.toJson(obj)
 
     private val pref = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
+    // get/set profile
     fun getProfile() : String? {
+        val profileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
+
+        val obj = ProfileClass(
+            imageUri = profileImage,
+            fullName = "",
+            nickname = "",
+            email = "",
+            location = "",
+            skills = "",
+            description = ""
+        )
+        val gson = Gson()
+        val json = gson.toJson(obj)
         return pref.getString(PREFERENCE_PROFILE, json)
     }
 
@@ -35,4 +36,26 @@ class SharedPreference(context : Context){
         editor.putString(PREFERENCE_PROFILE, profile)
         editor.apply()
     }
+
+    // get/set timeslot details
+    fun getTimeSlot(title: String) : String? {
+
+        val obj = TimeSlotClass(
+            title = "new title",
+            description = "new desc",
+            dateTime = "new date and time",
+            duration = "new duration",
+            location = "new location"
+        )
+        val gson = Gson()
+        val json = gson.toJson(obj)
+        return pref.getString(title, json)
+    }
+
+    fun setTimeSlot(title: String, timeslot: String){
+        val editor = pref.edit()
+        editor.putString(title, timeslot)
+        editor.apply()
+    }
+
 }
