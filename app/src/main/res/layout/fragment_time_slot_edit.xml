@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <!--com.google.android.material.textfield.TextInputLayout
             android:id="@+id/titleTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,25 @@
                 android:textColor="@color/color_text"
                 android:textColorHint="#00FFFFFF"
                 android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout-->
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:autofillHints=""
+            android:inputType="text"
+            android:hint="@string/timeslotTitleLabel"
+            android:textColorHint="#00FFFFFF"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/descriptionTextInputLayout"
@@ -162,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_skills_icon"
+                android:drawableStart="@drawable/ic_location_icon"
                 android:drawablePadding="10dp"
                 android:hint="@string/timeslotLocationLabel"
                 android:inputType="textMultiLine|text"
