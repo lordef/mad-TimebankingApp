@@ -1,6 +1,5 @@
 package it.polito.mad.lab02.models
 
-
 data class ProfileModel(
     val imageUri: String,
     val fullName: String,

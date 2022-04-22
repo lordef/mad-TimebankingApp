@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlotDetailsModel
+import kotlin.concurrent.thread
 
 //TODO: work in progress
 class TimeSlotDetailsViewModel: ViewModel() {
@@ -39,7 +40,7 @@ class TimeSlotDetailsViewModel: ViewModel() {
     //----
     // Temp data to create a TimeSlotDetailsModel
     val obj = TimeSlotDetailsModel(
-        title = "new title",
+        title = "new title FROM VM",
         description = "new desc",
         dateTime = "new date and time",
         duration = "new duration",
@@ -47,15 +48,34 @@ class TimeSlotDetailsViewModel: ViewModel() {
     )
     //----
 
-//    val timeSlotDetailsModel : LiveData<TimeSlotDetailsModel> = TimeSlotDetailsModel("",)
-//    val value: LiveData<Int> = repo.count()
-//    val items: LiveData<List<Item>> = repo.items()
+    //    val value: LiveData<Int> = repo.count()
+    //    val items: LiveData<List<Item>> = repo.items()
+    private val timeSlotDetailsModel = MutableLiveData<TimeSlotDetailsModel>()
+        .also { it.value = obj }
 
+
+    fun getTimeSlotDetails(): MutableLiveData<TimeSlotDetailsModel> {
+        return timeSlotDetailsModel
+    }
+
+    //TODO: update method for single field?
+    fun update(newObj: TimeSlotDetailsModel){
+        timeSlotDetailsModel.value = newObj
+
+        //TODO: update the persistence layer
+        /*
+        thread {
+            repo.add("item${value.value}")
+        }
+        */
+    }
 
     /* Code from lecture on a08-fragments */
+    /*
     private val counter = MutableLiveData<Int>().also { it.value = 0 }
 
     fun add() {
         counter.value = (counter.value?:0)+1
     }
+     */
 }
