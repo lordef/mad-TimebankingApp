@@ -30,7 +30,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
 
-    private val title = "timeslot1"
+    private val title = "seconda prova"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -38,7 +38,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         var obj: TimeSlotDetailsModel
 
         //TODO: trying to retrieve content from ViewModel
-        vm.getTimeSlotDetails().observe(viewLifecycleOwner) { tsd ->
+        vm.getTimeSlotDetails(title).observe(viewLifecycleOwner) { tsd ->
             // update UI
             obj = tsd
 

@@ -22,17 +22,22 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
     val sharedPreferences = SharedPreference(application)
 
     private val timeSlotDetailsModel = MutableLiveData<TimeSlotDetailsModel>()
-        .also {
+        /*.also {
             it.value = sharedPreferences.getTimeSlotDetails("placeholder_title") //TODO
-        }
+        }*/
 
-    fun getTimeSlotDetails(): MutableLiveData<TimeSlotDetailsModel> {
+    fun getTimeSlotDetails(title : String): MutableLiveData<TimeSlotDetailsModel> {
+        timeSlotDetailsModel.also {
+            it.value = sharedPreferences.getTimeSlotDetails(title) //TODO
+        }
         return timeSlotDetailsModel
     }
 
     //TODO: update method for single field?
-    fun update(newObj: TimeSlotDetailsModel){
+    fun update(title: String, newObj: TimeSlotDetailsModel){
         timeSlotDetailsModel.value = newObj
+
+        //sharedPreferences.setTimeSlotDetails(title, newObj)
 
         //TODO: update the persistence layer
         /*

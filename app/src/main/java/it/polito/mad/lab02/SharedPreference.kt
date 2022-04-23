@@ -37,7 +37,8 @@ class SharedPreference(context : Context){
         //profile must be a string to put it in preferences
         // TODO: test if is sufficient method toString()
         //  it should be converted to a JSON first
-        editor.putString(PREFERENCE_PROFILE, profile.toString())
+        val profileJson = Gson().toJson(profile)
+        editor.putString(PREFERENCE_PROFILE, profileJson)
         editor.apply()
     }
 
@@ -62,7 +63,8 @@ class SharedPreference(context : Context){
         //timeslot must be a string to put it in preferences
         // TODO: test if is sufficient method toString()
         //  it should be converted to a JSON first
-        editor.putString(title, timeslot.toString())
+        val timeslotJson = Gson().toJson(timeslot)
+        editor.putString(title, timeslotJson)
         editor.apply()
     }
 

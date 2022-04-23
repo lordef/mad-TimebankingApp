@@ -1,11 +1,13 @@
 package it.polito.mad.lab02.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.Fragment
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.SharedPreference
+import it.polito.mad.lab02.models.TimeSlotDetailsModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,7 +19,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TimeSlotEditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TimeSlotEditFragment : Fragment() {
+class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
+    /*
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -57,4 +60,34 @@ class TimeSlotEditFragment : Fragment() {
                 }
             }
     }
+*/
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        val button = view.findViewById<Button>(R.id.button)
+        button.setOnClickListener(View.OnClickListener { addSP() })
+
+    }
+
+        fun addSP() {
+        val title = view?.findViewById<EditText>(R.id.titleEditText)
+        val description = view?.findViewById<EditText>(R.id.descriptionEditText)
+        val dateTime = view?.findViewById<EditText>(R.id.dateTimeEditText)
+        val duration = view?.findViewById<EditText>(R.id.durationEditText)
+        val location = view?.findViewById<EditText>(R.id.locationEditText)
+        val obj = TimeSlotDetailsModel(
+            title?.text.toString(),
+            description?.text.toString(),
+            dateTime?.text.toString(),
+            duration?.text.toString(),
+            location?.text.toString()
+        )
+        val sp = this.context?.let { SharedPreference(it) }
+        if (sp != null) {
+            if (title != null) {
+                sp.setTimeSlotDetails(title.text.toString(), obj)
+            }
+        }
+    }
+
 }
