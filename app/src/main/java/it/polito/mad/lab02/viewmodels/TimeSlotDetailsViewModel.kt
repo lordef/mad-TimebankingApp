@@ -1,6 +1,8 @@
 package it.polito.mad.lab02.viewmodels
 
+import android.app.Application
 import android.widget.TextView
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,48 +13,18 @@ import it.polito.mad.lab02.models.TimeSlotDetailsModel
 import kotlin.concurrent.thread
 
 //TODO: work in progress
-class TimeSlotDetailsViewModel: ViewModel() {
+class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(application) {
 
     // We have not a DB => No repository
+    // => we suppose that SharedPreferences is our persistence data layer
     //Try to retrieve data from shared preferences
-    /*
-    val pref = this.context?.let { SharedPreference(it) }
-    val gson = Gson()
-    val json = pref?.getTimeSlotDetails(title)
-    if (!json.equals("")) {
-        val obj = gson.fromJson(json, TimeSlotDetailsModel::class.java)
-        // Put it into the TextViews
-        val title = view.findViewById<TextView>(R.id.titleTextView)
-        val description = view.findViewById<TextView>(R.id.descriptionTextView)
-        val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
-        val duration = view.findViewById<TextView>(R.id.durationTextView)
-        val location = view.findViewById<TextView>(R.id.locationTextView)
+    //TODO: test if application works as context for preferences
+    val sharedPreferences = SharedPreference(application)
 
-        if (obj !== null) {
-            title.text = obj.title
-            description.text = obj.description
-            dateTime.text = obj.dateTime
-            duration.text = obj.duration
-            location.text = obj.location
-        }
-    }*/
-
-    //----
-    // Temp data to create a TimeSlotDetailsModel
-    val obj = TimeSlotDetailsModel(
-        title = "new title FROM VM",
-        description = "new desc",
-        dateTime = "new date and time",
-        duration = "new duration",
-        location = "new location"
-    )
-    //----
-
-    //    val value: LiveData<Int> = repo.count()
-    //    val items: LiveData<List<Item>> = repo.items()
     private val timeSlotDetailsModel = MutableLiveData<TimeSlotDetailsModel>()
-        .also { it.value = obj }
-
+        .also {
+            it.value = sharedPreferences.getTimeSlotDetails("placeholder_title") //TODO
+        }
 
     fun getTimeSlotDetails(): MutableLiveData<TimeSlotDetailsModel> {
         return timeSlotDetailsModel

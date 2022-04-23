@@ -4,7 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.ProfileModel
 import it.polito.mad.lab02.models.TimeSlotDetailsModel
+import java.sql.Time
 
+//TODO: change name in SharedPreferences
 class SharedPreference(context : Context){
 
     private val PREFERENCE_NAME = "SharedPreference"
@@ -30,30 +32,37 @@ class SharedPreference(context : Context){
         return pref.getString(PREFERENCE_PROFILE, json)
     }
 
-    fun setProfile(profile: String){
+    fun setProfile(profile: ProfileModel){
         val editor = pref.edit()
-        editor.putString(PREFERENCE_PROFILE, profile)
+        //profile must be a string to put it in preferences
+        // TODO: test if is sufficient method toString()
+        //  it should be converted to a JSON first
+        editor.putString(PREFERENCE_PROFILE, profile.toString())
         editor.apply()
     }
 
     // get/set timeslot details
-    fun getTimeSlotDetails(title: String) : String? {
+    fun getTimeSlotDetails(title: String) : TimeSlotDetailsModel? {
 
-        val obj = TimeSlotDetailsModel(
-            title = "new title",
+        val defaultTimeSlotDetails = TimeSlotDetailsModel(
+            title = "new title - static obj from SharedPreferences",
             description = "new desc",
             dateTime = "new date and time",
             duration = "new duration",
             location = "new location"
         )
-        val gson = Gson()
-        val json = gson.toJson(obj)
-        return pref.getString(title, json)
+        val defaultTimeSlotDetailsJson = Gson().toJson(defaultTimeSlotDetails)
+        val timeSlotDetailsJson = pref.getString(title, defaultTimeSlotDetailsJson)
+        val timeSlotDetails = Gson().fromJson(timeSlotDetailsJson, TimeSlotDetailsModel::class.java)
+        return timeSlotDetails
     }
 
-    fun setTimeSlotDetails(title: String, timeslot: String){
+    fun setTimeSlotDetails(title: String, timeslot: TimeSlotDetailsModel){
         val editor = pref.edit()
-        editor.putString(title, timeslot)
+        //timeslot must be a string to put it in preferences
+        // TODO: test if is sufficient method toString()
+        //  it should be converted to a JSON first
+        editor.putString(title, timeslot.toString())
         editor.apply()
     }
 

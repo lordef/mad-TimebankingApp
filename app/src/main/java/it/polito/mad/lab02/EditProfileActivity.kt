@@ -385,7 +385,9 @@ class EditProfileActivity : AppCompatActivity() {
 
         val gson = Gson()
         val json = gson.toJson(obj)
-        pref.setProfile(json)
+
+        //TODO: it was json and not obj, but now setProfile take a ProfileModel
+        pref.setProfile(obj)
     }
 
 }
