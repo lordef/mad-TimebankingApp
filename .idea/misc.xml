@@ -45,7 +45,11 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="app/src/main/res/drawable/default_profile_image.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slot_details.xml" value="0.20471014492753623" />
+        <entry key="app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.20471014492753623" />
       </map>
     </option>
   </component>

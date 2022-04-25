@@ -1,16 +1,10 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
-import it.polito.mad.lab02.models.TimeSlotDetailsModel
-import kotlin.concurrent.thread
+import it.polito.mad.lab02.models.TimeSlot
 
 //TODO: work in progress
 class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(application) {
@@ -21,21 +15,21 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
     //TODO: test if application works as context for preferences
     val sharedPreferences = SharedPreference(application)
 
-    private val timeSlotDetailsModel = MutableLiveData<TimeSlotDetailsModel>()
+    private val timeSlotDetails = MutableLiveData<TimeSlot>()
         /*.also {
             it.value = sharedPreferences.getTimeSlotDetails("placeholder_title") //TODO
         }*/
 
-    fun getTimeSlotDetails(title : String): MutableLiveData<TimeSlotDetailsModel> {
-        timeSlotDetailsModel.also {
+    fun getTimeSlotDetails(title : String): MutableLiveData<TimeSlot> {
+        timeSlotDetails.also {
             it.value = sharedPreferences.getTimeSlotDetails(title) //TODO
         }
-        return timeSlotDetailsModel
+        return timeSlotDetails
     }
 
     //TODO: update method for single field?
-    fun update(title: String, newObj: TimeSlotDetailsModel){
-        timeSlotDetailsModel.value = newObj
+    fun update(title: String, newObj: TimeSlot){
+        timeSlotDetails.value = newObj
 
         //sharedPreferences.setTimeSlotDetails(title, newObj)
 

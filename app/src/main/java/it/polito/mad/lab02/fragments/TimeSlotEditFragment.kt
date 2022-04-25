@@ -7,7 +7,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
-import it.polito.mad.lab02.models.TimeSlotDetailsModel
+import it.polito.mad.lab02.models.TimeSlot
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,13 +69,13 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     }
 
-        fun addSP() {
+    fun addSP() {
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val dateTime = view?.findViewById<EditText>(R.id.dateTimeEditText)
         val duration = view?.findViewById<EditText>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
-        val obj = TimeSlotDetailsModel(
+        val obj = TimeSlot(
             title?.text.toString(),
             description?.text.toString(),
             dateTime?.text.toString(),

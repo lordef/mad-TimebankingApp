@@ -23,7 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import com.google.gson.Gson
-import it.polito.mad.lab02.models.ProfileModel
+import it.polito.mad.lab02.models.Profile
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
@@ -373,7 +373,7 @@ class EditProfileActivity : AppCompatActivity() {
         val location = findViewById<EditText>(R.id.locationEditText)
         val skills = findViewById<EditText>(R.id.skillEditText)
         val description = findViewById<EditText>(R.id.descriptionEditText)
-        val obj = ProfileModel(
+        val obj = Profile(
             imageUri = imgUri.toString(),
             fullName = fullName.text.toString(),
             nickname = nickname.text.toString(),
