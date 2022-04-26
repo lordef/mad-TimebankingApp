@@ -12,6 +12,9 @@
     <string name="balanceLabel">Balance</string>
     <string name="balanceValue">0h</string>
 
+    <string name="drawer_header_title">Android Studio</string>
+
+
 
     <!-- Labels -->
     <string name="fullNameLabel">Full Name</string>
@@ -35,5 +38,10 @@
     <string name="commitItem">Confirm</string>
     <string name="selectImageOption">Select an image from the phone gallery</string>
     <string name="useCameraOption">Use the camera to take a picture</string>
+
+    <!-- section in side bar -->
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 
 </resources>
