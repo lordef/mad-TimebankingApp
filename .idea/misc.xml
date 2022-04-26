@@ -4,13 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout-land/activity_show_profile.xml" value="0.31040564373897706" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/activity_edit_profile.xml" value="0.36277173913043476" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/activity_main.xml" value="0.34646739130434784" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/activity_show_profile.xml" value="0.34646739130434784" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.34646739130434784" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/menu/pencil_menu.xml" value="0.3175925925925926" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3285" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/border_shape.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
@@ -45,6 +38,20 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/drawable/cicular_profile_image.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.126" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/activity_main.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/activity_show_profile.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/app_bar_main.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/content_main.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/drawer_header.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/drawer_top.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_advertisements.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_profile.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/camera_menu.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/commit_menu.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/drawer_menu.xml" value="0.375" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/pencil_menu.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/drawable/default_profile_image.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
