@@ -14,23 +14,13 @@ class SharedPreference(context: Context) {
     private val PREFERENCE_NAME = "SharedPreference"
     private val PREFERENCE_PROFILE = "profile"
 
-    //    private val mutableFiles: MutableLiveData<List<File>> = MutableLiveData()
-//    val files: LiveData<List<File>> get() = mutableFiles
-    private val mutableFile: MutableLiveData<File> = MutableLiveData()
-    val file: LiveData<File> get() = mutableFile
-
     /* Retrieve our sort of DB instance (- a simple file) */
     private val sharedPreferences =
         context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
-    private val liveDataSharedPreferences =
-        SharedPreferenceStringLiveData(sharedPreferences, PREFERENCE_PROFILE, PREFERENCE_PROFILE)
 
-
-    //TODO: retrieve profile info if present
-    /*
-    fun profile(): MutableLiveData<Profile> {
-        /*
+    //Retrieve profile info if present
+    fun getProfile(): Profile {
         val defaultProfileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
         val defaultProfile = Profile(
             imageUri = defaultProfileImage,
@@ -47,41 +37,6 @@ class SharedPreference(context: Context) {
         val profileJson = sharedPreferences.getString(PREFERENCE_PROFILE, defaultProfileJson)
         val profile = Gson().fromJson(profileJson, Profile::class.java)
         return profile
-        */
-
-        val profileFromPref = SharedPreferenceStringLiveData(
-            sharedPreferences,
-            PREFERENCE_PROFILE,
-            PREFERENCE_PROFILE
-        )
-        val profileJson = profileFromPref.value
-        //TODO: trying to tranform this LiveDataString into Profile model
-        val profileLiveData: MutableLiveData<Profile> = profileFromPref.value
-        return profileFromPref
-    }
-
-
-    */
-
-//TODO: retrieve list of timeslots if present
-//    fun timeSlots(): MutableLiveData<TimeSlot> =
-
-    // get/set profile
-    fun getProfile(): String? {
-        val profileImage = "android.resource://it.polito.mad.lab02/drawable/profile_image"
-
-        val obj = Profile(
-            imageUri = profileImage,
-            fullName = "",
-            nickname = "",
-            email = "",
-            location = "",
-            skills = "",
-            description = ""
-        )
-        val gson = Gson()
-        val json = gson.toJson(obj)
-        return sharedPreferences.getString(PREFERENCE_PROFILE, json)
     }
 
     fun setProfile(profile: Profile) {
@@ -94,9 +49,13 @@ class SharedPreference(context: Context) {
         editor.apply()
     }
 
-    // get/set timeslot details
-    fun getTimeSlotDetails(title: String): TimeSlot? {
 
+//TODO: retrieve list of timeslots if present
+//    fun timeSlots(): MutableLiveData<TimeSlot> =
+
+
+    // get/set timeslot details
+    fun getTimeSlot(title: String): TimeSlot? {
         val defaultTimeSlotDetails = TimeSlot(
             title = "new title - static obj from SharedPreferences",
             description = "new desc",
@@ -110,7 +69,7 @@ class SharedPreference(context: Context) {
         return timeSlotDetails
     }
 
-    fun setTimeSlotDetails(title: String, timeslot: TimeSlot) {
+    fun setTimeSlot(title: String, timeslot: TimeSlot) {
         val editor = sharedPreferences.edit()
         //timeslot must be a string to put it in preferences
         // TODO: test if is sufficient method toString()

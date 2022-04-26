@@ -16,24 +16,21 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
     val sharedPreferences = SharedPreference(application)
 
     private val timeSlotDetails = MutableLiveData<TimeSlot>()
-        /*.also {
-            it.value = sharedPreferences.getTimeSlotDetails("placeholder_title") //TODO
-        }*/
 
-    fun getTimeSlotDetails(title : String): MutableLiveData<TimeSlot> {
+    fun getTimeSlot(title : String): MutableLiveData<TimeSlot> {
         timeSlotDetails.also {
-            it.value = sharedPreferences.getTimeSlotDetails(title) //TODO
+            it.value = sharedPreferences.getTimeSlot(title)
         }
         return timeSlotDetails
     }
 
     //TODO: update method for single field?
-    fun update(title: String, newObj: TimeSlot){
-        timeSlotDetails.value = newObj
+    fun updateTimeSlot(title: String, newTS: TimeSlot){
+        timeSlotDetails.value = newTS
 
-        //sharedPreferences.setTimeSlotDetails(title, newObj)
+        sharedPreferences.setTimeSlot(title, newTS)
 
-        //TODO: update the persistence layer
+        //TODO: update the persistence layer -> is thread useful?
         /*
         thread {
             repo.add("item${value.value}")

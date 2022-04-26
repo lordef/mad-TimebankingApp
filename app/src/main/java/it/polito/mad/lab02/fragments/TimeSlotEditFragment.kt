@@ -64,6 +64,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener(View.OnClickListener { addSP() })
 
@@ -85,7 +86,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val sp = this.context?.let { SharedPreference(it) }
         if (sp != null) {
             if (title != null) {
-                sp.setTimeSlotDetails(title.text.toString(), obj)
+                sp.setTimeSlot(title.text.toString(), obj)
             }
         }
     }

@@ -23,12 +23,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        var obj: TimeSlot
+        var timeSlot: TimeSlot
 
         //TODO: trying to retrieve content from ViewModel
-        vm.getTimeSlotDetails(title).observe(viewLifecycleOwner) { tsd ->
+        vm.getTimeSlot(title).observe(viewLifecycleOwner) { ts ->
             // update UI
-            obj = tsd
+            timeSlot = ts
 
             // Put it into the TextViews
             val title = view.findViewById<TextView>(R.id.titleTextView)
@@ -37,11 +37,11 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             val duration = view.findViewById<TextView>(R.id.durationTextView)
             val location = view.findViewById<TextView>(R.id.locationTextView)
 
-            title.text = obj.title
-            description.text = obj.description
-            dateTime.text = obj.dateTime
-            duration.text = obj.duration
-            location.text = obj.location
+            title.text = timeSlot.title
+            description.text = timeSlot.description
+            dateTime.text = timeSlot.dateTime
+            duration.text = timeSlot.duration
+            location.text = timeSlot.location
 
         }
 
