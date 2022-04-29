@@ -42,9 +42,9 @@ class ShowProfileActivity : AppCompatActivity() {
         // Retrieve json object of class ProfileClass
         val pref = SharedPreference(this)
         val gson = Gson()
-        val json = pref.getProfile()
-        if (!json.equals("")) {
-            val obj = gson.fromJson(json, Profile::class.java)
+        val obj = pref.getProfile()
+        if (!obj.equals("")) {
+            //val obj = gson.fromJson(json, Profile::class.java)
             // Put it into the TextViews
             val profileImage = findViewById<ImageView>(R.id.profileImageView)
             val fullName = findViewById<TextView>(R.id.fullNameTextView)

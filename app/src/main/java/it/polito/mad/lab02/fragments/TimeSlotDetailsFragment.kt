@@ -18,24 +18,20 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
 
-    private val title = "profile"
+    private val timeSlotTitle = "profile"   //TODO : change title
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        var timeSlot: TimeSlot
+        val title = view.findViewById<TextView>(R.id.titleTextView)
+        val description = view.findViewById<TextView>(R.id.descriptionTextView)
+        val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
+        val duration = view.findViewById<TextView>(R.id.durationTextView)
+        val location = view.findViewById<TextView>(R.id.locationTextView)
 
         //TODO: trying to retrieve content from ViewModel
-        vm.getTimeSlot(title).observe(viewLifecycleOwner) { ts ->
+        vm.getTimeSlot(timeSlotTitle).observe(viewLifecycleOwner) { timeSlot ->
             // update UI
-            timeSlot = ts
-
-            // Put it into the TextViews
-            val title = view.findViewById<TextView>(R.id.titleTextView)
-            val description = view.findViewById<TextView>(R.id.descriptionTextView)
-            val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
-            val duration = view.findViewById<TextView>(R.id.durationTextView)
-            val location = view.findViewById<TextView>(R.id.locationTextView)
 
             title.text = timeSlot.title
             description.text = timeSlot.description

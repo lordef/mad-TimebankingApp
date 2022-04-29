@@ -40,8 +40,8 @@
     <string name="useCameraOption">Use the camera to take a picture</string>
 
     <!-- section in side bar -->
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_advertisement">Advertisement</string>
     <string name="menu_slideshow">Slideshow</string>
 
     <!-- TimeSlotDetailsFragment labels -->
