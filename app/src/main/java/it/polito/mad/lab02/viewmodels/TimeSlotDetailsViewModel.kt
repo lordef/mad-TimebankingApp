@@ -13,7 +13,7 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
     // => we suppose that SharedPreferences is our persistence data layer
     //Try to retrieve data from shared preferences
     //TODO: test if application works as context for preferences
-    val sharedPreferences = SharedPreference(application)
+    private val sharedPreferences = SharedPreference(application)
 
     private val timeSlotDetails = MutableLiveData<TimeSlot>()
 
@@ -26,8 +26,10 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
 
     //TODO: update method for single field?
     fun updateTimeSlot(title: String, newTS: TimeSlot){
+        // Update View Model
         timeSlotDetails.value = newTS
 
+        // Update persistence layer
         sharedPreferences.setTimeSlot(title, newTS)
 
         //TODO: update the persistence layer -> is thread useful?
