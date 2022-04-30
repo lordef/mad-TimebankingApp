@@ -9,15 +9,20 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
+
+    private val vm by viewModels<TimeSlotDetailsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +36,12 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         putDatePicker()
         putTimePicker()
 
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
 
