@@ -1,13 +1,18 @@
 package it.polito.mad.lab02.fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,18 +73,46 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener(View.OnClickListener { addSP() })
 
+        val displayDateTextView = view.findViewById<TextView>(R.id.dateEdit)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        displayDateTextView.setOnClickListener(View.OnClickListener {
+
+
+            val dialog = DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, month, day ->
+                displayDateTextView.text = "" + day + "/" + month + "/" + year
+            }, year, month, day)
+
+            dialog.show()
+
+        })
+
+        val displayTimeTextView = view.findViewById<TextView>(R.id.timeEdit)
+        displayTimeTextView.setOnClickListener {
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                displayTimeTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
+            }
+            TimePickerDialog(this.context, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+        }
+
     }
 
     fun addSP() {
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
-        val dateTime = view?.findViewById<EditText>(R.id.dateTimeEditText)
+        val date = view?.findViewById<TextView>(R.id.dateEdit)
+        val time = view?.findViewById<TextView>(R.id.timeEdit)
+        val dateTime = "" + date.toString() + " " + time.toString()
         val duration = view?.findViewById<EditText>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
         val obj = TimeSlot(
             title?.text.toString(),
             description?.text.toString(),
-            dateTime?.text.toString(),
+            dateTime,
             duration?.text.toString(),
             location?.text.toString()
         )
