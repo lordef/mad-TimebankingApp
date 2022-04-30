@@ -93,7 +93,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     }
 
-    fun editTimeSlot() : Bundle{
+    private fun editTimeSlot() : Bundle{
         val title = view?.findViewById<TextView>(R.id.titleTextView)
         val description = view?.findViewById<TextView>(R.id.descriptionTextView)
         val dateTime = view?.findViewById<TextView>(R.id.dateTimeTextView)
@@ -110,11 +110,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             location?.text.toString()
         )
 
-        bundle.putString("timeSlotTitle", timeslot.title)
-        bundle.putString("timeSlotDescription", timeslot.description)
-        bundle.putString("timeSlotDateTime", timeslot.dateTime)
-        bundle.putString("timeSlotDuration", timeslot.duration)
-        bundle.putString("timeSlotLocation", timeslot.location)
+        val timeslotJson = Gson().toJson(timeslot)
+        bundle.putString("JSON", timeslotJson.toString())
 
         return bundle
     }

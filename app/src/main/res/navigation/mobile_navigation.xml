@@ -34,5 +34,9 @@
         android:id="@+id/timeSlotEditFragment"
         android:name="it.polito.mad.lab02.fragments.TimeSlotEditFragment"
         android:label="fragment_time_slot_edit"
-        tools:layout="@layout/fragment_time_slot_edit" />
+        tools:layout="@layout/fragment_time_slot_edit" >
+        <action
+            android:id="@+id/action_timeSlotEditFragment_to_timeSlotDetailsFragment"
+            app:destination="@id/timeSlotDetailsFragment" />
+    </fragment>
 </navigation>
