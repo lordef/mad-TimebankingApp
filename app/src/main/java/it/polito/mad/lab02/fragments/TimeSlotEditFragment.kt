@@ -106,7 +106,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
         val time = view?.findViewById<TextView>(R.id.timeEdit)
-        val dateTime = "" + date.toString() + " " + time.toString()
+        val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<EditText>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
         val obj = TimeSlot(
