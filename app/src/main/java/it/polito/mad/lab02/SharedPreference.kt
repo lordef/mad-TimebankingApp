@@ -67,6 +67,7 @@ class SharedPreference(context: Context) {
                 timeSlotListTemp.add(timeSlotDetails)
             }
         }
+        println(timeSlotListTemp)
         return timeSlotListTemp
     }
 

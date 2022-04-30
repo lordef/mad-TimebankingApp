@@ -60,12 +60,26 @@
 
             <TextView
                 android:id="@+id/card_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/calendar_24"
                 android:drawablePadding="8dp"
                 android:text="@string/timeslotDateTimeLabel" />
+
+            <Button
+                android:id="@+id/edit_timeSlot_button"
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/edit_timeSlot"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16sp"
+                card_view:icon="@drawable/ic_pencil_icon"
+                card_view:iconGravity="textStart"
+                card_view:iconPadding="8dp" />
 
         </LinearLayout>
 

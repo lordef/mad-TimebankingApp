@@ -40,11 +40,14 @@ class TimeSlotsListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_time_slots_list_list, container, false)
 
+        /*
         val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+
         fab.setOnClickListener {
             it.findNavController()
                 .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
         }
+        */
 
         // Set the adapter
         if (view is RecyclerView) {
