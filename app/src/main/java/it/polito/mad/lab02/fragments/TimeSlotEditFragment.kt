@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
@@ -69,6 +70,25 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        val timeSlotReceived = arguments?.get("timeSlotToEdit")
+
+        val timeSlotDetailsJson = Gson().toJson(timeSlotReceived)
+        val timeSlotDetails = Gson().fromJson(timeSlotDetailsJson, TimeSlot::class.java)
+
+        val title = view.findViewById<TextView>(R.id.titleEditText)
+        val description = view.findViewById<TextView>(R.id.descriptionEditText)
+        val date = view.findViewById<TextView>(R.id.dateEdit)
+        val time = view.findViewById<TextView>(R.id.timeEdit)
+        val duration = view.findViewById<TextView>(R.id.durationEditText)
+        val location = view.findViewById<TextView>(R.id.locationEditText)
+
+        title.text = timeSlotDetails.title
+        description.text = timeSlotDetails.description
+        date.text = timeSlotDetails.dateTime.split(" ")[0].toString()
+        time.text = timeSlotDetails.dateTime.split(" ")[1].toString()
+        duration.text = timeSlotDetails.duration
+        location.text = timeSlotDetails.location
 
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener(View.OnClickListener { addSP() })

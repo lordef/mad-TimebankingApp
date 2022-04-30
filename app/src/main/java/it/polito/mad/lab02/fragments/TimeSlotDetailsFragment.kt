@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
@@ -81,12 +82,42 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             R.id.editItem -> {
                 Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT).show()
                 // TODO: manage transition to TimeSlotEditFragment
-                findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_timeSlotEditFragment)
+                val bundle = editTimeSlot()
+                findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_timeSlotEditFragment, bundle)
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
+    }
+
+    fun editTimeSlot() : Bundle{
+        val title = view?.findViewById<TextView>(R.id.titleTextView)
+        val description = view?.findViewById<TextView>(R.id.descriptionTextView)
+        val dateTime = view?.findViewById<TextView>(R.id.dateTimeTextView)
+        val duration = view?.findViewById<TextView>(R.id.durationTextView)
+        val location = view?.findViewById<TextView>(R.id.locationTextView)
+
+        val bundle = Bundle()
+
+        val timeslot = TimeSlot(
+            title?.text.toString(),
+            description?.text.toString(),
+            dateTime?.text.toString(),
+            duration?.text.toString(),
+            location?.text.toString()
+        )
+
+        val timeslotJson = Gson().toJson(timeslot).toString()
+
+        bundle.putString("timeSlotToEdit", timeslotJson)
+        //bundle.put()
+
+        return bundle
+//        val editFragment = TimeSlotEditFragment()
+//        editFragment.arguments = bundle
+//        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_content_main, editFragment)?.commit()
     }
 
 
