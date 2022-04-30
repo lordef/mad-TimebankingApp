@@ -55,13 +55,13 @@ class SharedPreference(context: Context) {
     fun getTimeSlots(): MutableList<TimeSlot>? {
         val timeSlotListTemp = mutableListOf<TimeSlot>()
         val defaultTimeSlotListDetails = TimeSlotList(
-            listOf("")
+            listOf()
         )
         val defaultTimeSlotListJson = Gson().toJson(defaultTimeSlotListDetails)
         val timeSlotListJson = sharedPreferences.getString("TimeSlotList", defaultTimeSlotListJson)
         val timeSlotList = Gson().fromJson(timeSlotListJson, TimeSlotList::class.java)
         for (id in timeSlotList.timeSlotIdList){
-            val timeSlotDetailsJson = sharedPreferences.getString(id, "")
+            val timeSlotDetailsJson = sharedPreferences.getString("timeSlot_$id", "")
             if(timeSlotDetailsJson != ""){
                 val timeSlotDetails = Gson().fromJson(timeSlotDetailsJson, TimeSlot::class.java)
                 timeSlotListTemp.add(timeSlotDetails)
@@ -72,7 +72,7 @@ class SharedPreference(context: Context) {
 
 
     // get/set timeslot details
-    fun getTimeSlot(title: String): TimeSlot? {
+    fun getTimeSlot(id: String): TimeSlot? {
         val defaultTimeSlotDetails = TimeSlot(
             title = "new title - static obj from SharedPreferences",
             description = "new desc",
@@ -81,7 +81,7 @@ class SharedPreference(context: Context) {
             location = "new location"
         )
         val defaultTimeSlotDetailsJson = Gson().toJson(defaultTimeSlotDetails)
-        val timeSlotDetailsJson = sharedPreferences.getString(title, defaultTimeSlotDetailsJson)
+        val timeSlotDetailsJson = sharedPreferences.getString("timeSlot_$id", defaultTimeSlotDetailsJson)
         val timeSlotDetails = Gson().fromJson(timeSlotDetailsJson, TimeSlot::class.java)
         return timeSlotDetails
     }
@@ -91,9 +91,28 @@ class SharedPreference(context: Context) {
         //timeslot must be a string to put it in preferences
         // TODO: test if is sufficient method toString()
         //  it should be converted to a JSON first
-        val timeslotJson = Gson().toJson(timeslot)
-        editor.putString(title, timeslotJson)
+
+        val defaultTimeSlotListDetails = TimeSlotList(
+            listOf()
+        )
+        val defaultTimeSlotListJson = Gson().toJson(defaultTimeSlotListDetails)
+        var timeSlotListJson = sharedPreferences.getString("TimeSlotList", defaultTimeSlotListJson)
+        val timeSlotList = Gson().fromJson(timeSlotListJson, TimeSlotList::class.java)
+        val timeSlotListTemp = timeSlotList.timeSlotIdList.toMutableList()
+        val last = timeSlotList.timeSlotIdList.lastOrNull()
+        var max = 0
+        if(last != null){
+            max = last.toInt() + 1
+        }
+        timeSlotListTemp.add(max.toString())
+        timeSlotListJson = Gson().toJson(TimeSlotList(timeSlotListTemp.toList()))
+        editor.putString("TimeSlotList", timeSlotListJson)
         editor.apply()
+
+        val timeslotJson = Gson().toJson(timeslot)
+        editor.putString("timeSlot_${max}", timeslotJson)
+        editor.apply()
+
     }
 
 
