@@ -57,11 +57,11 @@ class SharedPreference(context: Context) {
     // get/set timeslot details
     fun getTimeSlot(title: String): TimeSlot? {
         val defaultTimeSlotDetails = TimeSlot(
-            title = "new title - static obj from SharedPreferences",
-            description = "new desc",
-            dateTime = "new date and time",
-            duration = "new duration",
-            location = "new location"
+            title = "dummy title",
+            description = "this is a description",
+            dateTime = "01/01/1900 00:00",
+            duration = "dummy duration",
+            location = "dummy location"
         )
         val defaultTimeSlotDetailsJson = Gson().toJson(defaultTimeSlotDetails)
         val timeSlotDetailsJson = sharedPreferences.getString(title, defaultTimeSlotDetailsJson)

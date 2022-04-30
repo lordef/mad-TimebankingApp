@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 
@@ -109,15 +110,13 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             location?.text.toString()
         )
 
-        val timeslotJson = Gson().toJson(timeslot).toString()
-
-        bundle.putString("timeSlotToEdit", timeslotJson)
-        //bundle.put()
+        bundle.putString("timeSlotTitle", timeslot.title)
+        bundle.putString("timeSlotDescription", timeslot.description)
+        bundle.putString("timeSlotDateTime", timeslot.dateTime)
+        bundle.putString("timeSlotDuration", timeslot.duration)
+        bundle.putString("timeSlotLocation", timeslot.location)
 
         return bundle
-//        val editFragment = TimeSlotEditFragment()
-//        editFragment.arguments = bundle
-//        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_content_main, editFragment)?.commit()
     }
 
 
