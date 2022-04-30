@@ -90,7 +90,7 @@
                     android:drawablePadding="10dp"
                     android:text="@string/timeslotDescriptionLabel"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:drawableStartCompat="@drawable/ic_location_icon" />
+                    app:drawableStartCompat="@drawable/ic_description_icon" />
 
                 <TextView
                     android:id="@+id/descriptionTextView"
@@ -129,7 +129,7 @@
                     android:drawablePadding="10dp"
                     android:text="@string/timeslotDateTimeLabel"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:drawableStartCompat="@drawable/ic_skills_icon" />
+                    app:drawableStartCompat="@drawable/ic_clock_icon" />
 
                 <TextView
                     android:id="@+id/dateTimeTextView"
@@ -169,7 +169,7 @@
                     android:drawablePadding="10dp"
                     android:text="@string/timeslotDurationLabel"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:drawableStartCompat="@drawable/ic_description_icon" />
+                    app:drawableStartCompat="@drawable/ic_hourglasses_icon" />
 
                 <TextView
                     android:id="@+id/durationTextView"
