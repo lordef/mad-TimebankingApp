@@ -21,7 +21,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
 
-    private val timeSlotTitle = "profile"   //TODO : change title
+    private val timeSlotTitle = "profile"   //TODO : put it inside and retrieve it from the bundle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)

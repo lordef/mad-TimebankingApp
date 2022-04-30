@@ -38,6 +38,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
+                // TODO: pass the bundle, with only the title string
                 findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment)
             }
         }
