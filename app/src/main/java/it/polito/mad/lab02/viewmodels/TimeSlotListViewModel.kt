@@ -5,17 +5,23 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import it.polito.mad.lab02.SharedPreference
+import it.polito.mad.lab02.models.Profile
+import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.TimeSlotList
 
 class TimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
-    /*****************************/
-    /* TODO: remove older and useless code */
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Advertisement Fragment"
+
+    //Retrieve data from shared preferences
+    private val sharedPreferences = SharedPreference(application)
+
+    private val timeSlotList = MutableLiveData<MutableList<TimeSlot>>()
+
+    fun getTimeSlotList(): MutableLiveData<MutableList<TimeSlot>> {
+        timeSlotList.also {
+            it.value = sharedPreferences.getTimeSlots()
+        }
+        return timeSlotList
     }
-    val text: LiveData<String> = _text
-    /*****************************/
-
-    //TODO: interaction with shared preferences
-
 
 }

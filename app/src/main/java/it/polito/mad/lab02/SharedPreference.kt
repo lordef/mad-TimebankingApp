@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.TimeSlotList
 import java.io.File
 
 //TODO: change name in SharedPreferences
@@ -50,8 +51,24 @@ class SharedPreference(context: Context) {
     }
 
 
-//TODO: retrieve list of timeslots if present
-//    fun timeSlots(): MutableLiveData<TimeSlot> =
+    //Retrieve list of timeslots if present
+    fun getTimeSlots(): MutableList<TimeSlot>? {
+        val timeSlotListTemp = mutableListOf<TimeSlot>()
+        val defaultTimeSlotListDetails = TimeSlotList(
+            listOf("")
+        )
+        val defaultTimeSlotListJson = Gson().toJson(defaultTimeSlotListDetails)
+        val timeSlotListJson = sharedPreferences.getString("TimeSlotList", defaultTimeSlotListJson)
+        val timeSlotList = Gson().fromJson(timeSlotListJson, TimeSlotList::class.java)
+        for (id in timeSlotList.timeSlotIdList){
+            val timeSlotDetailsJson = sharedPreferences.getString(id, "")
+            if(timeSlotDetailsJson != ""){
+                val timeSlotDetails = Gson().fromJson(timeSlotDetailsJson, TimeSlot::class.java)
+                timeSlotListTemp.add(timeSlotDetails)
+            }
+        }
+        return timeSlotListTemp
+    }
 
 
     // get/set timeslot details

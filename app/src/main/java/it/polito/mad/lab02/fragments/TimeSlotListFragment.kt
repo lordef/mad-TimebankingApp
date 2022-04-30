@@ -30,9 +30,11 @@ class TimeSlotListFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textAdvertisements
+        /*
         advertisementsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        */
         return root
     }
 
