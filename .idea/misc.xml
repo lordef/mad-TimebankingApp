@@ -40,6 +40,8 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/drawable/cicular_profile_image.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.126" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout-land/activity_show_profile.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout-land/fragment_profile.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/activity_main.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/activity_show_profile.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/app_bar_main.xml" value="0.3255208333333333" />
@@ -48,6 +50,9 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/drawer_top.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_advertisements.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_profile.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.325" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.325" />
+        <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.325" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/camera_menu.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/commit_menu.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/group07_lab3/app/src/main/res/menu/drawer_menu.xml" value="0.375" />
