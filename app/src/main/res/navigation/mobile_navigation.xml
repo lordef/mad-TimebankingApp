@@ -9,7 +9,7 @@
         android:id="@+id/nav_profile"
         android:name="it.polito.mad.lab02.fragments.ShowProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_show_profile" />
 
     <fragment
         android:id="@+id/nav_advertisement"

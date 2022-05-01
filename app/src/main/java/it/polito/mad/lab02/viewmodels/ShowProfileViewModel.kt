@@ -9,7 +9,7 @@ import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class ShowProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     val sharedPreferences = SharedPreference(application)
 

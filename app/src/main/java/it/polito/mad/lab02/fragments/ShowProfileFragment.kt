@@ -6,29 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
-import it.polito.mad.lab02.viewmodels.ProfileViewModel
-import it.polito.mad.lab02.databinding.FragmentProfileBinding
-import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
+import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
 
 class ShowProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentShowProfileBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by viewModels<ProfileViewModel>()
+    private val vm by viewModels<ShowProfileViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
@@ -38,15 +31,10 @@ class ShowProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+            ViewModelProvider(this).get(ShowProfileViewModel::class.java)
 
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentShowProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        /*val textView: TextView = binding.textProfile
-        profileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
 
         /* Divide screen in 1/3 and 2/3 */
         val firstLayout = binding.upperConstraintLayout
@@ -85,8 +73,7 @@ class ShowProfileFragment : Fragment() {
             // update UI
             profileImageUri = profile.imageUri
             //TODO
-            //Utils.setUriInImageView(profileImage, Uri.parse(profileImageUri), context?.contentResolver)
-
+            profileImage.setImageURI(Uri.parse(profileImageUri))
             fullName.text = profile.fullName
             nickname.text = profile.nickname
             email.text = profile.email
