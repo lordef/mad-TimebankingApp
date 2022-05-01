@@ -12,9 +12,27 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
+        android:id="@+id/nav_timeSlotDetails"
+        android:name="it.polito.mad.lab02.fragments.TimeSlotDetailsFragment"
+        android:label="fragment_time_slot_details"
+        tools:layout="@layout/fragment_time_slot_details" />
+    <fragment
         android:id="@+id/nav_advertisement"
-        android:name="it.polito.mad.lab02.fragments.TimeSlotListFragment"
+        android:name="it.polito.mad.lab02.fragments.TimeSlotsListFragment"
         android:label="@string/menu_advertisement"
+        tools:layout="@layout/fragment_time_slots_list_list">
+        <action
+            android:id="@+id/action_timeSlotsListFragment_to_timeSlotDetailsFragment"
+            app:destination="@id/nav_timeSlotDetails" />
+        <action
+            android:id="@+id/action_nav_advertisement_to_timeSlotEditFragment"
+            app:destination="@id/nav_timeSlotEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_timeSlotEdit"
+        android:name="it.polito.mad.lab02.fragments.TimeSlotEditFragment"
+        android:label="fragment_time_slot_edit"
+        tools:layout="@layout/fragment_time_slot_edit" />
         tools:layout="@layout/fragment_time_slot_list" >
         <action
             android:id="@+id/action_nav_advertisement_to_timeSlotDetailsFragment"

@@ -4,22 +4,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import it.polito.mad.lab02.databinding.FragmentTimeSlotListBinding
 
-class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
+class TimeSlotListFragment : Fragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        super.onViewCreated(view, savedInstanceState)
+    private var _binding: FragmentTimeSlotListBinding? = null
 
-        val tsb = view.findViewById<Button>(R.id.button3)
-        tsb.setOnClickListener{findNavController().navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment)}
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val advertisementsViewModel =
+            ViewModelProvider(this).get(TimeSlotListViewModel::class.java)
+
+        _binding = FragmentTimeSlotListBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        val textView: TextView = binding.textAdvertisements
+        /*
+        advertisementsViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
+        */
+        return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
