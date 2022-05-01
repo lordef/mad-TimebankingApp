@@ -1,5 +1,6 @@
 package it.polito.mad.lab02.fragments
 
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot
@@ -29,11 +31,17 @@ class TimeSlotsListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(values[position],
             {
+                val bundle = Bundle()
+                val timeslotJson = Gson().toJson(values[position])
+                bundle.putString("JSON", timeslotJson.toString())
                 it.findNavController()
-                    .navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment)
+                    .navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment, bundle)
             }, {
+                val bundle = Bundle()
+                val timeslotJson = Gson().toJson(values[position])
+                bundle.putString("JSON", timeslotJson.toString())
                 it.findNavController()
-                    .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
+                    .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment, bundle)
             })
 
     }

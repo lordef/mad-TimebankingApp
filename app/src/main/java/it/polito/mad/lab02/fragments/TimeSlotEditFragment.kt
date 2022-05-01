@@ -9,8 +9,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
@@ -69,9 +72,10 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val timeslot = arguments?.getString("JSON")
         if(timeslot == null){
             edit = -1
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
             return
         }
-
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
         val timeSlotDetailsString = JSONObject(timeslot).toString()
         val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
         edit = timeSlotDetails.id.toInt()
