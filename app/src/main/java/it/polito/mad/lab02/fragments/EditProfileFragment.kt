@@ -13,17 +13,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.google.gson.Gson
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
@@ -35,6 +39,8 @@ import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.logging.Logger
+import kotlin.concurrent.fixedRateTimer
 
 
 class EditProfileFragment : Fragment() {
@@ -88,6 +94,68 @@ class EditProfileFragment : Fragment() {
 
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
+
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val bundle = showProfile()
+                view?.let {
+                    setFragmentResult("12", bundle)
+                    //Navigation.findNavController(it).previousBackStackEntry?.savedStateHandle?.set("JSON", bundle)
+                    Navigation.findNavController(it).popBackStack()
+                    /*
+                        Navigation.findNavController(it).navigate(
+                            R.id.action_nav_profile_to_editProfileFragment,
+                            bundle
+                        )
+                        */
+                }
+                //Navigation.findNavController(view).navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            /*
+            R.id.editItem -> {
+                Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
+                    .show()
+                val bundle = showProfile()
+                view?.let {
+                    Navigation.findNavController(it).previousBackStackEntry?.savedStateHandle?.set("JSON", bundle)
+                    Navigation.findNavController(it).popBackStack()
+                /*
+                    Navigation.findNavController(it).navigate(
+                        R.id.action_nav_profile_to_editProfileFragment,
+                        bundle
+                    )
+                    */
+                }
+
+                true
+            }
+            */
+            android.R.id.home -> {
+                val bundle = showProfile()
+                view?.let {
+                    setFragmentResult("12", bundle)
+                    Navigation.findNavController(it).popBackStack()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
+    private fun showProfile(): Bundle {
+        val bundle = Bundle()
+        val profileJson = Gson().toJson(editProfile())
+        bundle.putString("JSON", profileJson)
+
+        return bundle
     }
 
     override fun onDestroyView() {
@@ -97,7 +165,7 @@ class EditProfileFragment : Fragment() {
 
     private fun getProfileInfoFromShowProfileFragment(){
 
-        val profileInfo = arguments?.getString("JSON")
+        val profileInfo = arguments?.getString("JSON") ?: return
         val profileInfoString = JSONObject(profileInfo).toString()
         val profileInfoDetails = Gson().fromJson(profileInfoString, Profile::class.java)
 
@@ -117,6 +185,26 @@ class EditProfileFragment : Fragment() {
         skillsEditText?.text = profileInfoDetails.skills
         descriptionEditText?.text = profileInfoDetails.description
 
+    }
+
+    private fun editProfile() : Profile{
+        val fullNameEditText = view?.findViewById<EditText>(R.id.fullNameEditText)
+        val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
+        val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
+        val locationEditText = view?.findViewById<TextView>(R.id.locationEditText)
+        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
+        val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
+        val obj = Profile(
+            "",
+            fullNameEditText?.text.toString(),
+            nicknameEditText?.text.toString(),
+            emailEditText?.text.toString(),
+            locationEditText?.text.toString(),
+            skillEditText?.text.toString(),
+            descriptionEditText?.text.toString()
+        )
+        vm.updateProfile(obj)
+        return obj
     }
 
 }

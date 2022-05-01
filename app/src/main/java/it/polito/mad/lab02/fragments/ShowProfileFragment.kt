@@ -3,10 +3,13 @@ package it.polito.mad.lab02.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -15,6 +18,7 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
+import it.polito.mad.lab02.models.Profile
 
 class ShowProfileFragment : Fragment() {
 
@@ -48,7 +52,11 @@ class ShowProfileFragment : Fragment() {
                 binding.mainScrollView
 
         if (secondLayer != null) {
-            Utils.divideDisplayInPortion(firstLayout, secondLayer, resources.configuration.orientation)
+            Utils.divideDisplayInPortion(
+                firstLayout,
+                secondLayer,
+                resources.configuration.orientation
+            )
         }
 
         return root
@@ -66,21 +74,9 @@ class ShowProfileFragment : Fragment() {
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
 
-
-        /*
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                Navigation.findNavController(view).popBackStack(R.id.nav_advertisement,false)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
-        */
-
-        //TODO: trying to retrieve content from ViewModel
         vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
             // update UI
             profileImageUri = profile.imageUri
-            //TODO
             profileImage.setImageURI(Uri.parse(profileImageUri))
             fullName.text = profile.fullName
             nickname.text = profile.nickname
@@ -90,6 +86,34 @@ class ShowProfileFragment : Fragment() {
             description.text = profile.description
 
         }
+
+        /*setFragmentResultListener("12"){requestKey, bundle ->
+            if (bundle != null) {
+                //Log.d("ok", bundle.toString())
+                val profile = Gson().fromJson(bundle.getString("JSON"), Profile::class.java)
+                Log.d("ok", profile.toString())
+                profileImage.setImageURI(Uri.parse(profileImageUri))
+                fullName.text = profile.fullName
+                nickname.text = profile.nickname
+                email.text = profile.email
+                location.text = profile.location
+                skills.text = profile.skills
+                description.text = profile.description
+            }
+        }
+
+         */
+
+
+
+        /*
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view).popBackStack(R.id.nav_advertisement,false)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        */
 
 
         //TODO: old code to manage

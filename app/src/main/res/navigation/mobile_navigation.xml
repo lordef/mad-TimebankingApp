@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="it.polito.mad.lab02.EditProfileFragment"
-        android:label="fragment_edit_profile"
+        android:label="Edit profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment_to_nav_profile"
