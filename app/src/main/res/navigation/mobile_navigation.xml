@@ -29,7 +29,7 @@
         android:label="fragment_time_slot_edit"
         tools:layout="@layout/fragment_time_slot_edit" >
         <action
-            android:id="@+id/action_nav_advertisement_to_timeSlotDetailsFragment"
+            android:id="@+id/action_timeSlotEditFragment_to_timeSlotDetailsFragment"
             app:destination="@id/timeSlotDetailsFragment" />
     </fragment>
 
