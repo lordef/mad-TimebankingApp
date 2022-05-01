@@ -39,7 +39,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 // TODO: pass the bundle, with only the title string
-                findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment)
+                findNavController().navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -49,7 +49,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private fun getTimeSlotFromTimeSlotDetailsFragment(){
 
-        val timeslot = arguments?.getString("JSON")
+        val timeslot = arguments?.getString("JSON") ?: return
         val timeSlotDetailsString = JSONObject(timeslot).toString()
         val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
 

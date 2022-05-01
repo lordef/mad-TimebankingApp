@@ -12,28 +12,22 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_timeSlotDetails"
-        android:name="it.polito.mad.lab02.fragments.TimeSlotDetailsFragment"
-        android:label="fragment_time_slot_details"
-        tools:layout="@layout/fragment_time_slot_details" />
-    <fragment
         android:id="@+id/nav_advertisement"
         android:name="it.polito.mad.lab02.fragments.TimeSlotsListFragment"
         android:label="@string/menu_advertisement"
         tools:layout="@layout/fragment_time_slots_list_list">
         <action
-            android:id="@+id/action_timeSlotsListFragment_to_timeSlotDetailsFragment"
-            app:destination="@id/nav_timeSlotDetails" />
-        <action
             android:id="@+id/action_nav_advertisement_to_timeSlotEditFragment"
             app:destination="@id/nav_timeSlotEdit" />
+        <action
+            android:id="@+id/action_nav_advertisement_to_timeSlotDetailsFragment"
+            app:destination="@id/timeSlotDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_timeSlotEdit"
         android:name="it.polito.mad.lab02.fragments.TimeSlotEditFragment"
         android:label="fragment_time_slot_edit"
-        tools:layout="@layout/fragment_time_slot_edit" />
-        tools:layout="@layout/fragment_time_slot_list" >
+        tools:layout="@layout/fragment_time_slot_edit" >
         <action
             android:id="@+id/action_nav_advertisement_to_timeSlotDetailsFragment"
             app:destination="@id/timeSlotDetailsFragment" />
@@ -45,16 +39,7 @@
         android:label="fragment_time_slot_details"
         tools:layout="@layout/fragment_time_slot_details" >
         <action
-            android:id="@+id/action_timeSlotDetailsFragment_to_timeSlotEditFragment"
-            app:destination="@id/timeSlotEditFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/timeSlotEditFragment"
-        android:name="it.polito.mad.lab02.fragments.TimeSlotEditFragment"
-        android:label="fragment_time_slot_edit"
-        tools:layout="@layout/fragment_time_slot_edit" >
-        <action
-            android:id="@+id/action_timeSlotEditFragment_to_timeSlotDetailsFragment"
-            app:destination="@id/timeSlotDetailsFragment" />
+            android:id="@+id/action_timeSlotDetailsFragment_to_nav_timeSlotEdit"
+            app:destination="@id/nav_timeSlotEdit" />
     </fragment>
 </navigation>

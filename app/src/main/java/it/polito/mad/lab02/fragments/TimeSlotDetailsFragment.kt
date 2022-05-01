@@ -84,7 +84,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT).show()
                 // TODO: manage transition to TimeSlotEditFragment
                 val bundle = editTimeSlot()
-                findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_timeSlotEditFragment, bundle)
+                findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_nav_timeSlotEdit, bundle)
 
                 true
             }

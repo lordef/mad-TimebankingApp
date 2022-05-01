@@ -30,7 +30,7 @@ class TimeSlotsListRecyclerViewAdapter(
         holder.bind(values[position],
             {
                 it.findNavController()
-                    .navigate(R.id.action_timeSlotsListFragment_to_timeSlotDetailsFragment)
+                    .navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment)
             }, {
                 it.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
