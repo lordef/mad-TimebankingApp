@@ -3,12 +3,15 @@ package it.polito.mad.lab02.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.google.gson.Gson
+import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
@@ -64,9 +67,14 @@ class ShowProfileFragment : Fragment() {
         val description = binding.descriptionTextView
 
 
-
-
-
+        /*
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view).popBackStack(R.id.nav_advertisement,false)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        */
 
         //TODO: trying to retrieve content from ViewModel
         vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
@@ -109,6 +117,48 @@ class ShowProfileFragment : Fragment() {
             }
         }
          */
+    }
+
+    /*
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.pencil_menu, menu)
+    }
+    */
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.editItem -> {
+                Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
+                    .show()
+                val bundle = editProfile()
+                view?.let {
+                    Navigation.findNavController(it).navigate(
+                        R.id.action_nav_profile_to_editProfileFragment,
+                        bundle
+                    )
+                }
+
+                true
+            }
+            /*
+            android.R.id.home -> {
+                findNavController().popBackStack(R.id.nav_advertisement,false)
+                true
+            }
+             */
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
+    private fun editProfile(): Bundle {
+        val bundle = Bundle()
+        val profileJson = Gson().toJson(vm.getProfileInfo().value)
+        bundle.putString("JSON", profileJson)
+
+        return bundle
     }
 
     override fun onDestroyView() {
