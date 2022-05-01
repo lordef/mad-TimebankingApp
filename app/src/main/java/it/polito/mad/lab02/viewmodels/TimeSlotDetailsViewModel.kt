@@ -24,13 +24,17 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
         return timeSlotDetails
     }
 
+    fun getMaxId(): String{
+        return sharedPreferences.getMaxId()
+    }
+
     //TODO: update method for single field?
-    fun updateTimeSlot(timeslotID: String, newTS: TimeSlot){
+    fun updateTimeSlot(newTS: TimeSlot, b: Boolean){
         // Update View Model
         timeSlotDetails.value = newTS
 
         // Update persistence layer
-        sharedPreferences.setTimeSlot(timeslotID, newTS)
+        sharedPreferences.setTimeSlot(newTS, b)
 
         //TODO: update the persistence layer -> is thread useful?
         /*

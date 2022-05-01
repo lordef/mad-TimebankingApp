@@ -8,14 +8,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 import org.json.JSONObject
@@ -25,6 +23,8 @@ import java.util.*
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
+    //edit is -1 for a new adv, else it is the id of the edited adv
+    private var edit = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,10 +66,15 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private fun getTimeSlotFromTimeSlotDetailsFragment(){
 
-        val timeslot = arguments?.getString("JSON") ?: return
+        val timeslot = arguments?.getString("JSON")
+        if(timeslot == null){
+            edit = -1
+            return
+        }
+
         val timeSlotDetailsString = JSONObject(timeslot).toString()
         val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
-
+        edit = timeSlotDetails.id.toInt()
         val title = view?.findViewById<TextView>(R.id.titleEditText)
         val description = view?.findViewById<TextView>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -124,7 +129,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<EditText>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
+        val id = if(edit == -1) vm.getMaxId() else edit
         val obj = TimeSlot(
+            id.toString(),
             title?.text.toString(),
             description?.text.toString(),
             dateTime,
@@ -132,7 +139,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             location?.text.toString()
         )
         // TODO: mettere ID al posto di title
-        vm.updateTimeSlot(obj.title, obj)
+        vm.updateTimeSlot(obj, edit != -1)
         return obj
     }
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
@@ -33,29 +34,22 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
         // TODO: forse è inutile
-        val timeSlotId = arguments?.getString("timeslotID")
 
-        if(timeSlotId != null){
-            vm.getTimeSlot(timeSlotId!!).observe(viewLifecycleOwner) { timeSlot ->
-                title.text = timeSlot.title
-                description.text = timeSlot.description
-                dateTime.text = timeSlot.dateTime
-                duration.text = timeSlot.duration
-                location.text = timeSlot.location
+        val timeslot = arguments?.getString("JSON") ?: return
+        val timeSlotDetailsString = JSONObject(timeslot).toString()
+        val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
+        title.text = timeSlotDetails.title
+        description.text = timeSlotDetails.description
+        dateTime.text = timeSlotDetails.dateTime
+        duration.text = timeSlotDetails.duration
+        location.text = timeSlotDetails.location
+
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack(R.id.nav_advertisement,false)
             }
-            println("shared pref")
         }
-        else{
-            val timeslot = arguments?.getString("JSON")
-            val timeSlotDetailsString = JSONObject(timeslot).toString()
-            val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
-            title.text = timeSlotDetails.title
-            description.text = timeSlotDetails.description
-            dateTime.text = timeSlotDetails.dateTime
-            duration.text = timeSlotDetails.duration
-            location.text = timeSlotDetails.location
-            println("bundle")
-        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -67,10 +61,18 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
         return when (item.itemId) {
             R.id.editItem -> {
-                Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT)
+                    .show()
                 val bundle = editTimeSlot()
-                findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_nav_timeSlotEdit, bundle)
+                findNavController().navigate(
+                    R.id.action_timeSlotDetailsFragment_to_nav_timeSlotEdit,
+                    bundle
+                )
 
+                true
+            }
+            android.R.id.home -> {
+                findNavController().popBackStack(R.id.nav_advertisement,false)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -78,29 +80,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     }
 
-    private fun editTimeSlot() : Bundle{
-        val title = view?.findViewById<TextView>(R.id.titleTextView)
-        val description = view?.findViewById<TextView>(R.id.descriptionTextView)
-        val dateTime = view?.findViewById<TextView>(R.id.dateTimeTextView)
-        val duration = view?.findViewById<TextView>(R.id.durationTextView)
-        val location = view?.findViewById<TextView>(R.id.locationTextView)
-
+    private fun editTimeSlot(): Bundle {
         val bundle = Bundle()
-
-        val timeslot = TimeSlot(
-            title?.text.toString(),
-            description?.text.toString(),
-            dateTime?.text.toString(),
-            duration?.text.toString(),
-            location?.text.toString()
-        )
-
-        val timeslotJson = Gson().toJson(timeslot)
-        bundle.putString("JSON", timeslotJson.toString())
+        bundle.putString("JSON", arguments?.getString("JSON"))
 
         return bundle
     }
-
 
 
 }
