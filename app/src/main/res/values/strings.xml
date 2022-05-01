@@ -33,7 +33,7 @@
     <string name="description">Description</string>
 
     <!-- Edit mode -->
-    <string name="editItem">Edit Profile</string>
+    <string name="editItem">Edit</string>
     <string name="commitItem">Confirm</string>
     <string name="selectImageOption">Select an image from the phone gallery</string>
     <string name="useCameraOption">Use the camera to take a picture</string>

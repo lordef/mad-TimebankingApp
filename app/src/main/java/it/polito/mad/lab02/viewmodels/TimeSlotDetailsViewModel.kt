@@ -17,20 +17,20 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
 
     private val timeSlotDetails = MutableLiveData<TimeSlot>()
 
-    fun getTimeSlot(title : String): MutableLiveData<TimeSlot> {
+    fun getTimeSlot(timeslotID : String): MutableLiveData<TimeSlot> {
         timeSlotDetails.also {
-            it.value = sharedPreferences.getTimeSlot(title)
+            it.value = sharedPreferences.getTimeSlot(timeslotID)
         }
         return timeSlotDetails
     }
 
     //TODO: update method for single field?
-    fun updateTimeSlot(title: String, newTS: TimeSlot){
+    fun updateTimeSlot(timeslotID: String, newTS: TimeSlot){
         // Update View Model
         timeSlotDetails.value = newTS
 
         // Update persistence layer
-        sharedPreferences.setTimeSlot(title, newTS)
+        sharedPreferences.setTimeSlot(timeslotID, newTS)
 
         //TODO: update the persistence layer -> is thread useful?
         /*

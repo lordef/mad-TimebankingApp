@@ -15,13 +15,14 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
+import org.json.JSONObject
 
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
 
-    private val timeSlotTitle = "profile"   //TODO : put it inside and retrieve it from the bundle
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -31,45 +32,30 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
+        // TODO: forse è inutile
+        val timeSlotId = arguments?.getString("timeslotID")
 
-        //TODO: trying to retrieve content from ViewModel
-        vm.getTimeSlot(timeSlotTitle).observe(viewLifecycleOwner) { timeSlot ->
-            // update UI
-
-            title.text = timeSlot.title
-            description.text = timeSlot.description
-            dateTime.text = timeSlot.dateTime
-            duration.text = timeSlot.duration
-            location.text = timeSlot.location
-
-        }
-
-
-        //TODO: old code to manage
-        // Retrieve json object of class TimeSlotClass
-        /*
-        val pref = this.context?.let { SharedPreference(it) }
-        val gson = Gson()
-        val json = pref?.getTimeSlotDetails(title)
-        if (!json.equals("")) {
-            val obj = gson.fromJson(json, TimeSlotDetailsModel::class.java)
-
-            // Put it into the TextViews
-            val title = view.findViewById<TextView>(R.id.titleTextView)
-            val description = view.findViewById<TextView>(R.id.descriptionTextView)
-            val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
-            val duration = view.findViewById<TextView>(R.id.durationTextView)
-            val location = view.findViewById<TextView>(R.id.locationTextView)
-
-            if (obj !== null) {
-                title.text = obj.title
-                description.text = obj.description
-                dateTime.text = obj.dateTime
-                duration.text = obj.duration
-                location.text = obj.location
+        if(timeSlotId != null){
+            vm.getTimeSlot(timeSlotId!!).observe(viewLifecycleOwner) { timeSlot ->
+                title.text = timeSlot.title
+                description.text = timeSlot.description
+                dateTime.text = timeSlot.dateTime
+                duration.text = timeSlot.duration
+                location.text = timeSlot.location
             }
+            println("shared pref")
         }
-         */
+        else{
+            val timeslot = arguments?.getString("JSON")
+            val timeSlotDetailsString = JSONObject(timeslot).toString()
+            val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
+            title.text = timeSlotDetails.title
+            description.text = timeSlotDetails.description
+            dateTime.text = timeSlotDetails.dateTime
+            duration.text = timeSlotDetails.duration
+            location.text = timeSlotDetails.location
+            println("bundle")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -82,7 +68,6 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         return when (item.itemId) {
             R.id.editItem -> {
                 Toast.makeText(this.context, "Edit TimeSlotDetails selected", Toast.LENGTH_SHORT).show()
-                // TODO: manage transition to TimeSlotEditFragment
                 val bundle = editTimeSlot()
                 findNavController().navigate(R.id.action_timeSlotDetailsFragment_to_timeSlotEditFragment, bundle)
 

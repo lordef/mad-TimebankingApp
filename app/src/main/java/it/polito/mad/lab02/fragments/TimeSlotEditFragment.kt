@@ -3,10 +3,12 @@ package it.polito.mad.lab02.fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,21 +33,36 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         getTimeSlotFromTimeSlotDetailsFragment()
 
         val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener(View.OnClickListener { addSP() })
+        button.setOnClickListener(View.OnClickListener { addTimeSlot() })
 
         putDatePicker()
         putTimePicker()
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                // TODO: pass the bundle, with only the title string
-                findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment)
+                val timeslot = addTimeSlot()
+                val bundle = Bundle()
+                val timeslotJson = Gson().toJson(timeslot)
+                bundle.putString("JSON", timeslotJson.toString())
+                findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            val timeslot = addTimeSlot()
+            val bundle = Bundle()
+            val timeslotJson = Gson().toJson(timeslot)
+            bundle.putString("JSON", timeslotJson.toString())
+            findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
+
+            return true
+        }
+        return true
+    }
 
     private fun getTimeSlotFromTimeSlotDetailsFragment(){
 
@@ -77,7 +94,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         displayDateTextView!!.setOnClickListener(View.OnClickListener {
 
             val dialog = DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                displayDateTextView.text = "" + day + "/" + month + "/" + year
+                // TODO: better format?
+                val month1 = 1 + month
+                displayDateTextView.text = "" + day + "/" + month1 + "/" + year//SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
             }, year, month, day)
 
             dialog.show()
@@ -97,7 +116,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         }
     }
 
-    private fun addSP() {
+    private fun addTimeSlot() : TimeSlot{
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -112,12 +131,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             duration?.text.toString(),
             location?.text.toString()
         )
-        val sp = this.context?.let { SharedPreference(it) }
-        if (sp != null) {
-            if (title != null) {
-                sp.setTimeSlot(title.text.toString(), obj)
-            }
-        }
+        // TODO: mettere ID al posto di title
+        vm.updateTimeSlot(obj.title, obj)
+        return obj
     }
 
 }

@@ -20,6 +20,9 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
         super.onViewCreated(view, savedInstanceState)
 
         val tsb = view.findViewById<Button>(R.id.button3)
-        tsb.setOnClickListener{findNavController().navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment)}
+        val id = "id"
+        val bundle = Bundle()
+        bundle.putString("timeslotID", id)
+        tsb.setOnClickListener{findNavController().navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment, bundle)}
     }
 }
