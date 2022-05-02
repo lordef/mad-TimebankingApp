@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
-import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot

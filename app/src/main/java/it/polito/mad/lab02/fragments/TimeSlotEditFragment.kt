@@ -4,27 +4,17 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.NumberPicker
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
-import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,6 +24,16 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     //edit is -1 for a new adv, else it is the id of the edited adv
     private var edit = -1
+
+    override fun onResume() {
+        super.onResume()
+        if(edit != -1){
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
+        }
+        else{
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,13 +117,14 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
         val time = view?.findViewById<TextView>(R.id.timeEdit)
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         outState.putString("date", date?.text.toString())
         outState.putString("time", time?.text.toString())
         outState.putString("duration", duration?.text.toString())
-        super.onSaveInstanceState(outState)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -151,7 +152,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val id = arguments?.getString("id")
         if (id == null) {
             edit = -1
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
         } else {
             edit = id.toInt()
             val ts = vm.getTimeSlot(id).value
@@ -170,8 +170,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             time?.text = t
             duration?.text = ts?.duration
             location?.text = ts?.location
-
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
         }
 
     }

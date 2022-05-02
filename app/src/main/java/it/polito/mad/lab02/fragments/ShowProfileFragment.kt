@@ -3,15 +3,10 @@ package it.polito.mad.lab02.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentResultListener
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -21,7 +16,6 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
-import it.polito.mad.lab02.models.Profile
 import kotlin.system.exitProcess
 
 class ShowProfileFragment : Fragment() {

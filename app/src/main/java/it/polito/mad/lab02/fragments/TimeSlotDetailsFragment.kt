@@ -1,7 +1,6 @@
 package it.polito.mad.lab02.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -12,12 +11,8 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.Utils
-import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
-import org.json.JSONObject
 
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {

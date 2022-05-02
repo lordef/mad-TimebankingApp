@@ -3,7 +3,6 @@ package it.polito.mad.lab02
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,36 +12,28 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.google.gson.Gson
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
-import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.Logger
-import kotlin.concurrent.fixedRateTimer
 
 
 class EditProfileFragment : Fragment() {
