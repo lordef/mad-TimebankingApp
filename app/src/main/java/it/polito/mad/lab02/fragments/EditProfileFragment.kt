@@ -85,8 +85,10 @@ class EditProfileFragment : Fragment() {
         return root
     }
 
+
     override fun onViewCreated(view : View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton
@@ -99,7 +101,7 @@ class EditProfileFragment : Fragment() {
             override fun handleOnBackPressed() {
                 val bundle = showProfile()
                 view?.let {
-                    setFragmentResult("12", bundle)
+                    //setFragmentResult("12", bundle)
                     //Navigation.findNavController(it).previousBackStackEntry?.savedStateHandle?.set("JSON", bundle)
                     Navigation.findNavController(it).popBackStack()
                     /*
@@ -140,7 +142,7 @@ class EditProfileFragment : Fragment() {
             android.R.id.home -> {
                 val bundle = showProfile()
                 view?.let {
-                    setFragmentResult("12", bundle)
+                    //setFragmentResult("12", bundle)
                     Navigation.findNavController(it).popBackStack()
                 }
                 true
