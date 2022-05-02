@@ -31,6 +31,7 @@ import java.util.*
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private val vm by viewModels<TimeSlotDetailsViewModel>()
+
     //edit is -1 for a new adv, else it is the id of the edited adv
     private var edit = -1
 
@@ -59,7 +60,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dur = duration.text.split(":")
         var h = 0
         var m = 0
-        if(dur.size == 2){
+        if (dur.size == 2) {
             h = dur[0].toInt()
             m = dur[1].toInt()
         }
@@ -79,13 +80,14 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
             val durationTextView = view.findViewById<TextView>(R.id.durationEditText)
             val calendar = Calendar.getInstance()
-            hoursPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener(){ _, _, newVal ->
+            hoursPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener() { _, _, newVal ->
                 h = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
-                durationTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)//"" + h + ":" + m
+                durationTextView.text =
+                    SimpleDateFormat("HH:mm").format(calendar.time)//"" + h + ":" + m
             })
-            minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener(){ _, _, newVal ->
+            minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener() { _, _, newVal ->
                 m = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
@@ -95,17 +97,20 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             val alertDialog = builder.show()
 
             val button = dialog.findViewById<Button>(R.id.button)
-            button.setOnClickListener{
+            button.setOnClickListener {
                 alertDialog.dismiss()
             }
 
         }
 
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val bundle = addTimeSlot()
-                findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
+                    bundle
+                )
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -124,14 +129,17 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             val bundle = addTimeSlot()
-            findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
+            findNavController().navigate(
+                R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
+                bundle
+            )
 
             return true
         }
         return true
     }
 
-    private fun getTimeSlotFromTimeSlotDetailsFragment(){
+    private fun getTimeSlotFromTimeSlotDetailsFragment() {
 
         val title = view?.findViewById<TextView>(R.id.titleEditText)
         val description = view?.findViewById<TextView>(R.id.descriptionEditText)
@@ -141,26 +149,34 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val location = view?.findViewById<TextView>(R.id.locationEditText)
 
         val id = arguments?.getString("id")
-        if(id == null){
+        if (id == null) {
             edit = -1
             (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
-        }
-        else{
+        } else {
             edit = id.toInt()
-            vm.getTimeSlot(id).observe(viewLifecycleOwner){
-                title?.text = it.title
-                description?.text = it.description
-                date?.text = it.dateTime.split(" ")[0].toString()
-                time?.text = it.dateTime.split(" ")[1].toString()
-                duration?.text = it.duration
-                location?.text = it.location
+            val ts = vm.getTimeSlot(id).value
+            title?.text = ts?.title
+            description?.text = ts?.description
+
+            val dateTime = ts?.dateTime?.split(" ")
+            var d = ""
+            var t = ""
+            if (dateTime?.size == 2) {
+                d = dateTime[0]
+                t = dateTime[1]
             }
+
+            date?.text = d
+            time?.text = t
+            duration?.text = ts?.duration
+            location?.text = ts?.location
+
             (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
         }
 
     }
 
-    private fun putDatePicker(){
+    private fun putDatePicker() {
         val displayDateTextView = view?.findViewById<TextView>(R.id.dateEdit)
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -168,16 +184,22 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         displayDateTextView!!.setOnClickListener(View.OnClickListener {
 
-            val dialog = DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                val month1 = 1 + month
-                displayDateTextView.text = "" + day + "/" + month1 + "/" + year
-            }, year, month, day)
+            val dialog = DatePickerDialog(
+                this.requireContext(),
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    val month1 = 1 + month
+                    displayDateTextView.text = "" + day + "/" + month1 + "/" + year
+                },
+                year,
+                month,
+                day
+            )
 
             dialog.show()
         })
     }
 
-    private fun putTimePicker(){
+    private fun putTimePicker() {
         val displayTimeTextView = view?.findViewById<TextView>(R.id.timeEdit)
         val calendar = Calendar.getInstance()
         displayTimeTextView!!.setOnClickListener {
@@ -186,11 +208,17 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 calendar.set(Calendar.MINUTE, minute)
                 displayTimeTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
             }
-            TimePickerDialog(this.context, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+            TimePickerDialog(
+                this.context,
+                timeSetListener,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            ).show()
         }
     }
 
-    private fun addTimeSlot(): Bundle{
+    private fun addTimeSlot(): Bundle {
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -198,7 +226,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
-        val id = if(edit == -1) vm.getMaxId() else edit
+        val id = if (edit == -1) vm.getMaxId() else edit
         val obj = TimeSlot(
             id.toString(),
             title?.text.toString(),

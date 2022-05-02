@@ -68,7 +68,6 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
     </fragment>
-        tools:layout="@layout/fragment_time_slot_list" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="it.polito.mad.lab02.EditProfileFragment"
