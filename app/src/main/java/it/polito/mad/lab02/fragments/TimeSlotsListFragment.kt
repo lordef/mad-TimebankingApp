@@ -38,26 +38,27 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        val timeSlotList = vm.getTimeSlotList().value
-        if (recyclerView is RecyclerView) {
-            with(recyclerView) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+        vm.getTimeSlotList().observe(viewLifecycleOwner){timeSlotList ->
+            if (recyclerView is RecyclerView) {
+                with(recyclerView) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList)
                 }
-                adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList!!)
             }
-        }
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab2)
-        fab.setOnClickListener { view ->
-            view.findNavController()
-                .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
-        }
-        if (timeSlotList!!.size == 0) {
-            recyclerView.visibility = View.GONE
-        } else {
-            val textView = view.findViewById<TextView>(R.id.text_advertisements)
-            textView.visibility = View.GONE
+            val fab = view.findViewById<FloatingActionButton>(R.id.fab2)
+            fab.setOnClickListener { view ->
+                view.findNavController()
+                    .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
+            }
+            if (timeSlotList.size == 0) {
+                recyclerView.visibility = View.GONE
+            } else {
+                val textView = view.findViewById<TextView>(R.id.text_advertisements)
+                textView.visibility = View.GONE
+            }
         }
 
         val callback = object : OnBackPressedCallback(true){
