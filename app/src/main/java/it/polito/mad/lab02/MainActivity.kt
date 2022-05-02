@@ -1,7 +1,9 @@
 package it.polito.mad.lab02
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,9 +19,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import it.polito.mad.lab02.databinding.ActivityMainBinding
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-
-
-//SOURCE GUIDE VIDEO https://www.youtube.com/watch?v=Mr__NdcIxqs
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,21 +48,27 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         vm.getProfileInfo().observe(this) { profile ->
             // set side bar profile image and user info
-            val drawerProfileImage = binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_profile_image)
-            val drawerNickname =   binding.navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_nickname)
-            val drawerFullName = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_fullname)
+            val drawerProfileImage =
+                binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_profile_image)
+            val drawerNickname =
+                binding.navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_nickname)
+            val drawerFullName =
+                binding.navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_fullname)
 
             drawerProfileImage.setImageURI(Uri.parse(profile.imageUri))
             drawerNickname.text = profile.nickname
             drawerFullName.text = profile.fullName
 
+
         }
 
-
+        return super.onCreateView(name, context, attrs)
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
