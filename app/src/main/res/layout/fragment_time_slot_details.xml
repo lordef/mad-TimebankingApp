@@ -130,7 +130,7 @@
                     android:drawablePadding="10dp"
                     android:text="@string/timeslotDurationLabel"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:drawableStartCompat="@drawable/ic_hourglasses_icon" />
+                    app:drawableStartCompat="@drawable/ic_timer_24" />
 
                 <TextView
                     android:id="@+id/durationTextView"
