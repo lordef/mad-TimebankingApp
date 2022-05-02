@@ -22,6 +22,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
+import androidx.core.content.PermissionChecker
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -85,10 +87,12 @@ class EditProfileFragment : Fragment() {
         return root
     }
 
-
     override fun onViewCreated(view : View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
+        profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton
@@ -120,25 +124,14 @@ class EditProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-            /*
-            R.id.editItem -> {
-                Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
-                    .show()
+            R.id.commitItem -> {
                 val bundle = showProfile()
                 view?.let {
-                    Navigation.findNavController(it).previousBackStackEntry?.savedStateHandle?.set("JSON", bundle)
+                    //setFragmentResult("12", bundle)
                     Navigation.findNavController(it).popBackStack()
-                /*
-                    Navigation.findNavController(it).navigate(
-                        R.id.action_nav_profile_to_editProfileFragment,
-                        bundle
-                    )
-                    */
                 }
-
                 true
             }
-            */
             android.R.id.home -> {
                 val bundle = showProfile()
                 view?.let {
@@ -179,6 +172,8 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
+        imgUri = Uri.parse(profileInfoDetails.imageUri)
+        imgUriOld = imgUri
         profileImage?.setImageURI(Uri.parse(profileInfoDetails.imageUri))
         fullNameEditText?.text = profileInfoDetails.fullName
         nickNameEditText?.text = profileInfoDetails.nickname
@@ -197,7 +192,7 @@ class EditProfileFragment : Fragment() {
         val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
         val obj = Profile(
-            "",
+            imgUri.toString(),
             fullNameEditText?.text.toString(),
             nicknameEditText?.text.toString(),
             emailEditText?.text.toString(),
@@ -209,5 +204,203 @@ class EditProfileFragment : Fragment() {
         return obj
     }
 
+    private fun onButtonClickEvent(sender: View?) {
+        registerForContextMenu(sender!!)
+        requireActivity().openContextMenu(sender)
+        unregisterForContextMenu(sender!!)
+    }
+
+    /* Context menu for Camera */
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        val inflater: MenuInflater = requireActivity().menuInflater
+        menu.setHeaderTitle("Choose your option")
+        inflater.inflate(R.menu.camera_menu, menu)
+    }
+
+    /* Options for Camera */
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.selectImageOption -> {
+                Toast.makeText(requireActivity(), "Select an image from the phone gallery", Toast.LENGTH_SHORT)
+                    .show()
+                val intent = Intent()
+                intent.type = "image/*"
+                intent.action = Intent.ACTION_GET_CONTENT
+                getImageFromGallery.launch(Intent.createChooser(intent, ""))
+                true
+            }
+            R.id.useCameraOption -> {
+                Toast.makeText(requireActivity(), "Use the camera to take a picture", Toast.LENGTH_SHORT).show()
+                if (checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PermissionChecker.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CAMERA),
+                        MY_CAMERA_PERMISSION_CODE
+                    )
+                } else {
+                    if (checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+                        requestPermissions(
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            MY_CAMERA_PERMISSION_CODE + 1
+                        )
+                    } else {
+                        if (checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+                            requestPermissions(
+                                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                                MY_CAMERA_PERMISSION_CODE + 2
+                            )
+                        } else {
+                            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
+                            getImageFromCamera.launch(intent)
+                        }
+                    }
+                }
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    /* Get permissions to use the camera */
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MY_CAMERA_PERMISSION_CODE || requestCode == MY_CAMERA_PERMISSION_CODE + 1 || requestCode == MY_CAMERA_PERMISSION_CODE + 2) {
+            if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
+                Toast.makeText(requireActivity(), "Permission granted", Toast.LENGTH_LONG).show()
+                super.onRequestPermissionsResult(
+                    requestCode + 1,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    grantResults
+                )
+                super.onRequestPermissionsResult(
+                    requestCode + 2,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    grantResults
+                )
+                //dispatchTakePictureIntent()
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri())
+                getImageFromCamera.launch(intent)
+            } else {
+                Toast.makeText(requireActivity(), "Permission denied", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun clonePic(uri: Uri): Uri {
+        val resultUri = setImageUri()
+        BitmapFactory.decodeStream(requireActivity().contentResolver.openInputStream(uri)).also { bitmap ->
+            val fos: OutputStream? = requireActivity().contentResolver.openOutputStream(resultUri)
+
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+        }
+        return resultUri
+    }
+
+
+    @Throws(IOException::class)
+    private fun setImageUri(): Uri {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        val uri = File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        )
+        val photoURI: Uri = FileProvider.getUriForFile(
+            requireActivity(),
+            "it.polito.mad.lab02.provider",
+            uri
+        )
+        imgUri = photoURI
+        return photoURI
+    }
+
+    private fun deleteOldImage(): Boolean {
+        if (imgUriOld != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
+
+            val file = File(
+                requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                imgUriOld.lastPathSegment!!
+            )
+            if (file.exists()) {
+                return file.delete()
+            }
+        }
+        return false
+    }
+
+    private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
+
+    // Receiver For Camera (updated version of startActivityForResult)
+    private val getImageFromCamera =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    val imageFile = File(
+                        requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                        imgUri.lastPathSegment!!
+                    )
+                    val ei = ExifInterface(imageFile)
+                    val orientation: Int = ei.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED
+                    )
+
+                    var rotatedBitmap: Bitmap? = null
+                    val bitmap = BitmapFactory.decodeStream(requireActivity().contentResolver.openInputStream(imgUri))
+                    rotatedBitmap = when (orientation) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+                        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+                        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+                        ExifInterface.ORIENTATION_NORMAL -> bitmap
+                        else -> bitmap
+                    }
+                    val fos: OutputStream? = requireActivity().contentResolver.openOutputStream(imgUri)
+                    rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                }
+                val editProfileImageView = requireView().findViewById<ImageView>(R.id.editProfileImageView)
+                Utils.setUriInImageView(editProfileImageView, imgUri, requireActivity().contentResolver)
+            }
+        }
+
+    // Receiver For Gallery
+    private val getImageFromGallery =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                if (it != null) {
+                    println("Test ${parseResult(Activity.RESULT_OK, it.data)!![0]!!}")
+                    imgUri = clonePic(parseResult(Activity.RESULT_OK, it.data)?.get(0)!!)
+                    val editProfileImageView = requireView().findViewById<ImageView>(R.id.editProfileImageView)
+                    Utils.setUriInImageView(editProfileImageView, imgUri, requireActivity().contentResolver)
+                }
+            }
+        }
 }
 
