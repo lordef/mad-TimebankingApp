@@ -100,9 +100,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         displayDateTextView!!.setOnClickListener(View.OnClickListener {
 
             val dialog = DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                // TODO: better format?
                 val month1 = 1 + month
-                displayDateTextView.text = "" + day + "/" + month1 + "/" + year//SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+                displayDateTextView.text = "" + day + "/" + month1 + "/" + year
             }, year, month, day)
 
             dialog.show()
@@ -139,7 +138,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             duration?.text.toString(),
             location?.text.toString()
         )
-        // TODO: mettere ID al posto di title
         vm.updateTimeSlot(obj, edit != -1)
         return obj
     }
