@@ -35,9 +35,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         getTimeSlotFromTimeSlotDetailsFragment()
 
-        val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener(View.OnClickListener { addTimeSlot() })
-
         putDatePicker()
         putTimePicker()
 
