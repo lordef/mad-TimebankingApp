@@ -171,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_hourglasses_icon"
+                android:drawableStart="@drawable/ic_timer_24"
                 android:drawablePadding="10dp"
                 android:hint="@string/timeslotDurationLabel"
                 android:inputType="text"
