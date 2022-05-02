@@ -40,7 +40,7 @@
 
     <!-- section in side bar -->
     <string name="menu_profile">Profile</string>
-    <string name="menu_advertisement">Advertisement</string>
+    <string name="menu_advertisement">Advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
 
     <!-- TimeSlotDetailsFragment labels -->

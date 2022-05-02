@@ -45,7 +45,6 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                //TODO: add observer as in details fragment
                 adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList!!)
             }
         }
