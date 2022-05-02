@@ -102,9 +102,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                addTimeSlot()
-                val bundle = Bundle()
-                bundle.putString("id", arguments?.getString("id"))
+                val bundle = addTimeSlot()
                 findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
             }
         }
@@ -123,9 +121,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            addTimeSlot()
-            val bundle = Bundle()
-            bundle.putString("id", arguments?.getString("id"))
+            val bundle = addTimeSlot()
             findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
 
             return true
@@ -192,7 +188,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         }
     }
 
-    private fun addTimeSlot(){
+    private fun addTimeSlot(): Bundle{
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -209,7 +205,10 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             duration?.text.toString(),
             location?.text.toString()
         )
+        val bundle = Bundle()
+        bundle.putString("id", id.toString())
         vm.updateTimeSlot(obj, edit != -1)
+        return bundle
     }
 
 }
