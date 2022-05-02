@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_show_profile" >
         <action
             android:id="@+id/action_nav_profile_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -22,10 +26,18 @@
         tools:layout="@layout/fragment_time_slots_list_list">
         <action
             android:id="@+id/action_nav_advertisement_to_timeSlotEditFragment"
-            app:destination="@id/nav_timeSlotEdit" />
+            app:destination="@id/nav_timeSlotEdit"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_nav_advertisement_to_timeSlotDetailsFragment"
-            app:destination="@id/timeSlotDetailsFragment" />
+            app:destination="@id/timeSlotDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_timeSlotEdit"
@@ -33,7 +45,9 @@
         tools:layout="@layout/fragment_time_slot_edit" >
         <action
             android:id="@+id/action_timeSlotEditFragment_to_timeSlotDetailsFragment"
-            app:destination="@id/timeSlotDetailsFragment" />
+            app:destination="@id/timeSlotDetailsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -43,10 +57,16 @@
         tools:layout="@layout/fragment_time_slot_details" >
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_nav_timeSlotEdit"
-            app:destination="@id/nav_timeSlotEdit" />
+            app:destination="@id/nav_timeSlotEdit"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_nav_advertisement"
-            app:destination="@id/nav_advertisement" />
+            app:destination="@id/nav_advertisement"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
         tools:layout="@layout/fragment_time_slot_list" />
     <fragment
@@ -56,6 +76,8 @@
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment_to_nav_profile"
-            app:destination="@id/nav_profile" />
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
 </navigation>

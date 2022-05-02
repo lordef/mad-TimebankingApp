@@ -33,7 +33,6 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
-        // TODO: forse è inutile
 
         val timeslot = arguments?.getString("JSON") ?: return
         val timeSlotDetailsString = JSONObject(timeslot).toString()
