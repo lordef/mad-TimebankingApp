@@ -88,9 +88,7 @@ class ShowProfileFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                if(!view.findNavController().navigateUp()){
-                    exitProcess(1)
-                }
+                view.findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)

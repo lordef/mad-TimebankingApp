@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import kotlin.system.exitProcess
 
 /**
  * A fragment representing a list of Items.
@@ -52,7 +53,9 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                if(!view.findNavController().navigateUp()){
+                    exitProcess(1)
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
