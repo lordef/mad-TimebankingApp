@@ -13,23 +13,25 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/drawer_header_title"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:id="@+id/drawer_profile_image"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/imageDescription"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/profile_image" />
 
     <TextView
+        android:id="@+id/drawer_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/drawer_header_title"
+        android:text="@string/nickname"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/drawer_fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/drawer_header_title" />
+        android:text="@string/fullName" />
 </LinearLayout>

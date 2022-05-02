@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -86,7 +88,6 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills
             description.text = profile.description
-
         }
 
         /*setFragmentResultListener("12"){requestKey, bundle ->
