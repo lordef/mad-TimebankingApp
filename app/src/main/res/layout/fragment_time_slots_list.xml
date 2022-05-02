@@ -9,80 +9,107 @@
     android:layout_marginTop="12dp"
     android:layout_marginRight="16dp"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?selectableItemBackground"
     card_view:cardBackgroundColor="#FFFF"
     card_view:cardCornerRadius="8dp"
     card_view:contentPadding="10dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
 
         <TextView
             android:id="@+id/card_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:maxLength="30"
+            android:text="@string/title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            card_view:autoSizeTextType="uniform"
+            card_view:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            card_view:layout_constraintEnd_toStartOf="@+id/edit_timeSlot_button"
+            card_view:layout_constraintHorizontal_bias="0.5"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/edit_timeSlot_button"
+            style="@style/Widget.Material3.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:text="@string/edit_timeSlot"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="16sp"
+            card_view:icon="@drawable/ic_pencil_icon"
+            card_view:iconGravity="textStart"
+            card_view:iconPadding="8dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.5"
+            card_view:layout_constraintStart_toEndOf="@+id/card_title"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/edit_timeSlot_button">
 
             <TextView
                 android:id="@+id/card_location"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_location_icon"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
                 android:drawablePadding="8dp"
-                android:text="@string/timeslotLocationLabel" />
+                android:maxLength="50"
+                android:text="@string/timeslotLocationLabel"
+                card_view:autoSizeTextType="uniform"
+                card_view:drawableStartCompat="@drawable/ic_location_icon"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/card_duration"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_time_fast"
                 android:drawablePadding="8dp"
-                android:text="@string/timeslotDurationLabel" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:text="@string/timeslotDurationLabel"
+                card_view:drawableLeftCompat="@drawable/ic_time_fast"
+                card_view:layout_constraintBottom_toBottomOf="@+id/card_date"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toEndOf="@+id/card_date"
+                card_view:layout_constraintTop_toTopOf="@+id/card_date" />
 
             <TextView
                 android:id="@+id/card_date"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/calendar_24"
+                android:layout_marginTop="10dp"
                 android:drawablePadding="8dp"
-                android:text="@string/timeslotDateTimeLabel" />
+                android:text="@string/timeslotDateTimeLabel"
+                card_view:drawableLeftCompat="@drawable/calendar_24"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/card_duration"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_location" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/edit_timeSlot_button"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/edit_timeSlot"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="16sp"
-                card_view:icon="@drawable/ic_pencil_icon"
-                card_view:iconGravity="textStart"
-                card_view:iconPadding="8dp" />
 
-        </LinearLayout>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
