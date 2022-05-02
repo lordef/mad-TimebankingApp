@@ -40,7 +40,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         title.text = timeSlotDetails.title
         description.text = timeSlotDetails.description
         dateTime.text = timeSlotDetails.dateTime
-        duration.text = timeSlotDetails.duration
+        val d = timeSlotDetails.duration.split(":")
+        duration.text = "" + d[0] + "h " + d[1] + "min"
         location.text = timeSlotDetails.location
 
         val callback = object : OnBackPressedCallback(true){
