@@ -41,7 +41,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 title.text = it.title
                 description.text = it.description
                 dateTime.text = it.dateTime
-                duration.text = it.duration
+                val d = it.duration.split(":")
+                duration.text = "" + d[0] + "h " + d[1] + "min"
                 location.text = it.location
             }
         }
