@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="it.polito.mad.lab02.fragments.ProfileFragment"
+        android:name="it.polito.mad.lab02.fragments.ShowProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_show_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_advertisement"
@@ -43,5 +47,15 @@
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_nav_advertisement"
             app:destination="@id/nav_advertisement" />
+    </fragment>
+        tools:layout="@layout/fragment_time_slot_list" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="it.polito.mad.lab02.EditProfileFragment"
+        android:label="Edit profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_nav_profile"
+            app:destination="@id/nav_profile" />
     </fragment>
 </navigation>

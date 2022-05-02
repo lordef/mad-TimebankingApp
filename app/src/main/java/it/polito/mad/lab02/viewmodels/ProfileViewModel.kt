@@ -1,12 +1,8 @@
 package it.polito.mad.lab02.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import it.polito.mad.lab02.SharedPreference
-import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.models.TimeSlot
+import androidx.lifecycle.ViewModel
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
