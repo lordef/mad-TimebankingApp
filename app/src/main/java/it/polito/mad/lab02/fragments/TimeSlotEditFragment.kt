@@ -40,6 +40,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         setHasOptionsMenu(true)
 
         getTimeSlotFromTimeSlotDetailsFragment()
+
         val date = view.findViewById<TextView>(R.id.dateEdit)
         val time = view.findViewById<TextView>(R.id.timeEdit)
         val duration = view.findViewById<TextView>(R.id.durationEditText)

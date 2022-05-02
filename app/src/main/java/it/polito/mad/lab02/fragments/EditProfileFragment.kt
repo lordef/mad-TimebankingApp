@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -96,6 +97,12 @@ class EditProfileFragment : Fragment() {
 
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
+
+        val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
+        savedInstanceState?.let {
+            imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
+            profileImage?.setImageURI(imgUri)
+        }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -413,5 +420,10 @@ class EditProfileFragment : Fragment() {
                 }
             }
         }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("imgUri", imgUri.toString())
+    }
 }
 
