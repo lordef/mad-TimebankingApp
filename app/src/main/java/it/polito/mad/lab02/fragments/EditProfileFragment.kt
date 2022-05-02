@@ -98,7 +98,7 @@ class EditProfileFragment : Fragment() {
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
 
-        val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
+        val profileImage = view.findViewById<ImageView>(R.id.editProfileImageView)
         savedInstanceState?.let {
             imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
             profileImage?.setImageURI(imgUri)
@@ -107,7 +107,7 @@ class EditProfileFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 editProfile()
-                view?.let {
+                view.let {
                     Navigation.findNavController(it).popBackStack()
                 }
             }
@@ -189,7 +189,7 @@ class EditProfileFragment : Fragment() {
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender!!)
         requireActivity().openContextMenu(sender)
-        unregisterForContextMenu(sender!!)
+        unregisterForContextMenu(sender)
     }
 
     /* Context menu for Camera */

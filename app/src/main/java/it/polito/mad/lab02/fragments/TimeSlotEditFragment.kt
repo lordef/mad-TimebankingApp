@@ -81,14 +81,14 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
             val durationTextView = view.findViewById<TextView>(R.id.durationEditText)
             val calendar = Calendar.getInstance()
-            hoursPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener() { _, _, newVal ->
+            hoursPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
                 h = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
                 durationTextView.text =
                     SimpleDateFormat("HH:mm").format(calendar.time)//"" + h + ":" + m
             })
-            minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener() { _, _, newVal ->
+            minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
                 m = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
