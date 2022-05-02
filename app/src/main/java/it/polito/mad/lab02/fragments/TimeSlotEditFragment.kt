@@ -54,8 +54,13 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val durationTextView = view.findViewById<TextView>(R.id.durationEditText)
 
-        var h = duration.text.split(":")[0].toInt()
-        var m = duration.text.split(":")[1].toInt()
+        val dur = duration.text.split(":")
+        var h = 0
+        var m = 0
+        if(dur.size == 2){
+            h = dur[0].toInt()
+            m = dur[1].toInt()
+        }
         durationTextView.setOnClickListener {
             val dialog = this.layoutInflater.inflate(R.layout.dialog_duration, null)
             val builder = AlertDialog.Builder(this.context).setView(dialog)

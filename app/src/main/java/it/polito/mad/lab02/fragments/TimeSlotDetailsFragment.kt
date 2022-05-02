@@ -42,7 +42,13 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 description.text = it.description
                 dateTime.text = it.dateTime
                 val d = it.duration.split(":")
-                duration.text = "" + d[0] + "h " + d[1] + "min"
+
+                if(d.size == 2){
+                    duration.text = "" + d[0] + "h " + d[1] + "min"
+                }
+                else{
+                    duration.text = ""
+                }
                 location.text = it.location
             }
         }
