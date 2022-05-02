@@ -39,6 +39,7 @@ import java.util.*
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -72,13 +73,17 @@ class EditProfileFragment : Fragment() {
                 binding.mainScrollView
 
         if (secondLayer != null) {
-            Utils.divideDisplayInPortion(firstLayout, secondLayer, resources.configuration.orientation)
+            Utils.divideDisplayInPortion(
+                firstLayout,
+                secondLayer,
+                resources.configuration.orientation
+            )
         }
 
         return root
     }
 
-    override fun onViewCreated(view : View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
@@ -92,7 +97,7 @@ class EditProfileFragment : Fragment() {
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 editProfile()
                 view?.let {
@@ -131,7 +136,7 @@ class EditProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun getProfileInfoFromShowProfileFragment(){
+    private fun getProfileInfoFromShowProfileFragment() {
 
         val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
         val fullNameEditText = view?.findViewById<TextView>(R.id.fullNameEditText)
@@ -141,23 +146,20 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
-        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
-            // update UI
-            imgUri = Uri.parse(profile.imageUri)
-            imgUriOld = imgUri
-            profileImage?.setImageURI(imgUri)
-            fullNameEditText?.text = profile.fullName
-            nickNameEditText?.text = profile.nickname
-            emailEditText?.text = profile.email
-            locationEditText?.text = profile.location
-            skillsEditText?.text = profile.skills
-            descriptionEditText?.text = profile.description
-
-        }
+        val profile = vm.getProfileInfo().value
+        imgUri = Uri.parse(profile?.imageUri)
+        imgUriOld = imgUri
+        profileImage?.setImageURI(imgUri)
+        fullNameEditText?.text = profile?.fullName
+        nickNameEditText?.text = profile?.nickname
+        emailEditText?.text = profile?.email
+        locationEditText?.text = profile?.location
+        skillsEditText?.text = profile?.skills
+        descriptionEditText?.text = profile?.description
 
     }
 
-    private fun editProfile() : Profile{
+    private fun editProfile(): Profile {
         val fullNameEditText = view?.findViewById<EditText>(R.id.fullNameEditText)
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
@@ -202,7 +204,11 @@ class EditProfileFragment : Fragment() {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.selectImageOption -> {
-                Toast.makeText(requireActivity(), "Select an image from the phone gallery", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireActivity(),
+                    "Select an image from the phone gallery",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
                 val intent = Intent()
                 intent.type = "image/*"
@@ -211,20 +217,36 @@ class EditProfileFragment : Fragment() {
                 true
             }
             R.id.useCameraOption -> {
-                Toast.makeText(requireActivity(), "Use the camera to take a picture", Toast.LENGTH_SHORT).show()
-                if (checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PermissionChecker.PERMISSION_GRANTED) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Use the camera to take a picture",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (checkSelfPermission(
+                        requireActivity(),
+                        Manifest.permission.CAMERA
+                    ) != PermissionChecker.PERMISSION_GRANTED
+                ) {
                     requestPermissions(
                         arrayOf(Manifest.permission.CAMERA),
                         MY_CAMERA_PERMISSION_CODE
                     )
                 } else {
-                    if (checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+                    if (checkSelfPermission(
+                            requireActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ) != PermissionChecker.PERMISSION_GRANTED
+                    ) {
                         requestPermissions(
                             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                             MY_CAMERA_PERMISSION_CODE + 1
                         )
                     } else {
-                        if (checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+                        if (checkSelfPermission(
+                                requireActivity(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            ) != PermissionChecker.PERMISSION_GRANTED
+                        ) {
                             requestPermissions(
                                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                                 MY_CAMERA_PERMISSION_CODE + 2
@@ -276,12 +298,14 @@ class EditProfileFragment : Fragment() {
 
     private fun clonePic(uri: Uri): Uri {
         val resultUri = setImageUri()
-        BitmapFactory.decodeStream(requireActivity().contentResolver.openInputStream(uri)).also { bitmap ->
-            val fos: OutputStream? = requireActivity().contentResolver.openOutputStream(resultUri)
+        BitmapFactory.decodeStream(requireActivity().contentResolver.openInputStream(uri))
+            .also { bitmap ->
+                val fos: OutputStream? =
+                    requireActivity().contentResolver.openOutputStream(resultUri)
 
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-        }
+                // Use the compress method on the BitMap object to write image to the OutputStream
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            }
         return resultUri
     }
 
@@ -289,7 +313,8 @@ class EditProfileFragment : Fragment() {
     @Throws(IOException::class)
     private fun setImageUri(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        val storageDir: File =
+            requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         val uri = File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
@@ -333,7 +358,7 @@ class EditProfileFragment : Fragment() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val imageFile = File(
                         requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                         imgUri.lastPathSegment!!
@@ -345,7 +370,9 @@ class EditProfileFragment : Fragment() {
                     )
 
                     var rotatedBitmap: Bitmap? = null
-                    val bitmap = BitmapFactory.decodeStream(requireActivity().contentResolver.openInputStream(imgUri))
+                    val bitmap = BitmapFactory.decodeStream(
+                        requireActivity().contentResolver.openInputStream(imgUri)
+                    )
                     rotatedBitmap = when (orientation) {
                         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
                         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
@@ -353,11 +380,17 @@ class EditProfileFragment : Fragment() {
                         ExifInterface.ORIENTATION_NORMAL -> bitmap
                         else -> bitmap
                     }
-                    val fos: OutputStream? = requireActivity().contentResolver.openOutputStream(imgUri)
+                    val fos: OutputStream? =
+                        requireActivity().contentResolver.openOutputStream(imgUri)
                     rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                 }
-                val editProfileImageView = requireView().findViewById<ImageView>(R.id.editProfileImageView)
-                Utils.setUriInImageView(editProfileImageView, imgUri, requireActivity().contentResolver)
+                val editProfileImageView =
+                    requireView().findViewById<ImageView>(R.id.editProfileImageView)
+                Utils.setUriInImageView(
+                    editProfileImageView,
+                    imgUri,
+                    requireActivity().contentResolver
+                )
             }
         }
 
@@ -370,8 +403,13 @@ class EditProfileFragment : Fragment() {
                 if (it != null) {
                     println("Test ${parseResult(Activity.RESULT_OK, it.data)!![0]!!}")
                     imgUri = clonePic(parseResult(Activity.RESULT_OK, it.data)?.get(0)!!)
-                    val editProfileImageView = requireView().findViewById<ImageView>(R.id.editProfileImageView)
-                    Utils.setUriInImageView(editProfileImageView, imgUri, requireActivity().contentResolver)
+                    val editProfileImageView =
+                        requireView().findViewById<ImageView>(R.id.editProfileImageView)
+                    Utils.setUriInImageView(
+                        editProfileImageView,
+                        imgUri,
+                        requireActivity().contentResolver
+                    )
                 }
             }
         }
