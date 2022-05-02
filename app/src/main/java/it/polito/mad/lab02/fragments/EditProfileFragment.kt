@@ -47,7 +47,7 @@ import kotlin.concurrent.fixedRateTimer
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
-
+    private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -103,19 +103,10 @@ class EditProfileFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                val bundle = showProfile()
+                editProfile()
                 view?.let {
-                    //setFragmentResult("12", bundle)
-                    //Navigation.findNavController(it).previousBackStackEntry?.savedStateHandle?.set("JSON", bundle)
                     Navigation.findNavController(it).popBackStack()
-                    /*
-                        Navigation.findNavController(it).navigate(
-                            R.id.action_nav_profile_to_editProfileFragment,
-                            bundle
-                        )
-                        */
                 }
-                //Navigation.findNavController(view).navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -125,17 +116,15 @@ class EditProfileFragment : Fragment() {
 
         return when (item.itemId) {
             R.id.commitItem -> {
-                val bundle = showProfile()
+                editProfile()
                 view?.let {
-                    //setFragmentResult("12", bundle)
                     Navigation.findNavController(it).popBackStack()
                 }
                 true
             }
             android.R.id.home -> {
-                val bundle = showProfile()
+                editProfile()
                 view?.let {
-                    //setFragmentResult("12", bundle)
                     Navigation.findNavController(it).popBackStack()
                 }
                 true
@@ -145,13 +134,6 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    private fun showProfile(): Bundle {
-        val bundle = Bundle()
-        val profileJson = Gson().toJson(editProfile())
-        bundle.putString("JSON", profileJson)
-
-        return bundle
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -159,10 +141,6 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun getProfileInfoFromShowProfileFragment(){
-
-        val profileInfo = arguments?.getString("JSON") ?: return
-        val profileInfoString = JSONObject(profileInfo).toString()
-        val profileInfoDetails = Gson().fromJson(profileInfoString, Profile::class.java)
 
         val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
         val fullNameEditText = view?.findViewById<TextView>(R.id.fullNameEditText)
@@ -172,15 +150,19 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
-        imgUri = Uri.parse(profileInfoDetails.imageUri)
-        imgUriOld = imgUri
-        profileImage?.setImageURI(Uri.parse(profileInfoDetails.imageUri))
-        fullNameEditText?.text = profileInfoDetails.fullName
-        nickNameEditText?.text = profileInfoDetails.nickname
-        emailEditText?.text = profileInfoDetails.email
-        locationEditText?.text = profileInfoDetails.location
-        skillsEditText?.text = profileInfoDetails.skills
-        descriptionEditText?.text = profileInfoDetails.description
+        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+            // update UI
+            imgUri = Uri.parse(profile.imageUri)
+            imgUriOld = imgUri
+            profileImage?.setImageURI(imgUri)
+            fullNameEditText?.text = profile.fullName
+            nickNameEditText?.text = profile.nickname
+            emailEditText?.text = profile.email
+            locationEditText?.text = profile.location
+            skillsEditText?.text = profile.skills
+            descriptionEditText?.text = profile.description
+
+        }
 
     }
 

@@ -3,6 +3,7 @@ package it.polito.mad.lab02.fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -40,10 +41,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                val timeslot = addTimeSlot()
+                addTimeSlot()
                 val bundle = Bundle()
-                val timeslotJson = Gson().toJson(timeslot)
-                bundle.putString("JSON", timeslotJson.toString())
+                bundle.putString("id", arguments?.getString("id"))
                 findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
             }
         }
@@ -53,10 +53,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            val timeslot = addTimeSlot()
+            addTimeSlot()
             val bundle = Bundle()
-            val timeslotJson = Gson().toJson(timeslot)
-            bundle.putString("JSON", timeslotJson.toString())
+            bundle.putString("id", arguments?.getString("id"))
             findNavController().navigate(R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment, bundle)
 
             return true
@@ -66,16 +65,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private fun getTimeSlotFromTimeSlotDetailsFragment(){
 
-        val timeslot = arguments?.getString("JSON")
-        if(timeslot == null){
-            edit = -1
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
-            return
-        }
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
-        val timeSlotDetailsString = JSONObject(timeslot).toString()
-        val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
-        edit = timeSlotDetails.id.toInt()
         val title = view?.findViewById<TextView>(R.id.titleEditText)
         val description = view?.findViewById<TextView>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -83,12 +72,24 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<TextView>(R.id.locationEditText)
 
-        title?.text = timeSlotDetails.title
-        description?.text = timeSlotDetails.description
-        date?.text = timeSlotDetails.dateTime.split(" ")[0].toString()
-        time?.text = timeSlotDetails.dateTime.split(" ")[1].toString()
-        duration?.text = timeSlotDetails.duration
-        location?.text = timeSlotDetails.location
+        val id = arguments?.getString("id")
+        if(id == null){
+            edit = -1
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Create advertisement"
+        }
+        else{
+            edit = id.toInt()
+            vm.getTimeSlot(id).observe(viewLifecycleOwner){
+                title?.text = it.title
+                description?.text = it.description
+                date?.text = it.dateTime.split(" ")[0].toString()
+                time?.text = it.dateTime.split(" ")[1].toString()
+                duration?.text = it.duration
+                location?.text = it.location
+            }
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
+        }
+
     }
 
     private fun putDatePicker(){
@@ -121,7 +122,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         }
     }
 
-    private fun addTimeSlot() : TimeSlot{
+    private fun addTimeSlot(){
         val title = view?.findViewById<EditText>(R.id.titleEditText)
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
@@ -139,7 +140,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             location?.text.toString()
         )
         vm.updateTimeSlot(obj, edit != -1)
-        return obj
     }
 
 }

@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -34,14 +35,16 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
 
-        val timeslot = arguments?.getString("JSON") ?: return
-        val timeSlotDetailsString = JSONObject(timeslot).toString()
-        val timeSlotDetails = Gson().fromJson(timeSlotDetailsString, TimeSlot::class.java)
-        title.text = timeSlotDetails.title
-        description.text = timeSlotDetails.description
-        dateTime.text = timeSlotDetails.dateTime
-        duration.text = timeSlotDetails.duration
-        location.text = timeSlotDetails.location
+        val id = arguments?.getString("id")
+        if(id != null){
+            vm.getTimeSlot(id).observe(viewLifecycleOwner){
+                title.text = it.title
+                description.text = it.description
+                dateTime.text = it.dateTime
+                duration.text = it.duration
+                location.text = it.location
+            }
+        }
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -81,7 +84,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private fun editTimeSlot(): Bundle {
         val bundle = Bundle()
-        bundle.putString("JSON", arguments?.getString("JSON"))
+        bundle.putString("id", arguments?.getString("id"))
 
         return bundle
     }

@@ -89,23 +89,6 @@ class ShowProfileFragment : Fragment() {
 
         }
 
-        /*setFragmentResultListener("12"){requestKey, bundle ->
-            if (bundle != null) {
-                //Log.d("ok", bundle.toString())
-                val profile = Gson().fromJson(bundle.getString("JSON"), Profile::class.java)
-                Log.d("ok", profile.toString())
-                profileImage.setImageURI(Uri.parse(profileImageUri))
-                fullName.text = profile.fullName
-                nickname.text = profile.nickname
-                email.text = profile.email
-                location.text = profile.location
-                skills.text = profile.skills
-                description.text = profile.description
-            }
-        }
-
-         */
-
 
 
         val callback = object : OnBackPressedCallback(true){

@@ -32,14 +32,12 @@ class TimeSlotsListRecyclerViewAdapter(
         holder.bind(values[position],
             {
                 val bundle = Bundle()
-                val timeslotJson = Gson().toJson(values[position])
-                bundle.putString("JSON", timeslotJson.toString())
+                bundle.putString("id", values[position].id)
                 it.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment, bundle)
             }, {
                 val bundle = Bundle()
-                val timeslotJson = Gson().toJson(values[position])
-                bundle.putString("JSON", timeslotJson.toString())
+                bundle.putString("id", values[position].id)
                 it.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment, bundle)
             })

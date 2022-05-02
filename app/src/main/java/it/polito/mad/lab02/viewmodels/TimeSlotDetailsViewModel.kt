@@ -7,7 +7,7 @@ import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
 
 //TODO: work in progress
-class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(application) {
+class TimeSlotDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
     // We have not a DB => No repository
     // => we suppose that SharedPreferences is our persistence data layer
@@ -17,39 +17,24 @@ class TimeSlotDetailsViewModel(application: Application): AndroidViewModel(appli
 
     private val timeSlotDetails = MutableLiveData<TimeSlot>()
 
-    fun getTimeSlot(timeslotID : String): MutableLiveData<TimeSlot> {
+    fun getTimeSlot(timeslotID: String): MutableLiveData<TimeSlot> {
         timeSlotDetails.also {
             it.value = sharedPreferences.getTimeSlot(timeslotID)
         }
         return timeSlotDetails
     }
 
-    fun getMaxId(): String{
+    fun getMaxId(): String {
         return sharedPreferences.getMaxId()
     }
 
-    //TODO: update method for single field?
-    fun updateTimeSlot(newTS: TimeSlot, b: Boolean){
-        // Update View Model
-        timeSlotDetails.value = newTS
-
+    fun updateTimeSlot(newTS: TimeSlot, b: Boolean) {
         // Update persistence layer
         sharedPreferences.setTimeSlot(newTS, b)
 
-        //TODO: update the persistence layer -> is thread useful?
-        /*
-        thread {
-            repo.add("item${value.value}")
+        // Update View Model
+        timeSlotDetails.also {
+            it.value = newTS
         }
-        */
     }
-
-    /* Code from lecture on a08-fragments */
-    /*
-    private val counter = MutableLiveData<Int>().also { it.value = 0 }
-
-    fun add() {
-        counter.value = (counter.value?:0)+1
-    }
-     */
 }
