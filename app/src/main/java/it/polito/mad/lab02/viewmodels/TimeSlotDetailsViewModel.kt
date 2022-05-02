@@ -6,13 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.TimeSlot
 
-//TODO: work in progress
 class TimeSlotDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
     // We have not a DB => No repository
     // => we suppose that SharedPreferences is our persistence data layer
     //Try to retrieve data from shared preferences
-    //TODO: test if application works as context for preferences
     private val sharedPreferences = SharedPreference(application)
 
     private val timeSlotDetails = MutableLiveData<TimeSlot>()

@@ -9,7 +9,6 @@ import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.models.TimeSlotList
 import java.io.File
 
-//TODO: change name in SharedPreferences
 class SharedPreference(context: Context) {
 
     private val PREFERENCE_NAME = "SharedPreference"
@@ -43,8 +42,6 @@ class SharedPreference(context: Context) {
     fun setProfile(profile: Profile) {
         val editor = sharedPreferences.edit()
         //profile must be a string to put it in preferences
-        // TODO: test if is sufficient method toString()
-        //  it should be converted to a JSON first
         val profileJson = Gson().toJson(profile)
         editor.putString(PREFERENCE_PROFILE, profileJson)
         editor.apply()
@@ -91,9 +88,6 @@ class SharedPreference(context: Context) {
     fun setTimeSlot(timeslot: TimeSlot, edit: Boolean) {
         val editor = sharedPreferences.edit()
         //timeslot must be a string to put it in preferences
-        // TODO: test if is sufficient method toString()
-        //  it should be converted to a JSON first
-
         //only if not in edit mode, but create mode
         if(!edit){
             val defaultTimeSlotListDetails = TimeSlotList(
@@ -123,9 +117,8 @@ class SharedPreference(context: Context) {
             listOf()
         )
         val defaultTimeSlotListJson = Gson().toJson(defaultTimeSlotListDetails)
-        var timeSlotListJson = sharedPreferences.getString("TimeSlotList", defaultTimeSlotListJson)
+        val timeSlotListJson = sharedPreferences.getString("TimeSlotList", defaultTimeSlotListJson)
         val timeSlotList = Gson().fromJson(timeSlotListJson, TimeSlotList::class.java)
-        val timeSlotListTemp = timeSlotList.timeSlotIdList.toMutableList()
         val last = timeSlotList.timeSlotIdList.lastOrNull()
         var max = 0
         if (last != null) {
@@ -133,26 +126,4 @@ class SharedPreference(context: Context) {
         }
         return max.toString()
     }
-
-
-    //TODO: example of a Repo
-    /*
-    private val itemDao = ItemDatabase.getDatabase(application).itemDao()
-
-    fun add(name: String) {
-        val i = Item().also { it.name = name}
-        itemDao.addItem(i)
-    }
-
-    fun sub(name: String) {
-        itemDao.removeItemsWithName(name)
-    }
-
-    fun clear() {
-        itemDao.removeAll()
-    }
-
-    fun count(): LiveData<Int> = itemDao.count()
-    fun items(): LiveData<List<Item>> = itemDao.findAll()
-    */
 }
