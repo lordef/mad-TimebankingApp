@@ -10,7 +10,7 @@
         android:id="@id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_text_cards"
+        android:background="@color/background_edit"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -59,7 +59,7 @@
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:adjustViewBounds="true"
-                        android:background="@color/background_text_cards"
+                        android:background="@color/background_text_cards_edit"
                         android:backgroundTint="#45FFFFFF"
                         android:contentDescription="@string/imageDescription"
                         android:scaleType="centerCrop"
@@ -78,14 +78,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/background_text_cards"
+            android:background="@color/background_text_cards_edit"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background_text_cards"
+                android:background="@color/background_text_cards_edit"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -112,11 +112,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user"
                         android:drawablePadding="10dp"
-                        android:inputType="text"
                         android:hint="@string/fullNameLabel"
-                        android:textColorHint="#00FFFFFF"
+                        android:inputType="text"
                         android:maxLength="30"
                         android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,11 +144,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_user"
                         android:drawablePadding="10dp"
-                        android:inputType="text"
                         android:hint="@string/nicknameLabel"
-                        android:textColorHint="#00FFFFFF"
+                        android:inputType="text"
                         android:maxLength="15"
                         android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,10 +176,10 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_email_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="textEmailAddress"
                         android:hint="@string/emailLabel"
-                        android:textColorHint="#00FFFFFF"
+                        android:inputType="textEmailAddress"
                         android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,11 +207,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_location_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/locationLabel"
                         android:inputType="text"
                         android:textColor="@color/color_text"
-                        android:textSize="20sp"
-                        android:hint="@string/locationLabel"
-                        android:textColorHint="#00FFFFFF"/>
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -238,11 +238,11 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_skills_icon"
                         android:drawablePadding="10dp"
+                        android:hint="@string/skillsLabel"
                         android:inputType="textMultiLine"
                         android:orientation="vertical"
-                        android:hint="@string/skillsLabel"
-                        android:textColorHint="#00FFFFFF"
                         android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -271,10 +271,10 @@
                         android:autofillHints=""
                         android:drawableStart="@drawable/ic_description_icon"
                         android:drawablePadding="10dp"
-                        android:inputType="textMultiLine"
                         android:hint="@string/descriptionLabel"
-                        android:textColorHint="#00FFFFFF"
+                        android:inputType="textMultiLine"
                         android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

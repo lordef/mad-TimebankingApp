@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_show"
     android:orientation="vertical"
     tools:context=".fragments.TimeSlotDetailsFragment">
 
@@ -21,11 +22,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
             android:text="@string/title"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"/>
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/descriptionCardView"
@@ -35,7 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/background_text_cards"
+            app:cardBackgroundColor="@color/background_text_cards_show"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
@@ -74,7 +75,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/background_text_cards"
+            app:cardBackgroundColor="@color/background_text_cards_show"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
@@ -114,7 +115,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/background_text_cards"
+            app:cardBackgroundColor="@color/background_text_cards_show"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
@@ -139,8 +140,8 @@
                     android:layout_margin="8dp"
                     android:drawablePadding="10dp"
                     android:text="@string/duration"
-                    android:textSize="20sp"
-                    android:textColor="@color/color_text" />
+                    android:textColor="@color/color_text"
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -153,7 +154,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/background_text_cards"
+            app:cardBackgroundColor="@color/background_text_cards_show"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
