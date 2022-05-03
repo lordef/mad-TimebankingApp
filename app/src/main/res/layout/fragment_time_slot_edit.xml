@@ -27,7 +27,6 @@
             android:inputType="text"
             android:maxLength="30"
             android:minHeight="48dp"
-            android:text="@string/title"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -70,7 +69,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/dateCardView"
@@ -117,36 +117,30 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/durationTextInputLabel"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/durationCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:hint="@string/timeslotDurationLabel"
-            android:textColorHint="#5B5E71"
-            app:boxBackgroundColor="#FFFFFF"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-            <EditText
+            app:cardCornerRadius="10dp">
+            <TextView
                 android:id="@+id/durationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:autofillHints=""
                 android:drawableStart="@drawable/ic_timer_24"
                 android:drawablePadding="10dp"
-                android:hint="@string/timeslotDurationLabel"
-                android:inputType="text"
+                android:hint="Select duration"
                 android:textColor="@color/color_text"
-                android:textColorHint="#00FFFFFF"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textSize="20sp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/locationTextInputLayout"

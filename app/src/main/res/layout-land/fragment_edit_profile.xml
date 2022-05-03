@@ -60,7 +60,7 @@
                         android:layout_height="130dp"
                         android:adjustViewBounds="true"
                         android:background="@color/background_text_cards"
-                        android:backgroundTint="#B7FFFFFF"
+                        android:backgroundTint="#45FFFFFF"
                         android:contentDescription="@string/imageDescription"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"

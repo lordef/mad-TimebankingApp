@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import kotlin.system.exitProcess
 
 /**
  * A fragment representing a list of Items.
@@ -24,16 +24,6 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
     private var columnCount = 1
 
     private val vm by viewModels<TimeSlotListViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        /*
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-        */
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +53,9 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                if(!view.findNavController().navigateUp()){
+                    exitProcess(1)
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)

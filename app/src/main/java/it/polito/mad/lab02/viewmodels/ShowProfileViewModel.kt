@@ -22,21 +22,11 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
         return profileInfo
     }
 
-    //TODO: update method for single field?
     fun updateProfile(newP: Profile){
-
-
         sharedPreferences.setProfile(newP)
 
         profileInfo.also {
             it.value = newP
         }
-        //TODO: update the persistence layer -> is thread useful?
-        /*
-        thread {
-            repo.add("item${value.value}")
-        }
-        */
     }
-
 }
