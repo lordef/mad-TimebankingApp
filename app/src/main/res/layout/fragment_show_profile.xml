@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_menu"
+    android:background="@color/background_show"
     tools:context=".fragments.ShowProfileFragment">
 
     <!--Comment -->
@@ -48,7 +48,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cardConstraintLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/background_text_cards_show">
 
 
                         <ImageView
@@ -138,7 +139,8 @@
                             android:id="@+id/ratingRelativeLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="5dp">
+                            android:padding="5dp"
+                            android:background="@color/background_text_cards_show">
 
                             <ImageView
                                 android:id="@+id/ratingImageView"
@@ -189,7 +191,8 @@
                             android:id="@+id/balanceRelativeLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="5dp">
+                            android:padding="5dp"
+                            android:background="@color/background_text_cards_show">
 
                             <ImageView
                                 android:id="@+id/balanceImageView"
@@ -237,7 +240,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/background_text_cards_show">
 
                         <TextView
                             android:id="@+id/textView"
@@ -275,7 +279,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/background_text_cards_show">
 
                         <TextView
                             android:id="@+id/textView2"
@@ -313,7 +318,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/background_text_cards_show">
 
                         <TextView
                             android:id="@+id/textView3"
@@ -352,7 +358,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/background_text_cards_show">
 
                         <TextView
                             android:id="@+id/textView4"

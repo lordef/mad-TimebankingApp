@@ -92,7 +92,6 @@
                 android:id="@+id/lowerLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background_text_cards_edit"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
