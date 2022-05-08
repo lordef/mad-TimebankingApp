@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="skillsList">
+        <item>Skill1</item>
+        <item>Skill2</item>
+        <item>Skill3</item>
+        <item>Skill4</item>
+        <item>Skill5</item>
+    </string-array>
+
+</resources>

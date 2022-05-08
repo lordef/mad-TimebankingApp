@@ -2,6 +2,7 @@ package it.polito.mad.lab02
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -90,6 +91,28 @@ class EditProfileFragment : Fragment() {
 
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
+
+        val skillsButton = view.findViewById<TextView>(R.id.skillEditText)
+        skillsButton.setOnClickListener {
+            val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
+            val builder = AlertDialog.Builder(this.context).setView(dialog)
+            val skills = resources.getStringArray(R.array.skillsList)
+
+            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+            skillsPicker.minValue = 0
+            skillsPicker.maxValue = skills.size - 1
+
+            skillsPicker.displayedValues = skills
+
+            val alertDialog = builder.show()
+
+            val button = dialog.findViewById<Button>(R.id.button)
+            button.setOnClickListener {
+                alertDialog.dismiss()
+            }
+
+
+        }
 
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton
