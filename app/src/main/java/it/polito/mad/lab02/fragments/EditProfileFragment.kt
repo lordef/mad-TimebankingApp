@@ -101,8 +101,20 @@ class EditProfileFragment : Fragment() {
             val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
             skillsPicker.minValue = 0
             skillsPicker.maxValue = skills.size - 1
-
             skillsPicker.displayedValues = skills
+
+            var mSkillsList = mutableListOf<String>()
+            if(skillsButton != null) mSkillsList = skillsButton.text.split(" ") as MutableList<String>
+
+            var toAdd = ""
+
+            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+                skillsButton.text = skills[newVal]
+                //toAdd = skills[newVal]
+            })
+
+//            mSkillsList.add(toAdd)
+//            skillsButton.text = mSkillsList.toString()
 
             val alertDialog = builder.show()
 
