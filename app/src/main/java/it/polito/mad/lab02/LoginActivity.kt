@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,8 +19,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var signInButton: SignInButton
-    private lateinit var signOutButton: Button
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: AuthStateListener? = null
@@ -71,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             var task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-            Log.d("MYTAG", "${task.isSuccessful}")
             if (task.isSuccessful) {
                 // Sign in succeeded, proceed with account
                 val acct: GoogleSignInAccount = task.result
@@ -104,9 +100,9 @@ class LoginActivity : AppCompatActivity() {
             ) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Logged in successfully", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(applicationContext, "Not Success", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Not logged in", Toast.LENGTH_LONG).show()
                 }
             }
     }

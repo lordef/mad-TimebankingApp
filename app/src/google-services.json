@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "787635481761",
+    "project_id": "mad2022-group07",
+    "storage_bucket": "mad2022-group07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787635481761:android:7a4f142e2d4afe5e6794e0",
+        "android_client_info": {
+          "package_name": "it.polito.mad.lab02"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787635481761-qvbg9st284munffd9m8sglvqq7mrptvv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.polito.mad.lab02",
+            "certificate_hash": "1c649a72c1d4256f40b488c54bd24eb494c89ee7"
+          }
+        },
+        {
+          "client_id": "787635481761-51ms6sjm67jvr7ofhp6s716tu51eqn76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWCvc8XnQSQBfZmBSDWyZaK-wxSewv3gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787635481761-51ms6sjm67jvr7ofhp6s716tu51eqn76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
