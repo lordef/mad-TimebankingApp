@@ -1,24 +1,28 @@
 package it.polito.mad.lab02
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +41,23 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+
+        /*
+        navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_logout -> {
+                    FirebaseAuth.getInstance().signOut()
+                    val loginActivity = Intent(applicationContext, LoginActivity::class.java)
+                    startActivity(loginActivity)
+                    Log.d("MYTAG", "here")
+                    finish()
+                }
+
+            }
+            true
+        }
+         */
+
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -64,7 +85,14 @@ class MainActivity : AppCompatActivity() {
             drawerNickname.text = profile.nickname
             drawerFullName.text = profile.fullName
 
-
+            val logout = binding.navView.getHeaderView(0).findViewById<Button>(R.id.nav_logout)
+            logout.setOnClickListener{
+                FirebaseAuth.getInstance().signOut()
+                val loginActivity = Intent(applicationContext, LoginActivity::class.java)
+                loginActivity.putExtra("logout", true)
+                startActivity(loginActivity)
+                finish()
+            }
         }
 
         return super.onCreateView(name, context, attrs)

@@ -28,12 +28,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null) {
                 Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
-                finish()
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
 
@@ -43,6 +45,10 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        if (intent.extras?.getBoolean("logout") == true) {
+            signOut()
+        }
 
         val signInButton = findViewById<SignInButton>(R.id.sign_in_button)
         signInButton.setOnClickListener {
@@ -71,7 +77,6 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 // Sign in succeeded, proceed with account
                 val acct: GoogleSignInAccount = task.result
-                Log.d("MYTAG", acct.toString())
                 firebaseAuthWithGoogle(acct);
 
 
@@ -100,7 +105,8 @@ class LoginActivity : AppCompatActivity() {
             ) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(applicationContext, "Logged in successfully", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Logged in successfully", Toast.LENGTH_LONG)
+                        .show()
                 } else {
                     Toast.makeText(applicationContext, "Not logged in", Toast.LENGTH_LONG).show()
                 }
