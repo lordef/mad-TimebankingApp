@@ -12,12 +12,15 @@
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/dialog_skills.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/drawer_header.xml" value="0.3927083333333333" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_all_skills.xml" value="0.21481481481481482" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.21481481481481482" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.21481481481481482" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skill_list.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skills.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skills_list.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.3879598662207358" />
-        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.5541666666666667" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.44274809160305345" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.2677083333333333" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/menu/drawer_menu.xml" value="0.3927083333333333" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1335" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_camera_icon.xml" value="0.1335" />

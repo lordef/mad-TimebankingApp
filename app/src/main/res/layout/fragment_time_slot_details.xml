@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_show"
     android:orientation="vertical"
-    tools:context=".fragments.TimeSlotDetailsFragment">
+    tools:context=".fragments.myadvertisements.TimeSlotDetailsFragment">
 
     <LinearLayout
         android:id="@+id/fatherLinearLayout"

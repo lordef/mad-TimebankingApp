@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

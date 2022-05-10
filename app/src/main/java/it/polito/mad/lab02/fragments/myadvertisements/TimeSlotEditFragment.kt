@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog

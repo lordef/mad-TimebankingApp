@@ -1,4 +1,4 @@
-package it.polito.mad.lab02
+package it.polito.mad.lab02.fragments.profile
 
 import android.Manifest
 import android.app.Activity
@@ -30,9 +30,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
-import it.polito.mad.lab02.fragments.SkillRecyclerViewAdapter
-import it.polito.mad.lab02.fragments.TimeSlotsListRecyclerViewAdapter
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import java.io.File

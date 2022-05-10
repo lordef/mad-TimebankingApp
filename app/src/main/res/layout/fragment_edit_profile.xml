@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/background_edit"
-    tools:context=".EditProfileFragment">
+    tools:context=".fragments.profile.EditProfileFragment">
 
     <ScrollView
         android:id="@+id/mainScrollView"

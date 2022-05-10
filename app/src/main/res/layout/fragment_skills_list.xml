@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragments.SkillsFragment"
+    tools:context=".fragments.profile.SkillsFragment"
     tools:listitem="@layout/fragment_skills" />

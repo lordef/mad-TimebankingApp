@@ -1,7 +1,6 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.fragments.listofskills.SkillListRecyclerViewAdapter
 import it.polito.mad.lab02.viewmodels.SkillListViewModel
 
 class SkillListFragment : Fragment(R.layout.fragment_all_skills) {

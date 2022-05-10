@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.listofskills
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

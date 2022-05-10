@@ -2,12 +2,12 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/allSkillsList"
-    android:name="it.polito.mad.lab02.fragments.placeholder.SkillListFragment"
+    android:id="@+id/public_time_slot_list"
+    android:name="it.polito.mad.lab02.fragments.listofskills.PublicTimeSlotFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragments.listofskills.SkillListFragment"
-    tools:listitem="@layout/fragment_skill_list" />
+    tools:context=".fragments.listofskills.PublicTimeSlotFragment"
+    tools:listitem="@layout/fragment_public_time_slot" />
