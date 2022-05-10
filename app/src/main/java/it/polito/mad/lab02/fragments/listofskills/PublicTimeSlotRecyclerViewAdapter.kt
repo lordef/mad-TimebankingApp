@@ -46,7 +46,6 @@ class PublicTimeSlotRecyclerViewAdapter(
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
-        val button: Button = binding.editTimeSlotButton
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit) {
             card.setOnClickListener(action1)

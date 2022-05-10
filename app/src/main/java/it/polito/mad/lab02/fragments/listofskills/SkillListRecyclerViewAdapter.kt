@@ -27,10 +27,10 @@ class SkillListRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(values[position].name)
+        holder.bind(values[position])
         {
             val bundle = Bundle()
-            //bundle.putString("id", values[position].id)
+            bundle.putString("skill", values[position].name)
             it.findNavController()
                 .navigate(R.id.action_nav_all_advertisements_to_publicTimeSlotFragment, bundle)
         }
@@ -43,8 +43,8 @@ class SkillListRecyclerViewAdapter(
         val skillName: TextView = binding.skillName
         val card: CardView = binding.cardSkillAdvertisement
 
-        fun bind(skill: String, action1: (v: View) -> Unit){
-            skillName.text = skill
+        fun bind(skill: Skill, action1: (v: View) -> Unit){
+            skillName.text = skill.name
             card.setOnClickListener(action1)
         }
 
