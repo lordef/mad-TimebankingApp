@@ -33,7 +33,7 @@ class PublicTimeSlotRecyclerViewAdapter(
             val bundle = Bundle()
             bundle.putString("id", values[position].id)
             it.findNavController()
-                .navigate(R.id.action_nav_advertisement_to_timeSlotDetailsFragment, bundle)
+                .navigate(R.id.action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment, bundle)
         }
     }
 

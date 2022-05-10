@@ -30,8 +30,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        vm.getTimeSlotList("skills/cooking").observe(viewLifecycleOwner){timeSlotList ->
+        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
+        vm.getTimeSlotList("cooking").observe(viewLifecycleOwner){timeSlotList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {
