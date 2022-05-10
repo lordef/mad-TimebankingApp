@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
@@ -54,7 +55,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                findNavController().popBackStack(R.id.nav_advertisement,false)
+                view.findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -67,7 +68,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         return when (item.itemId) {
 
             android.R.id.home -> {
-                findNavController().popBackStack(R.id.nav_advertisement,false)
+                findNavController().navigateUp()
                 true
             }
             else -> super.onOptionsItemSelected(item)

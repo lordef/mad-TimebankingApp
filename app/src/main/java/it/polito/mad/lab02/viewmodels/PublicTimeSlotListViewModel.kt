@@ -121,6 +121,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         for (s in this.documents){
             try {
                 val ts = s.toTimeslot()
+
+                Log.d("myTag", "Document: ${ts}")
                 listTmp.add(ts!!)
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.listofskills.SkillListRecyclerViewAdapter
 import it.polito.mad.lab02.viewmodels.SkillListViewModel
+import kotlin.system.exitProcess
 
 class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
@@ -42,6 +45,14 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
             }
         }
 
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(!view.findNavController().navigateUp()){
+                    exitProcess(1)
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
     }
 }
