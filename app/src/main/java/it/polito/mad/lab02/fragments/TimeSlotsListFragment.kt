@@ -42,11 +42,13 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                 view.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
             }
-            if (timeSlotList.size == 0) {
+            val textView = view.findViewById<TextView>(R.id.text_advertisements)
+            if (timeSlotList.isEmpty()) {
                 recyclerView.visibility = View.GONE
+                textView.visibility = View.VISIBLE
             } else {
-                val textView = view.findViewById<TextView>(R.id.text_advertisements)
                 textView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
             }
         }
 

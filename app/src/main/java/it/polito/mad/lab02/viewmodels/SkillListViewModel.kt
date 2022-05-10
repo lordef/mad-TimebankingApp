@@ -80,6 +80,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
         val collRef = db.collection("skills")
         collRef.get()
             .addOnSuccessListener { collection ->
+                Log.d("MYTAG", "Collection empty?: ${collection}")
                 if (collection != null) {
                     Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
                     _skillList.value = collection.toSkillList()
