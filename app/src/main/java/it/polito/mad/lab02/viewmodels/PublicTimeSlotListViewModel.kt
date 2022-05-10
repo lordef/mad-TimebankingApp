@@ -60,7 +60,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     //TODO: set returned value
     fun getTimeSlot(timeSlotID: String): MutableLiveData<TimeSlot> {
         // [START get_document]
-        val docRef = db.collection("timeslots").document(timeSlotID)
+        val docRef = db.collection("timeslots").document("timeslot${timeSlotID}")
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
@@ -74,6 +74,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
         // [END get_document]
+        Log.d("myTag", _timeSlot.value.toString())
         return _timeSlot
     }
 

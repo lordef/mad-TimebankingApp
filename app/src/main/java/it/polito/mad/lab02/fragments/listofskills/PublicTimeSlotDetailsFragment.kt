@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
@@ -33,6 +34,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val id = arguments?.getString("id")
         if(id != null){
             vm.getTimeSlot(id).observe(viewLifecycleOwner){
+                Log.d("myTag", it.toString())
                 title.text = it.title
                 description.text = it.description
                 dateTime.text = it.dateTime
@@ -45,6 +47,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     duration.text = ""
                 }
                 location.text = it.location
+
                 //profile.text =
             }
         }
