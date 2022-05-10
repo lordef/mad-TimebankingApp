@@ -10,7 +10,7 @@ import it.polito.mad.lab02.databinding.FragmentSkillListBinding
 import it.polito.mad.lab02.models.Skill
 
 class SkillListRecyclerViewAdapter(
-    private val values: MutableList<Skill>
+    private val values: List<Skill>
 ) : RecyclerView.Adapter<SkillListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -91,6 +91,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
         // [END get_document]
+        Log.d("myTag", "query al db")
         return _skillList
     }
 
