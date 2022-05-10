@@ -79,10 +79,10 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     fun getTimeSlotList(skill: String): MutableLiveData<List<TimeSlot>> {
         // [START get_document]
-        val collRef = db.collection("timeslots").whereEqualTo("skill", skill)
+        val docRef = db.collection("skills").document(skill)
+        val collRef = db.collection("timeslots").whereEqualTo("skill", docRef)
         collRef.get()
             .addOnSuccessListener { collection ->
-                Log.d("MYTAG", "Collection empty?: ${collection}")
                 if (collection != null) {
                     Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
                     _timeSlotList.value = collection.toTimeSlotList()

@@ -83,5 +83,14 @@
         android:id="@+id/nav_all_advertisements"
         android:name="it.polito.mad.lab02.fragments.listofskills.SkillListFragment"
         android:label="Skills"
-        tools:layout="@layout/fragment_skill_list_list" />
+        tools:layout="@layout/fragment_skill_list_list" >
+        <action
+            android:id="@+id/action_nav_all_advertisements_to_publicTimeSlotFragment"
+            app:destination="@id/publicTimeSlotFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/publicTimeSlotFragment"
+        android:name="it.polito.mad.lab02.fragments.listofskills.PublicTimeSlotFragment"
+        android:label="fragment_public_time_slot_list"
+        tools:layout="@layout/fragment_public_time_slot_list" />
 </navigation>

@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,15 +31,22 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        vm.getTimeSlotList("skills/cooking").observe(viewLifecycleOwner){timeSlotList ->
-            if (recyclerView is RecyclerView) {
-                with(recyclerView) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
+
+        val skill = arguments?.getString("skill")
+        if(skill != null){
+            Log.d("MYTAG", "Passed skill: ${skill}")
+            vm.getTimeSlotList(skill).observe(viewLifecycleOwner){timeSlotList ->
+
+                Log.d("MYTAG", "Doc ref: ${timeSlotList}")
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                     }
-                    adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                 }
             }
         }
