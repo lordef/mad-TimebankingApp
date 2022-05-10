@@ -1,16 +1,19 @@
 package it.polito.mad.lab02.viewmodels
 
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ListenerRegistration
 import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 
-class SkillListViewModel {
+class SkillListViewModel(application: Application) : AndroidViewModel(application) {
     private val _skillList = MutableLiveData<List<Skill>>()
     private val _skill = MutableLiveData<Skill>()
 

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import it.polito.mad.lab02.databinding.FragmentSkillsBinding
 
-import it.polito.mad.lab02.fragments.placeholder.PlaceholderContent.PlaceholderItem
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].

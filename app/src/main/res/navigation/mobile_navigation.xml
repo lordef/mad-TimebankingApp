@@ -79,4 +79,9 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_all_advertisements"
+        android:name="it.polito.mad.lab02.fragments.SkillListFragment"
+        android:label="fragment_skill_list_list"
+        tools:layout="@layout/fragment_skill_list_list" />
 </navigation>
