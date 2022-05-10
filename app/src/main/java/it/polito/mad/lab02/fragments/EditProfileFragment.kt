@@ -130,23 +130,29 @@ class EditProfileFragment : Fragment() {
             button.setOnClickListener {
                 skillList = skillList + temp + " "
                 skillsText.text = skillList
+                vm.addSkill(skillList)
                 alertDialog.dismiss()
-                skills.filter { skill -> skill != temp  }
-                mySkills.add(temp)
+//                skills.filter { skill -> skill != temp  }
+//                mySkills.add(temp)
             }
 
 
         }
 
-        val listOfSkills = skillList.split(" ").toMutableList()
+//        val profile = vm.getProfileInfo().value
+        //val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
+//        val listOfSkills = skillList.split(" ").toMutableList()
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
-        if (recyclerView is RecyclerView) {
-            with(recyclerView) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+            val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
+            if (recyclerView is RecyclerView) {
+                with(recyclerView) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    adapter = SkillRecyclerViewAdapter(listOfSkills!!)
                 }
-                adapter = SkillRecyclerViewAdapter(listOfSkills)
             }
         }
 
