@@ -102,7 +102,7 @@ class EditProfileFragment : Fragment() {
         for(el in mySkills){
             skills.filter { sk -> sk != el }
         }
-
+        // TODO: sistemare il picker delle skills
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
         addSkillsButton.setOnClickListener {

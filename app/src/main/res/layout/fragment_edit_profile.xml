@@ -268,23 +268,10 @@
                             android:layout_margin="8dp"
                             android:text="Button"
                             app:layout_constraintBottom_toTopOf="@+id/skillList"
-                            app:layout_constraintEnd_toStartOf="@+id/removeSkill"
-                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/skillEditText"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:id="@+id/removeSkill"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Button"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/addSkill"
-                            app:layout_constraintTop_toTopOf="parent" />
-
+<!--TODO: mettere il pulsante per eliminare una skill-->
                         <include
                             android:id="@+id/skillList"
                             layout="@layout/fragment_skills_list"
