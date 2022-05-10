@@ -14,7 +14,7 @@ import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot
 
 class PublicTimeSlotRecyclerViewAdapter(
-    private val values: MutableList<TimeSlot>
+    private val values: List<TimeSlot>
 ) : RecyclerView.Adapter<PublicTimeSlotRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

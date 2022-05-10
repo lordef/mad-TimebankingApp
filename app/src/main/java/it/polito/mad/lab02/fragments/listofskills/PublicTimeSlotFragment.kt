@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.myadvertisements.TimeSlotsListRecyclerViewAdapter
+import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import kotlin.system.exitProcess
 
@@ -25,33 +26,20 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
     private var columnCount = 1
 
-    private val vm by viewModels<TimeSlotListViewModel>()
+    private val vm by viewModels<PublicTimeSlotListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        vm.getTimeSlotList().observe(viewLifecycleOwner){timeSlotList ->
+        vm.getTimeSlotList("skills/cooking").observe(viewLifecycleOwner){timeSlotList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {
                         columnCount <= 1 -> LinearLayoutManager(context)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList)
+                    adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                 }
-            }
-            val fab = view.findViewById<FloatingActionButton>(R.id.fab2)
-            fab.setOnClickListener { view ->
-                view.findNavController()
-                    .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
-            }
-            val textView = view.findViewById<TextView>(R.id.text_advertisements)
-            if (timeSlotList.isEmpty()) {
-                recyclerView.visibility = View.GONE
-                textView.visibility = View.VISIBLE
-            } else {
-                textView.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
             }
         }
 

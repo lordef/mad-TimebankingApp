@@ -1,24 +1,28 @@
 package it.polito.mad.lab02.viewmodels
 
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import it.polito.mad.lab02.models.Skill
+import it.polito.mad.lab02.models.TimeSlot
 
-class PublicTimeSlotListViewModel {
+class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _timeSlotList = MutableLiveData<List<Skill>>()
-    private val _timeSlot = MutableLiveData<Skill>()
+    private val _timeSlotList = MutableLiveData<List<TimeSlot>>()
+    private val _timeSlot = MutableLiveData<TimeSlot>()
 
 
     //LiveData passed to our fragment
-    val skillList: LiveData<List<Skill>> = _timeSlotList
-    val skill = MutableLiveData<Skill>()
+    val skillList: LiveData<List<TimeSlot>> = _timeSlotList
+    val skill = MutableLiveData<TimeSlot>()
 
 
     //Creation of a Firebase db instance
@@ -26,11 +30,11 @@ class PublicTimeSlotListViewModel {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     init {
-        l = db.collection("skills").addSnapshotListener { r, e ->
+        l = db.collection("timeslots").addSnapshotListener { r, e ->
             _timeSlotList.value = if (e != null)
                 emptyList()
             else r!!.mapNotNull { d ->
-                d.toSkill()
+                d.toTimeslot()
             }
         }
     }
@@ -54,14 +58,14 @@ class PublicTimeSlotListViewModel {
 
 
     //TODO: set returned value
-    fun getSkill(skillID: String): MutableLiveData<Skill> {
+    fun getTimeSlot(timeSlotID: String): MutableLiveData<TimeSlot> {
         // [START get_document]
-        val docRef = db.collection("skills").document(skillID)
+        val docRef = db.collection("timeslots").document(timeSlotID)
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     Log.d("MYTAG", "DocumentSnapshot data: ${document.data}")
-                    _timeSlot.value = document.toSkill()
+                    _timeSlot.value = document.toTimeslot()
                 } else {
                     Log.d("MYTAG", "No such document")
                 }
@@ -73,15 +77,15 @@ class PublicTimeSlotListViewModel {
         return _timeSlot
     }
 
-    fun getSkillList(): MutableLiveData<List<Skill>> {
+    fun getTimeSlotList(skill: String): MutableLiveData<List<TimeSlot>> {
         // [START get_document]
-        val collRef = db.collection("skills")
+        val collRef = db.collection("timeslots").whereEqualTo("skill", skill)
         collRef.get()
             .addOnSuccessListener { collection ->
                 Log.d("MYTAG", "Collection empty?: ${collection}")
                 if (collection != null) {
                     Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
-                    _timeSlotList.value = collection.toSkillList()
+                    _timeSlotList.value = collection.toTimeSlotList()
                 } else {
                     Log.d("MYTAG", "No such document")
                 }
@@ -94,11 +98,16 @@ class PublicTimeSlotListViewModel {
         return _timeSlotList
     }
 
-    private fun DocumentSnapshot.toSkill(): Skill? {
+    private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
-            val name = get("name") as String
+            val id = get("id") as Long
+            val title = get("title") as String
+            val description = get("description") as String
+            val datetime = get("datetime") as Timestamp //TODO valutare tipo per le date
+            val duration = get("duration") as Long // TODO time in milliseconds
+            val location = get("location") as String
 
-            Skill(name)
+            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location)
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -106,12 +115,12 @@ class PublicTimeSlotListViewModel {
 
     }
 
-    private fun QuerySnapshot.toSkillList(): List<Skill>? {
-        val listTmp : MutableList<Skill> = mutableListOf()
+    private fun QuerySnapshot.toTimeSlotList(): List<TimeSlot>? {
+        val listTmp : MutableList<TimeSlot> = mutableListOf()
         for (s in this.documents){
             try {
-                val skill = s.toSkill()
-                listTmp.add(skill!!)
+                val ts = s.toTimeslot()
+                listTmp.add(ts!!)
             } catch (e: Exception) {
                 e.printStackTrace()
                 null
