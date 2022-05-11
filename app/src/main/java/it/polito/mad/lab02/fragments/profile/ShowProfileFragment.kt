@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.profile
 
 import android.content.res.Configuration
 import android.net.Uri
@@ -16,7 +16,6 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
-import kotlin.system.exitProcess
 
 class ShowProfileFragment : Fragment() {
 

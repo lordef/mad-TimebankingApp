@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments
+package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,46 +8,39 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.SkillListViewModel
 import kotlin.system.exitProcess
 
-/**
- * A fragment representing a list of Items.
- */
-class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
+class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
     private var columnCount = 1
 
-    private val vm by viewModels<TimeSlotListViewModel>()
-
+    private val vm by viewModels<SkillListViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        vm.getTimeSlotList().observe(viewLifecycleOwner){timeSlotList ->
+        val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)
+
+        vm.getSkillList().observe(viewLifecycleOwner) { skillList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {
                         columnCount <= 1 -> LinearLayoutManager(context)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList)
+                    adapter = SkillListRecyclerViewAdapter(skillList)
                 }
             }
-            val fab = view.findViewById<FloatingActionButton>(R.id.fab2)
-            fab.setOnClickListener { view ->
-                view.findNavController()
-                    .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
-            }
-            if (timeSlotList.size == 0) {
+
+            val textView = view.findViewById<TextView>(R.id.text_skills)
+            if (skillList.isEmpty()) {
                 recyclerView.visibility = View.GONE
+                textView.visibility = View.VISIBLE
             } else {
-                val textView = view.findViewById<TextView>(R.id.text_advertisements)
                 textView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
             }
         }
 
@@ -59,5 +52,6 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
+
     }
 }

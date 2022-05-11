@@ -1,8 +1,9 @@
 package it.polito.mad.lab02
-
+//TODO: è inutile
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.DocumentReference
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
@@ -76,7 +77,8 @@ class SharedPreference(context: Context) {
             description = "this is a description",
             dateTime = "01/01/1900 00:00",
             duration = "dummy duration",
-            location = "dummy location"
+            location = "dummy location",
+            skill = "skill"
         )
         val defaultTimeSlotDetailsJson = Gson().toJson(defaultTimeSlotDetails)
         val timeSlotDetailsJson =

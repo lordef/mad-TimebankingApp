@@ -1,7 +1,8 @@
-package it.polito.mad.lab02
+package it.polito.mad.lab02.fragments.profile
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -12,7 +13,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -27,6 +27,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
@@ -83,13 +88,75 @@ class EditProfileFragment : Fragment() {
 
         return root
     }
-
+    private var columnCount = 1
+    var mySkills = mutableListOf<String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
+
+        var skillList = ""
+        var skills = resources.getStringArray(R.array.skillsList)
+        for(el in mySkills){
+            skills.filter { sk -> sk != el }
+        }
+        // TODO: sistemare il picker delle skills
+        val skillsText = view.findViewById<TextView>(R.id.skillEditText)
+        val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
+        addSkillsButton.setOnClickListener {
+            val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
+            val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+
+//            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+//            skillsPicker.minValue = 0
+//            skillsPicker.maxValue = skills.size - 1
+//            skillsPicker.displayedValues = skills
+//            skillsPicker.wrapSelectorWheel = false
+//
+//
+//            var temp = ""
+//            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+////                skillsButton.text = skills[newVal]
+//                temp =  skills[newVal]
+//            })
+
+
+            val alertDialog = builder.show()
+
+            val button = dialog.findViewById<Button>(R.id.button)
+            button.setOnClickListener {
+//                skillList = skillList + temp + " "
+                skillsText.text = skillList
+
+                vm.addSkill(skillList)
+                alertDialog.dismiss()
+//                skills.filter { skill -> skill != temp  }
+//                mySkills.add(temp)
+            }
+
+
+        }
+
+//        val profile = vm.getProfileInfo().value
+        //val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
+//        val listOfSkills = skillList.split(" ").toMutableList()
+        val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
+        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+            val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
+            if (recyclerView is RecyclerView) {
+                with(recyclerView) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    adapter = SkillRecyclerViewAdapter(listOfSkills!!)
+                }
+            }
+        }
+
 
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton

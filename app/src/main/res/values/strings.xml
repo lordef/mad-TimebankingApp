@@ -40,7 +40,8 @@
 
     <!-- section in side bar -->
     <string name="menu_profile">Profile</string>
-    <string name="menu_advertisement">Advertisements</string>
+    <string name="menu_advertisement">My advertisements</string>
+    <string name="menu_all_advertisement">All advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
 
     <!-- TimeSlotDetailsFragment labels -->
@@ -58,5 +59,10 @@
     <string name="edit_timeSlot">Edit</string>
     <string name="empty_adv_msg">No advertisements present</string>
     <string name="nav_logout">Logout</string>
+    <string name="empty_skills_msg">No skills present</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--string name="location">Location</string-->
+
+
 </resources>

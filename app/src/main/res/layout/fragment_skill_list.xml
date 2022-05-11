@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_skill_advertisement"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginRight="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
+    card_view:cardBackgroundColor="@color/background_text_cards_show"
+    card_view:cardCornerRadius="8dp"
+    card_view:contentPadding="10dp">
+
+    <TextView
+        android:id="@+id/skillName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:maxLength="30"
+        android:text="Skill"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        card_view:autoSizeTextType="uniform"
+        card_view:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        card_view:layout_constraintEnd_toStartOf="@+id/edit_timeSlot_button"
+        card_view:layout_constraintHorizontal_bias="0.5"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
+
+</androidx.cardview.widget.CardView>

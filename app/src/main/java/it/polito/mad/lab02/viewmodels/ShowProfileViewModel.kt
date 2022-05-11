@@ -29,4 +29,18 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
             it.value = newP
         }
     }
+
+    fun addSkill(skill: String){
+        profileInfo.also {
+            it.value = Profile(
+                it.value!!.imageUri,
+                it.value!!.fullName,
+                it.value!!.nickname,
+                it.value!!.email,
+                it.value!!.location,
+                skill,
+                it.value!!.description
+            )
+        }
+    }
 }
