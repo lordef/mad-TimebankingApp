@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -33,14 +34,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageMetadata
+import com.google.firebase.storage.ktx.storage
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-import java.io.File
-import java.io.IOException
-import java.io.OutputStream
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -91,6 +93,7 @@ class EditProfileFragment : Fragment() {
 
         return root
     }
+
     private var columnCount = 1
     var mySkills = mutableListOf<String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +105,7 @@ class EditProfileFragment : Fragment() {
 
         var skillList = ""
         var skills = resources.getStringArray(R.array.skillsList)
-        for(el in mySkills){
+        for (el in mySkills) {
             skills.filter { sk -> sk != el }
         }
         // TODO: sistemare il picker delle skills
@@ -224,7 +227,7 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
-        vm.profile.observe(viewLifecycleOwner){ profile ->
+        vm.profile.observe(viewLifecycleOwner) { profile ->
             imgUri = Uri.parse(profile?.imageUri)
             imgUriOld = imgUri
             profileImage?.load(imgUri)
@@ -238,13 +241,14 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun editProfile(): Profile {
+    private fun editProfile() {
         val fullNameEditText = view?.findViewById<EditText>(R.id.fullNameEditText)
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
         val locationEditText = view?.findViewById<TextView>(R.id.locationEditText)
         val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
+
         val obj = Profile(
             imgUri.toString(),
             fullNameEditText?.text.toString(),
@@ -255,8 +259,14 @@ class EditProfileFragment : Fragment() {
             descriptionEditText?.text.toString(),
             FirebaseAuth.getInstance().currentUser?.uid!!
         )
+
+        // Create a storage reference from our app
+        val storageRef = Firebase.storage.reference
+
+        // Create a reference to "images/imgUri"
+        val imagesRef = storageRef.child("images/${imgUri.lastPathSegment!!}")
+        imagesRef.putFile(imgUri)
         vm.updateProfile(obj)
-        return obj
     }
 
     private fun onButtonClickEvent(sender: View?) {
