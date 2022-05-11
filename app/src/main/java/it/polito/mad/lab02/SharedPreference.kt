@@ -1,5 +1,5 @@
 package it.polito.mad.lab02
-
+//TODO: è inutile
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -76,7 +76,8 @@ class SharedPreference(context: Context) {
             description = "this is a description",
             dateTime = "01/01/1900 00:00",
             duration = "dummy duration",
-            location = "dummy location"
+            location = "dummy location",
+            skill = "skill"
         )
         val defaultTimeSlotDetailsJson = Gson().toJson(defaultTimeSlotDetails)
         val timeSlotDetailsJson =

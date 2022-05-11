@@ -110,26 +110,27 @@ class EditProfileFragment : Fragment() {
             val builder = AlertDialog.Builder(this.context).setView(dialog)
 
 
-            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
-            skillsPicker.minValue = 0
-            skillsPicker.maxValue = skills.size - 1
-            skillsPicker.displayedValues = skills
-            skillsPicker.wrapSelectorWheel = false
-
-
-            var temp = ""
-            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
-//                skillsButton.text = skills[newVal]
-                temp =  skills[newVal]
-            })
+//            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+//            skillsPicker.minValue = 0
+//            skillsPicker.maxValue = skills.size - 1
+//            skillsPicker.displayedValues = skills
+//            skillsPicker.wrapSelectorWheel = false
+//
+//
+//            var temp = ""
+//            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+////                skillsButton.text = skills[newVal]
+//                temp =  skills[newVal]
+//            })
 
 
             val alertDialog = builder.show()
 
             val button = dialog.findViewById<Button>(R.id.button)
             button.setOnClickListener {
-                skillList = skillList + temp + " "
+//                skillList = skillList + temp + " "
                 skillsText.text = skillList
+
                 vm.addSkill(skillList)
                 alertDialog.dismiss()
 //                skills.filter { skill -> skill != temp  }

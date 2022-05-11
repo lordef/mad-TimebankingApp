@@ -232,7 +232,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             description?.text.toString(),
             dateTime,
             duration?.text.toString(),
-            location?.text.toString()
+            location?.text.toString(),
+            "skill1" //TODO:
         )
         val bundle = Bundle()
         bundle.putString("id", id.toString())

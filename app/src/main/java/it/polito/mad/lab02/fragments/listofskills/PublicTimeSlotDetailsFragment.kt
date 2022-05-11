@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
-import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 
 
 class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slot_details) {
@@ -33,34 +31,36 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val profile = view.findViewById<TextView>(R.id.publisherTextView)
 
         val id = arguments?.getString("id")
-        if(id != null){
-            vm.getTimeSlot(id).observe(viewLifecycleOwner){
-                Log.d("myTag", it.toString())
-                title.text = it.title
-                description.text = it.description
-                dateTime.text = it.dateTime
-                val d = it.duration.split(":")
+        if (id != null) {
+            vm.timeslotList
+//                .getTimeSlot(id)
+                .observe(viewLifecycleOwner) {
+                    val ts = it.filter { t -> t.id == id }[0]
+                    Log.d("myTag", it.toString())
 
-                if(d.size == 2){
-                    duration.text = "" + d[0] + "h " + d[1] + "min"
-                }
-                else{
-                    duration.text = ""
-                }
-                location.text = it.location
+                    title.text = ts.title
+                    description.text = ts.description
+                    dateTime.text = ts.dateTime
+                    val d = ts.duration.split(":")
 
-                //profile.text =
-            }
+                    if (d.size == 2) {
+                        duration.text = "" + d[0] + "h " + d[1] + "min"
+                    } else {
+                        duration.text = ""
+                    }
+                    location.text = ts.location
+
+                    //profile.text =
+                }
         }
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

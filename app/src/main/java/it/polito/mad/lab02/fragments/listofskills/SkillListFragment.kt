@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.fragments.listofskills.SkillListRecyclerViewAdapter
 import it.polito.mad.lab02.viewmodels.SkillListViewModel
 import kotlin.system.exitProcess
 

@@ -21,8 +21,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
 
     //LiveData passed to our fragment
-    val skillList: LiveData<List<TimeSlot>> = _timeSlotList
+    val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
     val skill = MutableLiveData<TimeSlot>()
+
 
 
     //Creation of a Firebase db instance
@@ -85,8 +86,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         collRef.get()
             .addOnSuccessListener { collection ->
                 if (collection != null) {
-                    Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
+                    Log.d("taggggg", "DocumentSnapshot data: ${collection.documents}")
                     _timeSlotList.value = collection.toTimeSlotList()
+                    Log.d("taggggg", _timeSlotList.value.toString())
                 } else {
                     Log.d("MYTAG", "No such document")
                 }
@@ -107,8 +109,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val datetime = get("datetime") as Timestamp //TODO valutare tipo per le date
             val duration = get("duration") as Long // TODO time in milliseconds
             val location = get("location") as String
+            val skill = (get("skill") as String).split("/").last()
 
-            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location)
+            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location, skill)
         } catch (e: Exception) {
             e.printStackTrace()
             null
