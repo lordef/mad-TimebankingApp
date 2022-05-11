@@ -34,10 +34,18 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
                 _profile.value = if (e != null)
                     Profile("", "", "", "", "", "", "", "")
                 else r!!.toProfile()
-                Log.d("MYTAG", "Profile: ${_profile.value}")
             }
     }
 
+    fun updateProfile(newP: Profile) {
+        db.collection("users")
+            .document(newP.uid)
+            .set(newP)
+
+        profileInfo.also {
+            it.value = newP
+        }
+    }
 
     private fun DocumentSnapshot.toProfile(): Profile? {
         return try {
@@ -75,6 +83,7 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
         return profileInfo
     }
 
+    /*
     fun updateProfile(newP: Profile) {
         sharedPreferences.setProfile(newP)
 
@@ -82,6 +91,7 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
             it.value = newP
         }
     }
+    */
 
     fun addSkill(skill: String) {
         profileInfo.also {

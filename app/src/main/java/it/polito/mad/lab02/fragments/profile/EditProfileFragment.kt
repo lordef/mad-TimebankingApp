@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
@@ -252,7 +253,7 @@ class EditProfileFragment : Fragment() {
             locationEditText?.text.toString(),
             skillEditText?.text.toString(),
             descriptionEditText?.text.toString(),
-            "" //TODO
+            FirebaseAuth.getInstance().currentUser?.uid!!
         )
         vm.updateProfile(obj)
         return obj

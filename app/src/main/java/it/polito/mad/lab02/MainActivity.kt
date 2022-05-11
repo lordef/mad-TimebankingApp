@@ -18,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import coil.load
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        vm.getProfileInfo().observe(this) { profile ->
+        vm.profile.observe(this) { profile ->
             // set side bar profile image and user info
             val drawerProfileImage =
                 binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_profile_image)
@@ -81,7 +82,8 @@ class MainActivity : AppCompatActivity() {
             val drawerFullName =
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_fullname)
 
-            drawerProfileImage.setImageURI(Uri.parse(profile.imageUri))
+            drawerProfileImage.load(Uri.parse(profile.imageUri))
+            //drawerProfileImage.setImageURI(Uri.parse(profile.imageUri))
             drawerNickname.text = profile.nickname
             drawerFullName.text = profile.fullName
 
