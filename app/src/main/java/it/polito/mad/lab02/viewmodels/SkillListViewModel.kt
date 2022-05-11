@@ -99,8 +99,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     private fun DocumentSnapshot.toSkill(): Skill? {
         return try {
             val name = get("name") as String
-
-            Skill(name)
+            Skill(this.reference.toString(), name)
         } catch (e: Exception) {
             e.printStackTrace()
             null

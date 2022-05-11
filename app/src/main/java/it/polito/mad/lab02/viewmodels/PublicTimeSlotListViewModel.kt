@@ -7,12 +7,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
+import java.lang.ref.Reference
 
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -86,9 +84,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         collRef.get()
             .addOnSuccessListener { collection ->
                 if (collection != null) {
-                    Log.d("taggggg", "DocumentSnapshot data: ${collection.documents}")
+                    Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
                     _timeSlotList.value = collection.toTimeSlotList()
-                    Log.d("taggggg", _timeSlotList.value.toString())
+                    Log.d("MYTAG", _timeSlotList.value.toString())
                 } else {
                     Log.d("MYTAG", "No such document")
                 }
@@ -109,9 +107,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val datetime = get("datetime") as Timestamp //TODO valutare tipo per le date
             val duration = get("duration") as Long // TODO time in milliseconds
             val location = get("location") as String
-            val skill = (get("skill") as String).split("/").last()
+            val skill = get("skill") as DocumentReference
 
-            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location, skill)
+            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location, skill.toString())
         } catch (e: Exception) {
             e.printStackTrace()
             null

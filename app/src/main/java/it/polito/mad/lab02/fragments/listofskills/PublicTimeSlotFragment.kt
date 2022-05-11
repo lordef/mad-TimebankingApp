@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 
@@ -31,8 +32,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
         val skill = arguments?.getString("skill")
         if(skill != null){
             Log.d("MYTAG", "Passed skill: ${skill}")
-            vm.getTimeSlotList(skill).observe(viewLifecycleOwner){timeSlotList ->
-
+            vm.timeslotList.observe(viewLifecycleOwner){
+                val timeSlotList = it.filter { ts -> ts.skill == skill }
                 Log.d("MYTAG", "Doc ref: ${timeSlotList}")
                 if (recyclerView is RecyclerView) {
                     with(recyclerView) {

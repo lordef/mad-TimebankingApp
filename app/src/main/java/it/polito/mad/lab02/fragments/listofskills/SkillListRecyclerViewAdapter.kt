@@ -30,7 +30,7 @@ class SkillListRecyclerViewAdapter(
         holder.bind(values[position])
         {
             val bundle = Bundle()
-            bundle.putString("skill", values[position].name)
+            bundle.putString("skill", values[position].ref)
             it.findNavController()
                 .navigate(R.id.action_nav_all_advertisements_to_publicTimeSlotFragment, bundle)
         }

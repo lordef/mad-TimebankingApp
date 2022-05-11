@@ -3,6 +3,7 @@ package it.polito.mad.lab02
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.DocumentReference
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
