@@ -23,7 +23,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)
 
-        vm.getSkillList().observe(viewLifecycleOwner) { skillList ->
+        vm.skillList.observe(viewLifecycleOwner) { skillList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {

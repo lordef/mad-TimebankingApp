@@ -15,12 +15,10 @@ import java.lang.ref.Reference
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _timeSlotList = MutableLiveData<List<TimeSlot>>()
-    private val _timeSlot = MutableLiveData<TimeSlot>()
 
 
     //LiveData passed to our fragment
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
-    val skill = MutableLiveData<TimeSlot>()
 
 
 
@@ -70,5 +68,10 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             }
         }
         return listTmp
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        l.remove()
     }
 }

@@ -10,12 +10,10 @@ import it.polito.mad.lab02.models.Skill
 
 class SkillListViewModel(application: Application) : AndroidViewModel(application) {
     private val _skillList = MutableLiveData<List<Skill>>()
-    private val _skill = MutableLiveData<Skill>()
 
 
     //LiveData passed to our fragment
     val skillList: LiveData<List<Skill>> = _skillList
-    val skill = MutableLiveData<Skill>()
 
 
     //Creation of a Firebase db instance
@@ -59,10 +57,10 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
-    /*
+
     override fun onCleared() {
         super.onCleared()
         l.remove()
     }
-     */
+
 }
