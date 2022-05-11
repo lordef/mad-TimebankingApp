@@ -38,67 +38,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         }
     }
 
-    /*
-    fun getProfileInfo(): MutableLiveData<Profile> {
-        _profileInfo.also {
-            it.value = sharedPreferences.getProfile()
-        }
-        return _profileInfo
-    }
-
-    fun updateProfile(newP: Profile) {
-        sharedPreferences.setProfile(newP)
-
-        _profileInfo.also {
-            it.value = newP
-        }
-    }
-    */
-
-
-    //TODO: set returned value
-    fun getTimeSlot(timeSlotID: String): MutableLiveData<TimeSlot> {
-        // [START get_document]
-        val docRef = db.collection("timeslots").document("timeslot${timeSlotID}")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d("MYTAG", "DocumentSnapshot data: ${document.data}")
-                    _timeSlot.value = document.toTimeslot()
-                } else {
-                    Log.d("MYTAG", "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-            }
-        // [END get_document]
-        Log.d("myTag", _timeSlot.value.toString())
-        return _timeSlot
-    }
-
-    fun getTimeSlotList(skill: String): MutableLiveData<List<TimeSlot>> {
-        // [START get_document]
-        val docRef = db.collection("skills").document(skill)
-        val collRef = db.collection("timeslots").whereEqualTo("skill", docRef)
-        collRef.get()
-            .addOnSuccessListener { collection ->
-                if (collection != null) {
-                    Log.d("MYTAG", "DocumentSnapshot data: ${collection.documents}")
-                    _timeSlotList.value = collection.toTimeSlotList()
-                    Log.d("MYTAG", _timeSlotList.value.toString())
-                } else {
-                    Log.d("MYTAG", "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-            }
-        // [END get_document]
-        Log.d("myTag", "query al db")
-        return _timeSlotList
-    }
-
     private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
             val id = get("id") as Long
