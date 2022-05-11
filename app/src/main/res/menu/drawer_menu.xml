@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_advertisements"
             android:title="@string/menu_advertisement" />
         <item
-            android:id="@+id/nav_all_advertisement"
+            android:id="@+id/nav_all_advertisements"
             android:icon="@drawable/ic_advertisements"
             android:title="@string/menu_all_advertisement" />
     </group>
