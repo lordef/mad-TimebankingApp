@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 // Sign in succeeded, proceed with account
                 val acct: GoogleSignInAccount = task.result
-                firebaseAuthWithGoogle(acct);
+                firebaseAuthWithGoogle(acct)
 
 
             } else {

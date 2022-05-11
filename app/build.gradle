@@ -67,5 +67,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation platform('com.google.firebase:firebase-bom:30.0.0')
+
+    //Coil library for images for URL
+    implementation("io.coil-kt:coil:2.0.0")
 }
 apply plugin: 'com.google.gms.google-services'

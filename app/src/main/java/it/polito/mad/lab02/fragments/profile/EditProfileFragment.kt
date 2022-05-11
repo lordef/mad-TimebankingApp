@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -30,6 +31,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
@@ -144,7 +146,7 @@ class EditProfileFragment : Fragment() {
         //val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
 //        val listOfSkills = skillList.split(" ").toMutableList()
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
-        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+        vm.profile.observe(viewLifecycleOwner) { profile ->
             val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
@@ -168,7 +170,8 @@ class EditProfileFragment : Fragment() {
         val profileImage = view.findViewById<ImageView>(R.id.editProfileImageView)
         savedInstanceState?.let {
             imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
-            profileImage?.setImageURI(imgUri)
+            profileImage?.load(imgUri)
+            //profileImage?.setImageURI(imgUri)
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -220,17 +223,18 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
-        val profile = vm.getProfileInfo().value
-        imgUri = Uri.parse(profile?.imageUri)
-        imgUriOld = imgUri
-        profileImage?.setImageURI(imgUri)
-        fullNameEditText?.text = profile?.fullName
-        nickNameEditText?.text = profile?.nickname
-        emailEditText?.text = profile?.email
-        locationEditText?.text = profile?.location
-        skillsEditText?.text = profile?.skills
-        descriptionEditText?.text = profile?.description
-
+        vm.profile.observe(viewLifecycleOwner){ profile ->
+            imgUri = Uri.parse(profile?.imageUri)
+            imgUriOld = imgUri
+            profileImage?.load(imgUri)
+            //profileImage?.setImageURI(imgUri)
+            fullNameEditText?.text = profile?.fullName
+            nickNameEditText?.text = profile?.nickname
+            emailEditText?.text = profile?.email
+            locationEditText?.text = profile?.location
+            skillsEditText?.text = profile?.skills
+            descriptionEditText?.text = profile?.description
+        }
     }
 
     private fun editProfile(): Profile {

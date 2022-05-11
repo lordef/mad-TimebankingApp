@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import coil.load
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
@@ -71,10 +72,11 @@ class ShowProfileFragment : Fragment() {
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
 
-        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+        vm.profile.observe(viewLifecycleOwner) { profile ->
             // update UI
             profileImageUri = profile.imageUri
-            profileImage.setImageURI(Uri.parse(profileImageUri))
+            profileImage.load(Uri.parse(profileImageUri))
+            //profileImage.setImageURI(Uri.parse(profileImageUri))
             fullName.text = profile.fullName
             nickname.text = profile.nickname
             email.text = profile.email
