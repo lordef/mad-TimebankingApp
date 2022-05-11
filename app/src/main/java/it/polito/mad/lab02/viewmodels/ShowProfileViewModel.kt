@@ -43,7 +43,7 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
             .document(newP.uid)
             .set(newP)
 
-        profileInfo.also {
+        _profile.also {
             it.value = newP
         }
     }

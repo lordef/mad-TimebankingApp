@@ -249,24 +249,52 @@ class EditProfileFragment : Fragment() {
         val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
-        val obj = Profile(
-            imgUri.toString(),
-            fullNameEditText?.text.toString(),
-            nicknameEditText?.text.toString(),
-            emailEditText?.text.toString(),
-            locationEditText?.text.toString(),
-            skillEditText?.text.toString(),
-            descriptionEditText?.text.toString(),
-            FirebaseAuth.getInstance().currentUser?.uid!!
-        )
 
-        // Create a storage reference from our app
-        val storageRef = Firebase.storage.reference
 
-        // Create a reference to "images/imgUri"
-        val imagesRef = storageRef.child("images/${imgUri.lastPathSegment!!}")
-        imagesRef.putFile(imgUri)
-        vm.updateProfile(obj)
+        if (imgUri == imgUriOld) {
+            val obj = Profile(
+                imgUri.toString(),
+                fullNameEditText?.text.toString(),
+                nicknameEditText?.text.toString(),
+                emailEditText?.text.toString(),
+                locationEditText?.text.toString(),
+                skillEditText?.text.toString(),
+                descriptionEditText?.text.toString(),
+                FirebaseAuth.getInstance().currentUser?.uid!!
+            )
+            vm.updateProfile(obj)
+        } else {
+            val imageEditText = view?.findViewById<ImageView>(R.id.editProfileImageView)
+            imageEditText?.isDrawingCacheEnabled = true
+            imageEditText?.buildDrawingCache()
+            val bitmap = (imageEditText?.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            deleteLocalImage()
+            deleteOldImage()
+            // Create a storage reference from our app
+            val storageRef = Firebase.storage.reference
+            // Create a reference to "images/imgUri"
+            val imagesRef = storageRef.child("images/${imgUri.lastPathSegment!!}")
+            imagesRef.putBytes(data).addOnSuccessListener {
+                imagesRef.downloadUrl.addOnSuccessListener {
+                    val obj = Profile(
+                        it.toString(),
+                        fullNameEditText?.text.toString(),
+                        nicknameEditText?.text.toString(),
+                        emailEditText?.text.toString(),
+                        locationEditText?.text.toString(),
+                        skillEditText?.text.toString(),
+                        descriptionEditText?.text.toString(),
+                        FirebaseAuth.getInstance().currentUser?.uid!!
+                    )
+                    vm.updateProfile(obj)
+                }
+            }
+        }
+
     }
 
     private fun onButtonClickEvent(sender: View?) {
@@ -419,18 +447,31 @@ class EditProfileFragment : Fragment() {
         return photoURI
     }
 
-    private fun deleteOldImage(): Boolean {
-        if (imgUriOld != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
+    private fun deleteLocalImage(): Boolean {
+        if (imgUri != Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image") && imgUriOld != imgUri) {
 
             val file = File(
                 requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                imgUriOld.lastPathSegment!!
+                imgUri.lastPathSegment!!
             )
             if (file.exists()) {
                 return file.delete()
             }
         }
         return false
+    }
+
+    private fun deleteOldImage() {
+
+        val storageRef = Firebase.storage.reference
+        // Create a reference to "images/imgUri"
+        val imagesRef = storageRef.child("${imgUriOld.lastPathSegment!!}")
+        imagesRef.delete().addOnSuccessListener {
+            Log.d("MYTAG", "SUCCESS: images/${imgUriOld.lastPathSegment!!}")
+        }
+            .addOnFailureListener {
+                Log.d("MYTAG", "FAILURE: images/${imgUriOld.lastPathSegment!!}")
+            }
     }
 
     private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
