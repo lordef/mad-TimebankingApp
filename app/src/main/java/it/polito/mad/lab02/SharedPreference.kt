@@ -30,7 +30,8 @@ class SharedPreference(context: Context) {
             email = "",
             location = "",
             skills = "",
-            description = ""
+            description = "",
+            uid = ""
         )
 
         val gson = Gson()

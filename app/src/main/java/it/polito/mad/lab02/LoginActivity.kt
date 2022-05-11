@@ -15,6 +15,8 @@ import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import it.polito.mad.lab02.models.Profile
 
 
 class LoginActivity : AppCompatActivity() {
@@ -105,6 +107,29 @@ class LoginActivity : AppCompatActivity() {
             ) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+                    val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+                    db
+                        .collection("users")
+                        .whereEqualTo("uid", mAuth?.currentUser?.uid)
+                        .get().addOnSuccessListener {
+                            if(it.isEmpty){
+                                val user = Profile(
+                                    mAuth?.currentUser?.photoUrl.toString(),
+                                    mAuth?.currentUser?.displayName!!,
+                                    "",
+                                    mAuth?.currentUser?.email!!,
+                                    "",
+                                    "",
+                                    "",
+                                    mAuth?.currentUser?.uid!!
+                                )
+
+                                db
+                                    .collection("users")
+                                    .document(mAuth?.currentUser?.uid!!)
+                                    .set(user)
+                            }
+                        }
                 } else {
                     Toast.makeText(applicationContext, "Not logged in", Toast.LENGTH_LONG).show()
                 }

@@ -247,7 +247,8 @@ class EditProfileFragment : Fragment() {
             emailEditText?.text.toString(),
             locationEditText?.text.toString(),
             skillEditText?.text.toString(),
-            descriptionEditText?.text.toString()
+            descriptionEditText?.text.toString(),
+            "" //TODO
         )
         vm.updateProfile(obj)
         return obj

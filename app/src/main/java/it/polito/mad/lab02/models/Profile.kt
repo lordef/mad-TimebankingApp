@@ -7,5 +7,6 @@ data class Profile(
     val email: String,
     val location: String,
     val skills: String,
-    val description: String
+    val description: String,
+    val uid: String
 )

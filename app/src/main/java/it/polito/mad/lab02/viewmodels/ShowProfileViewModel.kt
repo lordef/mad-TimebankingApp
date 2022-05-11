@@ -39,7 +39,8 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
                 it.value!!.email,
                 it.value!!.location,
                 skill,
-                it.value!!.description
+                it.value!!.description,
+                "" //TODO
             )
         }
     }
