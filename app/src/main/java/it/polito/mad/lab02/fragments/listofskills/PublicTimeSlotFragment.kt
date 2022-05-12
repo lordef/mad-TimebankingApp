@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -23,7 +24,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
     private var columnCount = 1
 
-    private val vm by viewModels<PublicTimeSlotListViewModel>()
+    private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

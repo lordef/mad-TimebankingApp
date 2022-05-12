@@ -33,13 +33,13 @@ class LoginActivity : AppCompatActivity() {
 
 
         mAuth = FirebaseAuth.getInstance()
-//        mAuthListener = AuthStateListener { firebaseAuth ->
-//            if (firebaseAuth.currentUser != null) {
-//                Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this, MainActivity::class.java))
-//                finish()
-//            }
-//        }
+        mAuthListener = AuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser != null) {
+                Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
 
         var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -65,10 +65,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        mAuth!!.addAuthStateListener(mAuthListener!!)
-//    }
+    override fun onStart() {
+        super.onStart()
+        mAuth!!.addAuthStateListener(mAuthListener!!)
+    }
 
     // Receiver For SignIn
     private val signInReceiver =
@@ -128,11 +128,6 @@ class LoginActivity : AppCompatActivity() {
                                     .collection("users")
                                     .document(mAuth?.currentUser?.uid!!)
                                     .set(user)
-                            }
-                            if (mAuth?.currentUser != null) {
-                                Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
                             }
                         }
                 } else {

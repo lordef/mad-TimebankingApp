@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -15,7 +16,7 @@ import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 
 class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slot_details) {
 
-    private val vm by viewModels<PublicTimeSlotListViewModel>()
+    private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

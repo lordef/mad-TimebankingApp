@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -22,6 +23,7 @@ import coil.load
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
+import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 
 
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val vm by viewModels<ShowProfileViewModel>()
+    private val vm1 by viewModels<PublicTimeSlotListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
