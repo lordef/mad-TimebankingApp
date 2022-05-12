@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
@@ -23,12 +24,12 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private val vm by activityViewModels<TimeSlotListViewModel>()
 
-    //edit is -1 for a new adv, else it is the id of the edited adv
-    private var edit = "-1"
+    private var isEdit = false
+    private var tempID = 0 //useful when isEdit and we must retrieve an existing id
 
     override fun onResume() {
         super.onResume()
-        if(edit != "-1"){
+        if(isEdit){
             (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
         }
         else{
@@ -94,6 +95,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
                 durationTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
+
             })
             val alertDialog = builder.show()
 
@@ -152,9 +154,10 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val id = arguments?.getString("id")
         if (id == null) {
-            edit = "-1"
+            isEdit = false
         } else {
-            edit = id
+            isEdit = true
+            tempID = id.toInt()
 
             vm.timeslotList.observe(viewLifecycleOwner){
                 val ts = it.first { t -> id == t.id }
@@ -228,19 +231,19 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
-        val id = if (edit == "-1") "1" else edit
-        val obj = TimeSlot(
+        val id = if (!isEdit) vm.getMaxId() else tempID
+        val newTimeSlot = TimeSlot(
             id.toString(),
             title?.text.toString(),
             description?.text.toString(),
             dateTime,
             duration?.text.toString(),
             location?.text.toString(),
-            "skill1", //TODO
+            "skill1" //TODO:
         )
         val bundle = Bundle()
         bundle.putString("id", id.toString())
-        val bundleId = vm.updateTimeSlot(obj, edit != "-1")
+        val bundleId = vm.updateTimeSlot(obj, isEdit)
         if(edit != "-1"){
             bundle.putString("id", edit.toString())
         }
