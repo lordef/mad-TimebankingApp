@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -35,19 +36,22 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val id = arguments?.getString("id")
         if(id != null){
             vm.timeslotList.observe(viewLifecycleOwner){
-                val timeSlot = it.first { ts -> id == ts.id }
-                title.text = timeSlot.title
-                description.text = timeSlot.description
-                dateTime.text = timeSlot.dateTime
-                val d = timeSlot.duration.split(":")
+                val timeSlotTmp = it.filter { ts -> id == ts.id }
+                if(timeSlotTmp.isNotEmpty()){
+                    val timeSlot = timeSlotTmp.first()
+                    title.text = timeSlot.title
+                    description.text = timeSlot.description
+                    dateTime.text = timeSlot.dateTime
+                    val d = timeSlot.duration.split(":")
 
-                if(d.size == 2){
-                    duration.text = "" + d[0] + "h " + d[1] + "min"
+                    if(d.size == 2){
+                        duration.text = "" + d[0] + "h " + d[1] + "min"
+                    }
+                    else{
+                        duration.text = ""
+                    }
+                    location.text = timeSlot.location
                 }
-                else{
-                    duration.text = ""
-                }
-                location.text = timeSlot.location
             }
         }
 

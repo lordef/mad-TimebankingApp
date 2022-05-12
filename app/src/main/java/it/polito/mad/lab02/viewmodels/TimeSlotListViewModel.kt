@@ -13,6 +13,7 @@ import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.models.TimeSlotList
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
@@ -45,13 +46,10 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
 
 private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
-
-
-
             val title = get("title") as String
             val description = get("description") as String
-            val datetime = get("dateTime") as Timestamp //TODO valutare tipo per le date
-            val duration = get("duration") as Long // TODO time in milliseconds
+            val datetime = get("dateTime") as String //TODO valutare tipo per le date
+            val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
 
@@ -59,8 +57,8 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 this.id,
                 title,
                 description,
-                datetime.toString(),
-                duration.toString(),
+                datetime,
+                duration,
                 location,
                 skill.toString()
             )
@@ -76,6 +74,9 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         val currentUser = db.collection("users")
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
+        val skillRef = db.collection("skills")
+            .document(newTS.skill)
+
         var id = ""
 
         val data = hashMapOf(
@@ -85,7 +86,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
             //"dateTime" to Timestamp(Date(newTS.dateTime)),
             "duration" to newTS.duration,
             "location" to newTS.location,
-            "skill" to (newTS.skill as DocumentReference),
+            "skill" to skillRef,
             "user" to currentUser
         )
 
@@ -100,7 +101,8 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
             id = docReference.id
             db
                 .collection("timeslots")
-                .add(data)
+                .document(docReference.id)
+                .set(data)
         }
 
         return id
