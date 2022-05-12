@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
@@ -56,13 +56,6 @@ class LoginActivity : AppCompatActivity() {
         signInButton.setOnClickListener {
             signIn()
         }
-
-        val signOutButton = findViewById<Button>(R.id.sign_out_button)
-        signOutButton.setOnClickListener {
-            signOut()
-        }
-
-
     }
 
     override fun onStart() {
@@ -75,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
-            var task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             if (task.isSuccessful) {
                 // Sign in succeeded, proceed with account
                 val acct: GoogleSignInAccount = task.result
