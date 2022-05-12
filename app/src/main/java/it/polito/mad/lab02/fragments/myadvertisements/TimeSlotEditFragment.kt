@@ -245,7 +245,6 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             bundle.putString("id", edit.toString())
         }
         else{
-            Log.d("MYTAG", "TSL: ${bundleId}")
             bundle.putString("id", bundleId)
         }
         return bundle
