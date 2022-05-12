@@ -25,7 +25,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     private val vm by activityViewModels<TimeSlotListViewModel>()
 
     private var isEdit = false
-    private var tempID = 0 //useful when isEdit and we must retrieve an existing id
+    private var tempID = "0" //useful when isEdit and we must retrieve an existing id
 
     override fun onResume() {
         super.onResume()
@@ -157,7 +157,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             isEdit = false
         } else {
             isEdit = true
-            tempID = id.toInt()
+            tempID = id
 
             vm.timeslotList.observe(viewLifecycleOwner){
                 val ts = it.first { t -> id == t.id }
@@ -231,9 +231,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
-        val id = if (!isEdit) vm.getMaxId() else tempID
+        val id = if (!isEdit) "1" else tempID
         val newTimeSlot = TimeSlot(
-            id.toString(),
+            id,
             title?.text.toString(),
             description?.text.toString(),
             dateTime,
@@ -242,10 +242,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             "skill1" //TODO:
         )
         val bundle = Bundle()
-        bundle.putString("id", id.toString())
-        val bundleId = vm.updateTimeSlot(obj, isEdit)
-        if(edit != "-1"){
-            bundle.putString("id", edit.toString())
+        val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)
+        if(isEdit){
+            bundle.putString("id", tempID)
         }
         else{
             bundle.putString("id", bundleId)
