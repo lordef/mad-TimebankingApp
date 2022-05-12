@@ -107,11 +107,9 @@ class ShowProfileFragment : Fragment() {
             R.id.editItem -> {
                 Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
                     .show()
-                val bundle = editProfile()
                 view?.let {
                     Navigation.findNavController(it).navigate(
-                        R.id.action_nav_profile_to_editProfileFragment,
-                        bundle
+                        R.id.action_nav_profile_to_editProfileFragment
                     )
                 }
 
@@ -126,14 +124,6 @@ class ShowProfileFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
 
-    }
-
-    private fun editProfile(): Bundle {
-        val bundle = Bundle()
-        val profileJson = Gson().toJson(vm.getProfileInfo().value)
-        bundle.putString("JSON", profileJson)
-
-        return bundle
     }
 
     override fun onDestroyView() {

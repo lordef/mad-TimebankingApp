@@ -39,7 +39,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         return try {
             val title = get("title") as String
             val description = get("description") as String
-            val datetime = get("datetime") as String //TODO valutare tipo per le date
+            val datetime = get("dateTime") as String //TODO valutare tipo per le date
             val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
@@ -51,7 +51,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 datetime,
                 duration,
                 location,
-                skill.toString()
+                skill.path
             )
         } catch (e: Exception) {
             e.printStackTrace()

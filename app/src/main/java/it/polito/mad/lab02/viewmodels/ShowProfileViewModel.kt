@@ -9,10 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.QuerySnapshot
-import it.polito.mad.lab02.SharedPreference
 import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.models.Skill
 
 class ShowProfileViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -70,42 +67,5 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
     override fun onCleared() {
         super.onCleared()
         l.remove()
-    }
-
-
-    val sharedPreferences = SharedPreference(application)
-
-    private val profileInfo = MutableLiveData<Profile>()
-
-    fun getProfileInfo(): MutableLiveData<Profile> {
-        profileInfo.also {
-            it.value = sharedPreferences.getProfile()
-        }
-        return profileInfo
-    }
-
-    /*
-    fun updateProfile(newP: Profile) {
-        sharedPreferences.setProfile(newP)
-
-        profileInfo.also {
-            it.value = newP
-        }
-    }
-    */
-
-    fun addSkill(skill: String) {
-        profileInfo.also {
-            it.value = Profile(
-                it.value!!.imageUri,
-                it.value!!.fullName,
-                it.value!!.nickname,
-                it.value!!.email,
-                it.value!!.location,
-                skill,
-                it.value!!.description,
-                "" //TODO
-            )
-        }
     }
 }

@@ -137,7 +137,7 @@ class EditProfileFragment : Fragment() {
 //                skillList = skillList + temp + " "
                 skillsText.text = skillList
 
-                vm.addSkill(skillList)
+                //vm.addSkill(skillList)//TODO: Ripristinare
                 alertDialog.dismiss()
 //                skills.filter { skill -> skill != temp  }
 //                mySkills.add(temp)

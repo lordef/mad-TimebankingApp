@@ -34,7 +34,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
         if(skill != null){
             Log.d("MYTAG", "Passed skill: ${skill}")
             vm.timeslotList.observe(viewLifecycleOwner){
-                val timeSlotList = it.filter { ts -> ts.skill == skill }
+                val timeSlotList = it.filter { ts ->
+
+                    Log.d("MYTAG", "Reference skill: ${ts.skill}")
+                    ts.skill == skill }
                 Log.d("MYTAG", "Doc ref: ${timeSlotList}")
                 if (recyclerView is RecyclerView) {
                     with(recyclerView) {

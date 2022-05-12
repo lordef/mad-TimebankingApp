@@ -1,7 +1,6 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,10 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 
 

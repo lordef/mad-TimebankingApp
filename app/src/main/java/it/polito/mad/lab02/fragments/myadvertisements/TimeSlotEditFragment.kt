@@ -12,14 +12,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
-import it.polito.mad.lab02.models.TimeSlotList
-import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import java.text.SimpleDateFormat
 import java.util.*

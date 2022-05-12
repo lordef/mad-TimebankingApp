@@ -36,7 +36,7 @@ class SkillsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_skills_list, container, false)
 
         // Set the adapter
-        vm.getProfileInfo().observe(viewLifecycleOwner) { profile ->
+        vm.profile.observe(viewLifecycleOwner) { profile ->
             if (view is RecyclerView) {
                 with(view) {
                     layoutManager = when {

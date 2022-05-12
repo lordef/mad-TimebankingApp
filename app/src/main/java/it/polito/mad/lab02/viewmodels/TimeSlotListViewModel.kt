@@ -1,20 +1,12 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import it.polito.mad.lab02.SharedPreference
-import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
-import it.polito.mad.lab02.models.TimeSlotList
-import java.text.SimpleDateFormat
-import java.util.*
 
 class TimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -60,7 +52,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 datetime,
                 duration,
                 location,
-                skill.toString()
+                skill.path
             )
         } catch (e: Exception) {
             e.printStackTrace()

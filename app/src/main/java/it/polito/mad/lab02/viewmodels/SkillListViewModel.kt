@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -34,7 +35,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     private fun DocumentSnapshot.toSkill(): Skill? {
         return try {
             val name = get("name") as String
-            Skill(this.reference.toString(), name)
+            Skill(this.reference.path, name)
         } catch (e: Exception) {
             e.printStackTrace()
             null
