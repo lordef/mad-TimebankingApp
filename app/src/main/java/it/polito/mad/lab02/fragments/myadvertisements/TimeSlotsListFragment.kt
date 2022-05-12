@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,12 +23,12 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
     private var columnCount = 1
 
-    private val vm by viewModels<TimeSlotListViewModel>()
+    private val vm by activityViewModels<TimeSlotListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
-        vm.getTimeSlotList().observe(viewLifecycleOwner){timeSlotList ->
+        vm.timeslotList.observe(viewLifecycleOwner){timeSlotList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {

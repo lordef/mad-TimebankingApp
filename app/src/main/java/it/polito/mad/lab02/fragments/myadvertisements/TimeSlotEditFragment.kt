@@ -10,25 +10,28 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.TimeSlotList
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
+import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
-    private val vm by viewModels<TimeSlotDetailsViewModel>()
+    private val vm by activityViewModels<TimeSlotListViewModel>()
 
     //edit is -1 for a new adv, else it is the id of the edited adv
-    private var edit = -1
+    private var edit = "-1"
 
     override fun onResume() {
         super.onResume()
-        if(edit != -1){
+        if(edit != "-1"){
             (activity as AppCompatActivity?)?.supportActionBar?.title = "Edit advertisement"
         }
         else{
@@ -153,25 +156,28 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val id = arguments?.getString("id")
         if (id == null) {
-            edit = -1
+            edit = "-1"
         } else {
-            edit = id.toInt()
-            val ts = vm.getTimeSlot(id).value
-            title?.text = ts?.title
-            description?.text = ts?.description
+            edit = id
 
-            val dateTime = ts?.dateTime?.split(" ")
-            var d = ""
-            var t = ""
-            if (dateTime?.size == 2) {
-                d = dateTime[0]
-                t = dateTime[1]
+            vm.timeslotList.observe(viewLifecycleOwner){
+                val ts = it.first { t -> id == t.id }
+                title?.text = ts?.title
+                description?.text = ts?.description
+
+                val dateTime = ts?.dateTime?.split(" ")
+                var d = ""
+                var t = ""
+                if (dateTime?.size == 2) {
+                    d = dateTime[0]
+                    t = dateTime[1]
+                }
+
+                date?.text = d
+                time?.text = t
+                duration?.text = ts?.duration
+                location?.text = ts?.location
             }
-
-            date?.text = d
-            time?.text = t
-            duration?.text = ts?.duration
-            location?.text = ts?.location
         }
 
     }
@@ -226,7 +232,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
-        val id = if (edit == -1) vm.getMaxId() else edit
+        val id = if (edit == "-1") "1" else edit
         val obj = TimeSlot(
             id.toString(),
             title?.text.toString(),
@@ -234,11 +240,17 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             dateTime,
             duration?.text.toString(),
             location?.text.toString(),
-            "skill1" //TODO:
+            "skill1", //TODO
         )
         val bundle = Bundle()
         bundle.putString("id", id.toString())
-        vm.updateTimeSlot(obj, edit != -1)
+        val bundleId = vm.updateTimeSlot(obj, edit != "-1")
+        if(edit != "-1"){
+            bundle.putString("id", edit.toString())
+        }
+        else{
+            bundle.putString("id", bundleId)
+        }
         return bundle
     }
 

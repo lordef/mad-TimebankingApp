@@ -9,15 +9,17 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.TimeSlotDetailsViewModel
+import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
-    private val vm by viewModels<TimeSlotDetailsViewModel>()
+    private val vm by activityViewModels<TimeSlotListViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,11 +34,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
         val id = arguments?.getString("id")
         if(id != null){
-            vm.getTimeSlot(id).observe(viewLifecycleOwner){
-                title.text = it.title
-                description.text = it.description
-                dateTime.text = it.dateTime
-                val d = it.duration.split(":")
+            vm.timeslotList.observe(viewLifecycleOwner){
+                val timeSlot = it.first { ts -> id == ts.id }
+                title.text = timeSlot.title
+                description.text = timeSlot.description
+                dateTime.text = timeSlot.dateTime
+                val d = timeSlot.duration.split(":")
 
                 if(d.size == 2){
                     duration.text = "" + d[0] + "h " + d[1] + "min"
@@ -44,7 +47,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 else{
                     duration.text = ""
                 }
-                location.text = it.location
+                location.text = timeSlot.location
             }
         }
 

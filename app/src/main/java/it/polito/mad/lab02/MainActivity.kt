@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private val vm by viewModels<ShowProfileViewModel>()
     private val vm1 by viewModels<PublicTimeSlotListViewModel>()
+    private val vm2 by viewModels<TimeSlotListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

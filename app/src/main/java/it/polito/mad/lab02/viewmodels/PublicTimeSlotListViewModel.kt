@@ -21,7 +21,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
 
 
-
     //Creation of a Firebase db instance
     private var l: ListenerRegistration
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -38,7 +37,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
-            val id = get("id") as Long
             val title = get("title") as String
             val description = get("description") as String
             val datetime = get("datetime") as Timestamp //TODO valutare tipo per le date
@@ -46,7 +44,15 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
 
-            TimeSlot(id.toString(), title, description, datetime.toString(), duration.toString(), location, skill.toString())
+            TimeSlot(
+                this.id,
+                title,
+                description,
+                datetime.toString(),
+                duration.toString(),
+                location,
+                skill.toString()
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -55,8 +61,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     }
 
     private fun QuerySnapshot.toTimeSlotList(): List<TimeSlot>? {
-        val listTmp : MutableList<TimeSlot> = mutableListOf()
-        for (s in this.documents){
+        val listTmp: MutableList<TimeSlot> = mutableListOf()
+        for (s in this.documents) {
             try {
                 val ts = s.toTimeslot()
 
