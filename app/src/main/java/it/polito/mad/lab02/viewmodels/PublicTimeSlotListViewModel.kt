@@ -39,8 +39,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         return try {
             val title = get("title") as String
             val description = get("description") as String
-            val datetime = get("datetime") as Timestamp //TODO valutare tipo per le date
-            val duration = get("duration") as Long // TODO time in milliseconds
+            val datetime = get("datetime") as String //TODO valutare tipo per le date
+            val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
 
@@ -48,8 +48,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 this.id,
                 title,
                 description,
-                datetime.toString(),
-                duration.toString(),
+                datetime,
+                duration,
                 location,
                 skill.toString()
             )
@@ -58,22 +58,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             null
         }
 
-    }
-
-    private fun QuerySnapshot.toTimeSlotList(): List<TimeSlot>? {
-        val listTmp: MutableList<TimeSlot> = mutableListOf()
-        for (s in this.documents) {
-            try {
-                val ts = s.toTimeslot()
-
-                Log.d("myTag", "Document: ${ts}")
-                listTmp.add(ts!!)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-        }
-        return listTmp
     }
 
     override fun onCleared() {
