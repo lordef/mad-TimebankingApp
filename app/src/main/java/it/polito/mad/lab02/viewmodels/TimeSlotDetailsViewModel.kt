@@ -26,9 +26,9 @@ class TimeSlotDetailsViewModel(application: Application) : AndroidViewModel(appl
         return sharedPreferences.getMaxId()
     }
 
-    fun updateTimeSlot(newTS: TimeSlot, b: Boolean) {
+    fun updateTimeSlot(newTS: TimeSlot, isEdit: Boolean) {
         // Update persistence layer
-        sharedPreferences.setTimeSlot(newTS, b)
+        sharedPreferences.setTimeSlot(newTS, isEdit)
 
         // Update View Model
         timeSlotDetails.also {

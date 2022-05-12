@@ -1,14 +1,10 @@
 package it.polito.mad.lab02
 //TODO: è inutile
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.DocumentReference
 import com.google.gson.Gson
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.models.TimeSlotList
-import java.io.File
 
 class SharedPreference(context: Context) {
 
@@ -88,11 +84,11 @@ class SharedPreference(context: Context) {
         return timeSlotDetails
     }
 
-    fun setTimeSlot(timeslot: TimeSlot, edit: Boolean) {
+    fun setTimeSlot(timeslot: TimeSlot, isEdit: Boolean) {
         val editor = sharedPreferences.edit()
         //timeslot must be a string to put it in preferences
         //only if not in edit mode, but create mode
-        if(!edit){
+        if(!isEdit){
             val defaultTimeSlotListDetails = TimeSlotList(
                 listOf()
             )
