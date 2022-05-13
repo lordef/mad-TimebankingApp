@@ -96,6 +96,7 @@ class EditProfileFragment : Fragment() {
 
     private var columnCount = 1
     private var listOfSkills = String()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -103,16 +104,16 @@ class EditProfileFragment : Fragment() {
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
-        var skillList = String()
-        vm.profile.value?.skills?.let { skillList = it }
-        listOfSkills = skillList
+        //Retrieve profile info from ShowProfileFragment
+        getProfileInfoFromShowProfileFragment()
+        var skillList = listOfSkills
+
         var skills = resources.getStringArray(R.array.skillsList)
 
         // TODO: sistemare il picker delle skills
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
         val predefinedSkillsButton = view.findViewById<TextView>(R.id.predefinedSkills)
-
         predefinedSkillsButton.setOnClickListener {
             val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
             val builder = AlertDialog.Builder(this.context).setView(dialog)
@@ -125,9 +126,9 @@ class EditProfileFragment : Fragment() {
             skillsPicker.wrapSelectorWheel = false
 
 
-            var temp = ""
+            var temp = String()
             skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
-                temp =  skills[newVal]
+                temp = skills[newVal]
             })
 
 
@@ -142,14 +143,13 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-            if(skillsText.text.toString() != null &&
-                !skillList.split(" ").contains(skillsText.text.toString())) {
-                skillList = skillList + " " + skillsText.text.toString()
-                // TODO: perchè non vede le nuove skill?
+            if (skillsText.text.toString() != null && !skillList.split(" ").contains(skillsText.text.toString())) {
+                skillList = listOfSkills
+                if(skillList != "") skillList = skillList + " " + skillsText.text.toString()
+                else skillList += skillsText.text.toString()
                 vm.addSkill(skillList)
                 listOfSkills = skillList
-            }
-            else{
+            } else {
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
             }
         }
@@ -173,8 +173,6 @@ class EditProfileFragment : Fragment() {
         //val profileImageButton = binding.editProfileImageButton
         //profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
-        //Retrieve profile info from ShowProfileFragment
-        getProfileInfoFromShowProfileFragment()
 
         val profileImage = view.findViewById<ImageView>(R.id.editProfileImageView)
         savedInstanceState?.let {
@@ -223,7 +221,6 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun getProfileInfoFromShowProfileFragment() {
-
         val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
         val fullNameEditText = view?.findViewById<TextView>(R.id.fullNameEditText)
         val nickNameEditText = view?.findViewById<TextView>(R.id.nicknameEditText)
@@ -236,12 +233,11 @@ class EditProfileFragment : Fragment() {
             imgUri = Uri.parse(profile?.imageUri)
             imgUriOld = imgUri
             profileImage?.load(imgUri)
-            //profileImage?.setImageURI(imgUri)
             fullNameEditText?.text = profile?.fullName
             nickNameEditText?.text = profile?.nickname
             emailEditText?.text = profile?.email
             locationEditText?.text = profile?.location
-//            skillsEditText?.text = profile?.skills
+            listOfSkills = profile?.skills.toString()
             descriptionEditText?.text = profile?.description
         }
     }
@@ -255,7 +251,6 @@ class EditProfileFragment : Fragment() {
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
 
-
         if (imgUri == imgUriOld) {
             val obj = Profile(
                 imgUri.toString(),
@@ -263,7 +258,6 @@ class EditProfileFragment : Fragment() {
                 nicknameEditText?.text.toString(),
                 emailEditText?.text.toString(),
                 locationEditText?.text.toString(),
-//                skillEditText?.text.toString(),
                 listOfSkills,
                 descriptionEditText?.text.toString(),
                 FirebaseAuth.getInstance().currentUser?.uid!!
@@ -292,7 +286,6 @@ class EditProfileFragment : Fragment() {
                         nicknameEditText?.text.toString(),
                         emailEditText?.text.toString(),
                         locationEditText?.text.toString(),
-//                        skillEditText?.text.toString(),
                         listOfSkills,
                         descriptionEditText?.text.toString(),
                         FirebaseAuth.getInstance().currentUser?.uid!!
