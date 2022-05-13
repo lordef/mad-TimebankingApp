@@ -8,9 +8,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.*
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import java.lang.ref.Reference
+import java.sql.Time
 
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,15 +29,48 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     init {
         l = db.collection("timeslots").addSnapshotListener { r, e ->
-            _timeSlotList.value = if (e != null)
-                emptyList()
-            else r!!.mapNotNull { d ->
-                d.toTimeslot()
+            if (e != null)
+                _timeSlotList.value = emptyList()
+            else {
+                val tmpList = mutableListOf<TimeSlot>()
+                r!!.forEach { d ->
+                    (d.get("user") as DocumentReference)
+                        .get().addOnSuccessListener {
+                            val profile = it.toProfile()
+                            if (profile != null){
+                                val ts = d.toTimeslot(profile)
+                                if(ts != null){
+                                    tmpList.add(ts)
+                                    _timeSlotList.value = tmpList
+                                }
+                            }
+                        }
+
+                }
             }
         }
     }
 
-    private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
+    private fun DocumentSnapshot.toProfile(): Profile? {
+        return try {
+            val imageUri = get("imageUri") as String
+            val fullName = get("fullName") as String
+            val nickname = get("nickname") as String
+            val email = get("email") as String
+            val location = get("location") as String
+            val skills = get("skills") as String
+            val description = get("description") as String
+            val uid = get("uid") as String
+
+            Profile(imageUri, fullName, nickname, email, location, skills, description, uid)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
+    private fun DocumentSnapshot.toTimeslot(profile: Profile): TimeSlot? {
         return try {
             val title = get("title") as String
             val description = get("description") as String
@@ -43,6 +78,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
+            val user = get("user") as DocumentReference
 
             TimeSlot(
                 this.id,
@@ -51,7 +87,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 datetime,
                 duration,
                 location,
-                skill.path
+                skill.path,
+                user.path,
+                profile
             )
         } catch (e: Exception) {
             e.printStackTrace()

@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import java.text.SimpleDateFormat
@@ -239,7 +240,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             dateTime,
             duration?.text.toString(),
             location?.text.toString(),
-            "skill1" //TODO:
+            "skill1", //TODO:
+            "user",
+            Profile("","","","","","","","")
         )
         val bundle = Bundle()
         val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)

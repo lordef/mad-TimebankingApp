@@ -91,14 +91,25 @@
     <fragment
         android:id="@+id/publicTimeSlotFragment"
         android:name="it.polito.mad.lab02.fragments.listofskills.PublicTimeSlotFragment"
-        android:label="fragment_public_time_slot_list"
+        android:label="Advertisements"
         tools:layout="@layout/fragment_public_time_slot_list">
         <action
             android:id="@+id/action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment"
             app:destination="@id/publicTimeSlotDetailsFragment" />
+        <action
+            android:id="@+id/action_publicTimeSlotFragment_to_publicShowProfileFragment"
+            app:destination="@id/publicShowProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/publicTimeSlotDetailsFragment"
         android:name="it.polito.mad.lab02.fragments.listofskills.PublicTimeSlotDetailsFragment"
-        android:label="PublicTimeSlotDetailsFragment" />
+        android:label="Advertisement details" >
+        <action
+            android:id="@+id/action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment"
+            app:destination="@id/publicShowProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/publicShowProfileFragment"
+        android:name="it.polito.mad.lab02.fragments.listofskills.PublicShowProfileFragment"
+        android:label="Publisher profile" />
 </navigation>

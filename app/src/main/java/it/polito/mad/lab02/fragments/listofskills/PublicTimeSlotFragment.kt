@@ -10,10 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 

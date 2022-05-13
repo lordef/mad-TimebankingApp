@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 
 class TimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
@@ -44,6 +45,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
             val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
+            val user = get("user") as DocumentReference
 
             TimeSlot(
                 this.id,
@@ -52,7 +54,9 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 datetime,
                 duration,
                 location,
-                skill.path
+                skill.path,
+                user.path,
+                Profile("","","","","","","","")
             )
         } catch (e: Exception) {
             e.printStackTrace()

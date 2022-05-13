@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments.profile
+package it.polito.mad.lab02.fragments.listofskills
 
 import android.content.res.Configuration
 import android.net.Uri
@@ -18,8 +18,9 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
+import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 
-class ShowProfileFragment : Fragment() {
+class PublicShowProfileFragment : Fragment() {
 
     private var _binding: FragmentShowProfileBinding? = null
 
@@ -27,7 +28,7 @@ class ShowProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by activityViewModels<ShowProfileViewModel>()
+    private val vm1 by activityViewModels<PublicTimeSlotListViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
@@ -61,7 +62,6 @@ class ShowProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         val profileImage = binding.profileImageView
         val fullName = binding.fullNameTextView
@@ -71,19 +71,23 @@ class ShowProfileFragment : Fragment() {
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
 
-        vm.profile.observe(viewLifecycleOwner) { profile ->
-            // update UI
-            profileImageUri = profile.imageUri
-            profileImage.load(Uri.parse(profileImageUri))
-            //profileImage.setImageURI(Uri.parse(profileImageUri))
-            fullName.text = profile.fullName
-            nickname.text = profile.nickname
-            email.text = profile.email
-            location.text = profile.location
-            skills.text = profile.skills
-            description.text = profile.description
+        val id = arguments?.getString("id")
+        if (id != null) {
+            setHasOptionsMenu(false)
+            vm1.timeslotList.observe(viewLifecycleOwner) {
+                val ts = it.filter { t -> t.id == id }[0]
+                // update UI
+                profileImageUri = ts.userProfile.imageUri
+                profileImage.load(Uri.parse(profileImageUri))
+                //profileImage.setImageURI(Uri.parse(profileImageUri))
+                fullName.text = ts.userProfile.fullName
+                nickname.text = ts.userProfile.nickname
+                email.text = ts.userProfile.email
+                location.text = ts.userProfile.location
+                skills.text = ts.userProfile.skills
+                description.text = ts.userProfile.description
+            }
         }
-
 
 
         val callback = object : OnBackPressedCallback(true){
@@ -92,36 +96,6 @@ class ShowProfileFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.pencil_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            R.id.editItem -> {
-                Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
-                    .show()
-                view?.let {
-                    Navigation.findNavController(it).navigate(
-                        R.id.action_nav_profile_to_editProfileFragment
-                    )
-                }
-
-                true
-            }
-            /*
-            android.R.id.home -> {
-                findNavController().popBackStack(R.id.nav_advertisement,false)
-                true
-            }
-             */
-            else -> super.onOptionsItemSelected(item)
-        }
 
     }
 

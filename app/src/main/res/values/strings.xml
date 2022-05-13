@@ -62,6 +62,7 @@
     <string name="empty_skills_msg">No skills present</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="timeslotProfileLabel">Publisher</string>
     <!--string name="location">Location</string-->
 
 

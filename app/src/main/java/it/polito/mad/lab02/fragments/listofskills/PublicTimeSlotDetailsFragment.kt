@@ -29,7 +29,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
 
-        val profile = view.findViewById<TextView>(R.id.publisherTextView)
+        val profile = view.findViewById<TextView>(R.id.profileTextView)
 
         val id = arguments?.getString("id")
         if (id != null) {
@@ -51,7 +51,17 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     }
                     location.text = ts.location
 
-                    //profile.text =
+                    profile.text = ts.userProfile.nickname
+                    profile.setOnClickListener{
+                        val bundle = Bundle()
+                        bundle.putString("id", ts.id)
+                        findNavController()
+                            .navigate(
+                                R.id.action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment,
+                                bundle
+                            )
+                    }
+
                 }
         }
 

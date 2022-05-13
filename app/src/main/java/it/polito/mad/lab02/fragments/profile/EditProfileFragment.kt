@@ -26,6 +26,7 @@ import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -55,7 +56,7 @@ class EditProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by viewModels<ShowProfileViewModel>()
+    private val vm by activityViewModels<ShowProfileViewModel>()
 
     /* Variables for CAMERA */
     private val MY_CAMERA_PERMISSION_CODE = 100

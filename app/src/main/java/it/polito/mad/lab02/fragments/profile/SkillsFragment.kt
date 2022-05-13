@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
@@ -27,7 +28,7 @@ class SkillsFragment : Fragment() {
         }
     }
 
-    private val vm by viewModels<ShowProfileViewModel> ()
+    private val vm by activityViewModels<ShowProfileViewModel> ()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

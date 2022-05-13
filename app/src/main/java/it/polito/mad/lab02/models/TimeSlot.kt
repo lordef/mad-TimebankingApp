@@ -7,5 +7,7 @@ data class TimeSlot(
     val dateTime: String,
     val duration: String,
     val location: String,
-    val skill: String
+    val skill: String,
+    val user: String,
+    val userProfile: Profile
 )
