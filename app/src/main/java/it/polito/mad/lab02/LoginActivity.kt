@@ -123,6 +123,7 @@ class LoginActivity : AppCompatActivity() {
                                     .collection("users")
                                     .document(mAuth?.currentUser?.uid!!)
                                     .set(user).addOnSuccessListener {
+                                        isFirstAuthentication = false
                                         Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
                                         startActivity(Intent(this, MainActivity::class.java))
                                         finish()
