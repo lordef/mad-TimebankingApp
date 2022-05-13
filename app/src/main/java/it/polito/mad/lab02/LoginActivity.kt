@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: AuthStateListener? = null
+    private var isFirstAuthentication = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = AuthStateListener { firebaseAuth ->
-            if (firebaseAuth.currentUser != null) {
+            if (firebaseAuth.currentUser != null && !isFirstAuthentication) {
                 Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
@@ -82,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     private fun signIn() {
+        isFirstAuthentication = true
         val signInIntent = googleSignInClient.signInIntent
         signInReceiver.launch(signInIntent)
     }
@@ -120,8 +122,16 @@ class LoginActivity : AppCompatActivity() {
                                 db
                                     .collection("users")
                                     .document(mAuth?.currentUser?.uid!!)
-                                    .set(user)
+                                    .set(user).addOnSuccessListener {
+                                        isFirstAuthentication = false
+                                    }
                             }
+                            else{
+                                isFirstAuthentication = false
+                            }
+                        }
+                        .addOnFailureListener{
+                            isFirstAuthentication = false
                         }
                 } else {
                     Toast.makeText(applicationContext, "Not logged in", Toast.LENGTH_LONG).show()
