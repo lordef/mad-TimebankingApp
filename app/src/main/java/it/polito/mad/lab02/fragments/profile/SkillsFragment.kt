@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnDetach
 import androidx.fragment.app.viewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel

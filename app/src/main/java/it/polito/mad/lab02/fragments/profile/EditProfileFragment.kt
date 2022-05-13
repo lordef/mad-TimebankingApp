@@ -24,6 +24,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.view.children
+import androidx.core.view.get
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,7 +37,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.ktx.storage
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
@@ -110,7 +111,6 @@ class EditProfileFragment : Fragment() {
 
         var skills = resources.getStringArray(R.array.skillsList)
 
-        // TODO: sistemare il picker delle skills
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
         val predefinedSkillsButton = view.findViewById<TextView>(R.id.predefinedSkills)
@@ -143,9 +143,23 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-            if (skillsText.text.toString() != null && !skillList.split(" ").contains(skillsText.text.toString())) {
-                skillList = listOfSkills
-                if(skillList != "") skillList = skillList + " " + skillsText.text.toString()
+            if (skillsText.text.toString() != null && !skillList.split(" ")
+                    .contains(skillsText.text.toString())
+            ) {
+                val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
+
+                val count = recyclerView?.childCount
+                var i = 0
+                skillList = String()
+                while(i < count!!){
+                    if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
+                    else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
+                    ++i
+                }
+                Log.d("skilll", skillList)
+
+//                skillList = listOfSkills
+                if (skillList != "") skillList = skillList + " " + skillsText.text.toString()
                 else skillList += skillsText.text.toString()
                 vm.addSkill(skillList)
                 listOfSkills = skillList
@@ -155,6 +169,7 @@ class EditProfileFragment : Fragment() {
         }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
+
         vm.profile.observe(viewLifecycleOwner) { profile ->
             val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
             if (recyclerView is RecyclerView) {
@@ -250,6 +265,16 @@ class EditProfileFragment : Fragment() {
 //        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
+
+        val count = recyclerView?.childCount
+        var i = 0
+        var skillList = String()
+        while(i < count!!){
+            if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
+            else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
+            ++i
+        }
 
         if (imgUri == imgUriOld) {
             val obj = Profile(
@@ -258,7 +283,7 @@ class EditProfileFragment : Fragment() {
                 nicknameEditText?.text.toString(),
                 emailEditText?.text.toString(),
                 locationEditText?.text.toString(),
-                listOfSkills,
+                skillList,
                 descriptionEditText?.text.toString(),
                 FirebaseAuth.getInstance().currentUser?.uid!!
             )

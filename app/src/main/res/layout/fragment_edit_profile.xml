@@ -251,7 +251,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:hint="@string/locationLabel"
+                                android:hint="Add skill"
                                 android:textColorHint="#5B5E71"
                                 app:boxBackgroundColor="#FFFFFF"
                                 app:boxCornerRadiusBottomEnd="10dp"
