@@ -95,7 +95,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private var columnCount = 1
-    var mySkills = mutableListOf<String>()
+    private var listOfSkills = String()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -103,52 +103,57 @@ class EditProfileFragment : Fragment() {
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
-        var skillList = ""
+        var skillList = String()
+        vm.profile.value?.skills?.let { skillList = it }
+        listOfSkills = skillList
         var skills = resources.getStringArray(R.array.skillsList)
-        for (el in mySkills) {
-            skills.filter { sk -> sk != el }
-        }
+
         // TODO: sistemare il picker delle skills
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
-        addSkillsButton.setOnClickListener {
+        val predefinedSkillsButton = view.findViewById<TextView>(R.id.predefinedSkills)
+
+        predefinedSkillsButton.setOnClickListener {
             val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
             val builder = AlertDialog.Builder(this.context).setView(dialog)
 
 
-//            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
-//            skillsPicker.minValue = 0
-//            skillsPicker.maxValue = skills.size - 1
-//            skillsPicker.displayedValues = skills
-//            skillsPicker.wrapSelectorWheel = false
-//
-//
-//            var temp = ""
-//            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
-////                skillsButton.text = skills[newVal]
-//                temp =  skills[newVal]
-//            })
+            val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+            skillsPicker.minValue = 0
+            skillsPicker.maxValue = skills.size - 1
+            skillsPicker.displayedValues = skills
+            skillsPicker.wrapSelectorWheel = false
+
+
+            var temp = ""
+            skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+                temp =  skills[newVal]
+            })
 
 
             val alertDialog = builder.show()
 
             val button = dialog.findViewById<Button>(R.id.button)
             button.setOnClickListener {
-//                skillList = skillList + temp + " "
-                skillsText.text = skillList
-
-                //vm.addSkill(skillList)//TODO: Ripristinare
+                skillsText.text = temp
                 alertDialog.dismiss()
-//                skills.filter { skill -> skill != temp  }
-//                mySkills.add(temp)
             }
-
 
         }
 
-//        val profile = vm.getProfileInfo().value
-        //val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
-//        val listOfSkills = skillList.split(" ").toMutableList()
+        addSkillsButton.setOnClickListener {
+            if(skillsText.text.toString() != null &&
+                !skillList.split(" ").contains(skillsText.text.toString())) {
+                skillList = skillList + " " + skillsText.text.toString()
+                // TODO: perchè non vede le nuove skill?
+                vm.addSkill(skillList)
+                listOfSkills = skillList
+            }
+            else{
+                Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
         vm.profile.observe(viewLifecycleOwner) { profile ->
             val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
@@ -236,7 +241,7 @@ class EditProfileFragment : Fragment() {
             nickNameEditText?.text = profile?.nickname
             emailEditText?.text = profile?.email
             locationEditText?.text = profile?.location
-            skillsEditText?.text = profile?.skills
+//            skillsEditText?.text = profile?.skills
             descriptionEditText?.text = profile?.description
         }
     }
@@ -246,7 +251,7 @@ class EditProfileFragment : Fragment() {
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
         val locationEditText = view?.findViewById<TextView>(R.id.locationEditText)
-        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
+//        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
 
@@ -258,7 +263,8 @@ class EditProfileFragment : Fragment() {
                 nicknameEditText?.text.toString(),
                 emailEditText?.text.toString(),
                 locationEditText?.text.toString(),
-                skillEditText?.text.toString(),
+//                skillEditText?.text.toString(),
+                listOfSkills,
                 descriptionEditText?.text.toString(),
                 FirebaseAuth.getInstance().currentUser?.uid!!
             )
@@ -286,7 +292,8 @@ class EditProfileFragment : Fragment() {
                         nicknameEditText?.text.toString(),
                         emailEditText?.text.toString(),
                         locationEditText?.text.toString(),
-                        skillEditText?.text.toString(),
+//                        skillEditText?.text.toString(),
+                        listOfSkills,
                         descriptionEditText?.text.toString(),
                         FirebaseAuth.getInstance().currentUser?.uid!!
                     )

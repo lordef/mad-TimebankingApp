@@ -68,4 +68,19 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
         super.onCleared()
         l.remove()
     }
+
+    fun addSkill(skill: String){
+        _profile.also {
+            it.value = Profile(
+                it.value!!.imageUri,
+                it.value!!.fullName,
+                it.value!!.nickname,
+                it.value!!.email,
+                it.value!!.location,
+                skill,
+                it.value!!.description,
+                it.value!!.uid
+            )
+        }
+    }
 }
