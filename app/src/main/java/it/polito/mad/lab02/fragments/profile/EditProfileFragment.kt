@@ -126,8 +126,9 @@ class EditProfileFragment : Fragment() {
             skillsPicker.wrapSelectorWheel = false
 
 
-            var temp = String()
+            var temp = skills[0]
             skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+
                 temp = skills[newVal]
             })
 
@@ -143,9 +144,14 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-            if (skillsText.text.toString() != null && !skillList.split(" ")
-                    .contains(skillsText.text.toString())
-            ) {
+
+            if (skillsText.text.toString() == null)
+                Toast.makeText(this.context, "Insert a skill", Toast.LENGTH_SHORT).show()
+            else if (skillsText.text.toString().split(" ").size != 1)
+                Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT).show()
+            else if (skillList.split(" ").contains(skillsText.text.toString()))
+                Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
+            else{
                 val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
 
                 val count = recyclerView?.childCount
@@ -156,16 +162,13 @@ class EditProfileFragment : Fragment() {
                     else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
                     ++i
                 }
-                Log.d("skilll", skillList)
-
-//                skillList = listOfSkills
                 if (skillList != "") skillList = skillList + " " + skillsText.text.toString()
                 else skillList += skillsText.text.toString()
                 vm.addSkill(skillList)
                 listOfSkills = skillList
-            } else {
-                Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
+                skillsText.text = ""
             }
+
         }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
@@ -178,7 +181,8 @@ class EditProfileFragment : Fragment() {
                         columnCount <= 1 -> LinearLayoutManager(context)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    adapter = SkillRecyclerViewAdapter(listOfSkills!!)
+                    if(listOfSkills?.contains("") != true)
+                        adapter = SkillRecyclerViewAdapter(listOfSkills!!)
                 }
             }
         }
@@ -253,6 +257,7 @@ class EditProfileFragment : Fragment() {
             emailEditText?.text = profile?.email
             locationEditText?.text = profile?.location
             listOfSkills = profile?.skills.toString()
+            if(listOfSkills == "") listOfSkills = String()
             descriptionEditText?.text = profile?.description
         }
     }
