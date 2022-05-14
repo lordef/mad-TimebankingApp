@@ -60,6 +60,54 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     }
 
+
+    fun filterByTitle(title: String){
+        db.collection("timeslots")
+            .whereEqualTo("title", title)
+            .get()
+            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    _timeSlotList.value = emptyList()
+//                    Log.d("Mytag", "${document.id} => ${document.data}")
+//                }
+                _timeSlotList.value = documents.mapNotNull { d ->
+                    Log.d("MYTAG", "${d.id} => ${d.data}")
+                    d.toTimeslot()
+                }
+            }
+            .addOnFailureListener { exception ->
+                _timeSlotList.value = emptyList()
+                Log.w("MYTAG", "Error getting documents: ", exception)
+            }
+    }
+
+    //TODO: EXAMPLES from
+    // https://cloud.google.com/firestore/docs/query-data/queries
+    private fun simpleQueries() {
+        // [START simple_queries]
+        // Create a reference to the cities collection
+        val citiesRef = db.collection("cities")
+
+        // Create a query against the collection.
+        val query = citiesRef.whereEqualTo("state", "CA")
+        // [END simple_queries]
+
+        // [START simple_query_capital]
+        val capitalCities = db.collection("cities").whereEqualTo("capital", true)
+        // [END simple_query_capital]
+
+        // [START example_filters]
+        val stateQuery = citiesRef.whereEqualTo("state", "CA")
+        val populationQuery = citiesRef.whereLessThan("population", 100000)
+        val nameQuery = citiesRef.whereGreaterThanOrEqualTo("name", "San Francisco")
+        // [END example_filters]
+
+        // [START simple_query_not_equal]
+        val notCapitalQuery = citiesRef.whereNotEqualTo("capital", false)
+        // [END simple_query_not_equal]
+    }
+
+
     override fun onCleared() {
         super.onCleared()
         l.remove()
