@@ -107,10 +107,12 @@
         <entry key="app/src/main/res/layout/dialog_skills.xml" value="0.1" />
         <entry key="app/src/main/res/layout/drawer_header.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_all_skills.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot.xml" value="0.12952898550724637" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.12952898550724637" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_list_1.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_with_filter_sort.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/fragment_time_slot_list.xml" value="0.11203703703703703" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
@@ -125,5 +127,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.245018115942029" />
+      </ProjectState>
+    </option>
   </component>
 </project>

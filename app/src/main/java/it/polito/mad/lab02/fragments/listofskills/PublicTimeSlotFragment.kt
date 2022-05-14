@@ -8,19 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 
 /**
  * A fragment representing a list of Items.
  */
-class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list) {
+class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_filter_sort) {
 
     private var columnCount = 1
 
@@ -28,7 +27,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
+//        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
         val skill = arguments?.getString("skill")
         if(skill != null){
@@ -38,7 +38,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
                     Log.d("MYTAG", "Reference skill: ${ts.skill}")
                     ts.skill == skill }
-                Log.d("MYTAG", "Doc ref: ${timeSlotList}")
+                Log.d("MYTAG", "Doc ref: $timeSlotList")
                 if (recyclerView is RecyclerView) {
                     with(recyclerView) {
                         layoutManager = when {
@@ -47,6 +47,15 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
                         }
                         adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                     }
+                }
+
+                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
+                if (timeSlotList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
                 }
             }
         }
