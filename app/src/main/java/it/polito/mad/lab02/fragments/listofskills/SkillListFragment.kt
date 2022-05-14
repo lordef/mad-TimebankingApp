@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +19,8 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
     private var columnCount = 1
 
-    private val vm by viewModels<SkillListViewModel>()
+    private val vm by activityViewModels<SkillListViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)

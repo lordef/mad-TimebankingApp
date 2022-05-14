@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.viewmodels.SkillListViewModel
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 
 
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private val vm by viewModels<ShowProfileViewModel>()
     private val vm1 by viewModels<PublicTimeSlotListViewModel>()
     private val vm2 by viewModels<TimeSlotListViewModel>()
+    private val vm3 by viewModels<SkillListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
