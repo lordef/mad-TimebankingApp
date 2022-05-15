@@ -24,9 +24,14 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     //Creation of a Firebase db instance
     private var l: ListenerRegistration
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    // Create a reference to the cities collection
+    private val timeslotsRef = db.collection("timeslots")
+
+
     // TODO: filtrare adv passati
     init {
-        l = db.collection("timeslots").addSnapshotListener { r, e ->
+        l = timeslotsRef.addSnapshotListener { r, e ->
             _timeSlotList.value = if (e != null)
                 emptyList()
             else r!!.mapNotNull { d ->
@@ -60,24 +65,35 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     }
 
-
-    fun filterByTitle(title: String){
-        db.collection("timeslots")
-            .whereEqualTo("title", title)
+    fun allTimeslots() {
+        timeslotsRef
             .get()
             .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    _timeSlotList.value = emptyList()
-//                    Log.d("Mytag", "${document.id} => ${document.data}")
-//                }
                 _timeSlotList.value = documents.mapNotNull { d ->
-                    Log.d("MYTAG", "${d.id} => ${d.data}")
+                    Log.d("G07_TAG", "${d.id} => ${d.data}")
                     d.toTimeslot()
                 }
             }
             .addOnFailureListener { exception ->
+                Log.w("G07_TAG", "Error getting documents: ", exception)
                 _timeSlotList.value = emptyList()
-                Log.w("MYTAG", "Error getting documents: ", exception)
+            }
+    }
+
+
+    fun filterByTitle(title: String) {
+        timeslotsRef
+            .whereEqualTo("title", title)
+            .get()
+            .addOnSuccessListener { documents ->
+                _timeSlotList.value = documents.mapNotNull { d ->
+                    Log.d("G07_TAG", "${d.id} => ${d.data}")
+                    d.toTimeslot()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("G07_TAG", "Error getting documents: ", exception)
+                _timeSlotList.value = emptyList()
             }
     }
 

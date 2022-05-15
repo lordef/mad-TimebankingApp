@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
@@ -25,19 +26,49 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
+    private var isAllFilter: Boolean = true
+    private var isTitleFilter: Boolean = false
+    private var actualFilter : AdvsFilter = AdvsFilter.ALL
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
         val skill = arguments?.getString("skill")
-        if(skill != null){
+        if (skill != null) {
             Log.d("MYTAG", "Passed skill: ${skill}")
-            vm.timeslotList.observe(viewLifecycleOwner){
-                val timeSlotList = it.filter { ts ->
+            vm.timeslotList.observe(viewLifecycleOwner) {
 
+                val allFilterButton = view.findViewById<Button>(R.id.allFilterButton)
+                allFilterButton.setOnClickListener {
+                    actualFilter = AdvsFilter.ALL
+//                    vm.allTimeslots()
+                }
+
+                val filterButton = view.findViewById<Button>(R.id.filterButton)
+                filterButton.setOnClickListener {
+//                    vm.filterByTitle("Test 1") //TODO: pass the correct title
+                                                    // from text view for example
+                    actualFilter = AdvsFilter.TITLE
+
+                }
+
+                when (actualFilter) {
+                    AdvsFilter.ALL -> vm.allTimeslots()
+                    AdvsFilter.TITLE -> vm.filterByTitle("Test 1") //TODO: change to dynamic filter
+                }
+
+                //TODO: delete this alternative solution
+//                if (isTitleFilter) {
+//                    vm.filterByTitle("Test 1")
+//                }
+
+
+                val timeSlotList = it.filter { ts ->
                     Log.d("MYTAG", "Reference skill: ${ts.skill}")
-                    ts.skill == skill }
+                    ts.skill == skill
+                }
                 Log.d("MYTAG", "Doc ref: $timeSlotList")
                 if (recyclerView is RecyclerView) {
                     with(recyclerView) {
@@ -60,7 +91,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
         }
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
             }
@@ -80,4 +111,9 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         }
 
     }
+}
+
+//TODO: test
+enum class AdvsFilter {
+    ALL, TITLE
 }
