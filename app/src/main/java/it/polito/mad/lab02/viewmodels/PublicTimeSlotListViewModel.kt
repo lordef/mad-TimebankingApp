@@ -65,6 +65,15 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     }
 
+    //TODO: filters: can they be simultaneous?
+    // title (OK),
+    // description (NO),
+    // datetime (TODO),
+    // duration (TODO),
+    // location (TODO),
+    // utente (TODO: maybe difficult for reference of the user)
+    // titolo, luogo, giorno, utente
+
 
     fun allTimeslots() {
         timeslotsRef
