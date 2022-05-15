@@ -65,6 +65,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     }
 
+
     fun allTimeslots() {
         timeslotsRef
             .get()
@@ -81,7 +82,15 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     }
 
 
-    fun filterByTitle(title: String) {
+    /**************************/
+    //TODO
+    //For a Full-text search
+    // source: https://firebase.google.com/docs/firestore/solutions/search
+    //for an "home made" solution:
+    // source: https://medium.com/feedflood/filter-by-search-keyword-in-cloud-firestore-query-638377bf0123
+
+    // Here, the title must be strictly equal (then also case sensitive)
+    fun filterTimeslotsByTitle(title: String) {
         timeslotsRef
             .whereEqualTo("title", title)
             .get()
@@ -96,6 +105,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 _timeSlotList.value = emptyList()
             }
     }
+    /**************************/
+
 
     //TODO: EXAMPLES from
     // https://cloud.google.com/firestore/docs/query-data/queries

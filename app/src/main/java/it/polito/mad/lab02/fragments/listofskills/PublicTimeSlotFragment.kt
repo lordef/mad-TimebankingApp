@@ -26,9 +26,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
-    private var isAllFilter: Boolean = true
-    private var isTitleFilter: Boolean = false
     private var actualFilter : AdvsFilter = AdvsFilter.ALL
+    private var filteredTitle : String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,18 +50,15 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //                    vm.filterByTitle("Test 1") //TODO: pass the correct title
                                                     // from text view for example
                     actualFilter = AdvsFilter.TITLE
+                    filteredTitle = "Test 1" //TODO: here text from text view
 
                 }
 
+                //Select your current list of timeslots to view
                 when (actualFilter) {
                     AdvsFilter.ALL -> vm.allTimeslots()
-                    AdvsFilter.TITLE -> vm.filterByTitle("Test 1") //TODO: change to dynamic filter
+                    AdvsFilter.TITLE -> vm.filterTimeslotsByTitle(filteredTitle) //TODO: change to dynamic filter
                 }
-
-                //TODO: delete this alternative solution
-//                if (isTitleFilter) {
-//                    vm.filterByTitle("Test 1")
-//                }
 
 
                 val timeSlotList = it.filter { ts ->
