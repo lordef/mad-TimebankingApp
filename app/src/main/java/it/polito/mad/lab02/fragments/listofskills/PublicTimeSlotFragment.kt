@@ -1,7 +1,11 @@
 package it.polito.mad.lab02.fragments.listofskills
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
+import android.view.MenuInflater
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.MenuPopupWindow
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.MenuCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -53,8 +62,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                     }
 
 
-
-
                     val timeSlotList = it.filter { ts ->
                         Log.d("MYTAG", "Reference skill: ${ts.skill}")
                         ts.skill == skill
@@ -85,13 +92,9 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //                        vm.addFilter {
 //                            it.title.contains("test", ignoreCase = true)
 //                        }
+                        showMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
 
-                        //Add a filter
-                        myAdapter.setFilter{
-                            it.title.contains("test", ignoreCase = true)
-                        }
                     }
-
 
 
                     val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
@@ -112,6 +115,103 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             requireActivity().onBackPressedDispatcher.addCallback(callback)
         }
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun showMenu(
+        v: View,
+        @MenuRes menuRes: Int,
+        adapter: PublicTimeSlotRecyclerViewAdapter
+    ) {
+        val popup = PopupMenu(requireContext(), v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            if (menuItem.title == "Title") {
+                val dialog =
+                    this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+                val alertDialog = builder.show()
+                val button = dialog.findViewById<Button>(R.id.button)
+                val editText = dialog.findViewById<EditText>(R.id.editTextFilterDialog)
+                button.setOnClickListener {
+                    //Add a filter
+                    adapter.setFilter {
+                        it.title.contains(editText.text.toString(), ignoreCase = true)
+                    }
+                    alertDialog.dismiss()
+                }
+            }
+            if (menuItem.title == "Location") {
+                val dialog =
+                    this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+                val alertDialog = builder.show()
+                val button = dialog.findViewById<Button>(R.id.button)
+                val editText = dialog.findViewById<EditText>(R.id.editTextFilterDialog)
+                button.setOnClickListener {
+                    //Add a filter
+                    adapter.setFilter {
+                        it.location.contains(editText.text.toString(), ignoreCase = true)
+                    }
+                    alertDialog.dismiss()
+                }
+            }
+            if (menuItem.title == "Description") {
+                val dialog =
+                    this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+                val alertDialog = builder.show()
+                val button = dialog.findViewById<Button>(R.id.button)
+                val editText = dialog.findViewById<EditText>(R.id.editTextFilterDialog)
+                button.setOnClickListener {
+                    //Add a filter
+                    adapter.setFilter {
+                        it.description.contains(editText.text.toString(), ignoreCase = true)
+                    }
+                    alertDialog.dismiss()
+                }
+            }
+
+            //TODO: Duration
+//            if (menuItem.title == "Duration") {
+//                val dialog =
+//                    this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
+//                val builder = AlertDialog.Builder(this.context).setView(dialog)
+//
+//                val alertDialog = builder.show()
+//                val button = dialog.findViewById<Button>(R.id.button)
+//                val editText = dialog.findViewById<EditText>(R.id.editTextFilterDialog)
+//                button.setOnClickListener {
+//                    //Add a filter
+//                    adapter.setFilter {
+//                        it.duration.contains(editText.text.toString(), ignoreCase = true)
+//                    }
+//                    alertDialog.dismiss()
+//                }
+//            }
+            if(menuItem.title == "Date and Time"){
+                val dialog = this.layoutInflater.inflate(R.layout.dialog_duration, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+                val alertDialog = builder.show()
+                val button = dialog.findViewById<Button>(R.id.button)
+                button.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+            }
+
+            true
+        }
+
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+        // Show the popup menu.
+        popup.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
