@@ -27,6 +27,7 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.core.view.get
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -56,8 +57,8 @@ class EditProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by viewModels<ShowProfileViewModel>()
-    private val vm1 by viewModels<SkillListViewModel>()
+    private val vm by activityViewModels<ShowProfileViewModel>()
+    private val vm1 by activityViewModels<SkillListViewModel>()
 
     /* Variables for CAMERA */
     private val MY_CAMERA_PERMISSION_CODE = 100
@@ -292,11 +293,10 @@ class EditProfileFragment : Fragment() {
         val skillsToDelete = getSkillsToDelete(orsk, skillList)
         val skillsToAdd = getSkillsToAdd(orsk, skillList)
 
+        Log.d("mytagg", "vm1: "+skillList)
+        Log.d("mytagg", "vm1: "+vm1.skillList.value.toString())
 
-        vm1.skillList.observe(viewLifecycleOwner) { skillList ->
-            Log.d("mytagg", skillList.toString())
-        }
-        Log.d("mytagg", vm1.skillList.value.toString())
+
         vm1.addSkill(skillsToAdd)
         vm1.deleteSkill(skillsToDelete)
 
