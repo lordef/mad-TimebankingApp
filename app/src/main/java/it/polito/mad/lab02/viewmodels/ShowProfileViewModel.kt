@@ -72,7 +72,6 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
                 uid
             )
         } catch (e: Exception) {
-            Log.d("MYTAG", "My profile: ${e}")
             e.printStackTrace()
             null
         }

@@ -3,6 +3,7 @@ package it.polito.mad.lab02.fragments.listofskills
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -84,13 +85,13 @@ class PublicShowProfileFragment : Fragment() {
                 nickname.text = ts.userProfile.nickname
                 email.text = ts.userProfile.email
                 location.text = ts.userProfile.location
-                skills.text = ts.userProfile.skills
+                skills.text = ts.userProfile.skills.joinToString(", ")
                 description.text = ts.userProfile.description
             }
         }
 
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
             }

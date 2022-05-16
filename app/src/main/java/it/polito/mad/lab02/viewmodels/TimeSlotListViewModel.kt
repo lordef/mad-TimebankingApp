@@ -56,7 +56,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 location,
                 skill.path,
                 user.path,
-                Profile("","","","","","","","")
+                Profile("","","","","", emptyList(),"","")
             )
         } catch (e: Exception) {
             e.printStackTrace()

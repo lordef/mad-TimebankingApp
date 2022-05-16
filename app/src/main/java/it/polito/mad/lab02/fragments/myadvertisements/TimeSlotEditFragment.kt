@@ -242,7 +242,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             location?.text.toString(),
             "skill1", //TODO:
             "user",
-            Profile("","","","","","","","")
+            Profile("","","","","", emptyList(),"","")
         )
         val bundle = Bundle()
         val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)

@@ -77,11 +77,12 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val nickname = get("nickname") as String
             val email = get("email") as String
             val location = get("location") as String
-            val skills = get("skills") as String
+            val skills = get("skills") as List<DocumentReference>
             val description = get("description") as String
             val uid = get("uid") as String
+            val tmpList = skills.map { s -> s.path.split("/").last() }
 
-            Profile(imageUri, fullName, nickname, email, location, skills, description, uid)
+            Profile(imageUri, fullName, nickname, email, location, tmpList, description, uid)
         } catch (e: Exception) {
             e.printStackTrace()
             null
