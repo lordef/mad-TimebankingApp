@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -29,7 +30,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
         val skill = view.findViewById<TextView>(R.id.skillTextView)
-
+        val profileCard = view.findViewById<CardView>(R.id.profileCardView)
 
         val profile = view.findViewById<TextView>(R.id.profileTextView)
 
@@ -54,7 +55,8 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
                     profile.text = ts.userProfile.nickname
                     skill.text = ts.skill.split("/").last()
-                    profile.setOnClickListener{
+
+                    profileCard.setOnClickListener{
                         val bundle = Bundle()
                         bundle.putString("id", ts.id)
                         findNavController()

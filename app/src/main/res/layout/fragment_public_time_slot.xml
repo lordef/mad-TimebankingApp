@@ -63,6 +63,7 @@
                 android:id="@+id/profile_public_adv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:drawablePadding="8dp"
                 android:focusable="auto"
