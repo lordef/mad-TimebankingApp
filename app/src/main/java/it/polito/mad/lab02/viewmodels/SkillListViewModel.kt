@@ -63,7 +63,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun addSkill(names: List<String>){
         // TODO: come si fa a vedere skillList come con l'observer qui???
-        Log.d("mytagg", skillList.value.toString())
+        Log.d("mytagg", skillList.value?.get(0)?.occurrences.toString())
         names.forEach { it1 ->
             val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
             Log.d("mytagg", skillList.value.toString())
@@ -81,7 +81,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 //                    )!!
 //                }
             }
-            else{
+            else if(it1 != ""){
                 val newSkill = Skill("skills/"+it1, it1, 1)
                 db.collection("skills")
                     .document(it1)
@@ -108,7 +108,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 //                    )!!
 //                }
             }
-            else{
+            else if(it1 != ""){
                 val newSkill = Skill("skills/"+it1, it1, 1)
                 db.collection("skills")
                     .document(it1)
