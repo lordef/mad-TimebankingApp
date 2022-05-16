@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
                                     "",
                                     mAuth?.currentUser?.email!!,
                                     "",
-                                    "",
+                                    emptyList(),
                                     "",
                                     mAuth?.currentUser?.uid!!
                                 )

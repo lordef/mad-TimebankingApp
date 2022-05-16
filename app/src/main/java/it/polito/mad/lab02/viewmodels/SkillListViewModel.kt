@@ -47,8 +47,8 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun QuerySnapshot.toSkillList(): List<Skill>? {
-        val listTmp : MutableList<Skill> = mutableListOf()
-        for (s in this.documents){
+        val listTmp: MutableList<Skill> = mutableListOf()
+        for (s in this.documents) {
             try {
                 val skill = s.toSkill()
                 listTmp.add(skill!!)
@@ -61,49 +61,49 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
-    fun addSkill(names: List<String>){
-        names.forEach { it1 ->
-
-            var oldVal : Number
-            if(skillList.value?.filter { it2 -> it2.name == it1 }!!.isEmpty()) oldVal = 0
-            else oldVal = (skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences!!)
-
-
-
-            if (oldVal != 0) {
+    fun addSkill(skill: String) {
+        if (_skillList.value?.filter { it2 -> it2.name == skill }!!.isNotEmpty()) {
+            val occurrences =
+                _skillList.value?.filter { it2 -> it2.name == skill }?.get(0)?.occurrences
+            if (occurrences != null) {
                 db.collection("skills")
-                    .document(it1)
-                    .update("occurrences", (oldVal.toInt()+1) as Number )
-            }
-            else if(it1 != ""){
-                val newSkill = Skill("skills/"+it1, it1, 1)
+                    .document(skill)
+                    .update("occurrences", (occurrences.toInt() + 1) as Number)
+            } else {
+                val newSkill = mapOf(
+                    "ref" to db.collection("skills").document(skill.toLowerCase()),
+                    "name" to skill.toLowerCase(),
+                    "occurrences" to 1 as Number
+                )
                 db.collection("skills")
-                    .document(it1)
+                    .document(skill)
                     .set(newSkill)
             }
-
+        } else {
+            val newSkill = mapOf(
+                "ref" to db.collection("skills").document(skill.toLowerCase()),
+                "name" to skill.toLowerCase(),
+                "occurrences" to 1 as Number
+            )
+            db.collection("skills")
+                .document(skill)
+                .set(newSkill)
         }
     }
-    fun deleteSkill(names: List<String>){
-        names.forEach { it1 ->
-            var oldVal : Number
-            if(skillList.value?.filter { it2 -> it2.name == it1 }!!.isEmpty()) oldVal = 0
-            else oldVal = (skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences!!)
 
-
-
-
-            if (oldVal != 1 && oldVal != null) {
+    fun deleteSkill(skill: String) {
+        if (_skillList.value?.filter { it2 -> it2.name == skill }!!.isNotEmpty()) {
+            val occurrences =
+                _skillList.value?.filter { it2 -> it2.name == skill }?.get(0)?.occurrences
+            if (occurrences!!.toInt() > 1) {
                 db.collection("skills")
-                    .document(it1)
-                    .update("occurrences", oldVal.toInt()-1 )
-            }
-            else if(it1 != ""){
+                    .document(skill)
+                    .update("occurrences", occurrences.toInt() - 1)
+            } else {
                 db.collection("skills")
-                    .document(it1)
+                    .document(skill)
                     .delete()
             }
-
         }
     }
 
