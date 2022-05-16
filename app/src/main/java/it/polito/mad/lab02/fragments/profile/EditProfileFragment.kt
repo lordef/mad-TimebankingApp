@@ -98,7 +98,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private var columnCount = 1
-    private var listOfSkills = String()
+    var listOfSkills = String()
 
     private var orsk = String()
     var firstTime = true
@@ -108,6 +108,15 @@ class EditProfileFragment : Fragment() {
         setHasOptionsMenu(true)
 
         orsk = arguments?.getString("skills").toString().replace(",", "")
+
+        val count = vm.profile.value?.skills?.split(" ")?.size
+
+        var i = 0
+        while(i < count!!){
+            if(i == 0) listOfSkills += vm.profile.value?.skills?.split(" ")?.get(i)
+            else listOfSkills = listOfSkills + " " + vm.profile.value?.skills?.split(" ")?.get(i)
+            ++i
+            }
 
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
@@ -152,29 +161,29 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-
-            if (skillsText.text.toString() == null)
+            if (skillsText.text.toString() == null || skillsText.text.toString() == "")
                 Toast.makeText(this.context, "Insert a skill", Toast.LENGTH_SHORT).show()
             else if (skillsText.text.toString().split(" ").size != 1)
                 Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT).show()
             else if (skillList.split(" ").contains(skillsText.text.toString()))
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
             else{
-                val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
 
-                val count = recyclerView?.childCount
+                val count = vm.profile.value?.skills?.split(" ")?.size
+
                 var i = 0
                 skillList = String()
                 while(i < count!!){
-                    if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-                    else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
+                    if(i == 0) skillList += vm.profile.value?.skills?.split(" ")?.get(i)
+                    else skillList = skillList + " " + vm.profile.value?.skills?.split(" ")?.get(i)
                     ++i
                 }
-                if (skillList != "") skillList = skillList + " " + skillsText.text.toString()
-                else skillList += skillsText.text.toString()
+                if (skillList != "") skillList = skillList + " " + skillsText.text.toString().toLowerCase()
+                else skillList += skillsText.text.toString().toLowerCase()
                 vm.addSkill(skillList)
                 listOfSkills = skillList
                 skillsText.text = ""
+
             }
 
         }
@@ -279,22 +288,15 @@ class EditProfileFragment : Fragment() {
 //        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
 
-        val count = recyclerView?.childCount
-        var i = 0
-        var skillList = String()
-        while(i < count!!){
-            if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-            else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-            ++i
-        }
+        var skillList = listOfSkills
+
+
 
         val skillsToDelete = getSkillsToDelete(orsk, skillList)
         val skillsToAdd = getSkillsToAdd(orsk, skillList)
 
-        Log.d("mytagg", "vm1: "+skillList)
-        Log.d("mytagg", "vm1: "+vm1.skillList.value.toString())
+
 
 
         vm1.addSkill(skillsToAdd)

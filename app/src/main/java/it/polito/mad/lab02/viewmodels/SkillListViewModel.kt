@@ -62,29 +62,18 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     fun addSkill(names: List<String>){
-        // TODO: come si fa a vedere skillList come con l'observer qui???
         names.forEach { it1 ->
-            Log.d("mytagg", "it1: "+it1)
-            Log.d("mytagg", "skillList: "+skillList.value.toString())
-            Log.d("mytagg", "skilllist filtrato: "+skillList.value?.filter { it2 -> it2.name == it1 }.toString())
 
-            var oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
-            Log.d("mytagg", "it1: "+it1)
-            Log.d("mytagg", "skillList: "+skillList.value.toString())
-            Log.d("mytagg", "skilllist filtrato: "+skillList.value?.filter { it2 -> it2.name == it1 }.toString())
+            var oldVal : Number
+            if(skillList.value?.filter { it2 -> it2.name == it1 }!!.isEmpty()) oldVal = 0
+            else oldVal = (skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences!!)
 
 
 
-
-            if (oldVal != null) {
+            if (oldVal != 0) {
                 db.collection("skills")
                     .document(it1)
                     .update("occurrences", (oldVal.toInt()+1) as Number )
-//                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
-//                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
-//                        1
-//                    )!!
-//                }
             }
             else if(it1 != ""){
                 val newSkill = Skill("skills/"+it1, it1, 1)
@@ -97,7 +86,10 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     }
     fun deleteSkill(names: List<String>){
         names.forEach { it1 ->
-            val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
+            var oldVal : Number
+            if(skillList.value?.filter { it2 -> it2.name == it1 }!!.isEmpty()) oldVal = 0
+            else oldVal = (skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences!!)
+
 
 
 
@@ -105,11 +97,6 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
                 db.collection("skills")
                     .document(it1)
                     .update("occurrences", oldVal.toInt()-1 )
-//                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
-//                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
-//                        1
-//                    )!!
-//                }
             }
             else if(it1 != ""){
                 db.collection("skills")
