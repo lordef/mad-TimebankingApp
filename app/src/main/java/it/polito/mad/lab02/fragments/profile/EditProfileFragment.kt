@@ -178,8 +178,9 @@ class EditProfileFragment : Fragment() {
                     else skillList = skillList + " " + vm.profile.value?.skills?.split(" ")?.get(i)
                     ++i
                 }
-                if (skillList != "") skillList = skillList + " " + skillsText.text.toString().toLowerCase()
-                else skillList += skillsText.text.toString().toLowerCase()
+                if (skillList != "") skillList = skillList + " " + skillsText.text.toString()
+                    .lowercase(Locale.getDefault())
+                else skillList += skillsText.text.toString().lowercase(Locale.getDefault())
                 vm.addSkill(skillList)
                 listOfSkills = skillList
                 skillsText.text = ""
@@ -200,9 +201,12 @@ class EditProfileFragment : Fragment() {
                     }
                     if(listOfSkills?.contains("") != true)
                         adapter = SkillRecyclerViewAdapter(listOfSkills!!)
+                    Log.d("mytagg",SkillRecyclerViewAdapter(listOfSkills!!).getItems().toString())
                 }
             }
         }
+
+
 
 
         //Listener to load new photo on click

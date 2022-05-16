@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import it.polito.mad.lab02.databinding.FragmentSkillsBinding
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
@@ -17,7 +18,6 @@ import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 class SkillRecyclerViewAdapter(
     private val values: MutableList<String>
 ) : RecyclerView.Adapter<SkillRecyclerViewAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -44,6 +44,10 @@ class SkillRecyclerViewAdapter(
             }
         }
 
+    }
+
+    fun getItems(): List<String>{
+        return values
     }
 
     override fun getItemCount(): Int = values.size
