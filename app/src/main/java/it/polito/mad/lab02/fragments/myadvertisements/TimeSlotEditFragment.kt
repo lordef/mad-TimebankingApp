@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +26,7 @@ import java.util.*
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private val vm by activityViewModels<TimeSlotListViewModel>()
+    private val vm1 by activityViewModels<ShowProfileViewModel>()
 
     private var isEdit = false
     private var tempID = "0" //useful when isEdit and we must retrieve an existing id
@@ -44,6 +47,43 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         getTimeSlotFromTimeSlotDetailsFragment()
 
+        val skillText = view.findViewById<TextView>(R.id.skillEditText)
+        val skillCard = view.findViewById<CardView>(R.id.skillCardView)
+
+        vm1.profile.observe(viewLifecycleOwner) { profile ->
+            val skills = profile.skills
+            if(skillText.text.isEmpty())skillText.text = skills[0]
+
+
+            skillCard.setOnClickListener {
+                val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
+
+
+                val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+                skillsPicker.minValue = 0
+                skillsPicker.maxValue = skills.size - 1
+                skillsPicker.displayedValues = skills.toTypedArray()
+                skillsPicker.wrapSelectorWheel = false
+
+
+                var temp = skills[0]
+                skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+
+                    temp = skills[newVal]
+                })
+
+
+                val alertDialog = builder.show()
+
+                val button = dialog.findViewById<Button>(R.id.button)
+                button.setOnClickListener {
+                    skillText.text = temp
+                    alertDialog.dismiss()
+                }
+            }
+        }
+
         val date = view.findViewById<TextView>(R.id.dateEdit)
         val time = view.findViewById<TextView>(R.id.timeEdit)
         val duration = view.findViewById<TextView>(R.id.durationEditText)
@@ -51,9 +91,11 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             val dateRestored = savedInstanceState.getString("date")
             val timeRestored = savedInstanceState.getString("time")
             val durationRestored = savedInstanceState.getString("duration")
+            val skillRestored = savedInstanceState.getString("skill")
             date?.text = dateRestored
             time?.text = timeRestored
             duration?.text = durationRestored
+            skillText.text = skillRestored
         }
 
         putDatePicker()
@@ -125,9 +167,11 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val date = view?.findViewById<TextView>(R.id.dateEdit)
         val time = view?.findViewById<TextView>(R.id.timeEdit)
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
+        val skillText = view?.findViewById<TextView>(R.id.skillEditText)
         outState.putString("date", date?.text.toString())
         outState.putString("time", time?.text.toString())
         outState.putString("duration", duration?.text.toString())
+        outState.putString("skill", skillText?.text.toString())
 
     }
 
@@ -152,6 +196,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val time = view?.findViewById<TextView>(R.id.timeEdit)
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<TextView>(R.id.locationEditText)
+        val skillText = view?.findViewById<TextView>(R.id.skillEditText)
+
 
         val id = arguments?.getString("id")
         if (id == null) {
@@ -173,6 +219,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                     t = dateTime[1]
                 }
 
+                skillText?.text = ts.skill
                 date?.text = d
                 time?.text = t
                 duration?.text = ts?.duration
@@ -232,6 +279,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
+        val skillText = view?.findViewById<TextView>(R.id.skillEditText)
+
         val id = if (!isEdit) "1" else tempID
         val newTimeSlot = TimeSlot(
             id,
@@ -240,7 +289,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             dateTime,
             duration?.text.toString(),
             location?.text.toString(),
-            "skill1", //TODO:
+            skillText?.text.toString(), //TODO:
             "user",
             Profile("","","","","", emptyList(),"","")
         )

@@ -63,6 +63,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="timeslotProfileLabel">Publisher</string>
+    <string name="timeslotSkillLabel">Select skill</string>
+    <string name="skill_label">Skill</string>
     <!--string name="location">Location</string-->
 
 

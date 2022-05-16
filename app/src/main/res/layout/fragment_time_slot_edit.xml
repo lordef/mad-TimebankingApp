@@ -146,6 +146,33 @@
                 android:textSize="20sp" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/skillCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/background_text_cards_edit"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/skillEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:autofillHints=""
+                android:drawableStart="@drawable/ic_skills_icon"
+                android:drawablePadding="10dp"
+                android:hint="@string/timeslotSkillLabel"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/color_text"
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/locationTextInputLayout"
             android:layout_width="match_parent"

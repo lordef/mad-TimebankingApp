@@ -54,7 +54,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 datetime,
                 duration,
                 location,
-                skill.path,
+                skill.path.split("/").last(),
                 user.path,
                 Profile("","","","","", emptyList(),"","")
             )

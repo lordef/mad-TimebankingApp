@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list)
 
         val skill = arguments?.getString("skill")
         if(skill != null){
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Skill: " + skill.split("/").last()
             Log.d("MYTAG", "Passed skill: ${skill}")
             vm.timeslotList.observe(viewLifecycleOwner){
                 val timeSlotList = it.filter { ts ->

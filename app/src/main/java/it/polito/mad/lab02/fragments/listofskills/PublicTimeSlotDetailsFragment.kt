@@ -28,13 +28,14 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
+        val skill = view.findViewById<TextView>(R.id.skillTextView)
+
 
         val profile = view.findViewById<TextView>(R.id.profileTextView)
 
         val id = arguments?.getString("id")
         if (id != null) {
             vm.timeslotList
-//                .getTimeSlot(id)
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
                     Log.d("myTag", it.toString())
@@ -52,6 +53,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     location.text = ts.location
 
                     profile.text = ts.userProfile.nickname
+                    skill.text = ts.skill.split("/").last()
                     profile.setOnClickListener{
                         val bundle = Bundle()
                         bundle.putString("id", ts.id)

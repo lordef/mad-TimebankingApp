@@ -29,6 +29,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         val dateTime = view.findViewById<TextView>(R.id.dateTimeTextView)
         val duration = view.findViewById<TextView>(R.id.durationTextView)
         val location = view.findViewById<TextView>(R.id.locationTextView)
+        val skill = view.findViewById<TextView>(R.id.skillTextView)
 
         val id = arguments?.getString("id")
         if(id != null){
@@ -48,6 +49,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                         duration.text = ""
                     }
                     location.text = timeSlot.location
+                    skill.text = timeSlot.skill
                 }
             }
         }
