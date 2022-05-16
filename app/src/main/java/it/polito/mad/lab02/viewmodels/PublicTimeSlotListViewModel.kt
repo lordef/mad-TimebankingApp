@@ -11,21 +11,27 @@ import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import java.lang.ref.Reference
+import java.lang.reflect.TypeVariable
+import java.sql.Time
+import java.util.*
 
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _timeSlotList = MutableLiveData<List<TimeSlot>>()
+    private val _filteredTimeSlotList = MutableLiveData<List<TimeSlot>>()
 
 
     //LiveData passed to our fragment
+
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
+    val filteredTimeslotList: LiveData<List<TimeSlot>> = _filteredTimeSlotList
 
 
     //Creation of a Firebase db instance
     private var l: ListenerRegistration
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    // Create a reference to the cities collection
+    // Create a reference to the timeslot collection
     private val timeslotsRef = db.collection("timeslots")
 
 
@@ -37,6 +43,37 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             else r!!.mapNotNull { d ->
                 d.toTimeslot()
             }
+            addFilter{
+                true
+            }
+            addOrder("datetime")
+        }
+    }
+
+    fun addFilter(filter: (TimeSlot)->Boolean){
+        if(filter != null){
+            _filteredTimeSlotList.value = _timeSlotList.value?.filter(filter)
+        }
+        else{
+            _filteredTimeSlotList.value = _timeSlotList.value
+        }
+    }
+
+    fun addOrder(order: String){
+        if(order != null){
+            when(order){
+                "datetime" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedWith(
+                    compareBy<TimeSlot> { Date(it.dateTime).year }.thenBy { Date(it.dateTime).month }.thenBy { Date(it.dateTime).day }
+                )
+                "title" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{
+                    it.title
+                }
+                else -> _filteredTimeSlotList.value = _timeSlotList.value
+            }
+
+        }
+        else{
+            _filteredTimeSlotList.value = _timeSlotList.value
         }
     }
 

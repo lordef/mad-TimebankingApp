@@ -4,11 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/drawable/ic_user.xml" value="0.296" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/activity_base.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/activity_login.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/content_main.xml" value="0.3927083333333333" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/drawer_header.xml" value="0.3927083333333333" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.6326530612244898" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.4510416666666667" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.4510416666666667" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_show_profile.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skill_list.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skills.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_skills_list.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.32916666666666666" />
+        <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.32916666666666666" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/menu/drawer_menu.xml" value="0.3927083333333333" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1335" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_camera_icon.xml" value="0.1335" />
@@ -37,7 +50,6 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.2037037037037037" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/menu/pencil_menu.xml" value="0.3175925925925926" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.6342342342342342" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/content_main.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/dialog_duration.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/dialog_skills.xml" value="0.36666666666666664" />
@@ -97,24 +109,10 @@
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_user_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/plus_24.xml" value="0.1145" />
-        <entry key="app/src/main/res/layout-land/app_bar_main.xml" value="0.2275132275132275" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13069908814589665" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialog_duration.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialog_skills.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/drawer_header.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_all_skills.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.12952898550724637" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_1.xml" value="0.19157608695652173" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.33240997229916897" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_with_filter_sort.xml" value="0.26875" />
-        <entry key="app/src/main/res/layout/fragment_time_slot_list.xml" value="0.11203703703703703" />
-        <entry key="app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.26875" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
@@ -127,12 +125,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.245018115942029" />
-      </ProjectState>
-    </option>
   </component>
 </project>

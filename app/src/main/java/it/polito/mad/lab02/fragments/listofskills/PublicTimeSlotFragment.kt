@@ -37,12 +37,15 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         val skill = arguments?.getString("skill")
         if (skill != null) {
             Log.d("MYTAG", "Passed skill: ${skill}")
-            vm.timeslotList.observe(viewLifecycleOwner) {
+            vm.filteredTimeslotList.observe(viewLifecycleOwner) {
 
                 val allFilterButton = view.findViewById<Button>(R.id.allFilterButton)
                 allFilterButton.setOnClickListener {
                     actualFilter = AdvsFilter.ALL
 //                    vm.allTimeslots()
+                    vm.addFilter {
+                        true
+                    }
                 }
 
                 val filterButton = view.findViewById<Button>(R.id.filterButton)
@@ -52,12 +55,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                     actualFilter = AdvsFilter.TITLE
                     filteredTitle = "Test 1" //TODO: here text from text view
 
-                }
+                    vm.addFilter {
+                        it.title.contains("test", ignoreCase = true)
+                    }
 
-                //Select your current list of timeslots to view
-                when (actualFilter) {
-                    AdvsFilter.ALL -> vm.allTimeslots()
-                    AdvsFilter.TITLE -> vm.filterTimeslotsByTitle(filteredTitle) //TODO: change to dynamic filter
                 }
 
 
