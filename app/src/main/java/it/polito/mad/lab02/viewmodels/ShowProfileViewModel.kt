@@ -36,7 +36,12 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
     fun updateProfile(newP: Profile) {
         db.collection("users")
             .document(newP.uid)
-            .set(newP)
+            .update("fullName", newP.fullName,
+            "email", newP.email,
+            "imageUri", newP.imageUri,
+            "location", newP.location,
+            "nickname", newP.nickname,
+            "description", newP.description)
 
         _profile.also {
             it.value = newP
