@@ -65,6 +65,8 @@
     <string name="timeslotProfileLabel">Publisher</string>
     <string name="timeslotSkillLabel">Select skill</string>
     <string name="skill_label">Skill</string>
+    <string name="filter_button">FILTER</string>
+    <string name="all_filter_button">ALL</string>
     <!--string name="location">Location</string-->
 
 
