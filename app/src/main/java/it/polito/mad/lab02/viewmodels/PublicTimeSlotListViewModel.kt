@@ -25,7 +25,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     //Creation of a Firebase db instance
     private var l: ListenerRegistration
+    private var l1: ListenerRegistration
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
     // TODO: filtrare adv passati
     init {
         l = db.collection("timeslots").addSnapshotListener { r, e ->
@@ -37,9 +39,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                     (d.get("user") as DocumentReference)
                         .get().addOnSuccessListener {
                             val profile = it.toProfile()
-                            if (profile != null){
+                            if (profile != null) {
                                 val ts = d.toTimeslot(profile)
-                                if(ts != null){
+                                if (ts != null) {
                                     tmpList.add(ts)
                                     _timeSlotList.value = tmpList
                                 }
@@ -47,6 +49,23 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                         }
 
                 }
+            }
+        }
+        l1 = db.collection("users").addSnapshotListener { r, e ->
+            if (e != null) {
+
+            } else {
+                val tmpList = mutableListOf<TimeSlot>()
+                r!!.forEach { d ->
+                    val tmpProfile = d.toProfile()
+                    _timeSlotList.value?.filter {
+                        it.user == d.reference.path
+                    }?.forEach {
+                        val tmpTimeslot = TimeSlot(it.id, it.title, it.description, it.dateTime, it.duration, it.location, it.skill, it.user, tmpProfile!!)
+                        tmpList.add(tmpTimeslot)
+                    }
+                }
+                _timeSlotList.value = tmpList
             }
         }
     }
@@ -101,5 +120,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     override fun onCleared() {
         super.onCleared()
         l.remove()
+        l1.remove()
     }
 }
