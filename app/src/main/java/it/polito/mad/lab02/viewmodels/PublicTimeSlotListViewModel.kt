@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.*
+import com.google.type.DateTime
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
@@ -55,10 +56,12 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                                     tmpList.add(ts)
                                     _timeSlotList.value = tmpList
                                     //TODO: prove
+                                    /*
                                     addFilter{
                                         true
                                     }
-                                    addOrder("title")
+                                    addOrder("datetime")
+                                    */
                                 }
                             }
                         }
@@ -115,6 +118,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val skill = get("skill") as DocumentReference
             val user = get("user") as DocumentReference
 
+
+            Log.d("MYTAGGG", "HERE: ${Timestamp(Date(datetime)).seconds}")
+
             TimeSlot(
                 this.id,
                 title,
@@ -143,14 +149,15 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     }
 
     fun addOrder(order: String){
-        if(order != null){
+        if(order != null && _timeSlotList.value?.size!! >= 2){
             when(order){
-                "datetime" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedWith(
-                    compareBy<TimeSlot> { Date(it.dateTime).year }.thenBy { Date(it.dateTime).month }.thenBy { Date(it.dateTime).day }
-                )
-                "title" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{
-                    it.title
-                }
+
+                "datetime" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{ Timestamp(Date(it.dateTime)).seconds }
+                "datetime_desc" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedByDescending{ Timestamp(Date(it.dateTime)).seconds }
+
+                "title" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{ it.title }
+                "title_desc" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedByDescending{ it.title }
+
                 else -> _filteredTimeSlotList.value = _timeSlotList.value
             }
 

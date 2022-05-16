@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentPublicTimeSlotBinding
 import it.polito.mad.lab02.models.Profile
@@ -16,6 +17,8 @@ import it.polito.mad.lab02.models.TimeSlot
 class PublicTimeSlotRecyclerViewAdapter(
     private val values: List<TimeSlot>
 ) : RecyclerView.Adapter<PublicTimeSlotRecyclerViewAdapter.ViewHolder>() {
+
+    private var displayData = values.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,10 +32,10 @@ class PublicTimeSlotRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            values[position],
+            displayData[position],
             {
                 val bundle = Bundle()
-                bundle.putString("id", values[position].id)
+                bundle.putString("id", displayData[position].id)
                 it.findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment,
@@ -41,7 +44,7 @@ class PublicTimeSlotRecyclerViewAdapter(
             },
             {
                 val bundle = Bundle()
-                bundle.putString("id", values[position].id)
+                bundle.putString("id", displayData[position].id)
                 it.findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotFragment_to_publicShowProfileFragment,
@@ -51,7 +54,32 @@ class PublicTimeSlotRecyclerViewAdapter(
         )
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = displayData.size
+
+    fun setFilter(filter: (TimeSlot)->Boolean) {
+        val oldData = displayData
+        displayData = if(filter != null){
+            values.filter(filter).toMutableList()
+        } else{
+            values.toMutableList()
+        }
+        val diffs = DiffUtil.calculateDiff(MyDiffCallback(oldData, displayData))
+        diffs.dispatchUpdatesTo(this)
+    }
+
+    class MyDiffCallback(val old: List<TimeSlot>, val new: List<TimeSlot>): DiffUtil.Callback() {
+        override fun getOldListSize(): Int = old.size
+
+        override fun getNewListSize(): Int = new.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] === new[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] == new[newItemPosition]
+        }
+    }
 
     inner class ViewHolder(binding: FragmentPublicTimeSlotBinding) :
         RecyclerView.ViewHolder(binding.root) {
