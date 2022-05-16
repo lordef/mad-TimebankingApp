@@ -108,8 +108,11 @@ class ShowProfileFragment : Fragment() {
                 Toast.makeText(this.context, "Edit Profile selected", Toast.LENGTH_SHORT)
                     .show()
                 view?.let {
+                    val bundle = Bundle()
+                    val skills = binding.skillTextView.text.toString()
+                    bundle.putString("skills", skills)
                     Navigation.findNavController(it).navigate(
-                        R.id.action_nav_profile_to_editProfileFragment
+                        R.id.action_nav_profile_to_editProfileFragment, bundle
                     )
                 }
 

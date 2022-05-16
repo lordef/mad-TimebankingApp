@@ -24,7 +24,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
-import androidx.core.view.children
 import androidx.core.view.get
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
@@ -43,6 +42,7 @@ import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.viewmodels.SkillListViewModel
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,6 +57,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val vm by viewModels<ShowProfileViewModel>()
+    private val vm1 by viewModels<SkillListViewModel>()
 
     /* Variables for CAMERA */
     private val MY_CAMERA_PERMISSION_CODE = 100
@@ -98,15 +99,21 @@ class EditProfileFragment : Fragment() {
     private var columnCount = 1
     private var listOfSkills = String()
 
+    private var orsk = String()
+    var firstTime = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        orsk = arguments?.getString("skills").toString().replace(",", "")
 
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
+
         var skillList = listOfSkills
 
         var skills = resources.getStringArray(R.array.skillsList)
@@ -263,6 +270,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun editProfile() {
+
         val fullNameEditText = view?.findViewById<EditText>(R.id.fullNameEditText)
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
@@ -280,6 +288,18 @@ class EditProfileFragment : Fragment() {
             else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
             ++i
         }
+
+        val skillsToDelete = getSkillsToDelete(orsk, skillList)
+        val skillsToAdd = getSkillsToAdd(orsk, skillList)
+
+
+        vm1.skillList.observe(viewLifecycleOwner) { skillList ->
+            Log.d("mytagg", skillList.toString())
+        }
+        Log.d("mytagg", vm1.skillList.value.toString())
+        vm1.addSkill(skillsToAdd)
+        vm1.deleteSkill(skillsToDelete)
+
 
         if (imgUri == imgUriOld) {
             val obj = Profile(
@@ -324,8 +344,22 @@ class EditProfileFragment : Fragment() {
                 }
             }
         }
-
+        firstTime = true
     }
+
+
+    private fun getSkillsToDelete(originalSkills: String, finalSkills: String): List<String> {
+        var os = originalSkills.split(" ").toMutableList()
+        var fs = finalSkills.split(" ").toMutableList()
+        return os.filter { !fs.contains(it) }
+    }
+    private fun getSkillsToAdd(originalSkills: String, finalSkills: String): List<String> {
+        var os = originalSkills.split(" ").toMutableList()
+        var fs = finalSkills.split(" ").toMutableList()
+        return fs.filter { !os.contains(it) }
+    }
+
+
 
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender!!)
