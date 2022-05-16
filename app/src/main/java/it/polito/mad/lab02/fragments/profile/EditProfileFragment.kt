@@ -24,7 +24,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
-import androidx.core.view.children
 import androidx.core.view.get
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
@@ -44,6 +43,7 @@ import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.viewmodels.SkillListViewModel
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,6 +58,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val vm by activityViewModels<ShowProfileViewModel>()
+    private val vm1 by activityViewModels<SkillListViewModel>()
 
     /* Variables for CAMERA */
     private val MY_CAMERA_PERMISSION_CODE = 100
@@ -97,20 +98,49 @@ class EditProfileFragment : Fragment() {
     }
 
     private var columnCount = 1
-    private var listOfSkills = String()
+    var listOfSkills = emptyList<String>()
+
+    private var orsk = String()
+    var firstTime = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        orsk = arguments?.getString("skills").toString().replace(",", "")
+
 
         val profileImageButton = view.findViewById<ImageButton>(R.id.editProfileImageButton)
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve profile info from ShowProfileFragment
         getProfileInfoFromShowProfileFragment()
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
+
+        vm.profile.observe(viewLifecycleOwner) { profile ->
+
+            listOfSkills = profile.skills!!
+
+            val listOfSkills = profile?.skills?.toMutableList()
+            if (recyclerView is RecyclerView) {
+                with(recyclerView) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    if(listOfSkills?.contains("") != true)
+                        adapter = SkillRecyclerViewAdapter(listOfSkills!!){
+                            vm1.deleteSkill(it)
+                            vm.deleteSkill(it)
+                        }
+                }
+            }
+        }
+
         var skillList = listOfSkills
 
-        var skills = resources.getStringArray(R.array.skillsList)
+        val skills = vm1.skillList.value!!.map { s -> s.name }.toTypedArray()
 
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
@@ -145,48 +175,23 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-
-            if (skillsText.text.toString() == null)
+            if (skillsText.text.toString().toLowerCase() == null || skillsText.text.toString() == "")
                 Toast.makeText(this.context, "Insert a skill", Toast.LENGTH_SHORT).show()
-            else if (skillsText.text.toString().split(" ").size != 1)
+            else if (skillsText.text.toString().toLowerCase().split(" ").size != 1)
                 Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT).show()
-            else if (skillList.split(" ").contains(skillsText.text.toString()))
+            else if (skillList.contains(skillsText.text.toString().toLowerCase()))
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
             else{
-                val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
-
-                val count = recyclerView?.childCount
-                var i = 0
-                skillList = String()
-                while(i < count!!){
-                    if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-                    else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-                    ++i
-                }
-                if (skillList != "") skillList = skillList + " " + skillsText.text.toString()
-                else skillList += skillsText.text.toString()
-                vm.addSkill(skillList)
-                listOfSkills = skillList
+                vm1.addSkill(skillsText.text.toString().toLowerCase())
+                vm.addSkill(skillsText.text.toString().toLowerCase())
                 skillsText.text = ""
             }
 
         }
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
 
-        vm.profile.observe(viewLifecycleOwner) { profile ->
-            val listOfSkills = profile?.skills?.split(" ")?.toMutableList()
-            if (recyclerView is RecyclerView) {
-                with(recyclerView) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    if(listOfSkills?.contains("") != true)
-                        adapter = SkillRecyclerViewAdapter(listOfSkills!!)
-                }
-            }
-        }
+
+
 
 
         //Listener to load new photo on click
@@ -257,13 +262,14 @@ class EditProfileFragment : Fragment() {
             nickNameEditText?.text = profile?.nickname
             emailEditText?.text = profile?.email
             locationEditText?.text = profile?.location
-            listOfSkills = profile?.skills.toString()
-            if(listOfSkills == "") listOfSkills = String()
+            listOfSkills = profile?.skills!!
+            if(listOfSkills.isEmpty()) listOfSkills = emptyList()
             descriptionEditText?.text = profile?.description
         }
     }
 
     private fun editProfile() {
+
         val fullNameEditText = view?.findViewById<EditText>(R.id.fullNameEditText)
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
@@ -271,16 +277,20 @@ class EditProfileFragment : Fragment() {
 //        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
 
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.skillList)
 
-        val count = recyclerView?.childCount
-        var i = 0
-        var skillList = String()
-        while(i < count!!){
-            if(i == 0) skillList += recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-            else skillList = skillList + " " + recyclerView?.get(i)!!.findViewById<TextView>(R.id.skill).text.toString()
-            ++i
-        }
+        var skillList = listOfSkills
+
+
+
+        //val skillsToDelete = getSkillsToDelete(orsk, skillList)
+        //val skillsToAdd = getSkillsToAdd(orsk, skillList)
+
+
+
+
+        //vm1.addSkill(skillsToAdd)
+        //vm1.deleteSkill(skillsToDelete)
+
 
         if (imgUri == imgUriOld) {
             val obj = Profile(
@@ -325,8 +335,22 @@ class EditProfileFragment : Fragment() {
                 }
             }
         }
-
+        firstTime = true
     }
+
+
+    private fun getSkillsToDelete(originalSkills: String, finalSkills: String): List<String> {
+        var os = originalSkills.split(" ").toMutableList()
+        var fs = finalSkills.split(" ").toMutableList()
+        return os.filter { !fs.contains(it) }
+    }
+    private fun getSkillsToAdd(originalSkills: String, finalSkills: String): List<String> {
+        var os = originalSkills.split(" ").toMutableList()
+        var fs = finalSkills.split(" ").toMutableList()
+        return fs.filter { !os.contains(it) }
+    }
+
+
 
     private fun onButtonClickEvent(sender: View?) {
         registerForContextMenu(sender!!)

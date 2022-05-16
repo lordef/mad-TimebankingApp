@@ -6,7 +6,7 @@ data class Profile(
     val nickname: String,
     val email: String,
     val location: String,
-    val skills: String,
+    val skills: List<String>,
     val description: String,
     val uid: String
 )

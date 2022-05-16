@@ -6,9 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.Profile
 
 class ShowProfileViewModel(application: Application) : AndroidViewModel(application) {
@@ -29,7 +27,7 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .addSnapshotListener { r, e ->
                 _profile.value = if (e != null)
-                    Profile("", "", "", "", "", "", "", "")
+                    Profile("", "", "", "", "", emptyList(), "", "")
                 else r!!.toProfile()
                 Log.d("MYTAG", "My profile: ${_profile.value}")
             }
@@ -38,7 +36,12 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
     fun updateProfile(newP: Profile) {
         db.collection("users")
             .document(newP.uid)
-            .set(newP)
+            .update("fullName", newP.fullName,
+            "email", newP.email,
+            "imageUri", newP.imageUri,
+            "location", newP.location,
+            "nickname", newP.nickname,
+            "description", newP.description)
 
         _profile.also {
             it.value = newP
@@ -52,12 +55,24 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
             val nickname = get("nickname") as String
             val email = get("email") as String
             val location = get("location") as String
-            val skills = get("skills") as String
+            val skills = get("skills") as List<DocumentReference>
             val description = get("description") as String
             val uid = get("uid") as String
 
-            Profile(imageUri, fullName, nickname, email, location, skills, description, uid)
+            val tmpList = skills.map { s -> s.path.split("/").last() }
+
+            Profile(
+                imageUri,
+                fullName,
+                nickname,
+                email,
+                location,
+                tmpList,
+                description,
+                uid
+            )
         } catch (e: Exception) {
+            Log.d("MYTAG", "My profile: ${e}")
             e.printStackTrace()
             null
         }
@@ -69,18 +84,15 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
         l.remove()
     }
 
-    fun addSkill(skill: String){
-        _profile.also {
-            it.value = Profile(
-                it.value!!.imageUri,
-                it.value!!.fullName,
-                it.value!!.nickname,
-                it.value!!.email,
-                it.value!!.location,
-                skill,
-                it.value!!.description,
-                it.value!!.uid
-            )
-        }
+    fun deleteSkill(skill: String) {
+        db.collection("users")
+            .document(_profile.value!!.uid)
+            .update("skills", FieldValue.arrayRemove(db.collection("skills").document(skill)))
+    }
+
+    fun addSkill(skill: String) {
+        db.collection("users")
+            .document(_profile.value!!.uid)
+            .update("skills", FieldValue.arrayUnion(db.collection("skills").document(skill)))
     }
 }

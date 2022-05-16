@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import it.polito.mad.lab02.databinding.FragmentSkillsBinding
+import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 
 
 class SkillRecyclerViewAdapter(
-    private val values: MutableList<String>
+    private val values: MutableList<String>,
+    private val itemClickListener: (skill: String) -> Unit // notice here
 ) : RecyclerView.Adapter<SkillRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,12 +40,10 @@ class SkillRecyclerViewAdapter(
         {
             val pos = values.indexOf(skill)
             if (pos != -1){
-                var bundle = Bundle()
-                bundle.putString("itemDeleted", values[pos])
-                val e = EditProfileFragment()
+                itemClickListener(skill)
+                //values.removeAt(pos)
+                //notifyItemRemoved(pos)
 
-                values.removeAt(pos)
-                notifyItemRemoved(pos)
             }
         }
 
