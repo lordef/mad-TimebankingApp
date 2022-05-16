@@ -26,14 +26,7 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/profile_image" />
 
-        <Button
-            android:id="@+id/nav_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:icon="@android:drawable/ic_menu_revert"
-            android:text="@string/nav_logout"
-            android:title="@string/nav_logout" />
+
     </LinearLayout>
 
     <TextView
