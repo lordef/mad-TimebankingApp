@@ -14,7 +14,6 @@ import it.polito.mad.lab02.models.TimeSlot
 import java.lang.ref.Reference
 import java.sql.Time
 import java.lang.reflect.TypeVariable
-import java.sql.Time
 import java.util.*
 
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
@@ -59,7 +58,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                                     addFilter{
                                         true
                                     }
-                                    addOrder("datetime")
+                                    addOrder("title")
                                 }
                             }
                         }
@@ -170,7 +169,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     // utente (TODO: maybe difficult for reference of the user)
     // titolo, luogo, giorno, utente
 
-
+    /*
     fun allTimeslots() {
         timeslotsRef
             .get()
@@ -185,6 +184,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 _timeSlotList.value = emptyList()
             }
     }
+    */
 
 
     /**************************/
@@ -195,6 +195,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     // source: https://medium.com/feedflood/filter-by-search-keyword-in-cloud-firestore-query-638377bf0123
 
     // Here, the title must be strictly equal (then also case sensitive)
+
+    /*
     fun filterTimeslotsByTitle(title: String) {
         timeslotsRef
             .whereEqualTo("title", title)
@@ -210,9 +212,11 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 _timeSlotList.value = emptyList()
             }
     }
+    */
     /**************************/
 
 
+    /*
     //TODO: EXAMPLES from
     // https://cloud.google.com/firestore/docs/query-data/queries
     private fun simpleQueries() {
@@ -238,6 +242,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         val notCapitalQuery = citiesRef.whereNotEqualTo("capital", false)
         // [END simple_query_not_equal]
     }
+     */
 
 
     override fun onCleared() {

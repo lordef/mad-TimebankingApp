@@ -27,8 +27,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
-    private var actualFilter : AdvsFilter = AdvsFilter.ALL
-    private var filteredTitle : String = ""
+    private var actualFilter: AdvsFilter = AdvsFilter.ALL
+    private var filteredTitle: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,66 +37,68 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
         val skill = arguments?.getString("skill")
         if (skill != null) {
-        if(skill != null){
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Skill: " + skill.split("/").last()
-            Log.d("MYTAG", "Passed skill: ${skill}")
-            vm.filteredTimeslotList.observe(viewLifecycleOwner) {
+            if (skill != null) {
+                (activity as AppCompatActivity?)?.supportActionBar?.title =
+                    "Skill: " + skill.split("/").last()
+                Log.d("MYTAG", "Passed skill: ${skill}")
+                vm.filteredTimeslotList.observe(viewLifecycleOwner) {
 
-                val allFilterButton = view.findViewById<Button>(R.id.allFilterButton)
-                allFilterButton.setOnClickListener {
-                    actualFilter = AdvsFilter.ALL
+                    val allFilterButton = view.findViewById<Button>(R.id.allFilterButton)
+                    allFilterButton.setOnClickListener {
+                        actualFilter = AdvsFilter.ALL
 //                    vm.allTimeslots()
-                    vm.addFilter {
-                        true
-                    }
-                }
-
-                val filterButton = view.findViewById<Button>(R.id.filterButton)
-                filterButton.setOnClickListener {
-//                    vm.filterByTitle("Test 1") //TODO: pass the correct title
-                                                    // from text view for example
-                    actualFilter = AdvsFilter.TITLE
-                    filteredTitle = "Test 1" //TODO: here text from text view
-
-                    vm.addFilter {
-                        it.title.contains("test", ignoreCase = true)
-                    }
-
-                }
-
-
-                val timeSlotList = it.filter { ts ->
-                    Log.d("MYTAG", "Reference skill: ${ts.skill}")
-                    ts.skill == skill
-                }
-                Log.d("MYTAG", "Doc ref: $timeSlotList")
-                if (recyclerView is RecyclerView) {
-                    with(recyclerView) {
-                        layoutManager = when {
-                            columnCount <= 1 -> LinearLayoutManager(context)
-                            else -> GridLayoutManager(context, columnCount)
+                        vm.addFilter {
+                            true
                         }
-                        adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
+                    }
+
+                    val filterButton = view.findViewById<Button>(R.id.filterButton)
+                    filterButton.setOnClickListener {
+//                    vm.filterByTitle("Test 1") //TODO: pass the correct title
+                        // from text view for example
+                        actualFilter = AdvsFilter.TITLE
+                        filteredTitle = "Test 1" //TODO: here text from text view
+
+                        vm.addFilter {
+                            it.title.contains("test", ignoreCase = true)
+                        }
+
+                    }
+
+
+                    val timeSlotList = it.filter { ts ->
+                        Log.d("MYTAG", "Reference skill: ${ts.skill}")
+                        ts.skill == skill
+                    }
+                    Log.d("MYTAG", "Doc ref: $timeSlotList")
+                    if (recyclerView is RecyclerView) {
+                        with(recyclerView) {
+                            layoutManager = when {
+                                columnCount <= 1 -> LinearLayoutManager(context)
+                                else -> GridLayoutManager(context, columnCount)
+                            }
+                            adapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
+                        }
+                    }
+
+                    val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
+                    if (timeSlotList.isEmpty()) {
+                        recyclerView.visibility = View.GONE
+                        textView.visibility = View.VISIBLE
+                    } else {
+                        textView.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
                     }
                 }
+            }
 
-                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
-                if (timeSlotList.isEmpty()) {
-                    recyclerView.visibility = View.GONE
-                    textView.visibility = View.VISIBLE
-                } else {
-                    textView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+            val callback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    view.findNavController().navigateUp()
                 }
             }
+            requireActivity().onBackPressedDispatcher.addCallback(callback)
         }
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                view.findNavController().navigateUp()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
