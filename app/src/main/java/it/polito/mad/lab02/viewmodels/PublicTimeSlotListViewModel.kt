@@ -26,7 +26,7 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     //Creation of a Firebase db instance
     private var l: ListenerRegistration
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-
+    // TODO: filtrare adv passati
     init {
         l = db.collection("timeslots").addSnapshotListener { r, e ->
             if (e != null)

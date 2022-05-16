@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 

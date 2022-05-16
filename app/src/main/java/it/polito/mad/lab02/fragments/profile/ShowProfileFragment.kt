@@ -80,7 +80,7 @@ class ShowProfileFragment : Fragment() {
             nickname.text = profile.nickname
             email.text = profile.email
             location.text = profile.location
-            skills.text = profile.skills
+            skills.text = profile.skills.replace(" ", ", ")
             description.text = profile.description
         }
 
