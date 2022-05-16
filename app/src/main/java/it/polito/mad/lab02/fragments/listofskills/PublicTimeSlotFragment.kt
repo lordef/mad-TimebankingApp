@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextMenu
-import android.view.MenuInflater
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +16,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.MenuPopupWindow
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.view.MenuCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -39,6 +36,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     private var actualFilter: AdvsFilter = AdvsFilter.ALL
     private var filteredTitle: String = ""
 
+    var filter = "No filter"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
@@ -52,7 +51,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 Log.d("MYTAG", "Passed skill: ${skill}")
                 vm.timeslotList.observe(viewLifecycleOwner) {
 
-                    val allFilterButton = view.findViewById<Button>(R.id.allFilterButton)
+                    val allFilterButton = view.findViewById<Button>(R.id.sortButton)
                     allFilterButton.setOnClickListener {
                         actualFilter = AdvsFilter.ALL
 //                    vm.allTimeslots()
@@ -126,8 +125,26 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
+        popup.menu.forEach {
+            if (it.title == filter) {
+                it.isChecked = true
+            }
+        }
+
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            popup.menu.forEach {
+                it.isChecked = false
+            }
+            menuItem.isChecked = true
+
+            if (menuItem.title == "No filter") {
+                filter = "No filter"
+                adapter.setFilter {
+                    true
+                }
+            }
             if (menuItem.title == "Title") {
+                filter = "Title"
                 val dialog =
                     this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
                 val builder = AlertDialog.Builder(this.context).setView(dialog)
@@ -144,6 +161,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 }
             }
             if (menuItem.title == "Location") {
+                filter = "Location"
                 val dialog =
                     this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
                 val builder = AlertDialog.Builder(this.context).setView(dialog)
@@ -160,6 +178,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 }
             }
             if (menuItem.title == "Description") {
+                filter = "Description"
                 val dialog =
                     this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
                 val builder = AlertDialog.Builder(this.context).setView(dialog)
@@ -193,7 +212,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //                    alertDialog.dismiss()
 //                }
 //            }
-            if(menuItem.title == "Date and Time"){
+            if (menuItem.title == "Date and Time") {
+                filter = "Date and Time"
                 val dialog = this.layoutInflater.inflate(R.layout.dialog_duration, null)
                 val builder = AlertDialog.Builder(this.context).setView(dialog)
 

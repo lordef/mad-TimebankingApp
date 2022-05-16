@@ -67,6 +67,17 @@ class PublicTimeSlotRecyclerViewAdapter(
         diffs.dispatchUpdatesTo(this)
     }
 
+    fun setOrder(order: (TimeSlot)->Int) {
+        val oldData = displayData
+        displayData = if(order != null){
+            values.sortedBy(order).toMutableList()
+        } else{
+            values.toMutableList()
+        }
+        val diffs = DiffUtil.calculateDiff(MyDiffCallback(oldData, displayData))
+        diffs.dispatchUpdatesTo(this)
+    }
+
     class MyDiffCallback(val old: List<TimeSlot>, val new: List<TimeSlot>): DiffUtil.Callback() {
         override fun getOldListSize(): Int = old.size
 

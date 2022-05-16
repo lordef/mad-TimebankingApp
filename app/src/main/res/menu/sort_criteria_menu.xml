@@ -5,7 +5,7 @@
         >
         <item
             android:id="@+id/option_1"
-            android:title="@string/no_filter" />
+            android:title="@string/no_sorting" />
         <item
             android:id="@+id/option_2"
             android:title="@string/title" />
@@ -14,9 +14,6 @@
             android:title="@string/location" />
         <item
             android:id="@+id/option_4"
-            android:title="@string/description" />
-        <item
-            android:id="@+id/option_5"
             android:title="@string/dateTime" />
     </group>
     <!--    TODO: <item android:id="@+id/option_5"-->
