@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import com.google.firebase.Timestamp
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentPublicTimeSlotBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
+import java.util.*
 
 class PublicTimeSlotRecyclerViewAdapter(
     private val values: List<TimeSlot>
@@ -67,12 +69,24 @@ class PublicTimeSlotRecyclerViewAdapter(
         diffs.dispatchUpdatesTo(this)
     }
 
-    fun setOrder(order: (TimeSlot)->Int) {
+    fun setOrder(order: String) {
         val oldData = displayData
         displayData = if(order != null){
-            values.sortedBy(order).toMutableList()
+            when(order){
+                "No sorting" -> displayData.toMutableList()
+                "Title" -> displayData.sortedBy{it.title}.toMutableList()
+                "Location" -> displayData.sortedBy{it.location}.toMutableList()
+                "Duration" -> displayData.sortedBy{it.duration}.toMutableList()
+                "Date and Time" -> displayData.sortedBy{ Timestamp(Date(it.dateTime)).seconds }.toMutableList()
+                "No sorting_desc" -> displayData.toMutableList()
+                "Title_desc" -> displayData.sortedByDescending{it.title}.toMutableList()
+                "Location_desc" -> displayData.sortedByDescending{it.location}.toMutableList()
+                "Duration_desc" -> displayData.sortedByDescending{it.duration}.toMutableList()
+                "Date and Time_desc" -> displayData.sortedByDescending{ Timestamp(Date(it.dateTime)).seconds }.toMutableList()
+                else -> displayData.toMutableList()
+            }
         } else{
-            values.toMutableList()
+            displayData.toMutableList()
         }
         val diffs = DiffUtil.calculateDiff(MyDiffCallback(oldData, displayData))
         diffs.dispatchUpdatesTo(this)

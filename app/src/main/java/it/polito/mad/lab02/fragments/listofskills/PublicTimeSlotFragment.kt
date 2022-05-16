@@ -37,6 +37,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     private var filteredTitle: String = ""
 
     var filter = "No filter"
+    var sort = "No sorting"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,16 +83,31 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
                     val filterButton = view.findViewById<Button>(R.id.filterButton)
                     filterButton.setOnClickListener {
-//                    vm.filterByTitle("Test 1") //TODO: pass the correct title
-                        // from text view for example
-                        actualFilter = AdvsFilter.TITLE
-                        filteredTitle = "Test 1" //TODO: here text from text view
+//                    vm.filterByTitle("Test 1")
+//                        // from text view for example
+//                        actualFilter = AdvsFilter.TITLE
+//                        filteredTitle = "Test 1" //TODO: here text from text view
 
 
 //                        vm.addFilter {
 //                            it.title.contains("test", ignoreCase = true)
 //                        }
-                        showMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
+                        showFilterMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
+
+                    }
+
+                    val sortButton = view.findViewById<Button>(R.id.sortButton)
+                    sortButton.setOnClickListener {
+//                    vm.filterByTitle("Test 1")
+//                        // from text view for example
+//                        actualFilter = AdvsFilter.TITLE
+//                        filteredTitle = "Test 1" //TODO: here text from text view
+
+
+//                        vm.addFilter {
+//                            it.title.contains("test", ignoreCase = true)
+//                        }
+                        showSortMenu(sortButton, R.menu.sort_criteria_menu, myAdapter)
 
                     }
 
@@ -116,8 +132,72 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         }
     }
 
-    @SuppressLint("RestrictedApi")
-    private fun showMenu(
+    private fun showSortMenu(
+        v: View,
+        @MenuRes menuRes: Int,
+        adapter: PublicTimeSlotRecyclerViewAdapter
+    ) {
+        val popup = PopupMenu(requireContext(), v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.menu.forEach {
+            if (it.title == sort) {
+                it.isChecked = true
+            }
+        }
+
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            menuItem.isChecked = true
+
+            if (menuItem.title == "No sorting") {
+                adapter.setOrder("No sorting")
+                sort = "No sorting"
+
+            }
+            if (menuItem.title == "Title") {
+                if (sort == "Title") {
+                    adapter.setOrder("Title_desc")
+                } else {
+                    adapter.setOrder("Title")
+                }
+                sort = "Title"
+            }
+            if (menuItem.title == "Location") {
+                if (sort == "Location") {
+                    adapter.setOrder("Location")
+                } else {
+                    adapter.setOrder("Location")
+                }
+                sort = "Location"
+            }
+            if (menuItem.title == "Duration") {
+                if (sort == "Duration") {
+                    adapter.setOrder("Duration_desc")
+                } else {
+                    adapter.setOrder("Duration")
+                }
+                sort = "Duration"
+            }
+            if (menuItem.title == "Date and Time") {
+                if (sort == "Date and Time") {
+                    adapter.setOrder("Date and Time_desc")
+                } else {
+                    adapter.setOrder("Date and Time")
+                }
+                sort = "Date and Time"
+            }
+
+            true
+        }
+
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+        // Show the popup menu.
+        popup.show()
+    }
+
+    private fun showFilterMenu(
         v: View,
         @MenuRes menuRes: Int,
         adapter: PublicTimeSlotRecyclerViewAdapter
@@ -132,9 +212,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         }
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-            popup.menu.forEach {
-                it.isChecked = false
-            }
             menuItem.isChecked = true
 
             if (menuItem.title == "No filter") {
