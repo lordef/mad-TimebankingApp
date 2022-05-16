@@ -36,9 +36,9 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     private fun DocumentSnapshot.toSkill(): Skill? {
         return try {
             val name = get("name") as String
-//            val occurrences = get("occurrences") as Int
-//            Skill(this.reference.path, name, occurrences)
-            Skill(this.reference.path, name)
+            val occurrences = get("occurrences") as Int
+            Skill(this.reference.path, name, occurrences)
+//            Skill(this.reference.path, name)
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -63,58 +63,58 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun addSkill(names: List<String>){
         // TODO: come si fa a vedere skillList come con l'observer qui???
-//        Log.d("mytagg", skillList.value.toString())
-//        names.forEach { it1 ->
-//            val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
-//            Log.d("mytagg", skillList.value.toString())
-//
-//
-//
-//            if (oldVal != null) {
-//                db.collection("skills")
-//                    .document(it1)
-//                    .update("occurrences", oldVal+1 )
+        Log.d("mytagg", skillList.value.toString())
+        names.forEach { it1 ->
+            val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
+            Log.d("mytagg", skillList.value.toString())
+
+
+
+            if (oldVal != null) {
+                db.collection("skills")
+                    .document(it1)
+                    .update("occurrences", oldVal+1 )
 //                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
 //                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
 //                        1
 //                    )!!
 //                }
-//            }
-//            else{
-//                val newSkill = Skill("skills/"+it1, it1, 1)
-//                db.collection("skills")
-//                    .document(it1)
-//                    .set(newSkill)
-//            }
-//
-//        }
+            }
+            else{
+                val newSkill = Skill("skills/"+it1, it1, 1)
+                db.collection("skills")
+                    .document(it1)
+                    .set(newSkill)
+            }
+
+        }
     }
     fun deleteSkill(names: List<String>){
-//        Log.d("mytagg", skillList.value.toString())
-//        names.forEach { it1 ->
-//            val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
-//            Log.d("mytagg", skillList.value.toString())
-//
-//
-//
-//            if (oldVal != 1) {
-//                db.collection("skills")
-//                    .document(it1)
-//                    .update("occurrences", oldVal-1 )
+        Log.d("mytagg", skillList.value.toString())
+        names.forEach { it1 ->
+            val oldVal = skillList.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences
+            Log.d("mytagg", skillList.value.toString())
+
+
+
+            if (oldVal != 1 && oldVal != null) {
+                db.collection("skills")
+                    .document(it1)
+                    .update("occurrences", oldVal-1 )
 //                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
 //                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
 //                        1
 //                    )!!
 //                }
-//            }
-//            else{
-//                val newSkill = Skill("skills/"+it1, it1, 1)
-//                db.collection("skills")
-//                    .document(it1)
-//                    .delete()
-//            }
-//
-//        }
+            }
+            else{
+                val newSkill = Skill("skills/"+it1, it1, 1)
+                db.collection("skills")
+                    .document(it1)
+                    .delete()
+            }
+
+        }
     }
 
 
