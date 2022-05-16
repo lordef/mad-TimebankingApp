@@ -36,7 +36,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
     private fun DocumentSnapshot.toSkill(): Skill? {
         return try {
             val name = get("name") as String
-            val occurrences = get("occurrences") as Int
+            val occurrences = get("occurrences") as Number
             Skill(this.reference.path, name, occurrences)
 //            Skill(this.reference.path, name)
         } catch (e: Exception) {
@@ -70,10 +70,11 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
 
 
 
+
             if (oldVal != null) {
                 db.collection("skills")
                     .document(it1)
-                    .update("occurrences", oldVal+1 )
+                    .update("occurrences", oldVal.toInt()+1 )
 //                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
 //                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
 //                        1
@@ -100,7 +101,7 @@ class SkillListViewModel(application: Application) : AndroidViewModel(applicatio
             if (oldVal != 1 && oldVal != null) {
                 db.collection("skills")
                     .document(it1)
-                    .update("occurrences", oldVal-1 )
+                    .update("occurrences", oldVal.toInt()-1 )
 //                _skillList.also { it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences =
 //                    it.value?.filter { it2 -> it2.name == it1 }?.get(0)?.occurrences?.plus(
 //                        1
