@@ -48,21 +48,6 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
 
-        /*
-        navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_logout -> {
-                    FirebaseAuth.getInstance().signOut()
-                    val loginActivity = Intent(applicationContext, LoginActivity::class.java)
-                    startActivity(loginActivity)
-                    Log.d("MYTAG", "here")
-                    finish()
-                }
-
-            }
-            true
-        }
-         */
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each

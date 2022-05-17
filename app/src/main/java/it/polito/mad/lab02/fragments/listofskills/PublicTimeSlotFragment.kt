@@ -52,7 +52,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             if (skill != null) {
                 (activity as AppCompatActivity?)?.supportActionBar?.title =
                     "Skill: " + skill.split("/").last()
-                Log.d("MYTAG", "Passed skill: ${skill}")
                 vm.timeslotList.observe(viewLifecycleOwner) {
 
                     val allFilterButton = view.findViewById<Button>(R.id.sortButton)
@@ -64,12 +63,9 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
 
                     val timeSlotList = it.filter { ts ->
-                        Log.d("MYTAG", "Reference skill: ${ts.skill}")
                         ts.skill == skill
                     }
-                    Log.d("MYTAG", "Doc ref: $timeSlotList")
 
-                    Log.d("MYTAGGGG", "list: ${timeSlotList}")
 
                     val myAdapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                     if (recyclerView is RecyclerView) {

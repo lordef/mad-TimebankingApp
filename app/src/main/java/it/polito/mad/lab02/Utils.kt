@@ -27,7 +27,6 @@ object Utils {
             override fun onGlobalLayout() {
                 val h = secondLayer.height
                 val w = secondLayer.width
-                Log.d("Layout", "firstLayout.requestLayout(): $w,$h")
                 firstLayout.post {
                     firstLayout.layoutParams =
                         if (orientation == Configuration.ORIENTATION_LANDSCAPE)

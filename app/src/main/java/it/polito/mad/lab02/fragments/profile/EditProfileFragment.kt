@@ -522,10 +522,8 @@ class EditProfileFragment : Fragment() {
         // Create a reference to "images/imgUri"
         val imagesRef = storageRef.child("${imgUriOld.lastPathSegment!!}")
         imagesRef.delete().addOnSuccessListener {
-            Log.d("MYTAG", "SUCCESS: images/${imgUriOld.lastPathSegment!!}")
         }
             .addOnFailureListener {
-                Log.d("MYTAG", "FAILURE: images/${imgUriOld.lastPathSegment!!}")
             }
     }
 

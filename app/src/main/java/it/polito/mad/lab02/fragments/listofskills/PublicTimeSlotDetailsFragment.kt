@@ -39,7 +39,6 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
             vm.timeslotList
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
-                    Log.d("myTag", it.toString())
 
                     title.text = ts.title
                     description.text = ts.description

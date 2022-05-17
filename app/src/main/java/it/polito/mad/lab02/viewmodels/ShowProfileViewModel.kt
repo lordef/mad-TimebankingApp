@@ -29,7 +29,6 @@ class ShowProfileViewModel(application: Application) : AndroidViewModel(applicat
                 _profile.value = if (e != null)
                     Profile("", "", "", "", "", emptyList(), "", "")
                 else r!!.toProfile()
-                Log.d("MYTAG", "My profile: ${_profile.value}")
             }
     }
 
