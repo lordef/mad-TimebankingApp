@@ -19,6 +19,4 @@
             android:id="@+id/option_5"
             android:title="@string/dateTime" />
     </group>
-    <!--    TODO: <item android:id="@+id/option_5"-->
-    <!--        android:title="@string/duration" />-->
 </menu>

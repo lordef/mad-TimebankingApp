@@ -42,8 +42,8 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
             val title = get("title") as String
             val description = get("description") as String
-            val datetime = get("dateTime") as String //TODO valutare tipo per le date
-            val duration = get("duration") as String // TODO time in milliseconds
+            val datetime = get("dateTime") as String
+            val duration = get("duration") as String
             val location = get("location") as String
             val skill = get("skill")
             val user = get("user") as DocumentReference

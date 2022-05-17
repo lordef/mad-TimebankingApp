@@ -39,7 +39,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     private val timeslotsRef = db.collection("timeslots")
 
 
-    // TODO: filtrare adv passati
     init {
         l = db.collection("timeslots").addSnapshotListener { r, e ->
             if (e != null)
@@ -55,13 +54,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                                 if (ts != null) {
                                     tmpList.add(ts)
                                     _timeSlotList.value = tmpList
-                                    //TODO: prove
-                                    /*
-                                    addFilter{
-                                        true
-                                    }
-                                    addOrder("datetime")
-                                    */
                                 }
                             }
                         }
@@ -112,8 +104,8 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
         return try {
             val title = get("title") as String
             val description = get("description") as String
-            val datetime = get("dateTime") as String //TODO valutare tipo per le date
-            val duration = get("duration") as String // TODO time in milliseconds
+            val datetime = get("dateTime") as String
+            val duration = get("duration") as String
             val location = get("location") as String
             val skill = get("skill") as DocumentReference
             val user = get("user") as DocumentReference
@@ -163,91 +155,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             _filteredTimeSlotList.value = _timeSlotList.value
         }
     }
-
-    //TODO: filters: can they be simultaneous?
-    // title (OK),
-    // description (NO),
-    // datetime (TODO),
-    // duration (TODO),
-    // location (TODO),
-    // utente (TODO: maybe difficult for reference of the user)
-    // titolo, luogo, giorno, utente
-
-    /*
-    fun allTimeslots() {
-        timeslotsRef
-            .get()
-            .addOnSuccessListener { documents ->
-                _timeSlotList.value = documents.mapNotNull { d ->
-                    Log.d("G07_TAG", "${d.id} => ${d.data}")
-                    d.toTimeslot()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("G07_TAG", "Error getting documents: ", exception)
-                _timeSlotList.value = emptyList()
-            }
-    }
-    */
-
-
-    /**************************/
-    //TODO
-    //For a Full-text search
-    // source: https://firebase.google.com/docs/firestore/solutions/search
-    //for an "home made" solution:
-    // source: https://medium.com/feedflood/filter-by-search-keyword-in-cloud-firestore-query-638377bf0123
-
-    // Here, the title must be strictly equal (then also case sensitive)
-
-    /*
-    fun filterTimeslotsByTitle(title: String) {
-        timeslotsRef
-            .whereEqualTo("title", title)
-            .get()
-            .addOnSuccessListener { documents ->
-                _timeSlotList.value = documents.mapNotNull { d ->
-                    Log.d("G07_TAG", "${d.id} => ${d.data}")
-                    d.toTimeslot()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("G07_TAG", "Error getting documents: ", exception)
-                _timeSlotList.value = emptyList()
-            }
-    }
-    */
-    /**************************/
-
-
-    /*
-    //TODO: EXAMPLES from
-    // https://cloud.google.com/firestore/docs/query-data/queries
-    private fun simpleQueries() {
-        // [START simple_queries]
-        // Create a reference to the cities collection
-        val citiesRef = db.collection("cities")
-
-        // Create a query against the collection.
-        val query = citiesRef.whereEqualTo("state", "CA")
-        // [END simple_queries]
-
-        // [START simple_query_capital]
-        val capitalCities = db.collection("cities").whereEqualTo("capital", true)
-        // [END simple_query_capital]
-
-        // [START example_filters]
-        val stateQuery = citiesRef.whereEqualTo("state", "CA")
-        val populationQuery = citiesRef.whereLessThan("population", 100000)
-        val nameQuery = citiesRef.whereGreaterThanOrEqualTo("name", "San Francisco")
-        // [END example_filters]
-
-        // [START simple_query_not_equal]
-        val notCapitalQuery = citiesRef.whereNotEqualTo("capital", false)
-        // [END simple_query_not_equal]
-    }
-     */
-
 
     override fun onCleared() {
         super.onCleared()

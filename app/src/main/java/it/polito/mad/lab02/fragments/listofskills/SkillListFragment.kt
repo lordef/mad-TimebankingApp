@@ -49,7 +49,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 if(!view.findNavController().navigateUp()){
-                    exitProcess(1) //TODO: app closes and reopens on backpress
+                    exitProcess(1)
                 }
             }
         }

@@ -61,7 +61,6 @@
     <string name="empty_adv_msg">No advertisements present</string>
     <string name="nav_logout">Logout</string>
     <string name="empty_skills_msg">No skills present</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="timeslotProfileLabel">Publisher</string>
     <string name="timeslotSkillLabel">Select skill</string>

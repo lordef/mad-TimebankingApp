@@ -37,8 +37,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private val vm by activityViewModels<PublicTimeSlotListViewModel>()
 
-    private var actualFilter: AdvsFilter = AdvsFilter.ALL
-    private var filteredTitle: String = ""
+
 
     var filter = "No filter"
     var sort = "No sorting"
@@ -58,8 +57,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
                     val allFilterButton = view.findViewById<Button>(R.id.sortButton)
                     allFilterButton.setOnClickListener {
-                        actualFilter = AdvsFilter.ALL
-//                    vm.allTimeslots()
                         vm.addFilter {
                             true
                         }
@@ -87,30 +84,12 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
                     val filterButton = view.findViewById<Button>(R.id.filterButton)
                     filterButton.setOnClickListener {
-//                    vm.filterByTitle("Test 1")
-//                        // from text view for example
-//                        actualFilter = AdvsFilter.TITLE
-//                        filteredTitle = "Test 1" //TODO: here text from text view
-
-
-//                        vm.addFilter {
-//                            it.title.contains("test", ignoreCase = true)
-//                        }
                         showFilterMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
 
                     }
 
                     val sortButton = view.findViewById<Button>(R.id.sortButton)
                     sortButton.setOnClickListener {
-//                    vm.filterByTitle("Test 1")
-//                        // from text view for example
-//                        actualFilter = AdvsFilter.TITLE
-//                        filteredTitle = "Test 1" //TODO: here text from text view
-
-
-//                        vm.addFilter {
-//                            it.title.contains("test", ignoreCase = true)
-//                        }
                         showSortMenu(sortButton, R.menu.sort_criteria_menu, myAdapter)
 
                     }
@@ -314,23 +293,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 }
             }
 
-            //TODO: Duration
-//            if (menuItem.title == "Duration") {
-//                val dialog =
-//                    this.layoutInflater.inflate(R.layout.dialog_filter_criteria_string, null)
-//                val builder = AlertDialog.Builder(this.context).setView(dialog)
-//
-//                val alertDialog = builder.show()
-//                val button = dialog.findViewById<Button>(R.id.button)
-//                val editText = dialog.findViewById<EditText>(R.id.editTextFilterDialog)
-//                button.setOnClickListener {
-//                    //Add a filter
-//                    adapter.setFilter {
-//                        it.duration.contains(editText.text.toString(), ignoreCase = true)
-//                    }
-//                    alertDialog.dismiss()
-//                }
-//            }
             if (menuItem.title == "Date") {
                 filter = "Date"
                 var dateSelected = String()
@@ -403,9 +365,4 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         }
 
     }
-}
-
-//TODO: test
-enum class AdvsFilter {
-    ALL, TITLE
 }

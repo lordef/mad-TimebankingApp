@@ -307,7 +307,6 @@
                             app:layout_constraintEnd_toStartOf="@id/addSkill"
                             app:layout_constraintStart_toEndOf="@+id/skillEditText"
                             app:layout_constraintTop_toTopOf="parent" />
-                        <!--                        TODO: height?-->
                         <include
                             android:id="@+id/skillList"
                             layout="@layout/fragment_skills_list"
