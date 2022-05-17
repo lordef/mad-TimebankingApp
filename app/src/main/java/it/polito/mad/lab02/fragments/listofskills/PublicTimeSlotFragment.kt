@@ -141,8 +141,14 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         popup.menuInflater.inflate(menuRes, popup.menu)
 
         popup.menu.forEach {
-            if (it.title == sort) {
+            if (sort.contains(it.title)) {
                 it.isChecked = true
+                if(it.title != "No sorting" && sort.contains("↓")){
+                    it.title =  "↓ " + it.title.toString()
+                }
+                if(it.title != "No sorting" && sort.contains("↑")){
+                    it.title = "↑ " + it.title.toString()
+                }
             }
         }
 
@@ -154,37 +160,69 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 sort = "No sorting"
 
             }
-            if (menuItem.title == "Title") {
-                if (sort == "Title") {
-                    adapter.setOrder("Title_desc")
+            if (menuItem.title.contains("Title")) {
+                if (sort.contains("Title")) {
+                    if (sort == "↓ Title"){
+                        menuItem.title = "↑ Title"
+                        adapter.setOrder("Title")
+                    }
+                    else{
+                        menuItem.title = "↓ Title"
+                        adapter.setOrder("Title_desc")
+                    }
                 } else {
+                    menuItem.title = "↑ " + menuItem.title.toString()
                     adapter.setOrder("Title")
                 }
-                sort = "Title"
+                sort = menuItem.title.toString()
             }
-            if (menuItem.title == "Location") {
-                if (sort == "Location") {
-                    adapter.setOrder("Location")
+            if (menuItem.title.contains("Location")) {
+                if (sort.contains("Location")) {
+                    if (sort == "↓ Location"){
+                        menuItem.title = "↑ Location"
+                        adapter.setOrder("Location")
+                    }
+                    else{
+                        menuItem.title = "↓ Location"
+                        adapter.setOrder("Location_desc")
+                    }
                 } else {
+                    menuItem.title = "↑ " + menuItem.title.toString()
                     adapter.setOrder("Location")
                 }
-                sort = "Location"
+                sort = menuItem.title.toString()
             }
-            if (menuItem.title == "Duration") {
-                if (sort == "Duration") {
-                    adapter.setOrder("Duration_desc")
+            if (menuItem.title.contains("Duration")) {
+                if (sort.contains("Duration")) {
+                    if (sort == "↓ Duration"){
+                        menuItem.title = "↑ Duration"
+                        adapter.setOrder("Duration")
+                    }
+                    else{
+                        menuItem.title = "↓ Duration"
+                        adapter.setOrder("Duration_desc")
+                    }
                 } else {
+                    menuItem.title = "↑" + menuItem.title.toString()
                     adapter.setOrder("Duration")
                 }
-                sort = "Duration"
+                sort = menuItem.title.toString()
             }
-            if (menuItem.title == "Date and Time") {
-                if (sort == "Date and Time") {
-                    adapter.setOrder("Date and Time_desc")
+            if (menuItem.title.contains("Date and Time")) {
+                if (sort.contains("Date and Time")) {
+                    if (sort == "↓ Date and Time"){
+                        menuItem.title = "↑ Date and Time"
+                        adapter.setOrder("Date and Time")
+                    }
+                    else{
+                        menuItem.title = "↓ Date and Time"
+                        adapter.setOrder("Date and Time_desc")
+                    }
                 } else {
+                    menuItem.title = "↑" + menuItem.title.toString()
                     adapter.setOrder("Date and Time")
                 }
-                sort = "Date and Time"
+                sort = menuItem.title.toString()
             }
 
             true
