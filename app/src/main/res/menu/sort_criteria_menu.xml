@@ -12,7 +12,7 @@
             android:title="@string/location" />
         <item
             android:id="@+id/option_4"
-            android:title="@string/dateTime" />
+            android:title="@string/dateAndTime" />
         <item
             android:id="@+id/option_5"
             android:title="@string/duration" />

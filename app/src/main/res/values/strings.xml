@@ -54,6 +54,7 @@
     <string name="title">Title</string>
     <!--string name="description">Description</string-->
     <string name="dateTime">Date</string>
+    <string name="dateAndTime">Date and Time</string>
     <string name="duration">Duration</string>
     <string name="date">Date</string>
     <string name="edit_timeSlot">Edit</string>
