@@ -2,6 +2,8 @@ package it.polito.mad.lab02.fragments.listofskills
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,6 +25,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A fragment representing a list of Items.
@@ -291,14 +295,67 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //            }
             if (menuItem.title == "Date and Time") {
                 filter = "Date and Time"
-                val dialog = this.layoutInflater.inflate(R.layout.dialog_duration, null)
-                val builder = AlertDialog.Builder(this.context).setView(dialog)
+                var dateSelected = String()
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+                val dialog =
+                    this.layoutInflater.inflate(R.layout.dialog_date_time, null)
+                val builder = AlertDialog.Builder(this.context).setView(dialog)
                 val alertDialog = builder.show()
-                val button = dialog.findViewById<Button>(R.id.button)
+                val dateText = dialog.findViewById<TextView>(R.id.pickDate)
+                val timeText = dialog.findViewById<TextView>(R.id.pickTime)
+
+                dateText!!.setOnClickListener(View.OnClickListener {
+
+                    val dialog1 = DatePickerDialog(
+                        this.requireContext(),
+                        DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                            val month1 = 1 + month
+                            dateText.text = "" + day + "/" + month1 + "/" + year
+                        },
+                        year,
+                        month,
+                        day
+                    )
+
+                    dialog1.show()
+                })
+                timeText!!.setOnClickListener {
+                    val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                        calendar.set(Calendar.HOUR_OF_DAY, hour)
+                        calendar.set(Calendar.MINUTE, minute)
+                        timeText.text = SimpleDateFormat("HH:mm").format(calendar.time)
+                    }
+                    TimePickerDialog(
+                        this.context,
+                        timeSetListener,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        true
+                    ).show()
+                }
+
+
+
+                val button = dialog.findViewById<Button>(R.id.button2)
                 button.setOnClickListener {
+                    if(dateText.text.toString() != "Select date" && timeText.text.toString() != "Select time") {
+                        dateSelected = dateText.text.toString() + " " + timeText.text.toString()
+                    }else if(dateText.text.toString() == "Select date"){
+                        dateSelected = "1/1/2022" + " " + timeText.text.toString()
+                    }else if(timeText.text.toString() == "Select time"){
+                        dateSelected = dateText.text.toString() + " " + "00:00"
+                    }
+                    //Add a filter
+                    adapter.setFilter {
+                        it.dateTime.contains(dateSelected, ignoreCase = true)
+                    }
                     alertDialog.dismiss()
                 }
+
             }
 
             true
@@ -310,6 +367,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         // Show the popup menu.
         popup.show()
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
