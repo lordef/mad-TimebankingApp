@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             drawerNickname.text = profile.nickname
             drawerFullName.text = profile.fullName
 
-            val logout = binding.navView.getHeaderView(0).findViewById<Button>(R.id.nav_logout)
+            val logout = findViewById<TextView>(R.id.logout)
             logout.setOnClickListener{
                 FirebaseAuth.getInstance().signOut()
                 val loginActivity = Intent(applicationContext, LoginActivity::class.java)
