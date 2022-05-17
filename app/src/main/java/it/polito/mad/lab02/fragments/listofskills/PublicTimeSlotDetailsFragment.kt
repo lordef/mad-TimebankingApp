@@ -3,6 +3,7 @@ package it.polito.mad.lab02.fragments.listofskills
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import coil.load
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
 
@@ -31,6 +33,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val location = view.findViewById<TextView>(R.id.locationTextView)
         val skill = view.findViewById<TextView>(R.id.skillTextView)
         val profileCard = view.findViewById<CardView>(R.id.profileCardView)
+        val profileImage = view.findViewById<ImageView>(R.id.imageView2)
 
         val profile = view.findViewById<TextView>(R.id.profileTextView)
 
@@ -53,6 +56,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     location.text = ts.location
 
                     profile.text = ts.userProfile.nickname
+                    profileImage.load(ts.userProfile.imageUri)
                     skill.text = ts.skill.split("/").last()
 
                     profileCard.setOnClickListener{

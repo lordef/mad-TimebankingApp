@@ -45,7 +45,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        getTimeSlotFromTimeSlotDetailsFragment()
+        getTimeSlotFromTimeSlotDetailsFragment(savedInstanceState)
 
         val skillText = view.findViewById<TextView>(R.id.skillEditText)
         val skillCard = view.findViewById<CardView>(R.id.skillCardView)
@@ -88,19 +88,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             }
         }
 
-        val date = view.findViewById<TextView>(R.id.dateEdit)
-        val time = view.findViewById<TextView>(R.id.timeEdit)
         val duration = view.findViewById<TextView>(R.id.durationEditText)
-        savedInstanceState?.let {
-            val dateRestored = savedInstanceState.getString("date")
-            val timeRestored = savedInstanceState.getString("time")
-            val durationRestored = savedInstanceState.getString("duration")
-            val skillRestored = savedInstanceState.getString("skill")
-            date?.text = dateRestored
-            time?.text = timeRestored
-            duration?.text = durationRestored
-            skillText.text = skillRestored
-        }
 
         putDatePicker()
         putTimePicker()
@@ -172,11 +160,17 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val time = view?.findViewById<TextView>(R.id.timeEdit)
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val skillText = view?.findViewById<TextView>(R.id.skillEditText)
+        val location = view?.findViewById<TextView>(R.id.locationEditText)
+        val description = view?.findViewById<TextView>(R.id.descriptionEditText)
+        val title = view?.findViewById<TextView>(R.id.titleEditText)
+
         outState.putString("date", date?.text.toString())
         outState.putString("time", time?.text.toString())
         outState.putString("duration", duration?.text.toString())
         outState.putString("skill", skillText?.text.toString())
-
+        outState.putString("location", location?.text.toString())
+        outState.putString("description", description?.text.toString())
+        outState.putString("title", title?.text.toString())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -192,7 +186,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         return true
     }
 
-    private fun getTimeSlotFromTimeSlotDetailsFragment() {
+    private fun getTimeSlotFromTimeSlotDetailsFragment(savedInstanceState: Bundle?) {
 
         val title = view?.findViewById<TextView>(R.id.titleEditText)
         val description = view?.findViewById<TextView>(R.id.descriptionEditText)
@@ -202,32 +196,52 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val location = view?.findViewById<TextView>(R.id.locationEditText)
         val skillText = view?.findViewById<TextView>(R.id.skillEditText)
 
+        savedInstanceState?.let {
+            val dateRestored = savedInstanceState.getString("date")
+            val timeRestored = savedInstanceState.getString("time")
+            val durationRestored = savedInstanceState.getString("duration")
+            val skillRestored = savedInstanceState.getString("skill")
+            val locationRestored = savedInstanceState.getString("location")
+            val descriptionRestored = savedInstanceState.getString("description")
+            val titleRestored = savedInstanceState.getString("title")
+
+            date?.text = dateRestored
+            time?.text = timeRestored
+            duration?.text = durationRestored
+            skillText?.text = skillRestored
+            location?.text = locationRestored
+            description?.text = descriptionRestored
+            title?.text = titleRestored
+        }
 
         val id = arguments?.getString("id")
         if (id == null) {
             isEdit = false
+
         } else {
             isEdit = true
             tempID = id
 
             vm.timeslotList.observe(viewLifecycleOwner){
-                val ts = it.first { t -> id == t.id }
-                title?.text = ts?.title
-                description?.text = ts?.description
+                if (savedInstanceState == null) {
+                    val ts = it.first { t -> id == t.id }
+                    title?.text = ts?.title
+                    description?.text = ts?.description
 
-                val dateTime = ts?.dateTime?.split(" ")
-                var d = ""
-                var t = ""
-                if (dateTime?.size == 2) {
-                    d = dateTime[0]
-                    t = dateTime[1]
+                    val dateTime = ts?.dateTime?.split(" ")
+                    var d = ""
+                    var t = ""
+                    if (dateTime?.size == 2) {
+                        d = dateTime[0]
+                        t = dateTime[1]
+                    }
+
+                    skillText?.text = ts.skill
+                    date?.text = d
+                    time?.text = t
+                    duration?.text = ts?.duration
+                    location?.text = ts?.location
                 }
-
-                skillText?.text = ts.skill
-                date?.text = d
-                time?.text = t
-                duration?.text = ts?.duration
-                location?.text = ts?.location
             }
         }
 

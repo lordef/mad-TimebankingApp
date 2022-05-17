@@ -115,7 +115,7 @@ class EditProfileFragment : Fragment() {
         profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
         //Retrieve profile info from ShowProfileFragment
-        getProfileInfoFromShowProfileFragment()
+        getProfileInfoFromShowProfileFragment(savedInstanceState)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.skillList)
 
@@ -200,13 +200,6 @@ class EditProfileFragment : Fragment() {
         //profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
 
 
-        val profileImage = view.findViewById<ImageView>(R.id.editProfileImageView)
-        savedInstanceState?.let {
-            imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
-            profileImage?.load(imgUri)
-            //profileImage?.setImageURI(imgUri)
-        }
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 editProfile()
@@ -246,7 +239,7 @@ class EditProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun getProfileInfoFromShowProfileFragment() {
+    private fun getProfileInfoFromShowProfileFragment(savedInstanceState: Bundle?) {
         val profileImage = view?.findViewById<ImageView>(R.id.editProfileImageView)
         val fullNameEditText = view?.findViewById<TextView>(R.id.fullNameEditText)
         val nickNameEditText = view?.findViewById<TextView>(R.id.nicknameEditText)
@@ -256,16 +249,33 @@ class EditProfileFragment : Fragment() {
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
-            imgUri = Uri.parse(profile?.imageUri)
-            imgUriOld = imgUri
-            profileImage?.load(imgUri)
-            fullNameEditText?.text = profile?.fullName
-            nickNameEditText?.text = profile?.nickname
-            emailEditText?.text = profile?.email
-            locationEditText?.text = profile?.location
-            listOfSkills = profile?.skills!!
-            if(listOfSkills.isEmpty()) listOfSkills = emptyList()
-            descriptionEditText?.text = profile?.description
+            if(savedInstanceState != null){
+                imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
+                profileImage?.load(imgUri)
+                imgUriOld = imgUri
+                fullNameEditText?.text = savedInstanceState.getString("fullName")
+                nickNameEditText?.text = savedInstanceState.getString("nickname")
+                emailEditText?.text = savedInstanceState.getString("email")
+                locationEditText?.text = savedInstanceState.getString("location")
+                descriptionEditText?.text = savedInstanceState.getString("description")
+                skillsEditText?.text = savedInstanceState.getString("skill")
+
+                listOfSkills = profile?.skills!!
+                if(listOfSkills.isEmpty()) listOfSkills = emptyList()
+            }
+            else{
+                imgUri = Uri.parse(profile?.imageUri)
+                imgUriOld = imgUri
+                profileImage?.load(imgUri)
+                fullNameEditText?.text = profile?.fullName
+                nickNameEditText?.text = profile?.nickname
+                emailEditText?.text = profile?.email
+                locationEditText?.text = profile?.location
+                listOfSkills = profile?.skills!!
+                if(listOfSkills.isEmpty()) listOfSkills = emptyList()
+                descriptionEditText?.text = profile?.description
+            }
+
         }
     }
 
@@ -280,17 +290,6 @@ class EditProfileFragment : Fragment() {
 
 
         var skillList = listOfSkills
-
-
-
-        //val skillsToDelete = getSkillsToDelete(orsk, skillList)
-        //val skillsToAdd = getSkillsToAdd(orsk, skillList)
-
-
-
-
-        //vm1.addSkill(skillsToAdd)
-        //vm1.deleteSkill(skillsToDelete)
 
 
         if (imgUri == imgUriOld) {
@@ -602,6 +601,20 @@ class EditProfileFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("imgUri", imgUri.toString())
+
+        val fullNameEditText = view?.findViewById<TextView>(R.id.fullNameEditText)
+        val nickNameEditText = view?.findViewById<TextView>(R.id.nicknameEditText)
+        val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
+        val locationEditText = view?.findViewById<TextView>(R.id.locationEditText)
+        val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
+        val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
+
+        outState.putString("fullName", fullNameEditText?.text.toString())
+        outState.putString("nickname", nickNameEditText?.text.toString())
+        outState.putString("email", emailEditText?.text.toString())
+        outState.putString("location", locationEditText?.text.toString())
+        outState.putString("description", descriptionEditText?.text.toString())
+        outState.putString("skill", skillsEditText?.text.toString())
     }
 }
 
