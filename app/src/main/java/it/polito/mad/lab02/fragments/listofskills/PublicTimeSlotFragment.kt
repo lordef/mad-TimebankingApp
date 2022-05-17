@@ -331,8 +331,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //                    alertDialog.dismiss()
 //                }
 //            }
-            if (menuItem.title == "Date and Time") {
-                filter = "Date and Time"
+            if (menuItem.title == "Date") {
+                filter = "Date"
                 var dateSelected = String()
                 val calendar = Calendar.getInstance()
                 val year = calendar.get(Calendar.YEAR)
@@ -344,7 +344,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 val builder = AlertDialog.Builder(this.context).setView(dialog)
                 val alertDialog = builder.show()
                 val dateText = dialog.findViewById<TextView>(R.id.pickDate)
-                val timeText = dialog.findViewById<TextView>(R.id.pickTime)
 
                 dateText!!.setOnClickListener(View.OnClickListener {
 
@@ -361,31 +360,15 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
                     dialog1.show()
                 })
-                timeText!!.setOnClickListener {
-                    val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                        calendar.set(Calendar.HOUR_OF_DAY, hour)
-                        calendar.set(Calendar.MINUTE, minute)
-                        timeText.text = SimpleDateFormat("HH:mm").format(calendar.time)
-                    }
-                    TimePickerDialog(
-                        this.context,
-                        timeSetListener,
-                        calendar.get(Calendar.HOUR_OF_DAY),
-                        calendar.get(Calendar.MINUTE),
-                        true
-                    ).show()
-                }
 
 
 
                 val button = dialog.findViewById<Button>(R.id.button2)
                 button.setOnClickListener {
-                    if(dateText.text.toString() != "Select date" && timeText.text.toString() != "Select time") {
-                        dateSelected = dateText.text.toString() + " " + timeText.text.toString()
+                    if(dateText.text.toString() != "Select date") {
+                        dateSelected = dateText.text.toString()
                     }else if(dateText.text.toString() == "Select date"){
-                        dateSelected = "1/1/2022" + " " + timeText.text.toString()
-                    }else if(timeText.text.toString() == "Select time"){
-                        dateSelected = dateText.text.toString() + " " + "00:00"
+                        dateSelected = "1/1/2022"
                     }
                     //Add a filter
                     adapter.setFilter {
