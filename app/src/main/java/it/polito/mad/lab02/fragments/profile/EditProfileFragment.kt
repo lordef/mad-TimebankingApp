@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -144,7 +145,7 @@ class EditProfileFragment : Fragment() {
 
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
-        val predefinedSkillsButton = view.findViewById<TextView>(R.id.predefinedSkills)
+        val predefinedSkillsButton = view.findViewById<Chip>(R.id.predefinedSkills)
         predefinedSkillsButton.setOnClickListener {
             val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
             val builder = AlertDialog.Builder(this.context).setView(dialog)

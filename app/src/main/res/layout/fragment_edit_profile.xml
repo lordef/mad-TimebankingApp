@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/background_edit"
     tools:context=".fragments.profile.EditProfileFragment">
 
     <ScrollView
@@ -219,6 +218,38 @@
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/descriptionTextInputLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/descriptionLabel"
+                    android:textColorHint="#5B5E71"
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <EditText
+                        android:id="@+id/descriptionEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints=""
+                        android:drawableStart="@drawable/ic_description_icon"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/descriptionLabel"
+                        android:inputType="textMultiLine"
+                        android:textColor="@color/color_text"
+                        android:textColorHint="#00FFFFFF"
+                        android:textSize="20sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/skill1TextInputLayout"
                     android:layout_width="match_parent"
@@ -226,7 +257,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:hint="@string/skillsLabel"
                     android:textColorHint="#5B5E71"
                     app:boxBackgroundColor="#FFFFFF"
@@ -264,19 +295,19 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                            <EditText
-                                android:id="@+id/skillEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:autofillHints=""
-                                android:drawableStart="@drawable/ic_skills_icon"
-                                android:drawablePadding="10dp"
-                                android:inputType="textMultiLine|text"
-                                android:orientation="vertical"
-                                android:hint="Add skill"
-                                android:textColor="@color/color_text"
-                                android:textColorHint="#00FFFFFF"
-                                android:textSize="20sp" />
+                                <EditText
+                                    android:id="@+id/skillEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:autofillHints=""
+                                    android:drawableStart="@drawable/ic_skills_icon"
+                                    android:drawablePadding="10dp"
+                                    android:hint="Add skill"
+                                    android:inputType="textMultiLine|text"
+                                    android:orientation="vertical"
+                                    android:textColor="@color/color_text"
+                                    android:textColorHint="#00FFFFFF"
+                                    android:textSize="20sp" />
                             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -284,9 +315,9 @@
                                 android:id="@+id/addSkill"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Add"
-                                android:layout_marginEnd="16dp"
                                 android:layout_marginStart="8dp"
+                                android:layout_marginEnd="16dp"
+                                android:text="Add"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/skillTextInputLabel"
@@ -294,19 +325,21 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
+                        <com.google.android.material.chip.Chip
                             android:id="@+id/predefinedSkills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:background="@color/background_edit"
                             android:linksClickable="true"
                             android:text="See the list of predefined skills"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textSize="14sp"
-                            android:layout_marginStart="16dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/addSkill"
                             app:layout_constraintStart_toEndOf="@+id/skillEditText"
                             app:layout_constraintTop_toTopOf="parent" />
+
                         <include
                             android:id="@+id/skillList"
                             layout="@layout/fragment_skills_list"
@@ -319,37 +352,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/descriptionTextInputLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/descriptionLabel"
-                    android:textColorHint="#5B5E71"
-                    app:boxBackgroundColor="#FFFFFF"
-                    app:boxCornerRadiusBottomEnd="10dp"
-                    app:boxCornerRadiusBottomStart="10dp"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                    <EditText
-                        android:id="@+id/descriptionEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autofillHints=""
-                        android:drawableStart="@drawable/ic_description_icon"
-                        android:drawablePadding="10dp"
-                        android:hint="@string/descriptionLabel"
-                        android:inputType="textMultiLine"
-                        android:textColor="@color/color_text"
-                        android:textColorHint="#00FFFFFF"
-                        android:textSize="20sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
