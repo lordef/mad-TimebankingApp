@@ -118,9 +118,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
             val skill = get("skill") as DocumentReference
             val user = get("user") as DocumentReference
 
-
-            Log.d("MYTAGGG", "HERE: ${Timestamp(Date(datetime)).seconds}")
-
             TimeSlot(
                 this.id,
                 title,

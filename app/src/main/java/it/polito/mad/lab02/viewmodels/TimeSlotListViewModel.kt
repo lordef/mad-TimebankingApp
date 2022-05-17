@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,8 +45,15 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
             val datetime = get("dateTime") as String //TODO valutare tipo per le date
             val duration = get("duration") as String // TODO time in milliseconds
             val location = get("location") as String
-            val skill = get("skill") as DocumentReference
+            val skill = get("skill")
             val user = get("user") as DocumentReference
+
+            val skillTmp = if(skill == null){
+                ""
+            }
+            else{
+                (skill as DocumentReference).path.split("/").last()
+            }
 
             TimeSlot(
                 this.id,
@@ -54,7 +62,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 datetime,
                 duration,
                 location,
-                skill.path.split("/").last(),
+                skillTmp,
                 user.path,
                 Profile("","","","","", emptyList(),"","")
             )
@@ -70,21 +78,44 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         val currentUser = db.collection("users")
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
-        val skillRef = db.collection("skills")
-            .document(newTS.skill)
+        var data: HashMap<String, Any>
+
+        if(newTS.skill == ""){
+            data = hashMapOf(
+                "title" to newTS.title,
+                "description" to newTS.description,
+                "dateTime" to newTS.dateTime,
+                "duration" to newTS.duration,
+                "location" to newTS.location,
+                "user" to currentUser
+            )
+        }
+        else{
+            val skillRef = db.collection("skills")
+                .document(newTS.skill)
+            data = hashMapOf(
+                "title" to newTS.title,
+                "description" to newTS.description,
+                "dateTime" to newTS.dateTime,
+                "duration" to newTS.duration,
+                "location" to newTS.location,
+                "skill" to skillRef,
+                "user" to currentUser
+            )
+        }
 
         var id = ""
-
-        val data = hashMapOf(
-            "title" to newTS.title,
-            "description" to newTS.description,
-            "dateTime" to newTS.dateTime,
-            //"dateTime" to Timestamp(Date(newTS.dateTime)),
-            "duration" to newTS.duration,
-            "location" to newTS.location,
-            "skill" to skillRef,
-            "user" to currentUser
-        )
+//
+//        val data = hashMapOf(
+//            "title" to newTS.title,
+//            "description" to newTS.description,
+//            "dateTime" to newTS.dateTime,
+//            //"dateTime" to Timestamp(Date(newTS.dateTime)),
+//            "duration" to newTS.duration,
+//            "location" to newTS.location,
+//            "skill" to skillRef,
+//            "user" to currentUser
+//        )
 
         if(b){ // edit
             db

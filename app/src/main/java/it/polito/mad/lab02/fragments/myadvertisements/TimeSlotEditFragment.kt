@@ -52,34 +52,38 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         vm1.profile.observe(viewLifecycleOwner) { profile ->
             val skills = profile.skills
-            if(skillText.text.isEmpty())skillText.text = skills[0]
+            if(skills.isEmpty()){
+                if(skillText.text.isEmpty()) skillText.text = "No skill available"
+            }
+            else{
+                if(skillText.text.isEmpty()) skillText.text = skills[0]
+                skillCard.setOnClickListener {
+
+                    val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
+                    val builder = AlertDialog.Builder(this.context).setView(dialog)
 
 
-            skillCard.setOnClickListener {
-                val dialog = this.layoutInflater.inflate(R.layout.dialog_skills, null)
-                val builder = AlertDialog.Builder(this.context).setView(dialog)
+                    val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
+                    skillsPicker.minValue = 0
+                    skillsPicker.maxValue = skills.size - 1
+                    skillsPicker.displayedValues = skills.toTypedArray()
+                    skillsPicker.wrapSelectorWheel = false
 
 
-                val skillsPicker = dialog.findViewById<NumberPicker>(R.id.skillsPicker)
-                skillsPicker.minValue = 0
-                skillsPicker.maxValue = skills.size - 1
-                skillsPicker.displayedValues = skills.toTypedArray()
-                skillsPicker.wrapSelectorWheel = false
+                    var temp = skills[0]
+                    skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+
+                        temp = skills[newVal]
+                    })
 
 
-                var temp = skills[0]
-                skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
+                    val alertDialog = builder.show()
 
-                    temp = skills[newVal]
-                })
-
-
-                val alertDialog = builder.show()
-
-                val button = dialog.findViewById<Button>(R.id.button)
-                button.setOnClickListener {
-                    skillText.text = temp
-                    alertDialog.dismiss()
+                    val button = dialog.findViewById<Button>(R.id.button)
+                    button.setOnClickListener {
+                        skillText.text = temp
+                        alertDialog.dismiss()
+                    }
                 }
             }
         }
@@ -280,6 +284,12 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
         val skillText = view?.findViewById<TextView>(R.id.skillEditText)
+        val skillTextTmp = if(skillText?.text.toString() == "No skill available"){
+            ""
+        }
+        else{
+            skillText?.text.toString()
+        }
 
         val id = if (!isEdit) "1" else tempID
         val newTimeSlot = TimeSlot(
@@ -289,7 +299,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             dateTime,
             duration?.text.toString(),
             location?.text.toString(),
-            skillText?.text.toString(), //TODO:
+            skillTextTmp,
             "user",
             Profile("","","","","", emptyList(),"","")
         )
