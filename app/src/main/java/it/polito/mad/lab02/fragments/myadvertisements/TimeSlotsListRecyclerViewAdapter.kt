@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
@@ -52,11 +53,13 @@ class TimeSlotsListRecyclerViewAdapter(
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
-        val button: Button = binding.editTimeSlotButton
+        val editButton: Button = binding.editTimeSlotButton
+        val deleteButton: ImageButton = binding.deleteTimeSlotImageButton //TODO: delete from recycler + vm for firebase
+
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             card.setOnClickListener(action1)
-            button.setOnClickListener(action2)
+            editButton.setOnClickListener(action2)
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardDate.text = timeSlot.dateTime

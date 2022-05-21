@@ -48,11 +48,19 @@
             card_view:icon="@drawable/ic_pencil_icon"
             card_view:iconGravity="textStart"
             card_view:iconPadding="8dp"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.5"
+            card_view:layout_constraintEnd_toStartOf="@+id/delete_timeSlot_imageButton"
             card_view:layout_constraintStart_toEndOf="@+id/card_title"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/delete_timeSlot_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/delete_timeSlot"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:srcCompat="@android:drawable/ic_delete" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"

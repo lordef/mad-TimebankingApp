@@ -58,6 +58,7 @@
     <string name="duration">Duration</string>
     <string name="date">Date</string>
     <string name="edit_timeSlot">Edit</string>
+    <string name="delete_timeSlot">Delete</string>
     <string name="empty_adv_msg">No advertisements present</string>
     <string name="nav_logout">Logout</string>
     <string name="empty_skills_msg">No skills present</string>

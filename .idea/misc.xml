@@ -126,8 +126,13 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13069908814589665" />
+        <entry key="app/src/main/res/layout/dialog_filter_criteria_string.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.1831831831831832" />
+        <entry key="app/src/main/res/layout/fragment_skills_list.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/fragment_time_slot_details.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slot_list.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slots_list.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.26875" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
