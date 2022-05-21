@@ -37,7 +37,11 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null && !isFirstAuthentication) {
-                Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Logged in as ${mAuth?.currentUser?.displayName}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
@@ -108,13 +112,14 @@ class LoginActivity : AppCompatActivity() {
                         .collection("users")
                         .whereEqualTo("uid", mAuth?.currentUser?.uid)
                         .get().addOnSuccessListener {
-                            if(it.isEmpty){
+                            if (it.isEmpty) {
                                 val user = Profile(
                                     mAuth?.currentUser?.photoUrl.toString(),
                                     mAuth?.currentUser?.displayName!!,
 //                                    "",
                                     //in the first sign in, set nickname as derivation from username/displayName
-                                    mAuth?.currentUser?.displayName!!.replace(" ", ".")
+                                    mAuth?.currentUser?.displayName!!
+                                        .replace(" ", ".")
                                         .lowercase(Locale.getDefault()),
                                     mAuth?.currentUser?.email!!,
                                     "",
@@ -128,16 +133,19 @@ class LoginActivity : AppCompatActivity() {
                                     .document(mAuth?.currentUser?.uid!!)
                                     .set(user).addOnSuccessListener {
                                         isFirstAuthentication = false
-                                        Toast.makeText(applicationContext, "Logged in as ${mAuth?.currentUser?.displayName}", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Logged in as ${mAuth?.currentUser?.displayName}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         startActivity(Intent(this, MainActivity::class.java))
                                         finish()
                                     }
-                            }
-                            else{
+                            } else {
                                 isFirstAuthentication = false
                             }
                         }
-                        .addOnFailureListener{
+                        .addOnFailureListener {
                             isFirstAuthentication = false
                         }
                 } else {
