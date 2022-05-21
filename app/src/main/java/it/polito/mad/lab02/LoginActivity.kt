@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import it.polito.mad.lab02.models.Profile
+import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -111,7 +112,10 @@ class LoginActivity : AppCompatActivity() {
                                 val user = Profile(
                                     mAuth?.currentUser?.photoUrl.toString(),
                                     mAuth?.currentUser?.displayName!!,
-                                    "",
+//                                    "",
+                                    //in the first sign in, set nickname as derivation from username/displayName
+                                    mAuth?.currentUser?.displayName!!.replace(" ", ".")
+                                        .lowercase(Locale.getDefault()),
                                     mAuth?.currentUser?.email!!,
                                     "",
                                     emptyList(),
