@@ -88,7 +88,9 @@
             android:id="@+id/action_nav_all_advertisements_to_publicTimeSlotFragment"
             app:destination="@id/publicTimeSlotFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicTimeSlotFragment"
@@ -99,12 +101,16 @@
             android:id="@+id/action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment"
             app:destination="@id/publicTimeSlotDetailsFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_publicTimeSlotFragment_to_publicShowProfileFragment"
             app:destination="@id/publicShowProfileFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicTimeSlotDetailsFragment"
@@ -114,7 +120,9 @@
             android:id="@+id/action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment"
             app:destination="@id/publicShowProfileFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_right" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicShowProfileFragment"
