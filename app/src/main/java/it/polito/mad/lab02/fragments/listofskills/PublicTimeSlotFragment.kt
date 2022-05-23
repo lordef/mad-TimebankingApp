@@ -1,11 +1,8 @@
 package it.polito.mad.lab02.fragments.listofskills
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +22,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -35,8 +31,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private var columnCount = 1
 
-    private val vm by activityViewModels<PublicTimeSlotListViewModel>()
-
+    private val vmPublicAdvs by activityViewModels<PublicTimeSlotListViewModel>()
 
 
     var filter = "No filter"
@@ -47,59 +42,56 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
-        val skill = arguments?.getString("skill")
-        if (skill != null) {
-            if (skill != null) {
-                (activity as AppCompatActivity?)?.supportActionBar?.title =
-                    "Skill: " + skill.split("/").last()
-                vm.timeslotList.observe(viewLifecycleOwner) {
+        val skillRefToString = arguments?.getString("skill")
 
-                    val allFilterButton = view.findViewById<Button>(R.id.sortButton)
-                    allFilterButton.setOnClickListener {
-                        vm.addFilter {
-                            true
-                        }
-                    }
+        if (skillRefToString != null) {
+            vmPublicAdvs.setPublicAdvsListenerBySkill(skillRefToString)
 
+            (activity as AppCompatActivity?)?.supportActionBar?.title =
+                "Skill: " + skillRefToString.split("/").last()
 
-                    val timeSlotList = it.filter { ts ->
-                        ts.skill == skill
-                    }
+            vmPublicAdvs.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
 
-
-                    val myAdapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
-                    if (recyclerView is RecyclerView) {
-                        with(recyclerView) {
-                            layoutManager = when {
-                                columnCount <= 1 -> LinearLayoutManager(context)
-                                else -> GridLayoutManager(context, columnCount)
-                            }
-                            adapter = myAdapter
-                        }
-                    }
-
-                    val filterButton = view.findViewById<Button>(R.id.filterButton)
-                    filterButton.setOnClickListener {
-                        showFilterMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
-
-                    }
-
-                    val sortButton = view.findViewById<Button>(R.id.sortButton)
-                    sortButton.setOnClickListener {
-                        showSortMenu(sortButton, R.menu.sort_criteria_menu, myAdapter)
-
-                    }
-
-
-                    val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
-                    if (timeSlotList.isEmpty()) {
-                        recyclerView.visibility = View.GONE
-                        textView.visibility = View.VISIBLE
-                    } else {
-                        textView.visibility = View.GONE
-                        recyclerView.visibility = View.VISIBLE
+                val allFilterButton = view.findViewById<Button>(R.id.sortButton)
+                allFilterButton.setOnClickListener {
+                    vmPublicAdvs.addFilter {
+                        true
                     }
                 }
+
+                val myAdapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = myAdapter
+                    }
+                }
+
+                val filterButton = view.findViewById<Button>(R.id.filterButton)
+                filterButton.setOnClickListener {
+                    showFilterMenu(filterButton, R.menu.filter_criteria_menu, myAdapter)
+
+                }
+
+                val sortButton = view.findViewById<Button>(R.id.sortButton)
+                sortButton.setOnClickListener {
+                    showSortMenu(sortButton, R.menu.sort_criteria_menu, myAdapter)
+
+                }
+
+
+                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
+                if (timeSlotList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
+
             }
 
             val callback = object : OnBackPressedCallback(true) {
@@ -122,10 +114,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         popup.menu.forEach {
             if (sort.contains(it.title)) {
                 it.isChecked = true
-                if(it.title != "No sorting" && sort.contains("↓")){
-                    it.title =  "↓ " + it.title.toString()
+                if (it.title != "No sorting" && sort.contains("↓")) {
+                    it.title = "↓ " + it.title.toString()
                 }
-                if(it.title != "No sorting" && sort.contains("↑")){
+                if (it.title != "No sorting" && sort.contains("↑")) {
                     it.title = "↑ " + it.title.toString()
                 }
             }
@@ -141,11 +133,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             if (menuItem.title.contains("Title")) {
                 if (sort.contains("Title")) {
-                    if (sort == "↓ Title"){
+                    if (sort == "↓ Title") {
                         menuItem.title = "↑ Title"
                         adapter.setOrder("Title")
-                    }
-                    else{
+                    } else {
                         menuItem.title = "↓ Title"
                         adapter.setOrder("Title_desc")
                     }
@@ -157,11 +148,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             if (menuItem.title.contains("Location")) {
                 if (sort.contains("Location")) {
-                    if (sort == "↓ Location"){
+                    if (sort == "↓ Location") {
                         menuItem.title = "↑ Location"
                         adapter.setOrder("Location")
-                    }
-                    else{
+                    } else {
                         menuItem.title = "↓ Location"
                         adapter.setOrder("Location_desc")
                     }
@@ -173,11 +163,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             if (menuItem.title.contains("Duration")) {
                 if (sort.contains("Duration")) {
-                    if (sort == "↓ Duration"){
+                    if (sort == "↓ Duration") {
                         menuItem.title = "↑ Duration"
                         adapter.setOrder("Duration")
-                    }
-                    else{
+                    } else {
                         menuItem.title = "↓ Duration"
                         adapter.setOrder("Duration_desc")
                     }
@@ -189,11 +178,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             if (menuItem.title.contains("Date and Time")) {
                 if (sort.contains("Date and Time")) {
-                    if (sort == "↓ Date and Time"){
+                    if (sort == "↓ Date and Time") {
                         menuItem.title = "↑ Date and Time"
                         adapter.setOrder("Date and Time")
-                    }
-                    else{
+                    } else {
                         menuItem.title = "↓ Date and Time"
                         adapter.setOrder("Date and Time_desc")
                     }
@@ -320,12 +308,11 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 })
 
 
-
                 val button = dialog.findViewById<Button>(R.id.button2)
                 button.setOnClickListener {
-                    if(dateText.text.toString() != "Select date") {
+                    if (dateText.text.toString() != "Select date") {
                         dateSelected = dateText.text.toString()
-                    }else if(dateText.text.toString() == "Select date"){
+                    } else if (dateText.text.toString() == "Select date") {
                         dateSelected = "1/1/2022"
                     }
                     //Add a filter
@@ -346,7 +333,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         // Show the popup menu.
         popup.show()
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
