@@ -86,7 +86,9 @@
         tools:layout="@layout/fragment_skill_list_list" >
         <action
             android:id="@+id/action_nav_all_advertisements_to_publicTimeSlotFragment"
-            app:destination="@id/publicTimeSlotFragment" />
+            app:destination="@id/publicTimeSlotFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicTimeSlotFragment"
@@ -95,10 +97,14 @@
         tools:layout="@layout/fragment_public_time_slot_list">
         <action
             android:id="@+id/action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment"
-            app:destination="@id/publicTimeSlotDetailsFragment" />
+            app:destination="@id/publicTimeSlotDetailsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_publicTimeSlotFragment_to_publicShowProfileFragment"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicTimeSlotDetailsFragment"
@@ -106,7 +112,9 @@
         android:label="Advertisement details" >
         <action
             android:id="@+id/action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/publicShowProfileFragment"
