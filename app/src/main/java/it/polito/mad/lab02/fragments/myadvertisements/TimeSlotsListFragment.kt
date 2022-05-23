@@ -35,7 +35,9 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                         columnCount <= 1 -> LinearLayoutManager(context)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList)
+                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList.toMutableList()){
+                        vm.deleteTimeSlot(it)
+                    }
                 }
             }
             val fab = view.findViewById<FloatingActionButton>(R.id.fab2)

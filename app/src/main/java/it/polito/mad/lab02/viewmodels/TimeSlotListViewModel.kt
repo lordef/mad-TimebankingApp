@@ -135,6 +135,10 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return id
     }
 
+    fun deleteTimeSlot(timeslotId: String){
+        db.collection("timeslots").document(timeslotId).delete()
+    }
+
     override fun onCleared() {
         super.onCleared()
         l.remove()

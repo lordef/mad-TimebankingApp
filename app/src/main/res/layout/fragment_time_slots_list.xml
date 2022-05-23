@@ -36,16 +36,14 @@
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/edit_timeSlot_button"
             style="@style/Widget.Material3.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edit_timeSlot"
-            android:textAlignment="center"
+            android:contentDescription="@string/edit_timeSlot"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="16sp"
-            card_view:icon="@drawable/ic_pencil_icon"
+            card_view:srcCompat="@drawable/ic_pencil_icon"
             card_view:iconGravity="textStart"
             card_view:iconPadding="8dp"
             card_view:layout_constraintEnd_toStartOf="@+id/delete_timeSlot_imageButton"
@@ -55,6 +53,7 @@
 
         <ImageButton
             android:id="@+id/delete_timeSlot_imageButton"
+            style="@style/Widget.Material3.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/delete_timeSlot"
