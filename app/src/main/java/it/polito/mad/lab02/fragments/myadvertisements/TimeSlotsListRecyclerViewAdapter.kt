@@ -49,11 +49,35 @@ class TimeSlotsListRecyclerViewAdapter(
             }, {
                 val pos = values.indexOf(timeslot)
                 if (pos != -1){
-                    itemClickListener(timeslot.id)
+                    this.animationOnDelete(timeslot.id).also {
+                        // useful to call interaction with viewModel
+                        itemClickListener(timeslot.id)
+                    }
 
                 }
             })
 
+    }
+
+    private fun animationOnDelete(timeslotId: String){
+        val oldData = displayData
+        displayData = values.filter { it.id != timeslotId }.toMutableList()
+        val diffs = DiffUtil.calculateDiff(MyDiffCallback(oldData, displayData))
+        diffs.dispatchUpdatesTo(this)
+    }
+
+    class MyDiffCallback(val old: List<TimeSlot>, val new: List<TimeSlot>): DiffUtil.Callback() {
+        override fun getOldListSize(): Int = old.size
+
+        override fun getNewListSize(): Int = new.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] === new[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] == new[newItemPosition]
+        }
     }
 
     override fun getItemCount(): Int = values.size
