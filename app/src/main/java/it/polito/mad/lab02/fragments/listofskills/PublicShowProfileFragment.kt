@@ -3,24 +3,15 @@ package it.polito.mad.lab02.fragments.listofskills
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.createViewModelLazy
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import coil.load
-import com.google.gson.Gson
-import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
-import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class PublicShowProfileFragment : Fragment() {
 
@@ -30,7 +21,7 @@ class PublicShowProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm1 by activityViewModels<PublicTimeSlotListViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
@@ -76,7 +67,7 @@ class PublicShowProfileFragment : Fragment() {
         val id = arguments?.getString("id")
         if (id != null) {
             setHasOptionsMenu(false)
-            vm1.timeslotList.observe(viewLifecycleOwner) {
+            vm.timeslotList.observe(viewLifecycleOwner) {
                 val ts = it.filter { t -> t.id == id }[0]
                 // update UI
                 profileImageUri = ts.userProfile.imageUri

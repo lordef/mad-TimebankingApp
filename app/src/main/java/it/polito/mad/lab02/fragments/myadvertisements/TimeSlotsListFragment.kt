@@ -7,13 +7,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import kotlin.system.exitProcess
 
 /**
@@ -23,7 +22,7 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
     private var columnCount = 1
 
-    private val vm by activityViewModels<TimeSlotListViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +32,7 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
         vm.setAdvsListenerByCurrentUser()
 
         //Accessing user logged avds
-        vm.timeslotList.observe(viewLifecycleOwner){timeSlotList ->
+        vm.loggedUserTimeSlotList.observe(viewLifecycleOwner){timeSlotList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {

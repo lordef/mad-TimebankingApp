@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 /**
  * A fragment representing a list of Items.
@@ -27,7 +27,7 @@ class SkillsFragment : Fragment() {
         }
     }
 
-    private val vm by activityViewModels<ShowProfileViewModel> ()
+    private val vm by activityViewModels<MainActivityViewModel> ()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,6 @@ class SkillsFragment : Fragment() {
                         else -> GridLayoutManager(context, columnCount)
                     }
                     adapter = SkillRecyclerViewAdapter(profile.skills.toMutableList()){
-                        Unit
                     }
                 }
             }

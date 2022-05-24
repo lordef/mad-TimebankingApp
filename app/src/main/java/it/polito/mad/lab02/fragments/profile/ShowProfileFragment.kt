@@ -8,16 +8,13 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import coil.load
-import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class ShowProfileFragment : Fragment() {
 
@@ -27,7 +24,7 @@ class ShowProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by activityViewModels<ShowProfileViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 

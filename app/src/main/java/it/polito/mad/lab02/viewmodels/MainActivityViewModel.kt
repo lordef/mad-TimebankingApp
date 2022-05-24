@@ -36,22 +36,22 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     //Creation of a Firebase db instance
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    // Create a reference to collections
+    private val timeslotsRef = db.collection("timeslots")
+    private val usersRef = db.collection("users")
+    private val skillsRef = db.collection("skills")
+
+
+    // Creating the ListenerRegistrations
     private lateinit var timeslotsListener: ListenerRegistration
     private lateinit var usersListener: ListenerRegistration
     var areTSsAndUsersListenersSetted = false
-
 
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
 
     private lateinit var loggedUserTimeSlotsListener: ListenerRegistration
     var isLoggedUserTSsListenerSetted = false
-
-
-    // Create a reference to collections
-    private val timeslotsRef = db.collection("timeslots")
-    private val usersRef = db.collection("users")
-    private val skillsRef = db.collection("skills")
 
 
     init {
@@ -79,6 +79,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** All timeslots ********/
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
+        // Setting up timeslotsListener
         timeslotsListener = timeslotsRef
             .whereEqualTo("skill", db.document(skillRefToString))
             .addSnapshotListener { r, e ->
@@ -247,11 +248,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             val occurrences =
                 _skillList.value?.filter { it2 -> it2.name == skill }?.get(0)?.occurrences
             if (occurrences!!.toInt() > 1) {
-                db.collection("skills")
+                skillsRef
                     .document(skill)
                     .update("occurrences", occurrences.toInt() - 1)
             } else {
-                db.collection("skills")
+                skillsRef
                     .document(skill)
                     .delete()
             }
@@ -271,7 +272,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         loggedUserTimeSlotsListener = timeslotsRef
             .whereEqualTo("user", userRef)
             .addSnapshotListener { r, e ->
-                _timeSlotList.value = if (e != null)
+                _loggedUserTimeSlotList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
                     d.toTimeslot(profile = Profile("", "", "", "", "", emptyList(), "", ""))
