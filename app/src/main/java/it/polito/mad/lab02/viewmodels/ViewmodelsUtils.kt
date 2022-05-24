@@ -31,35 +31,8 @@ object ViewmodelsUtils {
 
     @JvmStatic
     fun DocumentSnapshot.toTimeslot(profile: Profile): TimeSlot? {
-        return try {
-            val title = get("title") as String
-            val description = get("description") as String
-            val datetime = get("dateTime") as String
-            val duration = get("duration") as String
-            val location = get("location") as String
-            val skill = get("skill") as DocumentReference
-            val user = get("user") as DocumentReference
+        //if it is an adv of the loggedUser, the profile can be passed as empty Profile
 
-            TimeSlot(
-                this.id,
-                title,
-                description,
-                datetime,
-                duration,
-                location,
-                skill.path,
-                user.path,
-                profile
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-
-    }
-
-    @JvmStatic
-    fun DocumentSnapshot.toMyTimeslot(): TimeSlot? {
         return try {
             val title = get("title") as String
             val description = get("description") as String
@@ -84,7 +57,7 @@ object ViewmodelsUtils {
                 location,
                 skillTmp,
                 user.path,
-                Profile("", "", "", "", "", emptyList(), "", "")
+                profile
             )
         } catch (e: Exception) {
             e.printStackTrace()
