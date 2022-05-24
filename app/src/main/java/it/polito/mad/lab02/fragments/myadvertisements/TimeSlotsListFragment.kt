@@ -28,6 +28,11 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
+
+        //Creating listener from this fragment
+        vm.setAdvsListenerByCurrentUser()
+
+        //Accessing user logged avds
         vm.timeslotList.observe(viewLifecycleOwner){timeSlotList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
@@ -40,11 +45,13 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                     }
                 }
             }
+
             val fab = view.findViewById<FloatingActionButton>(R.id.fab2)
             fab.setOnClickListener { view ->
                 view.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
             }
+
             val textView = view.findViewById<TextView>(R.id.text_advertisements)
             if (timeSlotList.isEmpty()) {
                 recyclerView.visibility = View.GONE

@@ -1,7 +1,6 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,13 +19,16 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
 
 
     //Creation of a Firebase db instance
-    private var l: ListenerRegistration
+    private lateinit var l: ListenerRegistration
+    var isListenerRegistrationSetted = false
+
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    init {
+    fun setAdvsListenerByCurrentUser() {
         val userRef = db
             .collection("users")
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
+
         l = db.collection("timeslots")
             .whereEqualTo("user", userRef)
             .addSnapshotListener { r, e ->
@@ -36,9 +38,13 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
                     d.toTimeslot()
                 }
             }
+            .also {
+                isListenerRegistrationSetted = true
+            }
     }
 
-private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
+
+    private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
         return try {
             val title = get("title") as String
             val description = get("description") as String
@@ -48,10 +54,9 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
             val skill = get("skill")
             val user = get("user") as DocumentReference
 
-            val skillTmp = if(skill == null){
+            val skillTmp = if (skill == null) {
                 ""
-            }
-            else{
+            } else {
                 (skill as DocumentReference).path.split("/").last()
             }
 
@@ -64,7 +69,7 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
                 location,
                 skillTmp,
                 user.path,
-                Profile("","","","","", emptyList(),"","")
+                Profile("", "", "", "", "", emptyList(), "", "")
             )
         } catch (e: Exception) {
             e.printStackTrace()
@@ -73,70 +78,60 @@ private fun DocumentSnapshot.toTimeslot(): TimeSlot? {
 
     }
 
-    fun updateTimeSlot(newTS: TimeSlot, b: Boolean): String {
+    fun updateTimeSlot(newTS: TimeSlot, isEdit: Boolean): String {
+        var returnedId = ""
 
-        val currentUser = db.collection("users")
-            .document("${FirebaseAuth.getInstance().currentUser?.uid}")
+        if (isListenerRegistrationSetted) {
+            val currentUser = db.collection("users")
+                .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
-        var data: HashMap<String, Any>
+            val data: HashMap<String, Any>
 
-        if(newTS.skill == ""){
-            data = hashMapOf(
-                "title" to newTS.title,
-                "description" to newTS.description,
-                "dateTime" to newTS.dateTime,
-                "duration" to newTS.duration,
-                "location" to newTS.location,
-                "user" to currentUser
-            )
+            if (newTS.skill == "") {
+                data = hashMapOf(
+                    "title" to newTS.title,
+                    "description" to newTS.description,
+                    "dateTime" to newTS.dateTime,
+                    "duration" to newTS.duration,
+                    "location" to newTS.location,
+                    "user" to currentUser
+                )
+            } else {
+                val skillRef = db.collection("skills")
+                    .document(newTS.skill)
+                data = hashMapOf(
+                    "title" to newTS.title,
+                    "description" to newTS.description,
+                    "dateTime" to newTS.dateTime,
+                    "duration" to newTS.duration,
+                    "location" to newTS.location,
+                    "skill" to skillRef,
+                    "user" to currentUser
+                )
+            }
+
+            if (isEdit) { // edit
+                db
+                    .collection("timeslots")
+                    .document(newTS.id)
+                    .set(data)
+            } else { // new
+                val docReference = db.collection("timeslots").document()
+                returnedId = docReference.id
+                db
+                    .collection("timeslots")
+                    .document(docReference.id)
+                    .set(data)
+            }
+
         }
-        else{
-            val skillRef = db.collection("skills")
-                .document(newTS.skill)
-            data = hashMapOf(
-                "title" to newTS.title,
-                "description" to newTS.description,
-                "dateTime" to newTS.dateTime,
-                "duration" to newTS.duration,
-                "location" to newTS.location,
-                "skill" to skillRef,
-                "user" to currentUser
-            )
-        }
-
-        var id = ""
-//
-//        val data = hashMapOf(
-//            "title" to newTS.title,
-//            "description" to newTS.description,
-//            "dateTime" to newTS.dateTime,
-//            //"dateTime" to Timestamp(Date(newTS.dateTime)),
-//            "duration" to newTS.duration,
-//            "location" to newTS.location,
-//            "skill" to skillRef,
-//            "user" to currentUser
-//        )
-
-        if(b){ // edit
-            db
-                .collection("timeslots")
-                .document(newTS.id)
-                .set(data)
-        }
-        else{ // new
-            val docReference = db.collection("timeslots").document()
-            id = docReference.id
-            db
-                .collection("timeslots")
-                .document(docReference.id)
-                .set(data)
-        }
-
-        return id
+        return returnedId
     }
 
-    fun deleteTimeSlot(timeslotId: String){
-        db.collection("timeslots").document(timeslotId).delete()
+    fun deleteTimeSlot(timeslotId: String) {
+        if(isListenerRegistrationSetted) {
+            db.collection("timeslots").document(timeslotId).delete()
+        }
     }
 
     override fun onCleared() {
