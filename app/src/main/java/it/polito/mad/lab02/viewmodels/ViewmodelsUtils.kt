@@ -45,7 +45,7 @@ object ViewmodelsUtils {
             val skillTmp = if (skill == null) {
                 ""
             } else {
-                (skill as DocumentReference).path
+                (skill as DocumentReference).path.split("/").last()
             }
 
             TimeSlot(
