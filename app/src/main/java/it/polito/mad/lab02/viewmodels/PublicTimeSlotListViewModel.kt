@@ -19,7 +19,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
 
     //LiveData passed to our fragment
-
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
     val filteredTimeslotList: LiveData<List<TimeSlot>> = _filteredTimeSlotList
 
