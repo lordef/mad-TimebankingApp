@@ -34,49 +34,6 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     // Create a reference to the timeslot collection
     private val timeslotsRef = db.collection("timeslots")
 
-    /*
-    init {
-        l = db.collection("timeslots").addSnapshotListener { r, e ->
-            if (e != null)
-                _timeSlotList.value = emptyList()
-            else {
-                val tmpList = mutableListOf<TimeSlot>()
-                r!!.forEach { d ->
-                    (d.get("user") as DocumentReference)
-                        .get().addOnSuccessListener {
-                            val profile = it.toProfile()
-                            if (profile != null) {
-                                val ts = d.toTimeslot(profile)
-                                if (ts != null) {
-                                    tmpList.add(ts)
-                                    _timeSlotList.value = tmpList
-                                }
-                            }
-                        }
-
-                }
-            }
-        }
-        l1 = db.collection("users").addSnapshotListener { r, e ->
-            if (e != null) {
-
-            } else {
-                val tmpList = mutableListOf<TimeSlot>()
-                r!!.forEach { d ->
-                    val tmpProfile = d.toProfile()
-                    _timeSlotList.value?.filter {
-                        it.user == d.reference.path
-                    }?.forEach {
-                        val tmpTimeslot = TimeSlot(it.id, it.title, it.description, it.dateTime, it.duration, it.location, it.skill, it.user, tmpProfile!!)
-                        tmpList.add(tmpTimeslot)
-                    }
-                }
-                _timeSlotList.value = tmpList
-            }
-        }
-    }
-
-     */
 
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
 
