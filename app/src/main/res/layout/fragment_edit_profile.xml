@@ -107,7 +107,8 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:errorEnabled="true">
 
                     <EditText
                         android:id="@+id/fullNameEditText"
@@ -139,7 +140,8 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:errorEnabled="true">
 
                     <EditText
                         android:id="@+id/nicknameEditText"
@@ -171,7 +173,8 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:errorEnabled="true">
 
                     <EditText
                         android:id="@+id/emailEditText"
@@ -202,7 +205,8 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:errorEnabled="true">
 
                     <EditText
                         android:id="@+id/locationEditText"
@@ -293,7 +297,8 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/addSkill"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:errorEnabled="true">
 
                                 <EditText
                                     android:id="@+id/skillEditText"

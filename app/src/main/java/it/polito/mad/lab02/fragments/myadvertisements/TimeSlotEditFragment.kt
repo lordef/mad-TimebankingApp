@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
@@ -30,6 +31,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private var isEdit = false
     private var tempID = "0" //useful when isEdit and we must retrieve an existing id
+
+    private var fieldsOk = false
 
     override fun onResume() {
         super.onResume()
@@ -145,10 +148,12 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val bundle = addTimeSlot()
-                findNavController().navigate(
-                    R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
-                    bundle
-                )
+                if (fieldsOk) {
+                    findNavController().navigate(
+                        R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
+                        bundle
+                    )
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -176,10 +181,12 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             val bundle = addTimeSlot()
-            findNavController().navigate(
-                R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
-                bundle
-            )
+            if(fieldsOk) {
+                findNavController().navigate(
+                    R.id.action_timeSlotEditFragment_to_timeSlotDetailsFragment,
+                    bundle
+                )
+            }
 
             return true
         }
@@ -294,38 +301,120 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val description = view?.findViewById<EditText>(R.id.descriptionEditText)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
         val time = view?.findViewById<TextView>(R.id.timeEdit)
-        val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
         val duration = view?.findViewById<TextView>(R.id.durationEditText)
         val location = view?.findViewById<EditText>(R.id.locationEditText)
         val skillText = view?.findViewById<TextView>(R.id.skillEditText)
-        val skillTextTmp = if(skillText?.text.toString() == "No skill available"){
-            ""
-        }
-        else{
-            skillText?.text.toString()
-        }
 
-        val id = if (!isEdit) "1" else tempID
-        val newTimeSlot = TimeSlot(
-            id,
-            title?.text.toString(),
-            description?.text.toString(),
-            dateTime,
-            duration?.text.toString(),
-            location?.text.toString(),
-            skillTextTmp,
-            "user",
-            Profile("","","","","", emptyList(),"","")
-        )
-        val bundle = Bundle()
-        val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)
-        if(isEdit){
-            bundle.putString("id", tempID)
+        if(title?.text.toString() != "" &&
+            description?.text.toString() != "" &&
+            date?.text.toString() != "" &&
+            time?.text.toString() != "" &&
+            duration?.text.toString() != "" &&
+            location?.text.toString() != "" &&
+            skillText?.text.toString() != ""
+        ){
+            fieldsOk = true
+            val dateTime = "" + date?.text.toString() + " " + time?.text.toString()
+            val skillTextTmp = if (skillText?.text.toString() == "No skill available") {
+                ""
+            } else {
+                skillText?.text.toString()
+            }
+
+            val id = if (!isEdit) "1" else tempID
+            val newTimeSlot = TimeSlot(
+                id,
+                title?.text.toString(),
+                description?.text.toString(),
+                dateTime,
+                duration?.text.toString(),
+                location?.text.toString(),
+                skillTextTmp,
+                "user",
+                Profile("", "", "", "", "", emptyList(), "", "")
+            )
+            val bundle = Bundle()
+            val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)
+            if (isEdit) {
+                bundle.putString("id", tempID)
+            } else {
+                bundle.putString("id", bundleId)
+            }
+            return bundle
+        } else {
+            fieldsOk = false
+            if (title?.text.toString() == "") {
+                val l = view?.findViewById<EditText>(R.id.fullNameTextInputLayout)
+                l?.error = "Add a title"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (description?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.descriptionTextInputLayout)
+                l?.error = "Add a description"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (date?.text.toString() == "") {
+                val l = view?.findViewById<TextView>(R.id.dateEdit)
+                l?.error = "Add a date"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (time?.text.toString() == "") {
+                val l = view?.findViewById<TextView>(R.id.timeEdit)
+                l?.error = "Add a time"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (duration?.text.toString() == "") {
+                val l = view?.findViewById<TextView>(R.id.durationEditText)
+                l?.error = "Add a duration"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (skillText?.text.toString() == "") {
+                val l = view?.findViewById<TextView>(R.id.skillEditText)
+                l?.error = "Add a skill"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            if (location?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.locationTextInputLayout)
+                l?.error = "Add a location"
+                Toast.makeText(
+                    this.context,
+                    "Be sure to fill the mandatory fields",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            return Bundle()
         }
-        else{
-            bundle.putString("id", bundleId)
-        }
-        return bundle
     }
 
 }
