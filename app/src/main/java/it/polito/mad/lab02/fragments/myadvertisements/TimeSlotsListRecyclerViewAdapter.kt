@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot
 import androidx.recyclerview.widget.DiffUtil
+import kotlinx.coroutines.delay
 
 
 class TimeSlotsListRecyclerViewAdapter(
@@ -50,8 +52,12 @@ class TimeSlotsListRecyclerViewAdapter(
                 val pos = values.indexOf(timeslot)
                 if (pos != -1){
                     this.animationOnDelete(timeslot.id).also {
-                        // useful to call interaction with viewModel
-                        itemClickListener(timeslot.id)
+                        val handler = Handler()
+                        val runnable = Runnable {
+                            // useful to call interaction with viewModel
+                            itemClickListener(timeslot.id)
+                        }
+                        handler.postDelayed(runnable, 250)
                     }
 
                 }
