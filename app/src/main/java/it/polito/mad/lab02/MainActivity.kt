@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -32,10 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val vm by viewModels<ShowProfileViewModel>()
-    private val vm1 by viewModels<PublicTimeSlotListViewModel>()
-    private val vm2 by viewModels<TimeSlotListViewModel>()
-    private val vm3 by viewModels<SkillListViewModel>()
+    private val vmMyprofile by viewModels<ShowProfileViewModel>()
+    private val vmPublicAdvs by viewModels<PublicTimeSlotListViewModel>()
+    private val vmMyAdvs by viewModels<TimeSlotListViewModel>()
+    private val vmSkills by viewModels<SkillListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        vm.profile.observe(this) { profile ->
+        vmMyprofile.profile.observe(this) { profile ->
             // set side bar profile image and user info
             val drawerProfileImage =
                 binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_profile_image)

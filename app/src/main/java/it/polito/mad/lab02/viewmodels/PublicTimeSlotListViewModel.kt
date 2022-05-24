@@ -1,21 +1,16 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.content.ContentValues
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.*
-import com.google.type.DateTime
+import com.google.firebase.ktx.Firebase
 import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
-import java.lang.ref.Reference
-import java.sql.Time
-import java.lang.reflect.TypeVariable
 import java.util.*
+
 
 class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -30,8 +25,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
 
     //Creation of a Firebase db instance
-    private var l: ListenerRegistration
-    private var l1: ListenerRegistration
+    private lateinit var l: ListenerRegistration
+    private lateinit var l1: ListenerRegistration
+    var areListenerRegistrationsSetted = false
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
 
@@ -39,28 +35,32 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
     private val timeslotsRef = db.collection("timeslots")
 
 
-    init {
-        l = db.collection("timeslots").addSnapshotListener { r, e ->
-            if (e != null)
-                _timeSlotList.value = emptyList()
-            else {
-                val tmpList = mutableListOf<TimeSlot>()
-                r!!.forEach { d ->
-                    (d.get("user") as DocumentReference)
-                        .get().addOnSuccessListener {
-                            val profile = it.toProfile()
-                            if (profile != null) {
-                                val ts = d.toTimeslot(profile)
-                                if (ts != null) {
-                                    tmpList.add(ts)
-                                    _timeSlotList.value = tmpList
+    fun setPublicAdvsListenerBySkill(skillRefToString: String) {
+
+        l = db.collection("timeslots")
+            .whereEqualTo("skill", db.document(skillRefToString))
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _timeSlotList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<TimeSlot>()
+
+                    r!!.forEach { d ->
+                        (d.get("user") as DocumentReference)
+                            .get().addOnSuccessListener {
+                                val profile = it.toProfile()
+                                if (profile != null) {
+                                    val ts = d.toTimeslot(profile)
+                                    if (ts != null) {
+                                        tmpList.add(ts)
+                                        _timeSlotList.value = tmpList
+                                    }
                                 }
                             }
-                        }
-
+                    }
                 }
             }
-        }
+
         l1 = db.collection("users").addSnapshotListener { r, e ->
             if (e != null) {
 
@@ -71,13 +71,24 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                     _timeSlotList.value?.filter {
                         it.user == d.reference.path
                     }?.forEach {
-                        val tmpTimeslot = TimeSlot(it.id, it.title, it.description, it.dateTime, it.duration, it.location, it.skill, it.user, tmpProfile!!)
+                        val tmpTimeslot = TimeSlot(
+                            it.id,
+                            it.title,
+                            it.description,
+                            it.dateTime,
+                            it.duration,
+                            it.location,
+                            it.skill,
+                            it.user,
+                            tmpProfile!!
+                        )
                         tmpList.add(tmpTimeslot)
                     }
                 }
                 _timeSlotList.value = tmpList
             }
         }
+        areListenerRegistrationsSetted = true
     }
 
     private fun DocumentSnapshot.toProfile(): Profile? {
@@ -128,32 +139,41 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
 
     }
 
-    fun addFilter(filter: (TimeSlot)->Boolean){
-        if(filter != null){
-            _filteredTimeSlotList.value = _timeSlotList.value?.filter(filter)
-        }
-        else{
-            _filteredTimeSlotList.value = _timeSlotList.value
-        }
+    fun addFilter(filter: (TimeSlot) -> Boolean) {
+        if (areListenerRegistrationsSetted) { //guarantees the initialization of the ListenerRegistration
+            if (filter != null) {
+                _filteredTimeSlotList.value = _timeSlotList.value?.filter(filter)
+            } else {
+                _filteredTimeSlotList.value = _timeSlotList.value
+            }
+        }//TODO: handle exception - no initialization of the ListenerRegistration
+
+
     }
 
-    fun addOrder(order: String){
-        if(order != null && _timeSlotList.value?.size!! >= 2){
-            when(order){
+    fun addOrder(order: String) {
+        if (areListenerRegistrationsSetted) { //guarantees the initialization of the ListenerRegistration
+            if (order != null && _timeSlotList.value?.size!! >= 2) {
+                when (order) {
 
-                "datetime" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{ Timestamp(Date(it.dateTime)).seconds }
-                "datetime_desc" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedByDescending{ Timestamp(Date(it.dateTime)).seconds }
+                    "datetime" -> _filteredTimeSlotList.value =
+                        _timeSlotList.value?.sortedBy { Timestamp(Date(it.dateTime)).seconds }
+                    "datetime_desc" -> _filteredTimeSlotList.value =
+                        _timeSlotList.value?.sortedByDescending { Timestamp(Date(it.dateTime)).seconds }
 
-                "title" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedBy{ it.title }
-                "title_desc" -> _filteredTimeSlotList.value = _timeSlotList.value?.sortedByDescending{ it.title }
+                    "title" -> _filteredTimeSlotList.value =
+                        _timeSlotList.value?.sortedBy { it.title }
+                    "title_desc" -> _filteredTimeSlotList.value =
+                        _timeSlotList.value?.sortedByDescending { it.title }
 
-                else -> _filteredTimeSlotList.value = _timeSlotList.value
+                    else -> _filteredTimeSlotList.value = _timeSlotList.value
+                }
+
+            } else {
+                _filteredTimeSlotList.value = _timeSlotList.value
             }
+        }//TODO: handle exception - no initialization of the ListenerRegistration
 
-        }
-        else{
-            _filteredTimeSlotList.value = _timeSlotList.value
-        }
     }
 
     override fun onCleared() {
