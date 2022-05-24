@@ -1,4 +1,4 @@
-package timeslotListit.polito.mad.lab02.fragments.myadvertisements
+package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
 import android.view.Menu

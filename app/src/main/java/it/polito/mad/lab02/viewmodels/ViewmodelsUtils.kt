@@ -59,6 +59,41 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
+    fun DocumentSnapshot.toMyTimeslot(): TimeSlot? {
+        return try {
+            val title = get("title") as String
+            val description = get("description") as String
+            val datetime = get("dateTime") as String
+            val duration = get("duration") as String
+            val location = get("location") as String
+            val skill = get("skill")
+            val user = get("user") as DocumentReference
+
+            val skillTmp = if (skill == null) {
+                ""
+            } else {
+                (skill as DocumentReference).path
+            }
+
+            TimeSlot(
+                this.id,
+                title,
+                description,
+                datetime,
+                duration,
+                location,
+                skillTmp,
+                user.path,
+                Profile("", "", "", "", "", emptyList(), "", "")
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
+    @JvmStatic
     fun DocumentSnapshot.toSkill(): Skill? {
         return try {
             val name = get("name") as String

@@ -10,6 +10,7 @@ import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toMyTimeslot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
@@ -275,7 +276,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _loggedUserTimeSlotList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
-                    d.toTimeslot(profile = Profile("", "", "", "", "", emptyList(), "", ""))
+                    d.toMyTimeslot()
                 }
             }
             .also {
