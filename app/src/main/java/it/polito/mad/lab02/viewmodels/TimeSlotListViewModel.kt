@@ -20,9 +20,11 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
 
     //Creation of a Firebase db instance
     private lateinit var l: ListenerRegistration
+    var isListenerRegistrationSetted = false
+
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    fun setAdvsListenerByCurrentUser(){
+    fun setAdvsListenerByCurrentUser() {
         val userRef = db
             .collection("users")
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
@@ -35,6 +37,9 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
                 else r!!.mapNotNull { d ->
                     d.toTimeslot()
                 }
+            }
+            .also {
+                isListenerRegistrationSetted = true
             }
     }
 
@@ -74,56 +79,59 @@ class TimeSlotListViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun updateTimeSlot(newTS: TimeSlot, isEdit: Boolean): String {
+        var returnedId = ""
 
-        val currentUser = db.collection("users")
-            .document("${FirebaseAuth.getInstance().currentUser?.uid}")
+        if (isListenerRegistrationSetted) {
+            val currentUser = db.collection("users")
+                .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
-        val data: HashMap<String, Any>
+            val data: HashMap<String, Any>
 
-        if (newTS.skill == "") {
-            data = hashMapOf(
-                "title" to newTS.title,
-                "description" to newTS.description,
-                "dateTime" to newTS.dateTime,
-                "duration" to newTS.duration,
-                "location" to newTS.location,
-                "user" to currentUser
-            )
-        } else {
-            val skillRef = db.collection("skills")
-                .document(newTS.skill)
-            data = hashMapOf(
-                "title" to newTS.title,
-                "description" to newTS.description,
-                "dateTime" to newTS.dateTime,
-                "duration" to newTS.duration,
-                "location" to newTS.location,
-                "skill" to skillRef,
-                "user" to currentUser
-            )
+            if (newTS.skill == "") {
+                data = hashMapOf(
+                    "title" to newTS.title,
+                    "description" to newTS.description,
+                    "dateTime" to newTS.dateTime,
+                    "duration" to newTS.duration,
+                    "location" to newTS.location,
+                    "user" to currentUser
+                )
+            } else {
+                val skillRef = db.collection("skills")
+                    .document(newTS.skill)
+                data = hashMapOf(
+                    "title" to newTS.title,
+                    "description" to newTS.description,
+                    "dateTime" to newTS.dateTime,
+                    "duration" to newTS.duration,
+                    "location" to newTS.location,
+                    "skill" to skillRef,
+                    "user" to currentUser
+                )
+            }
+
+            if (isEdit) { // edit
+                db
+                    .collection("timeslots")
+                    .document(newTS.id)
+                    .set(data)
+            } else { // new
+                val docReference = db.collection("timeslots").document()
+                returnedId = docReference.id
+                db
+                    .collection("timeslots")
+                    .document(docReference.id)
+                    .set(data)
+            }
+
         }
-
-        var id = ""
-
-        if (isEdit) { // edit
-            db
-                .collection("timeslots")
-                .document(newTS.id)
-                .set(data)
-        } else { // new
-            val docReference = db.collection("timeslots").document()
-            id = docReference.id
-            db
-                .collection("timeslots")
-                .document(docReference.id)
-                .set(data)
-        }
-
-        return id
+        return returnedId
     }
 
     fun deleteTimeSlot(timeslotId: String) {
-        db.collection("timeslots").document(timeslotId).delete()
+        if(isListenerRegistrationSetted) {
+            db.collection("timeslots").document(timeslotId).delete()
+        }
     }
 
     override fun onCleared() {

@@ -87,8 +87,9 @@ class PublicTimeSlotListViewModel(application: Application) : AndroidViewModel(a
                 }
                 _timeSlotList.value = tmpList
             }
+        }.also {
+            areListenerRegistrationsSetted = true
         }
-        areListenerRegistrationsSetted = true
     }
 
     private fun DocumentSnapshot.toProfile(): Profile? {
