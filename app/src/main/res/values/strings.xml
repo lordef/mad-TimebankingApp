@@ -73,5 +73,8 @@
     <string name="dialog_text_filters">Type a keyword</string>
     <!--string name="location">Location</string-->
 
+    <!-- skills constraint Menu-->
+    <string name="title_skillsConstraint"> Wait a minute </string>
+    <string name="body_skillsConstraint"> You can not create a new timeslot without define a set of skills in your profile. Click on the button below to add it! </string>
 
 </resources>
