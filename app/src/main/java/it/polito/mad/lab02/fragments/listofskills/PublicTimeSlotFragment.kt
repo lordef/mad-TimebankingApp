@@ -21,7 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.util.*
 
 /**
@@ -31,7 +31,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private var columnCount = 1
 
-    private val vmPublicAdvs by activityViewModels<PublicTimeSlotListViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
 
     var filter = "No filter"
@@ -45,16 +45,16 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         val skillRefToString = arguments?.getString("skill")
 
         if (skillRefToString != null) {
-            vmPublicAdvs.setPublicAdvsListenerBySkill(skillRefToString)
+            vm.setPublicAdvsListenerBySkill(skillRefToString)
 
             (activity as AppCompatActivity?)?.supportActionBar?.title =
                 "Skill: " + skillRefToString.split("/").last()
 
-            vmPublicAdvs.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
+            vm.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
 
                 val allFilterButton = view.findViewById<Button>(R.id.sortButton)
                 allFilterButton.setOnClickListener {
-                    vmPublicAdvs.addFilter {
+                    vm.addFilter {
                         true
                     }
                 }

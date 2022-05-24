@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -14,19 +13,16 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
-    private val vm by activityViewModels<TimeSlotListViewModel>()
-    private val vm1 by activityViewModels<ShowProfileViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     private var isEdit = false
     private var tempID = "0" //useful when isEdit and we must retrieve an existing id
@@ -50,7 +46,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         val skillText = view.findViewById<TextView>(R.id.skillEditText)
         val skillCard = view.findViewById<CardView>(R.id.skillCardView)
 
-        vm1.profile.observe(viewLifecycleOwner) { profile ->
+        vm.profile.observe(viewLifecycleOwner) { profile ->
             val skills = profile.skills
             if(skills.isEmpty()){
                 if(skillText.text.isEmpty()) skillText.text = "No skill available"
@@ -222,7 +218,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             isEdit = true
             tempID = id
 
-            vm.timeslotList.observe(viewLifecycleOwner){
+            vm.loggedUserTimeSlotList.observe(viewLifecycleOwner){
                 if (savedInstanceState == null) {
                     val ts = it.first { t -> id == t.id }
                     title?.text = ts?.title

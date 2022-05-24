@@ -20,10 +20,7 @@ import coil.load
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.databinding.ActivityMainBinding
-import it.polito.mad.lab02.viewmodels.PublicTimeSlotListViewModel
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-import it.polito.mad.lab02.viewmodels.SkillListViewModel
-import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,10 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val vmMyprofile by viewModels<ShowProfileViewModel>()
-    private val vmPublicAdvs by viewModels<PublicTimeSlotListViewModel>()
-    private val vmMyAdvs by viewModels<TimeSlotListViewModel>()
-    private val vmSkills by viewModels<SkillListViewModel>()
+    private val vm by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        vmMyprofile.profile.observe(this) { profile ->
+        vm.profile.observe(this) { profile ->
             // set side bar profile image and user info
             val drawerProfileImage =
                 binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_profile_image)

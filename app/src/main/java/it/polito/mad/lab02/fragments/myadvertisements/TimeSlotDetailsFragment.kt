@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments.myadvertisements
+package timeslotListit.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,12 +12,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.viewmodels.TimeSlotListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
-    private val vm by activityViewModels<TimeSlotListViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
         val id = arguments?.getString("id")
         if(id != null){
-            vm.timeslotList.observe(viewLifecycleOwner){
+            vm.loggedUserTimeSlotList.observe(viewLifecycleOwner){
                 val timeSlotTmp = it.filter { ts -> id == ts.id }
                 if(timeSlotTmp.isNotEmpty()){
                     val timeSlot = timeSlotTmp.first()

@@ -14,7 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -24,12 +23,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
-import androidx.core.view.get
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,8 +39,7 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentEditProfileBinding
 import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.viewmodels.ShowProfileViewModel
-import it.polito.mad.lab02.viewmodels.SkillListViewModel
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,8 +53,7 @@ class EditProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val vm by activityViewModels<ShowProfileViewModel>()
-    private val vm1 by activityViewModels<SkillListViewModel>()
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     /* Variables for CAMERA */
     private val MY_CAMERA_PERMISSION_CODE = 100
@@ -72,8 +66,6 @@ class EditProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val profileViewModel =
-            ViewModelProvider(this).get(ShowProfileViewModel::class.java)
 
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -132,16 +124,16 @@ class EditProfileFragment : Fragment() {
                     }
                     if(listOfSkills?.contains("") != true)
                         adapter = SkillRecyclerViewAdapter(listOfSkills!!){
-                            vm1.deleteSkill(it)
-                            vm.deleteSkill(it)
+                            vm.deleteSkillFromLoggedUser(it)
+                            vm.deleteSkillFromSkills(it)
                         }
                 }
             }
         }
 
-        var skillList = listOfSkills
+        val skillList = listOfSkills
 
-        val skills = vm1.skillList.value!!.map { s -> s.name }.toTypedArray()
+        val skills = vm.skillList.value!!.map { s -> s.name }.toTypedArray()
 
         val skillsText = view.findViewById<TextView>(R.id.skillEditText)
         val addSkillsButton = view.findViewById<Button>(R.id.addSkill)
@@ -183,8 +175,8 @@ class EditProfileFragment : Fragment() {
             else if (skillList.contains(skillsText.text.toString().toLowerCase()))
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
             else{
-                vm1.addSkill(skillsText.text.toString().toLowerCase())
-                vm.addSkill(skillsText.text.toString().toLowerCase())
+                vm.addSkillInLoggedUser(skillsText.text.toString().toLowerCase())
+                vm.addSkillInSkills(skillsText.text.toString().toLowerCase())
                 skillsText.text = ""
             }
 
