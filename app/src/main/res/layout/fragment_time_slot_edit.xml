@@ -26,8 +26,7 @@
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:errorEnabled="true">
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
             <EditText
                 android:id="@+id/titleEditText"
@@ -59,8 +58,7 @@
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:errorEnabled="true">
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
             <EditText
                 android:id="@+id/descriptionEditText"
@@ -221,8 +219,7 @@
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:errorEnabled="true">
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
             <EditText
                 android:id="@+id/locationEditText"
