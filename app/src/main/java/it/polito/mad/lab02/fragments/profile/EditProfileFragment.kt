@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.Chip
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -60,6 +61,8 @@ class EditProfileFragment : Fragment() {
     private var imgUri: Uri =
         Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")
     private var imgUriOld: Uri = Uri.parse("")
+
+    private var fieldsOk = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -183,10 +186,6 @@ class EditProfileFragment : Fragment() {
         }
 
 
-
-
-
-
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton
         //profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
@@ -195,8 +194,10 @@ class EditProfileFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 editProfile()
-                view.let {
-                    Navigation.findNavController(it).popBackStack()
+                if (fieldsOk) {
+                    view.let {
+                        Navigation.findNavController(it).popBackStack()
+                    }
                 }
             }
         }
@@ -208,15 +209,19 @@ class EditProfileFragment : Fragment() {
         return when (item.itemId) {
             R.id.commitItem -> {
                 editProfile()
-                view?.let {
-                    Navigation.findNavController(it).popBackStack()
+                if (fieldsOk) {
+                    view?.let {
+                        Navigation.findNavController(it).popBackStack()
+                    }
                 }
                 true
             }
             android.R.id.home -> {
                 editProfile()
-                view?.let {
-                    Navigation.findNavController(it).popBackStack()
+                if (fieldsOk) {
+                    view?.let {
+                        Navigation.findNavController(it).popBackStack()
+                    }
                 }
                 true
             }
@@ -241,7 +246,7 @@ class EditProfileFragment : Fragment() {
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
-            if(savedInstanceState != null){
+            if (savedInstanceState != null) {
                 imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
                 profileImage?.load(imgUri)
                 imgUriOld = imgUri
@@ -253,9 +258,8 @@ class EditProfileFragment : Fragment() {
                 skillsEditText?.text = savedInstanceState.getString("skill")
 
                 listOfSkills = profile?.skills!!
-                if(listOfSkills.isEmpty()) listOfSkills = emptyList()
-            }
-            else{
+                if (listOfSkills.isEmpty()) listOfSkills = emptyList()
+            } else {
                 imgUri = Uri.parse(profile?.imageUri)
                 imgUriOld = imgUri
                 profileImage?.load(imgUri)
@@ -264,7 +268,7 @@ class EditProfileFragment : Fragment() {
                 emailEditText?.text = profile?.email
                 locationEditText?.text = profile?.location
                 listOfSkills = profile?.skills!!
-                if(listOfSkills.isEmpty()) listOfSkills = emptyList()
+                if (listOfSkills.isEmpty()) listOfSkills = emptyList()
                 descriptionEditText?.text = profile?.description
             }
 
@@ -277,57 +281,85 @@ class EditProfileFragment : Fragment() {
         val nicknameEditText = view?.findViewById<EditText>(R.id.nicknameEditText)
         val emailEditText = view?.findViewById<TextView>(R.id.emailEditText)
         val locationEditText = view?.findViewById<TextView>(R.id.locationEditText)
-//        val skillEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<EditText>(R.id.descriptionEditText)
-
-
         var skillList = listOfSkills
 
+        if (fullNameEditText?.text.toString() != "" &&
+            nicknameEditText?.text.toString() != "" &&
+            emailEditText?.text.toString() != "" &&
+            locationEditText?.text.toString() != "" &&
+            skillList.isNotEmpty()
+        ) {
+            fieldsOk = true
+            if (imgUri == imgUriOld) {
+                val obj = Profile(
+                    imgUri.toString(),
+                    fullNameEditText?.text.toString(),
+                    nicknameEditText?.text.toString(),
+                    emailEditText?.text.toString(),
+                    locationEditText?.text.toString(),
+                    skillList,
+                    descriptionEditText?.text.toString(),
+                    FirebaseAuth.getInstance().currentUser?.uid!!
+                )
+                vm.updateProfile(obj)
+            } else {
+                val imageEditText = view?.findViewById<ImageView>(R.id.editProfileImageView)
+                imageEditText?.isDrawingCacheEnabled = true
+                imageEditText?.buildDrawingCache()
+                val bitmap = (imageEditText?.drawable as BitmapDrawable).bitmap
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
 
-        if (imgUri == imgUriOld) {
-            val obj = Profile(
-                imgUri.toString(),
-                fullNameEditText?.text.toString(),
-                nicknameEditText?.text.toString(),
-                emailEditText?.text.toString(),
-                locationEditText?.text.toString(),
-                skillList,
-                descriptionEditText?.text.toString(),
-                FirebaseAuth.getInstance().currentUser?.uid!!
-            )
-            vm.updateProfile(obj)
-        } else {
-            val imageEditText = view?.findViewById<ImageView>(R.id.editProfileImageView)
-            imageEditText?.isDrawingCacheEnabled = true
-            imageEditText?.buildDrawingCache()
-            val bitmap = (imageEditText?.drawable as BitmapDrawable).bitmap
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            val data = baos.toByteArray()
-
-            deleteLocalImage()
-            deleteOldImage()
-            // Create a storage reference from our app
-            val storageRef = Firebase.storage.reference
-            // Create a reference to "images/imgUri"
-            val imagesRef = storageRef.child("images/${imgUri.lastPathSegment!!}")
-            imagesRef.putBytes(data).addOnSuccessListener {
-                imagesRef.downloadUrl.addOnSuccessListener {
-                    val obj = Profile(
-                        it.toString(),
-                        fullNameEditText?.text.toString(),
-                        nicknameEditText?.text.toString(),
-                        emailEditText?.text.toString(),
-                        locationEditText?.text.toString(),
-                        listOfSkills,
-                        descriptionEditText?.text.toString(),
-                        FirebaseAuth.getInstance().currentUser?.uid!!
-                    )
-                    vm.updateProfile(obj)
+                deleteLocalImage()
+                deleteOldImage()
+                // Create a storage reference from our app
+                val storageRef = Firebase.storage.reference
+                // Create a reference to "images/imgUri"
+                val imagesRef = storageRef.child("images/${imgUri.lastPathSegment!!}")
+                imagesRef.putBytes(data).addOnSuccessListener {
+                    imagesRef.downloadUrl.addOnSuccessListener {
+                        val obj = Profile(
+                            it.toString(),
+                            fullNameEditText?.text.toString(),
+                            nicknameEditText?.text.toString(),
+                            emailEditText?.text.toString(),
+                            locationEditText?.text.toString(),
+                            listOfSkills,
+                            descriptionEditText?.text.toString(),
+                            FirebaseAuth.getInstance().currentUser?.uid!!
+                        )
+                        vm.updateProfile(obj)
+                    }
                 }
             }
+            firstTime = true
+        } else {
+            fieldsOk = false
+            if (fullNameEditText?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.fullNameTextInputLayout)
+                l?.error = "Add your name"
+            }
+            if (nicknameEditText?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.nicknameTextInputLayout)
+                l?.error = "Add a nickname"
+            }
+            if (emailEditText?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.emailTextInputLayout)
+                l?.error = "Add your email"
+            }
+            if (locationEditText?.text.toString() == "") {
+                val l = view?.findViewById<TextInputLayout>(R.id.locationTextInputLabel)
+                l?.error = "Add your location"
+            }
+            if (skillList.isEmpty()) {
+                val l = view?.findViewById<TextInputLayout>(R.id.skillTextInputLabel)
+                l?.error = "Add at least one skill"
+            }
+            Toast.makeText(this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT)
+                .show()
         }
-        firstTime = true
     }
 
 
@@ -336,12 +368,12 @@ class EditProfileFragment : Fragment() {
         var fs = finalSkills.split(" ").toMutableList()
         return os.filter { !fs.contains(it) }
     }
+
     private fun getSkillsToAdd(originalSkills: String, finalSkills: String): List<String> {
         var os = originalSkills.split(" ").toMutableList()
         var fs = finalSkills.split(" ").toMutableList()
         return fs.filter { !os.contains(it) }
     }
-
 
 
     private fun onButtonClickEvent(sender: View?) {
