@@ -44,6 +44,7 @@
     <string name="menu_advertisement">My advertisements</string>
     <string name="menu_all_advertisement">All advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_chats">Message center</string>
 
     <!-- TimeSlotDetailsFragment labels -->
     <string name="timeslotTitleLabel">Title</string>
@@ -69,6 +70,8 @@
     <string name="skill_label">Skill</string>
     <string name="filter_button">FILTER</string>
     <string name="all_filter_button">SORT</string>
+    <string name="publisher_button">PUBLISHER</string>
+    <string name="requester_button">REQUESTER</string>
     <string name="no_filter">No filter</string>
     <string name="no_sorting">No sorting</string>
     <string name="dialog_text_filters">Type a keyword</string>

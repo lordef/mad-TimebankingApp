@@ -1,25 +1,25 @@
 package it.polito.mad.lab02.fragments.communication
 
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentChatBinding
+import it.polito.mad.lab02.models.Chat
 
-import it.polito.mad.lab02.fragments.communication.placeholder.PlaceholderContent.PlaceholderItem
-
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyChatRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    values: List<Chat>
 ) : RecyclerView.Adapter<MyChatRecyclerViewAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private var displayData = values.toMutableList()
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             FragmentChatBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -27,23 +27,43 @@ class MyChatRecyclerViewAdapter(
                 false
             )
         )
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.bind(
+            displayData[position]
+        ) {
+            val bundle = Bundle()
+            bundle.putString("ref", displayData[position].ref)
+            it.findNavController()
+                .navigate(
+                    R.id.action_chatFragment_to_nav_single_message,
+                    bundle
+                )
+        }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = displayData.size
 
-    inner class ViewHolder(binding: FragmentChatBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+    inner class ViewHolder(binding: FragmentChatBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val cardTitle: TextView = binding.cardTitle
+        val cardProfile: TextView = binding.cardProfile
+        val cardChat: CardView = binding.cardChat
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+        fun bind(chat: Chat, action1: (v: View) -> Unit) {
+            cardChat.setOnClickListener(action1)
+            cardTitle.text = chat.timeSlot.title
+            if (chat.publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
+                cardProfile.text = chat.requester.nickname
+            }
+            else{
+                cardProfile.text = chat.publisher.nickname
+            }
+        }
+
+        fun unbind() {
+            cardChat.setOnClickListener(null)
         }
     }
 

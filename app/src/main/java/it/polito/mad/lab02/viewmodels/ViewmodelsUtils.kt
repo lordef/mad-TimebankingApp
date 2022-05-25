@@ -1,12 +1,10 @@
 package it.polito.mad.lab02.viewmodels
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
-import it.polito.mad.lab02.models.Chat
-import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.models.Skill
-import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.*
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 
 object ViewmodelsUtils {
@@ -109,6 +107,30 @@ object ViewmodelsUtils {
                     publisher = publisher,
                     requester = requester,
                     timeSlot = timeSlot,
+                    ref = this.id
+                )
+            }
+            else{
+                throw Exception()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
+    @JvmStatic
+    fun DocumentSnapshot.toMessage(user: Profile?): Message? {
+        val text = get("text") as String
+        val timestamp = get("timestamp") as Timestamp
+
+        return try {
+            if (user != null) {
+                Message(
+                    text = text,
+                    timestamp = timestamp,
+                    user = user,
                     ref = this.id
                 )
             }

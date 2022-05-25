@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_single_message">
+    android:label="Chats"
+    app:startDestination="@id/nav_chats">
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="it.polito.mad.lab02.fragments.profile.ShowProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_show_profile" >
+        tools:layout="@layout/fragment_show_profile">
         <action
             android:id="@+id/action_nav_profile_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
@@ -45,7 +46,7 @@
     <fragment
         android:id="@+id/nav_timeSlotEdit"
         android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotEditFragment"
-        tools:layout="@layout/fragment_time_slot_edit" >
+        tools:layout="@layout/fragment_time_slot_edit">
         <action
             android:id="@+id/action_timeSlotEditFragment_to_timeSlotDetailsFragment"
             app:destination="@id/timeSlotDetailsFragment"
@@ -57,7 +58,7 @@
         android:id="@+id/timeSlotDetailsFragment"
         android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotDetailsFragment"
         android:label="Advertisement details"
-        tools:layout="@layout/fragment_time_slot_details" >
+        tools:layout="@layout/fragment_time_slot_details">
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_nav_timeSlotEdit"
             app:destination="@id/nav_timeSlotEdit"
@@ -75,7 +76,7 @@
         android:id="@+id/editProfileFragment"
         android:name="it.polito.mad.lab02.fragments.profile.EditProfileFragment"
         android:label="Edit profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_nav_profile"
             app:destination="@id/nav_profile"
@@ -86,7 +87,7 @@
         android:id="@+id/nav_all_advertisements"
         android:name="it.polito.mad.lab02.fragments.listofskills.SkillListFragment"
         android:label="Skills"
-        tools:layout="@layout/fragment_skill_list_list" >
+        tools:layout="@layout/fragment_skill_list_list">
         <action
             android:id="@+id/action_nav_all_advertisements_to_publicTimeSlotFragment"
             app:destination="@id/publicTimeSlotFragment"
@@ -118,7 +119,7 @@
     <fragment
         android:id="@+id/publicTimeSlotDetailsFragment"
         android:name="it.polito.mad.lab02.fragments.listofskills.PublicTimeSlotDetailsFragment"
-        android:label="Advertisement details" >
+        android:label="Advertisement details">
         <action
             android:id="@+id/action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment"
             app:destination="@id/publicShowProfileFragment"
@@ -136,4 +137,12 @@
         android:name="it.polito.mad.lab02.fragments.communication.MessageFragment"
         android:label="Single message"
         tools:layout="@layout/fragment_message_list" />
+    <fragment
+        android:id="@+id/nav_chats"
+        android:name="it.polito.mad.lab02.fragments.communication.ChatFragment"
+        android:label="ChatFragment">
+        <action
+            android:id="@+id/action_chatFragment_to_nav_single_message"
+            app:destination="@id/nav_single_message" />
+    </fragment>
 </navigation>

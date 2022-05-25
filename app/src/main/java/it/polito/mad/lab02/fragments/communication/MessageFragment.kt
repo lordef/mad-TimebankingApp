@@ -29,104 +29,25 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_gchat)
 
-        vm.setChatsListener()
+        val chatRef = arguments?.getString("ref")
+        if (chatRef != null) {
+            vm.setMessagesListener(chatRef)
 
-        val myAdapter = MessageRecyclerViewAdapter(
-            listOf(
-                Message(
-                    "Hello",
-                    Timestamp(Calendar.getInstance().time),
-                    Profile(
-                        "android.resource://it.polito.mad.lab02/drawable/profile_image",
-                        "Grinton",
-                        "Grinton",
-                        "",
-                        "",
-                        emptyList(),
-                        "",
-                        FirebaseAuth.getInstance().currentUser!!.uid
-                    )
-                ),
-                Message(
-                    "Hello",
-                    Timestamp(Calendar.getInstance().time),
-                    Profile(
-                        "android.resource://it.polito.mad.lab02/drawable/profile_image",
-                        "Toni",
-                        "Toni",
-                        "", "",
-                        emptyList(),
-                        "",
-                        "111"
-                    )
-                ),
-                Message(
-                    "Hello",
-                    Timestamp(Calendar.getInstance().time),
-                    Profile(
-                        "android.resource://it.polito.mad.lab02/drawable/profile_image",
-                        "Grinton",
-                        "Grinton",
-                        "",
-                        "",
-                        emptyList(),
-                        "",
-                        FirebaseAuth.getInstance().currentUser!!.uid
-                    )
-                )
-            )
-        )
-        if (recyclerView is RecyclerView) {
-            with(recyclerView) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+            vm.messageList.observe(viewLifecycleOwner){ messageList ->
+
+                val myAdapter = MessageRecyclerViewAdapter(messageList)
+
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = myAdapter
+                    }
                 }
-                adapter = myAdapter
             }
         }
-
-
-//        val skillRefToString = arguments?.getString("skill")
-
-//        if (skillRefToString != null) {
-//            vm.setPublicAdvsListenerBySkill(skillRefToString)
-//
-//            (activity as AppCompatActivity?)?.supportActionBar?.title =
-//                "Chat"
-//
-//            vm.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
-//
-//                val allFilterButton = view.findViewById<Button>(R.id.sortButton)
-//                allFilterButton.setOnClickListener {
-//                    vm.addFilter {
-//                        true
-//                    }
-//                }
-//
-//                val myAdapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
-//                if (recyclerView is RecyclerView) {
-//                    with(recyclerView) {
-//                        layoutManager = when {
-//                            columnCount <= 1 -> LinearLayoutManager(context)
-//                            else -> GridLayoutManager(context, columnCount)
-//                        }
-//                        adapter = myAdapter
-//                    }
-//                }
-//
-//
-//
-//                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
-//                if (timeSlotList.isEmpty()) {
-//                    recyclerView.visibility = View.GONE
-//                    textView.visibility = View.VISIBLE
-//                } else {
-//                    textView.visibility = View.GONE
-//                    recyclerView.visibility = View.VISIBLE
-//                }
-//            }
-//        }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

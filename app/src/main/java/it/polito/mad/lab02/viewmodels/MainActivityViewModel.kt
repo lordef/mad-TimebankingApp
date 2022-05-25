@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.*
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toChat
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toMessage
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
@@ -68,6 +69,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var requesterChatsListener: ListenerRegistration
     var isChatsListenerSetted = false
 
+    private lateinit var messagesListener: ListenerRegistration
+
     init {
         // Creating listener for logged user
         loggedUserListener = usersRef
@@ -120,6 +123,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     _publisherChatList.postValue(tmpList)
                 }
             }
+
         requesterChatsListener = chatsRef
             .whereEqualTo(
                 "requester",
@@ -143,6 +147,29 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                             d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
                         }
                         _requesterChatList.postValue(tmpList)
+                    }
+                }
+            }.also {
+                isChatsListenerSetted = true
+            }
+    }
+
+    fun setMessagesListener(chatId: String) {
+        messagesListener = chatsRef.document(chatId)
+            .collection("messages")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _messageList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Message>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val user = (d.get("user") as DocumentReference)
+                                .get().await().toProfile()
+                            d.toMessage(user)?.let { tmpList.add(it) }
+                        }
+                        _messageList.postValue(tmpList)
                     }
                 }
             }.also {

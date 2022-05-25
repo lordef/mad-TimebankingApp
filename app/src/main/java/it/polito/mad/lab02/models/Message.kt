@@ -5,5 +5,6 @@ import com.google.firebase.Timestamp
 data class Message(
     val text: String,
     val timestamp: Timestamp,
-    val user: Profile
+    val user: Profile,
+    val ref: String
 )
