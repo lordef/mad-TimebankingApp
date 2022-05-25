@@ -1,18 +1,23 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import it.polito.mad.lab02.models.Profile
-import it.polito.mad.lab02.models.Skill
-import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.*
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toChat
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 
@@ -23,7 +28,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _profile = MutableLiveData<Profile>()
     private val _skillList = MutableLiveData<List<Skill>>()
     private val _loggedUserTimeSlotList = MutableLiveData<List<TimeSlot>>()
-
+    private val _publisherChatList = MutableLiveData<List<Chat>>()
+    private val _requesterChatList = MutableLiveData<List<Chat>>()
+    private val _messageList = MutableLiveData<List<Message>>()
 
     //LiveData passed to our fragments
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
@@ -31,6 +38,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val profile: LiveData<Profile> = _profile
     val skillList: LiveData<List<Skill>> = _skillList
     val loggedUserTimeSlotList: LiveData<List<TimeSlot>> = _loggedUserTimeSlotList
+    val publisherChatList: LiveData<List<Chat>> = _publisherChatList
+    val requesterChatList: LiveData<List<Chat>> = _requesterChatList
+    val messageList: LiveData<List<Message>> = _messageList
 
 
     //Creation of a Firebase db instance
@@ -40,6 +50,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val timeslotsRef = db.collection("timeslots")
     private val usersRef = db.collection("users")
     private val skillsRef = db.collection("skills")
+    private val chatsRef = db.collection("chat")
 
 
     // Creating the ListenerRegistrations
@@ -53,6 +64,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var loggedUserTimeSlotsListener: ListenerRegistration
     var isLoggedUserTSsListenerSetted = false
 
+    private lateinit var publisherChatsListener: ListenerRegistration
+    private lateinit var requesterChatsListener: ListenerRegistration
+    var isChatsListenerSetted = false
 
     init {
         // Creating listener for logged user
@@ -74,6 +88,66 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
 
+    }
+
+    fun setChatsListener() {
+        // Setting up timeslotsListener
+
+        publisherChatsListener = chatsRef
+            .whereEqualTo(
+                "publisher",
+                usersRef.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            )
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _publisherChatList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Chat>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val requester = (d.get("requester") as DocumentReference)
+                                .get().await().toProfile()
+                            val publisher = (d.get("publisher") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = (d.get("timeslot") as DocumentReference)
+                                .get().await().toTimeslot(publisher)
+
+                            d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
+                        }
+                    }
+
+                    _publisherChatList.postValue(tmpList)
+                }
+            }
+        requesterChatsListener = chatsRef
+            .whereEqualTo(
+                "requester",
+                usersRef.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            )
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _requesterChatList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Chat>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val requester = (d.get("requester") as DocumentReference)
+                                .get().await().toProfile()
+                            val publisher = (d.get("publisher") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = (d.get("timeslot") as DocumentReference)
+                                .get().await().toTimeslot(publisher)
+
+                            d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
+                        }
+                        _requesterChatList.postValue(tmpList)
+                    }
+                }
+            }.also {
+                isChatsListenerSetted = true
+            }
     }
 
 
@@ -333,7 +407,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
 
     fun deleteTimeSlot(timeslotId: String) {
-        if(isLoggedUserTSsListenerSetted) {
+        if (isLoggedUserTSsListenerSetted) {
             timeslotsRef.document(timeslotId).delete()
         }
     }
@@ -343,14 +417,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     override fun onCleared() {
         super.onCleared()
-        if(areTSsAndUsersListenersSetted) {
+        if (areTSsAndUsersListenersSetted) {
             timeslotsListener.remove()
             usersListener.remove()
         }
         loggedUserListener.remove()
         skillsListener.remove()
 
-        if (isLoggedUserTSsListenerSetted){
+        if (isLoggedUserTSsListenerSetted) {
             loggedUserTimeSlotsListener.remove()
         }
     }

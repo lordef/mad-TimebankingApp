@@ -35,6 +35,7 @@
     <!-- Edit mode -->
     <string name="editItem">Edit</string>
     <string name="commitItem">Confirm</string>
+    <string name="messageItem">Contact publisher</string>
     <string name="selectImageOption">Select an image from the phone gallery</string>
     <string name="useCameraOption">Use the camera to take a picture</string>
 
