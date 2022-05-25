@@ -344,7 +344,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         } else {
             fieldsOk = false
             if (title?.text.toString() == "") {
-                val l = view?.findViewById<EditText>(R.id.fullNameTextInputLayout)
+                val l = view?.findViewById<TextInputLayout>(R.id.titleTextInputLayout)
                 l?.error = "Add a title"
                 Toast.makeText(
                     this.context,
