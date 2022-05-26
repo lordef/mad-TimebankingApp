@@ -51,7 +51,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val timeslotsRef = db.collection("timeslots")
     private val usersRef = db.collection("users")
     private val skillsRef = db.collection("skills")
-    private val chatsRef = db.collection("chat")
+    private val chatsRef = db.collection("chats")
 
 
     // Creating the ListenerRegistrations
