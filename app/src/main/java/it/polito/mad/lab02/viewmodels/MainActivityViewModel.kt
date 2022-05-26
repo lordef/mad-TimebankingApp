@@ -439,9 +439,33 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+
+
+
     /******** end - Logged user timeslots ********/
 
+    /******** Chat functionalities ********/
 
+    fun createChat(ts: TimeSlot): String  {
+        val newChat = chatsRef.document()
+        val data = hashMapOf(
+            "publisher" to db.document(ts.user),
+            "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
+            "timeslot" to timeslotsRef.document(ts.id)
+        )
+        viewModelScope.launch(Dispatchers.IO) {
+            val chat = chatsRef
+                .whereEqualTo("publisher", db.document(ts.user))
+                .whereEqualTo("requester", usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()))
+                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
+                .get().await()
+            Log.d("MYTAG", "${chat.documents.size}")
+            //newChat.set(data)
+        }
+        return newChat.id
+    }
+
+    /******** end - Chat functionalities ********/
     override fun onCleared() {
         super.onCleared()
         if (areTSsAndUsersListenersSetted) {

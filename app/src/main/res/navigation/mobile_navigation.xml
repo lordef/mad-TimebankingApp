@@ -127,6 +127,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_publicTimeSlotDetailsFragment_to_nav_single_message"
+            app:destination="@id/nav_single_message" />
     </fragment>
     <fragment
         android:id="@+id/publicShowProfileFragment"

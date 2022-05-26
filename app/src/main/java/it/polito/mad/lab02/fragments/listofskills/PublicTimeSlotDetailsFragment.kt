@@ -96,10 +96,10 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     vm.timeslotList
                         .observe(viewLifecycleOwner) { listTs ->
                             val bundle = Bundle()
-                            bundle.putString("publisher", listTs.first { it.id == id }.userProfile.uid)
-                            bundle.putString("tsId", listTs.first { it.id == id }.id)
+                            val ref = vm.createChat(listTs.first { it.id == id })
+                            bundle.putString("ref", ref)
                             Navigation.findNavController(view).navigate(
-                                R.id.action_nav_profile_to_editProfileFragment, bundle
+                                R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message, bundle
                             )
                         }
                 }
