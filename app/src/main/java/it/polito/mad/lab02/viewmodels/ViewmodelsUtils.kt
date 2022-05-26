@@ -1,5 +1,6 @@
 package it.polito.mad.lab02.viewmodels
 
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -124,7 +125,6 @@ object ViewmodelsUtils {
             val starsNum = get("starsNum") as Number
             val comment = get("comment") as String //TODO: check if empty
             val timestamp = get("timestamp") as Timestamp //Timestamp on FB
-
             //TODO: useful example of code?
 //            val skillTmp = if (skill == null) {
 //                ""
@@ -136,11 +136,11 @@ object ViewmodelsUtils {
                 "",
                 rated.toString(),
                 rater.toString(),
-                starsNum as Int,
+                starsNum.toInt(),
                 comment,
                 timestamp.toString()
             )
-
+//            Rating("", "rr", "rd", 2, "cmt", "ts")
 
         } catch (e: Exception) {
             e.printStackTrace()

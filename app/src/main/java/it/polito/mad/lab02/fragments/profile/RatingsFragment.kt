@@ -38,7 +38,6 @@ class RatingsFragment : Fragment() {
 
         vm.setRatingsListenerByUserId("")
         vm.ratingList.observe(viewLifecycleOwner){ ratings ->
-            Log.d("ratings", ratings.toString())
             if (view is RecyclerView) {
                 with(view) {
                     layoutManager = when {
