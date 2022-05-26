@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
@@ -25,7 +26,6 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         val title = view.findViewById<TextView>(R.id.titleTextView)
         val description = view.findViewById<TextView>(R.id.descriptionTextView)
@@ -44,6 +44,12 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
 
+                    if(ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid){
+                        setHasOptionsMenu(false)
+                    }
+                    else{
+                        setHasOptionsMenu(true)
+                    }
                     title.text = ts.title
                     description.text = ts.description
                     dateTime.text = ts.dateTime

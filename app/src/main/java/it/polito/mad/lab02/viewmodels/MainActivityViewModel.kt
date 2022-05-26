@@ -48,8 +48,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val profile: LiveData<Profile> = _profile
     val skillList: LiveData<List<Skill>> = _skillList
     val loggedUserTimeSlotList: LiveData<List<TimeSlot>> = _loggedUserTimeSlotList
-    val ratingNumber : LiveData<Float> = _ratingNumber
-    val ratingList : LiveData<List<Rating>> = _ratingList
+    val ratingNumber: LiveData<Float> = _ratingNumber
+    val ratingList: LiveData<List<Rating>> = _ratingList
     val publisherChatList: LiveData<List<Chat>> = _publisherChatList
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
@@ -136,9 +136,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
                             d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
                         }
+                        _publisherChatList.postValue(tmpList)
                     }
-
-                    _publisherChatList.postValue(tmpList)
                 }
             }
 
@@ -505,7 +504,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             } else {
                 _messageList.value?.last()
                     ?.let {
-                        chatsRef.document(chatId).collection("messages").document((it.id.toInt()+1).toString()).set(data)
+                        chatsRef.document(chatId).collection("messages")
+                            .document((it.id.toInt() + 1).toString()).set(data)
                     }
             }
 
@@ -535,7 +535,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                             tmpStarNumsList.add(it)
                         }
                     }
-                    if(tmpStarNumsList.isEmpty()) //No detected ratings for this user
+                    if (tmpStarNumsList.isEmpty()) //No detected ratings for this user
                         _ratingNumber.value = 0f
                     else //Average of ratings for this user
                         _ratingNumber.value = tmpStarNumsList.average().toFloat()
@@ -569,7 +569,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-
     /******** end - Ratings ********/
 
     override fun onCleared() {
@@ -589,7 +588,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             ratingNumbersListener.remove()
         }
 
-        if (isRatingsListenerSetted){
+        if (isRatingsListenerSetted) {
             ratingsListener.remove()
         }
     }
