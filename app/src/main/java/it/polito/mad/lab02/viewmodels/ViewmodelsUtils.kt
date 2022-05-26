@@ -2,7 +2,6 @@ package it.polito.mad.lab02.viewmodels
 
 import android.util.Log
 import com.google.firebase.Timestamp
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot

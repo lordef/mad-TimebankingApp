@@ -500,6 +500,23 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
             )
 
+            if (_messageList.value?.isEmpty() == true) {
+                chatsRef.document(chatId).collection("messages").document("1").set(data)
+            } else {
+                _messageList.value?.last()
+                    ?.let {
+                        chatsRef.document(chatId).collection("messages").document((it.id.toInt()+1).toString()).set(data)
+                    }
+            }
+
+            true
+        } else {
+            false
+        }
+    }
+
+    /******** end - Chat functionalities ********/
+
     /******** Ratings ********/
 
     fun setRatingNumberByUserUid(ratedProfileUid: String) {
@@ -555,23 +572,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** end - Ratings ********/
 
-
-            if (_messageList.value?.isEmpty() == true) {
-                chatsRef.document(chatId).collection("messages").document("1").set(data)
-            } else {
-                _messageList.value?.last()
-                    ?.let {
-                        chatsRef.document(chatId).collection("messages").document((it.id.toInt()+1).toString()).set(data)
-                    }
-            }
-
-            true
-        } else {
-            false
-        }
-    }
-
-    /******** end - Chat functionalities ********/
     override fun onCleared() {
         super.onCleared()
         if (areTSsAndUsersListenersSetted) {
@@ -593,6 +593,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             ratingsListener.remove()
         }
     }
+
 
 }
 
