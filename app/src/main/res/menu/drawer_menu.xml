@@ -16,5 +16,17 @@
             android:id="@+id/nav_all_advertisements"
             android:icon="@drawable/ic_advertisements"
             android:title="@string/menu_all_advertisement" />
+        <item
+            android:id="@+id/nav_single_message"
+            android:icon="@drawable/ic_advertisements"
+            android:title="Single message test" />
+        <item
+            android:id="@+id/nav_timeSlotsOfInterestListFragment"
+            android:icon="@drawable/ic_advertisements"
+            android:title="@string/menu_interest" />
+        <item
+            android:id="@+id/nav_timeSlotsAssignedAcceptedListFragment"
+            android:icon="@drawable/ic_advertisements"
+            android:title="@string/menu_active_timeslot" />
     </group>
 </menu>
