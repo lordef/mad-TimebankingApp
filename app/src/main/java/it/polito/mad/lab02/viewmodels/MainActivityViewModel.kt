@@ -8,9 +8,11 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import it.polito.mad.lab02.models.Profile
+import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
 import java.util.*
@@ -23,6 +25,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _profile = MutableLiveData<Profile>()
     private val _skillList = MutableLiveData<List<Skill>>()
     private val _loggedUserTimeSlotList = MutableLiveData<List<TimeSlot>>()
+    private val _ratingNumber = MutableLiveData<Float>()
+    private val _ratingList = MutableLiveData<List<Rating>>()
+
 
 
     //LiveData passed to our fragments
@@ -31,6 +36,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val profile: LiveData<Profile> = _profile
     val skillList: LiveData<List<Skill>> = _skillList
     val loggedUserTimeSlotList: LiveData<List<TimeSlot>> = _loggedUserTimeSlotList
+    val ratingNumber : LiveData<Float> = _ratingNumber
+    val ratingList : LiveData<List<Rating>> = _ratingList
 
 
     //Creation of a Firebase db instance
@@ -40,6 +47,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val timeslotsRef = db.collection("timeslots")
     private val usersRef = db.collection("users")
     private val skillsRef = db.collection("skills")
+    private val ratingsRef = db.collection("ratings")
 
 
     // Creating the ListenerRegistrations
@@ -52,6 +60,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var loggedUserTimeSlotsListener: ListenerRegistration
     var isLoggedUserTSsListenerSetted = false
+
+    private lateinit var ratingNumbersListener: ListenerRegistration
+    private var isRatingNumbersSetted = false
+
+    private lateinit var ratingsListener: ListenerRegistration
+    private var isRatingsSetted = false
 
 
     init {
@@ -265,8 +279,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     /******** Logged user timeslots ********/
 
     fun setAdvsListenerByCurrentUser() {
-        val userRef = db
-            .collection("users")
+        val userRef = usersRef
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
         loggedUserTimeSlotsListener = timeslotsRef
@@ -333,7 +346,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
 
     fun deleteTimeSlot(timeslotId: String) {
-        if(isLoggedUserTSsListenerSetted) {
+        if (isLoggedUserTSsListenerSetted) {
             timeslotsRef.document(timeslotId).delete()
         }
     }
@@ -341,18 +354,95 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     /******** end - Logged user timeslots ********/
 
 
+    /******** Ratings ********/
+
+    //TODO: doing retriev of avg from rating
+    fun setRatingNumber(ratedProfileId: String) {
+        val userRef = usersRef
+            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: change to input Id
+
+        ratingNumbersListener = ratingsRef
+//            .whereEqualTo("rated", userRef)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _ratingNumber.value = 0f
+                else {
+//                    r!!.mapNotNull { d ->
+//                    d.toStarsNumber()
+
+                    /*
+                    val tmpStarNumsList = mutableListOf<Int>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            var num = 555
+                            d.toStarsNumber()?.let {
+                                tmpStarNumsList.add(it)
+                            }
+                            Log.d("RATE", num.toString())
+                        }
+                    }
+                    _ratingNumber.postValue(tmpStarNumsList.average().toFloat())
+
+                     */
+                }
+            }
+            .also {
+                isRatingNumbersSetted = true
+            }
+    }
+
+
+    fun setRatingsListenerByUserId(ratedProfileId: String) {
+        val userRef = usersRef
+            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from inout parameter
+
+        ratingsListener = ratingsRef
+            .whereEqualTo("user", userRef)
+            .addSnapshotListener { r, e ->
+                _ratingList.value = if (e != null)
+                    emptyList()
+                else r!!.mapNotNull { d ->
+                    d.toRating()
+                }
+            }
+            .also {
+                isRatingsSetted = true
+            }
+    }
+
+
+
+    /******** end - Ratings ********/
+
+
     override fun onCleared() {
         super.onCleared()
-        if(areTSsAndUsersListenersSetted) {
+        if (areTSsAndUsersListenersSetted) {
             timeslotsListener.remove()
             usersListener.remove()
         }
         loggedUserListener.remove()
         skillsListener.remove()
 
-        if (isLoggedUserTSsListenerSetted){
+        if (isLoggedUserTSsListenerSetted) {
             loggedUserTimeSlotsListener.remove()
+        }
+
+        if (isRatingNumbersSetted) {
+            ratingNumbersListener.remove()
+        }
+
+        if (isRatingsSetted){
+            ratingsListener.remove()
         }
     }
 
 }
+
+
+/*
+    Resource documents:
+    - https://firebase.google.com/docs/firestore/query-data/queries#kotlin+ktx
+    - https://github.com/firebase/snippets-android/blob/efcc7a3a4d0ceb37475dbb6bc3a5c008d0363134/firestore/app/src/main/java/com/google/example/firestore/kotlin/DocSnippets.kt#L842-L844
+*/

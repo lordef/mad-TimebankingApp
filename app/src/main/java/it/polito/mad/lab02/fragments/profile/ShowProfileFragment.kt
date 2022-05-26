@@ -67,6 +67,9 @@ class ShowProfileFragment : Fragment() {
         val location = binding.locationTextView
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
+        val ratingCard = binding.ratingCardView
+
+
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
             // update UI
@@ -81,7 +84,6 @@ class ShowProfileFragment : Fragment() {
             description.text = profile.description
         }
 
-        val ratingCard = binding.ratingCardView
         ratingCard.setOnClickListener {
             it.findNavController().navigate(R.id.action_nav_profile_to_ratingsFragment)
         }

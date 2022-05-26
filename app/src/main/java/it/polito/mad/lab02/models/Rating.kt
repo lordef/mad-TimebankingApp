@@ -1,9 +1,11 @@
 package it.polito.mad.lab02.models
 
-data class Rating (
-    val rated: String,
-    val rater: String,
-    val stars: Int,
-    val comment: String,
-    val timestamp: String
+data class Rating(
+    val ref: String, //it is its id - TODO: useful?
+    val rated: String, //reference
+    val rater: String, //reference
+    val starsNum: Int, //number
+    val comment: String, //text
+    val timestamp: String //Timestamp
+
 )
