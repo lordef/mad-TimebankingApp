@@ -22,6 +22,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)
 
         vm.skillList.observe(viewLifecycleOwner) { skillList ->

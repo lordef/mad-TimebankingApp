@@ -60,6 +60,7 @@ class ShowProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        var userUid = ""
         val profileImage = binding.profileImageView
         val fullName = binding.fullNameTextView
         val nickname = binding.nicknameTextView
@@ -83,7 +84,9 @@ class ShowProfileFragment : Fragment() {
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
 
-            vm.setRatingNumber(profile.uid)
+            userUid = profile.uid
+            vm.setRatingNumberByUserUid(userUid)
+
             vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
                 ratingValue.text = avgRatingNum.toString()
             }
@@ -91,6 +94,16 @@ class ShowProfileFragment : Fragment() {
 
         ratingCard.setOnClickListener {
             it.findNavController().navigate(R.id.action_nav_profile_to_ratingsFragment)
+        }
+
+        ratingCard.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("userUid", userUid)
+            it.findNavController()
+                .navigate(
+                    R.id.action_publicShowProfileFragment_to_ratingsFragment, //TODO: change action
+                    bundle
+                )
         }
 
         val callback = object : OnBackPressedCallback(true){

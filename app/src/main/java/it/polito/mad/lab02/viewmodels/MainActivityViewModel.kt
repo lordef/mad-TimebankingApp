@@ -1,11 +1,9 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -18,8 +16,6 @@ import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toStarsNumber
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -67,10 +63,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var isLoggedUserTSsListenerSetted = false
 
     private lateinit var ratingNumbersListener: ListenerRegistration
-    private var isRatingNumbersSetted = false
+    private var isRatingNumbersListenerSetted = false
 
     private lateinit var ratingsListener: ListenerRegistration
-    private var isRatingsSetted = false
+    private var isRatingsListenerSetted = false
 
 
     init {
@@ -361,8 +357,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** Ratings ********/
 
-    //TODO: doing retriev of avg from rating
-    fun setRatingNumber(ratedProfileUid: String) {
+    fun setRatingNumberByUserUid(ratedProfileUid: String) {
         val userRef = usersRef
             .document(ratedProfileUid)
 
@@ -385,14 +380,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
             .also {
-                isRatingNumbersSetted = true
+                isRatingNumbersListenerSetted = true
             }
     }
 
 
-    fun setRatingsListenerByUserId(ratedProfileId: String) {
+    fun setRatingsListenerByUserUid(ratedProfileUid: String) {
+//        val userRef = usersRef
+//            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
+
         val userRef = usersRef
-            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
+            .document(ratedProfileUid)
 
         ratingsListener = ratingsRef
             .whereEqualTo("rated", userRef)
@@ -404,7 +402,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
             .also {
-                isRatingsSetted = true
+                isRatingsListenerSetted = true
             }
     }
 
@@ -426,11 +424,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             loggedUserTimeSlotsListener.remove()
         }
 
-        if (isRatingNumbersSetted) {
+        if (isRatingNumbersListenerSetted) {
             ratingNumbersListener.remove()
         }
 
-        if (isRatingsSetted){
+        if (isRatingsListenerSetted){
             ratingsListener.remove()
         }
     }

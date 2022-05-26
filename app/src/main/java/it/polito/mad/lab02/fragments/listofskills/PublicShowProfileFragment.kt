@@ -57,6 +57,7 @@ class PublicShowProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var userUid = ""
         val profileImage = binding.profileImageView
         val fullName = binding.fullNameTextView
         val nickname = binding.nicknameTextView
@@ -85,15 +86,23 @@ class PublicShowProfileFragment : Fragment() {
                 skills.text = ts.userProfile.skills.joinToString(", ")
                 description.text = ts.userProfile.description
 
-                vm.setRatingNumber(ts.userProfile.uid)
-                vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
+                userUid = ts.userProfile.uid
+                vm.setRatingNumberByUserUid(userUid)
+                vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                     ratingValue.text = avgRatingNum.toString()
                 }
             }
         }
+
         //TODO: vedere come funziona la navigation, non funiona il pulsante indietro in basso
         ratingCard.setOnClickListener {
-            it.findNavController().navigate(R.id.action_publicShowProfileFragment_to_ratingsFragment)
+            val bundle = Bundle()
+            bundle.putString("userUid", userUid)
+            it.findNavController()
+                .navigate(
+                    R.id.action_publicShowProfileFragment_to_ratingsFragment,
+                    bundle
+                )
         }
 
 

@@ -1,7 +1,6 @@
 package it.polito.mad.lab02.fragments.profile
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class RatingsFragment : Fragment() {
@@ -36,20 +34,27 @@ class RatingsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_ratings_list, container, false)
 
-        vm.setRatingsListenerByUserId("")
-        vm.ratingList.observe(viewLifecycleOwner){ ratings ->
-            if (view is RecyclerView) {
-                with(view) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
+        val userUid = arguments?.getString("userUid")
+
+        if (userUid != null) {
+
+            vm.setRatingsListenerByUserUid(userUid)
+
+            vm.ratingList.observe(viewLifecycleOwner) { ratings ->
+                if (view is RecyclerView) {
+                    with(view) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = RatingRecyclerViewAdapter(ratings)
                     }
-                adapter = RatingRecyclerViewAdapter(ratings)
                 }
             }
         }
-        // Set the adapter
 
+
+        // Set the adapter
         return view
     }
 
