@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.models.Rating
 
 class RatingsFragment : Fragment() {
 
@@ -22,6 +23,9 @@ class RatingsFragment : Fragment() {
         }
     }
 
+
+    val b = Rating("rated", "rater", 4, "good")
+    var a = mutableListOf<Rating>(b)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +39,7 @@ class RatingsFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                //adapter = RatingRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                adapter = RatingRecyclerViewAdapter(a)
             }
         }
         return view

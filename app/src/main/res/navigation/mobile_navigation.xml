@@ -17,6 +17,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_nav_profile_to_ratingsFragment"
+            app:destination="@id/ratingsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -131,4 +138,9 @@
         android:id="@+id/publicShowProfileFragment"
         android:name="it.polito.mad.lab02.fragments.listofskills.PublicShowProfileFragment"
         android:label="Publisher profile" />
+    <fragment
+        android:id="@+id/ratingsFragment"
+        android:name="it.polito.mad.lab02.fragments.profile.RatingsFragment"
+        android:label="fragment_ratings_list"
+        tools:layout="@layout/fragment_ratings_list" />
 </navigation>
