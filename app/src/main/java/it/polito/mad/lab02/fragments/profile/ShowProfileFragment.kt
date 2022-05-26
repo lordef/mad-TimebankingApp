@@ -93,15 +93,11 @@ class ShowProfileFragment : Fragment() {
         }
 
         ratingCard.setOnClickListener {
-            it.findNavController().navigate(R.id.action_nav_profile_to_ratingsFragment)
-        }
-
-        ratingCard.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userUid", userUid)
             it.findNavController()
                 .navigate(
-                    R.id.action_publicShowProfileFragment_to_ratingsFragment, //TODO: change action
+                    R.id.action_nav_profile_to_ratingsFragment,
                     bundle
                 )
         }
