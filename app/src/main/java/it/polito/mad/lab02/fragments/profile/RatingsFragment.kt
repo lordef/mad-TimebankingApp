@@ -13,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
-class RatingsFragment : Fragment() {
+class RatingsFragment : Fragment(R.layout.fragment_ratings_list_with_no_ratings_2) {
 
     private var columnCount = 1
 
@@ -28,13 +28,9 @@ class RatingsFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        val view = inflater.inflate(R.layout.fragment_ratings_list_with_no_ratings, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.ratings_list)
 
 
@@ -45,8 +41,8 @@ class RatingsFragment : Fragment() {
             vm.setRatingsListenerByUserUid(userUid)
 
             vm.ratingList.observe(viewLifecycleOwner) { ratings ->
-                if (view is RecyclerView) {
-                    with(view) {
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
                         layoutManager = when {
                             columnCount <= 1 -> LinearLayoutManager(context)
                             else -> GridLayoutManager(context, columnCount)
@@ -65,10 +61,6 @@ class RatingsFragment : Fragment() {
                 }
             }
         }
-
-
-        // Set the adapter
-        return view
     }
 
     companion object {
