@@ -399,7 +399,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
 
         ratingsListener = ratingsRef
-//            .whereEqualTo("user", userRef)
+            .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
                 _ratingList.value = if (e != null)
                     emptyList()
