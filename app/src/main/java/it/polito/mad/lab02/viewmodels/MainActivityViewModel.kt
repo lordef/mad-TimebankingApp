@@ -375,7 +375,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     val tmpStarNumsList = mutableListOf<Int>()
                     r!!.forEach { d ->
                         d.toStarsNumber()?.let {
-                            Log.d("RATE", "stars: $it")
                             tmpStarNumsList.add(it)
                         }
                     }
