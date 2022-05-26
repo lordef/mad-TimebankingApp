@@ -83,7 +83,7 @@ class PublicShowProfileFragment : Fragment() {
                 description.text = ts.userProfile.description
             }
         }
-        //TODO: vedere come funziona la navigation
+        //TODO: vedere come funziona la navigation, non funiona il pulsante indietro in basso
         ratingCard.setOnClickListener {
             it.findNavController().navigate(R.id.action_publicShowProfileFragment_to_ratingsFragment)
         }
