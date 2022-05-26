@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -15,7 +16,10 @@ import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toStarsNumber
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -363,29 +367,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: change to input Id
 
         ratingNumbersListener = ratingsRef
-//            .whereEqualTo("rated", userRef)
+            .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
                 if (e != null)
                     _ratingNumber.value = 0f
                 else {
-//                    r!!.mapNotNull { d ->
-//                    d.toStarsNumber()
-
-                    /*
                     val tmpStarNumsList = mutableListOf<Int>()
-
-                    viewModelScope.launch(Dispatchers.IO) {
-                        r!!.forEach { d ->
-                            var num = 555
-                            d.toStarsNumber()?.let {
-                                tmpStarNumsList.add(it)
-                            }
-                            Log.d("RATE", num.toString())
+                    r!!.forEach { d ->
+                        d.toStarsNumber()?.let {
+                            tmpStarNumsList.add(it)
                         }
                     }
-                    _ratingNumber.postValue(tmpStarNumsList.average().toFloat())
-
-                     */
+                    _ratingNumber.value = tmpStarNumsList.average().toFloat()
                 }
             }
             .also {

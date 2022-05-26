@@ -101,13 +101,9 @@ object ViewmodelsUtils {
     //TODO
     @JvmStatic
     fun DocumentSnapshot.toStarsNumber(): Int? {
-
         return try {
-            val starsNum = get("starsNum")
-            if (starsNum != null)
-                starsNum as Int
-            else
-                0
+            val starsNum = get("starsNum") as Number
+            starsNum.toInt()
         } catch (e: Exception) {
             e.printStackTrace()
             null

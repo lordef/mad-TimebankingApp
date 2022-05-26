@@ -63,6 +63,7 @@ class PublicShowProfileFragment : Fragment() {
         val location = binding.locationTextView
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
+        //TODO: ratingValueTextView with dynamic avg
 
         val id = arguments?.getString("id")
         if (id != null) {

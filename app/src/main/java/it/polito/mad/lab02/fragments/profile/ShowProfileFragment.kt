@@ -68,7 +68,7 @@ class ShowProfileFragment : Fragment() {
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
         val ratingCard = binding.ratingCardView
-
+        val ratingValue = binding.ratingValueTextView
 
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
@@ -82,6 +82,11 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
+        }
+
+        vm.setRatingNumber("")
+        vm.ratingNumber.observe(viewLifecycleOwner){
+            ratingValue.text = it.toString()
         }
 
         ratingCard.setOnClickListener {
