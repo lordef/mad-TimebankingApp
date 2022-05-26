@@ -172,7 +172,7 @@ class EditProfileFragment : Fragment() {
 
         addSkillsButton.setOnClickListener {
             if (skillsText.text.toString().toLowerCase() == null || skillsText.text.toString() == "")
-                Toast.makeText(this.context, "Insert a skill", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, "You should insert a skill", Toast.LENGTH_SHORT).show()
             else if (skillsText.text.toString().toLowerCase().split(" ").size != 1)
                 Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT).show()
             else if (skillList.contains(skillsText.text.toString().toLowerCase()))
@@ -182,14 +182,11 @@ class EditProfileFragment : Fragment() {
                 vm.addSkillInSkills(skillsText.text.toString().toLowerCase())
                 skillsText.text = ""
             }
-
         }
-
 
         //Listener to load new photo on click
         //val profileImageButton = binding.editProfileImageButton
         //profileImageButton.setOnClickListener { onButtonClickEvent(profileImageButton) }
-
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -357,8 +354,7 @@ class EditProfileFragment : Fragment() {
                 val l = view?.findViewById<TextInputLayout>(R.id.skillTextInputLabel)
                 l?.error = "Add at least one skill"
             }
-            Toast.makeText(this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT).show()
         }
     }
 

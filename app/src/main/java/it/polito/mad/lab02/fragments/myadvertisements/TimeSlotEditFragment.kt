@@ -343,73 +343,33 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             if (title?.text.toString() == "") {
                 val l = view?.findViewById<TextInputLayout>(R.id.titleTextInputLayout)
                 l?.error = "Add a title"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (description?.text.toString() == "") {
                 val l = view?.findViewById<TextInputLayout>(R.id.descriptionTextInputLayout)
                 l?.error = "Add a description"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (date?.text.toString() == "") {
                 val l = view?.findViewById<TextView>(R.id.dateEdit)
                 l?.error = "Add a date"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (time?.text.toString() == "") {
                 val l = view?.findViewById<TextView>(R.id.timeEdit)
                 l?.error = "Add a time"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (duration?.text.toString() == "") {
                 val l = view?.findViewById<TextView>(R.id.durationEditText)
                 l?.error = "Add a duration"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (skillText?.text.toString() == "") {
                 val l = view?.findViewById<TextView>(R.id.skillEditText)
                 l?.error = "Add a skill"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
             if (location?.text.toString() == "") {
                 val l = view?.findViewById<TextInputLayout>(R.id.locationTextInputLayout)
                 l?.error = "Add a location"
-                Toast.makeText(
-                    this.context,
-                    "Be sure to fill the mandatory fields",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             }
+            Toast.makeText(
+                this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT).show()
             return Bundle()
         }
     }
