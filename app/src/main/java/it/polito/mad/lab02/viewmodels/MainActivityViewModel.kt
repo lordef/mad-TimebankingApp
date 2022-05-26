@@ -406,6 +406,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
+    fun postRating(rating: Rating){
+
+        ratingsRef.document().set(rating)
+
+    }
+
 
 
     /******** end - Ratings ********/
