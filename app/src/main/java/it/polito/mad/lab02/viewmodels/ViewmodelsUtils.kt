@@ -1,9 +1,11 @@
 package it.polito.mad.lab02.viewmodels
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import it.polito.mad.lab02.models.Profile
+import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
@@ -92,6 +94,59 @@ object ViewmodelsUtils {
             }
         }
         return listTmp
+    }
+
+
+    //TODO
+    @JvmStatic
+    fun DocumentSnapshot.toStarsNumber(): Int? {
+
+        return try {
+            val starsNum = get("starsNum")
+            if (starsNum != null)
+                starsNum as Int
+            else
+                0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
+    @JvmStatic
+    fun DocumentSnapshot.toRating(): Rating? {
+        //if it is an adv of the loggedUser, the profile can be passed as empty Profile
+
+        return try {
+            val rated = get("rated") as DocumentReference
+            val rater = get("rated") as DocumentReference
+            val starsNum = get("starsNum") as Number
+            val comment = get("comment") as String //TODO: check if empty
+            val timestamp = get("timestamp") as Timestamp //Timestamp on FB
+
+            //TODO: useful example of code?
+//            val skillTmp = if (skill == null) {
+//                ""
+//            } else {
+//                (skill as DocumentReference).path.split("/").last()
+//            }
+
+            Rating(
+                "",
+                rated.toString(),
+                rater.toString(),
+                starsNum as Int,
+                comment,
+                timestamp.toString()
+            )
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
     }
 
 

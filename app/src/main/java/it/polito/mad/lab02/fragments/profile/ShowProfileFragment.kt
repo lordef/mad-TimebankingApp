@@ -67,6 +67,8 @@ class ShowProfileFragment : Fragment() {
         val location = binding.locationTextView
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
+        val rating = binding.ratingValueTextView
+
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
             // update UI
@@ -79,6 +81,12 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
+        }
+
+        //Retrieve of the rating average
+        vm.setRatingNumber("")
+        vm.ratingNumber.observe(viewLifecycleOwner){
+            rating.text = it.toString()
         }
 
 
