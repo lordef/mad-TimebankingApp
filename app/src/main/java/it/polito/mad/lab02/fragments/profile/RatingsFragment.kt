@@ -1,4 +1,4 @@
-package it.polito.mad.lab02.fragments.myadvertisements
+package it.polito.mad.lab02.fragments.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,11 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.fragments.myadvertisements.placeholder.PlaceholderContent
 
-/**
- * A fragment representing a list of Items.
- */
 class RatingsFragment : Fragment() {
 
     private var columnCount = 1
@@ -39,7 +35,7 @@ class RatingsFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = RatingRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                //adapter = RatingRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view
