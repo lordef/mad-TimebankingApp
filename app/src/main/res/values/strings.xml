@@ -63,6 +63,7 @@
     <string name="delete_timeSlot">Delete</string>
     <string name="empty_adv_msg">No advertisements present</string>
     <string name="empty_chats_msg">No chats present</string>
+    <string name="empty_messages_msg">No messages present</string>
     <string name="nav_logout">Logout</string>
     <string name="empty_skills_msg">No skills present</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

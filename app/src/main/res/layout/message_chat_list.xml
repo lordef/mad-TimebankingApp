@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_gchat"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:flow_horizontalBias="0.0"
-        app:layoutManager="LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constrainedWidth="false"
         app:layout_constraintBottom_toTopOf="@+id/layout_gchat_chatbox"
@@ -19,7 +17,38 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_chat_me">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_gchat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:flow_horizontalBias="0.0"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_chat_me">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/text_no_messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/empty_messages_msg"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/divider"
@@ -27,10 +56,10 @@
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/recycler_gchat"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_gchat" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_chat" />
 
     <RelativeLayout
         android:id="@+id/layout_gchat_chatbox"
@@ -39,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_gchat">
+        app:layout_constraintTop_toBottomOf="@+id/layout_chat">
 
 
         <EditText

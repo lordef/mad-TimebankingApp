@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -446,22 +447,31 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** Chat functionalities ********/
 
-    fun createChat(ts: TimeSlot): String  {
+    fun createChat(ts: TimeSlot): String {
+        var exists = false
+        var chat: QuerySnapshot
+        runBlocking {
+            chat = chatsRef
+                .whereEqualTo("publisher", db.document(ts.user))
+                .whereEqualTo("requester", usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()))
+                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
+                .get().await()
+            if (chat.documents.size >= 1){
+                exists = true
+            }
+        }
+
+        if(exists){
+            return chat.documents.first().id
+        }
+
         val newChat = chatsRef.document()
         val data = hashMapOf(
             "publisher" to db.document(ts.user),
             "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
             "timeslot" to timeslotsRef.document(ts.id)
         )
-        viewModelScope.launch(Dispatchers.IO) {
-            val chat = chatsRef
-                .whereEqualTo("publisher", db.document(ts.user))
-                .whereEqualTo("requester", usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()))
-                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
-                .get().await()
-            Log.d("MYTAG", "${chat.documents.size}")
-            //newChat.set(data)
-        }
+        newChat.set(data)
         return newChat.id
     }
 

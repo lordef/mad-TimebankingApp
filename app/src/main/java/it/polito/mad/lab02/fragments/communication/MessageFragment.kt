@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -33,7 +34,16 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
         if (chatRef != null) {
             vm.setMessagesListener(chatRef)
 
+            val textView = view.findViewById<TextView>(R.id.text_no_messages)
+
             vm.messageList.observe(viewLifecycleOwner){ messageList ->
+                if (messageList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
 
                 val myAdapter = MessageRecyclerViewAdapter(messageList)
 
