@@ -57,7 +57,7 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                         .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment)
                 } else {
                     val builder: AlertDialog.Builder =
-                        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                        androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
 
                     builder.setCancelable(true)
                     builder.setTitle("Wait a minute!")
