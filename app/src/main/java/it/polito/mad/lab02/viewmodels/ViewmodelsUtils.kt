@@ -2,6 +2,7 @@ package it.polito.mad.lab02.viewmodels
 
 import android.util.Log
 import com.google.firebase.Timestamp
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
@@ -10,6 +11,7 @@ import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
+import it.polito.mad.lab02.models.*
 
 object ViewmodelsUtils {
     @JvmStatic
@@ -33,7 +35,7 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toTimeslot(profile: Profile): TimeSlot? {
+    fun DocumentSnapshot.toTimeslot(profile: Profile?): TimeSlot? {
         //if it is an adv of the loggedUser, the profile can be passed as empty Profile
 
         return try {
@@ -51,17 +53,22 @@ object ViewmodelsUtils {
                 (skill as DocumentReference).path.split("/").last()
             }
 
-            TimeSlot(
-                this.id,
-                title,
-                description,
-                datetime,
-                duration,
-                location,
-                skillTmp,
-                user.path,
-                profile
-            )
+            if (profile != null) {
+                TimeSlot(
+                    this.id,
+                    title,
+                    description,
+                    datetime,
+                    duration,
+                    location,
+                    skillTmp,
+                    user.path,
+                    profile
+                )
+            }
+            else{
+                throw Exception()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -97,6 +104,51 @@ object ViewmodelsUtils {
         return listTmp
     }
 
+    @JvmStatic
+    fun DocumentSnapshot.toChat(publisher: Profile?, requester: Profile?, timeSlot: TimeSlot?): Chat? {
+
+        return try {
+            if (publisher != null && requester != null && timeSlot != null) {
+                Chat(
+                    publisher = publisher,
+                    requester = requester,
+                    timeSlot = timeSlot,
+                    id = this.id
+                )
+            }
+            else{
+                throw Exception()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
+    @JvmStatic
+    fun DocumentSnapshot.toMessage(user: Profile?): Message? {
+        val text = get("text") as String
+        val timestamp = get("timestamp") as Timestamp
+
+        return try {
+            if (user != null) {
+                Message(
+                    text = text,
+                    timestamp = timestamp,
+                    user = user,
+                    id = this.id
+                )
+            }
+            else{
+                throw Exception()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
 
     //TODO
     @JvmStatic
