@@ -10,8 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import coil.load
 import it.polito.mad.lab02.R
+import com.google.gson.Gson
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class PublicShowProfileFragment : Fragment() {
@@ -105,6 +107,21 @@ class PublicShowProfileFragment : Fragment() {
                 )
         }
 
+        val user = arguments?.getString("user")
+        if (user != null) {
+            setHasOptionsMenu(false)
+            val userObj = Gson().fromJson(user, Profile::class.java)
+            // update UI
+            profileImageUri = userObj.imageUri
+            profileImage.load(Uri.parse(profileImageUri))
+            //profileImage.setImageURI(Uri.parse(profileImageUri))
+            fullName.text = userObj.fullName
+            nickname.text = userObj.nickname
+            email.text = userObj.email
+            location.text = userObj.location
+            skills.text = userObj.skills.joinToString(", ")
+            description.text = userObj.description
+        }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

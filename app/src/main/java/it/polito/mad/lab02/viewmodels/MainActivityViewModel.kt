@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -11,11 +12,18 @@ import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
+import it.polito.mad.lab02.models.*
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toChat
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toMessage
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toStarsNumber
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 
@@ -30,6 +38,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingList = MutableLiveData<List<Rating>>()
 
 
+    private val _publisherChatList = MutableLiveData<List<Chat>>()
+    private val _requesterChatList = MutableLiveData<List<Chat>>()
+    private val _messageList = MutableLiveData<List<Message>>()
 
     //LiveData passed to our fragments
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
@@ -37,8 +48,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val profile: LiveData<Profile> = _profile
     val skillList: LiveData<List<Skill>> = _skillList
     val loggedUserTimeSlotList: LiveData<List<TimeSlot>> = _loggedUserTimeSlotList
-    val ratingNumber : LiveData<Float> = _ratingNumber
-    val ratingList : LiveData<List<Rating>> = _ratingList
+    val ratingNumber: LiveData<Float> = _ratingNumber
+    val ratingList: LiveData<List<Rating>> = _ratingList
+    val publisherChatList: LiveData<List<Chat>> = _publisherChatList
+    val requesterChatList: LiveData<List<Chat>> = _requesterChatList
+    val messageList: LiveData<List<Message>> = _messageList
 
 
     //Creation of a Firebase db instance
@@ -49,6 +63,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val usersRef = db.collection("users")
     private val skillsRef = db.collection("skills")
     private val ratingsRef = db.collection("ratings")
+    private val chatsRef = db.collection("chats")
 
 
     // Creating the ListenerRegistrations
@@ -68,6 +83,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var ratingsListener: ListenerRegistration
     private var isRatingsListenerSetted = false
 
+    private lateinit var publisherChatsListener: ListenerRegistration
+    private lateinit var requesterChatsListener: ListenerRegistration
+    var isChatsListenerSetted = false
+
+    private lateinit var messagesListener: ListenerRegistration
 
     init {
         // Creating listener for logged user
@@ -89,6 +109,89 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
 
+    }
+
+    fun setChatsListener() {
+        // Setting up timeslotsListener
+
+        publisherChatsListener = chatsRef
+            .whereEqualTo(
+                "publisher",
+                usersRef.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            )
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _publisherChatList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Chat>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val requester = (d.get("requester") as DocumentReference)
+                                .get().await().toProfile()
+                            val publisher = (d.get("publisher") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = (d.get("timeslot") as DocumentReference)
+                                .get().await().toTimeslot(publisher)
+
+                            d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
+                        }
+                        _publisherChatList.postValue(tmpList)
+                    }
+                }
+            }
+
+        requesterChatsListener = chatsRef
+            .whereEqualTo(
+                "requester",
+                usersRef.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            )
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _requesterChatList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Chat>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val requester = (d.get("requester") as DocumentReference)
+                                .get().await().toProfile()
+                            val publisher = (d.get("publisher") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = (d.get("timeslot") as DocumentReference)
+                                .get().await().toTimeslot(publisher)
+
+                            d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
+                        }
+                        _requesterChatList.postValue(tmpList)
+                    }
+                }
+            }.also {
+                isChatsListenerSetted = true
+            }
+    }
+
+    fun setMessagesListener(chatId: String) {
+        messagesListener = chatsRef.document(chatId)
+            .collection("messages")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _messageList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Message>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val user = (d.get("user") as DocumentReference)
+                                .get().await().toProfile()
+                            d.toMessage(user)?.let { tmpList.add(it) }
+                        }
+                        _messageList.postValue(tmpList)
+                    }
+                }
+            }.also {
+                isChatsListenerSetted = true
+            }
     }
 
 
@@ -236,7 +339,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             } else {
 
                 val newSkill = mapOf(
-                    "ref" to skillsRef.document(skill.toLowerCase()),
+                    "id" to skillsRef.document(skill.toLowerCase()),
                     "name" to skill.toLowerCase(),
                     "occurrences" to 1 as Number
                 )
@@ -247,7 +350,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         } else {
             val newSkill = mapOf(
-                "ref" to skillsRef.document(skill.toLowerCase()),
+                "id" to skillsRef.document(skill.toLowerCase()),
                 "name" to skill.toLowerCase(),
                 "occurrences" to 1 as Number
             )
@@ -352,8 +455,67 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+
     /******** end - Logged user timeslots ********/
 
+    /******** Chat functionalities ********/
+
+    fun createChat(ts: TimeSlot): String {
+        var exists = false
+        var chat: QuerySnapshot
+        runBlocking {
+            chat = chatsRef
+                .whereEqualTo("publisher", db.document(ts.user))
+                .whereEqualTo(
+                    "requester",
+                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                )
+                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
+                .get().await()
+            if (chat.documents.size >= 1) {
+                exists = true
+            }
+        }
+
+        if (exists) {
+            return chat.documents.first().id
+        }
+
+        val newChat = chatsRef.document()
+        val data = hashMapOf(
+            "publisher" to db.document(ts.user),
+            "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
+            "timeslot" to timeslotsRef.document(ts.id)
+        )
+        newChat.set(data)
+        return newChat.id
+    }
+
+    fun sendMessage(chatId: String, message: String): Boolean {
+        return if (message != "") {
+            val data = hashMapOf(
+                "text" to message,
+                "timestamp" to Timestamp(Calendar.getInstance().time),
+                "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+            )
+
+            if (_messageList.value?.isEmpty() == true) {
+                chatsRef.document(chatId).collection("messages").document("1").set(data)
+            } else {
+                _messageList.value?.last()
+                    ?.let {
+                        chatsRef.document(chatId).collection("messages")
+                            .document((it.id.toInt() + 1).toString()).set(data)
+                    }
+            }
+
+            true
+        } else {
+            false
+        }
+    }
+
+    /******** end - Chat functionalities ********/
 
     /******** Ratings ********/
 
@@ -373,7 +535,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                             tmpStarNumsList.add(it)
                         }
                     }
-                    if(tmpStarNumsList.isEmpty()) //No detected ratings for this user
+                    if (tmpStarNumsList.isEmpty()) //No detected ratings for this user
                         _ratingNumber.value = 0f
                     else //Average of ratings for this user
                         _ratingNumber.value = tmpStarNumsList.average().toFloat()
@@ -407,9 +569,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-
     /******** end - Ratings ********/
-
 
     override fun onCleared() {
         super.onCleared()
@@ -428,10 +588,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             ratingNumbersListener.remove()
         }
 
-        if (isRatingsListenerSetted){
+        if (isRatingsListenerSetted) {
             ratingsListener.remove()
         }
     }
+
 
 }
 

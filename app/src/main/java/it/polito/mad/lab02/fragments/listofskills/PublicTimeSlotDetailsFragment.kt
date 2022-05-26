@@ -1,16 +1,20 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
@@ -22,7 +26,6 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         val title = view.findViewById<TextView>(R.id.titleTextView)
         val description = view.findViewById<TextView>(R.id.descriptionTextView)
@@ -41,6 +44,12 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
 
+                    if(ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid){
+                        setHasOptionsMenu(false)
+                    }
+                    else{
+                        setHasOptionsMenu(true)
+                    }
                     title.text = ts.title
                     description.text = ts.description
                     dateTime.text = ts.dateTime
@@ -78,11 +87,31 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.message_menu, menu)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-
+            R.id.messageItem -> {
+                Toast.makeText(this.context, "Contact publisher", Toast.LENGTH_SHORT)
+                    .show()
+                view?.let { view ->
+                    val id = arguments?.getString("id")
+                    vm.timeslotList
+                        .observe(viewLifecycleOwner) { listTs ->
+                            val bundle = Bundle()
+                            val id = vm.createChat(listTs.first { it.id == id })
+                            bundle.putString("id", id)
+                            Navigation.findNavController(view).navigate(
+                                R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message, bundle
+                            )
+                        }
+                }
+                true
+            }
             android.R.id.home -> {
                 findNavController().navigateUp()
                 true
