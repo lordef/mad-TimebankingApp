@@ -2,6 +2,7 @@ package it.polito.mad.lab02.fragments.profile
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
@@ -43,7 +44,10 @@ class RatingRecyclerViewAdapter(
         fun bind(rating: Rating){
             ratingBar.rating = rating.starsNum.toFloat()
             rater.text = rating.rater
-            comment.text = rating.comment
+            if(rating.comment.isNotEmpty())
+                comment.text = rating.comment
+            else
+                comment.visibility = View.GONE
             timestamp.text = rating.timestamp
         }
 

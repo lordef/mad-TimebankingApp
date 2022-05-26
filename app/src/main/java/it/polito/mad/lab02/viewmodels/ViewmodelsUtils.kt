@@ -131,12 +131,11 @@ object ViewmodelsUtils {
             Rating(
                 "",
                 rated.toString(),
-                rater.toString(),
+                rater.path,
                 starsNum.toInt(),
                 comment,
                 timestamp.toString()
             )
-//            Rating("", "rr", "rd", 2, "cmt", "ts")
 
         } catch (e: Exception) {
             e.printStackTrace()

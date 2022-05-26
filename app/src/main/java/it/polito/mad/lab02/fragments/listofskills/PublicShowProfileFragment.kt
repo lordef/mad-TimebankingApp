@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import coil.load
+import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -64,6 +65,7 @@ class PublicShowProfileFragment : Fragment() {
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
         //TODO: ratingValueTextView with dynamic avg
+        val ratingCard = binding.ratingCardView
 
         val id = arguments?.getString("id")
         if (id != null) {
@@ -81,6 +83,10 @@ class PublicShowProfileFragment : Fragment() {
                 skills.text = ts.userProfile.skills.joinToString(", ")
                 description.text = ts.userProfile.description
             }
+        }
+        //TODO: vedere come funziona la navigation, non funiona il pulsante indietro in basso
+        ratingCard.setOnClickListener {
+            it.findNavController().navigate(R.id.action_publicShowProfileFragment_to_ratingsFragment)
         }
 
 
