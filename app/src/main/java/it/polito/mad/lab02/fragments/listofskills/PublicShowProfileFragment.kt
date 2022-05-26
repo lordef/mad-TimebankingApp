@@ -64,14 +64,16 @@ class PublicShowProfileFragment : Fragment() {
         val location = binding.locationTextView
         val skills = binding.skillTextView
         val description = binding.descriptionTextView
-        //TODO: ratingValueTextView with dynamic avg
         val ratingCard = binding.ratingCardView
+        val ratingValue = binding.ratingValueTextView
+
 
         val id = arguments?.getString("id")
         if (id != null) {
             setHasOptionsMenu(false)
             vm.timeslotList.observe(viewLifecycleOwner) {
                 val ts = it.filter { t -> t.id == id }[0]
+
                 // update UI
                 profileImageUri = ts.userProfile.imageUri
                 profileImage.load(Uri.parse(profileImageUri))
@@ -82,6 +84,11 @@ class PublicShowProfileFragment : Fragment() {
                 location.text = ts.userProfile.location
                 skills.text = ts.userProfile.skills.joinToString(", ")
                 description.text = ts.userProfile.description
+
+                vm.setRatingNumber(ts.userProfile.uid)
+                vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
+                    ratingValue.text = avgRatingNum.toString()
+                }
             }
         }
         //TODO: vedere come funziona la navigation, non funiona il pulsante indietro in basso

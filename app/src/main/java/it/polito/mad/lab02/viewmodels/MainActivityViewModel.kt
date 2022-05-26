@@ -362,9 +362,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     /******** Ratings ********/
 
     //TODO: doing retriev of avg from rating
-    fun setRatingNumber(ratedProfileId: String) {
+    fun setRatingNumber(ratedProfileUid: String) {
         val userRef = usersRef
-            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: change to input Id
+            .document(ratedProfileUid)
 
         ratingNumbersListener = ratingsRef
             .whereEqualTo("rated", userRef)
@@ -375,10 +375,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     val tmpStarNumsList = mutableListOf<Int>()
                     r!!.forEach { d ->
                         d.toStarsNumber()?.let {
+                            Log.d("RATE", "stars: $it")
                             tmpStarNumsList.add(it)
                         }
                     }
-                    _ratingNumber.value = tmpStarNumsList.average().toFloat()
+                    if(tmpStarNumsList.isEmpty()) //No detected ratings for this user
+                        _ratingNumber.value = 0f
+                    else //Average of ratings for this user
+                        _ratingNumber.value = tmpStarNumsList.average().toFloat()
                 }
             }
             .also {

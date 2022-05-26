@@ -82,11 +82,11 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
-        }
 
-        vm.setRatingNumber("")
-        vm.ratingNumber.observe(viewLifecycleOwner){
-            ratingValue.text = it.toString()
+            vm.setRatingNumber(profile.uid)
+            vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
+                ratingValue.text = avgRatingNum.toString()
+            }
         }
 
         ratingCard.setOnClickListener {
