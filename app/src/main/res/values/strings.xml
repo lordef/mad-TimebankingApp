@@ -71,6 +71,8 @@
     <string name="no_filter">No filter</string>
     <string name="no_sorting">No sorting</string>
     <string name="dialog_text_filters">Type a keyword</string>
+    <string name="empty_ratings_msg">No ratings present</string>
+
     <!--string name="location">Location</string-->
 
     <!-- skills constraint Menu-->

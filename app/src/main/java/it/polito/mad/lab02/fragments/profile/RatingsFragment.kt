@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -32,7 +33,10 @@ class RatingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_ratings_list, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_ratings_list_with_no_ratings, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.ratings_list)
+
 
         val userUid = arguments?.getString("userUid")
 
@@ -49,6 +53,15 @@ class RatingsFragment : Fragment() {
                         }
                         adapter = RatingRecyclerViewAdapter(ratings)
                     }
+                }
+
+                val textView = view.findViewById<TextView>(R.id.no_ratings_text)
+                if (ratings.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
                 }
             }
         }
