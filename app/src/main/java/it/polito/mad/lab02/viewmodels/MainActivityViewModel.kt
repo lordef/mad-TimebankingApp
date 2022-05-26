@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -395,10 +396,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun setRatingsListenerByUserId(ratedProfileId: String) {
         val userRef = usersRef
-            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from inout parameter
+            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
 
         ratingsListener = ratingsRef
-            .whereEqualTo("user", userRef)
+//            .whereEqualTo("user", userRef)
             .addSnapshotListener { r, e ->
                 _ratingList.value = if (e != null)
                     emptyList()

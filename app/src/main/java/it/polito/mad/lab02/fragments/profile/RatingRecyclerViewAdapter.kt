@@ -41,7 +41,7 @@ class RatingRecyclerViewAdapter(
         val timestamp: TextView = binding.timestamp
 
         fun bind(rating: Rating){
-            ratingBar.rating = rating.stars.toFloat()
+            ratingBar.rating = rating.starsNum.toFloat()
             rater.text = rating.rater
             comment.text = rating.comment
             timestamp.text = rating.timestamp

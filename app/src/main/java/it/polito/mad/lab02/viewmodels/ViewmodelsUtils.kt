@@ -120,7 +120,7 @@ object ViewmodelsUtils {
 
         return try {
             val rated = get("rated") as DocumentReference
-            val rater = get("rated") as DocumentReference
+            val rater = get("rater") as DocumentReference
             val starsNum = get("starsNum") as Number
             val comment = get("comment") as String //TODO: check if empty
             val timestamp = get("timestamp") as Timestamp //Timestamp on FB

@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,12 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Rating
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class RatingsFragment : Fragment() {
 
     private var columnCount = 1
+
+    private val vm by activityViewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,25 +29,28 @@ class RatingsFragment : Fragment() {
     }
 
 
-    val b = Rating("rated", "rater", 4, "good", "22/05/2022")
-    val c = Rating("rated", "rater3", 2, "meh", "2/02/2022")
-    var a = mutableListOf<Rating>(b, c)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_ratings_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+        vm.setRatingsListenerByUserId("")
+        vm.ratingList.observe(viewLifecycleOwner){ ratings ->
+            Log.d("ratings", ratings.toString())
+            if (view is RecyclerView) {
+                with(view) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                adapter = RatingRecyclerViewAdapter(ratings)
                 }
-                adapter = RatingRecyclerViewAdapter(a)
             }
         }
+        // Set the adapter
+
         return view
     }
 
