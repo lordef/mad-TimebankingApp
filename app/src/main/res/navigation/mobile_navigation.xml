@@ -136,13 +136,20 @@
         android:id="@+id/nav_single_message"
         android:name="it.polito.mad.lab02.fragments.communication.MessageFragment"
         android:label="Single message"
-        tools:layout="@layout/fragment_message_list" />
+        tools:layout="@layout/message_chat_list" >
+        <action
+            android:id="@+id/action_nav_single_message_to_publicShowProfileFragment2"
+            app:destination="@id/publicShowProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_chats"
         android:name="it.polito.mad.lab02.fragments.communication.ChatFragment"
-        android:label="ChatFragment">
+        android:label="Chats as publisher">
         <action
             android:id="@+id/action_chatFragment_to_nav_single_message"
             app:destination="@id/nav_single_message" />
+        <action
+            android:id="@+id/action_nav_chats_to_publicShowProfileFragment"
+            app:destination="@id/publicShowProfileFragment" />
     </fragment>
 </navigation>

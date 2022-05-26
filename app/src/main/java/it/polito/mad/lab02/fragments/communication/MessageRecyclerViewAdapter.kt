@@ -3,14 +3,21 @@ package it.polito.mad.lab02.fragments.communication
 import android.R
 import android.content.Context
 import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigator
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.get
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import it.polito.mad.lab02.databinding.ItemChatMeBinding
 import it.polito.mad.lab02.models.Message
 import java.util.*
@@ -66,7 +73,16 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
         val message: Message = mMessageList[position]
         when (holder!!.itemViewType) {
             VIEW_TYPE_MESSAGE_SENT -> (holder as SentMessageHolder?)!!.bind(message)
-            VIEW_TYPE_MESSAGE_RECEIVED -> (holder as ReceivedMessageHolder?)!!.bind(message)
+            VIEW_TYPE_MESSAGE_RECEIVED -> (holder as ReceivedMessageHolder?)!!
+                .bind(message){
+                    val bundle = Bundle()
+                    bundle.putString("user", Gson().toJson(mMessageList[position].user))
+                    it.findNavController()
+                        .navigate(
+                            it.resources.getIdentifier("publicShowProfileFragment","id", "it.polito.mad.lab02"),
+                            bundle
+                        )
+            }
         }
     }
 
@@ -95,7 +111,7 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
         var profileImage: ImageView = binding.imageGchatProfileOther
         var dateText: TextView = binding.textGchatDateOther
 
-        fun bind(message: Message) {
+        fun bind(message: Message, action1: (v: View) -> Unit) {
             messageText.text = message.text
             // Format the stored timestamp into a readable String using method.
             timeText.text = SimpleDateFormat("HH:mm").format(message.timestamp.toDate())
@@ -105,6 +121,7 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
 
             // Insert the profile image from the URL into the ImageView.
             profileImage.load(Uri.parse(message.user.imageUri))
+            profileImage.setOnClickListener(action1)
         }
     }
 
