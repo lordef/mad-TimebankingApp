@@ -4,4 +4,6 @@ data class Rating (
     val rated: String,
     val rater: String,
     val stars: Int,
-    val comment: String)
+    val comment: String,
+    val timestamp: String
+)

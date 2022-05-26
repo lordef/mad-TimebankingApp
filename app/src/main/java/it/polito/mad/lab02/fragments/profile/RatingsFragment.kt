@@ -24,8 +24,9 @@ class RatingsFragment : Fragment() {
     }
 
 
-    val b = Rating("rated", "rater", 4, "good")
-    var a = mutableListOf<Rating>(b)
+    val b = Rating("rated", "rater", 4, "good", "22/05/2022")
+    val c = Rating("rated", "rater3", 2, "meh", "2/02/2022")
+    var a = mutableListOf<Rating>(b, c)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
