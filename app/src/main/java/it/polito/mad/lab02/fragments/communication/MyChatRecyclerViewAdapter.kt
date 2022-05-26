@@ -35,7 +35,7 @@ class MyChatRecyclerViewAdapter(
             displayData[position],
          {
             val bundle = Bundle()
-            bundle.putString("ref", displayData[position].ref)
+            bundle.putString("id", displayData[position].id)
             it.findNavController()
                 .navigate(
                     R.id.action_chatFragment_to_nav_single_message,

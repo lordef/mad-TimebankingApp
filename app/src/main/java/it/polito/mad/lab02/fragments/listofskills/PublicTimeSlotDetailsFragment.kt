@@ -97,8 +97,8 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                     vm.timeslotList
                         .observe(viewLifecycleOwner) { listTs ->
                             val bundle = Bundle()
-                            val ref = vm.createChat(listTs.first { it.id == id })
-                            bundle.putString("ref", ref)
+                            val id = vm.createChat(listTs.first { it.id == id })
+                            bundle.putString("id", id)
                             Navigation.findNavController(view).navigate(
                                 R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message, bundle
                             )

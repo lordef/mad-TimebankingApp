@@ -4,5 +4,5 @@ data class Chat(
     val publisher: Profile,
     val requester: Profile,
     val timeSlot: TimeSlot,
-    val ref: String
+    val id: String
 )

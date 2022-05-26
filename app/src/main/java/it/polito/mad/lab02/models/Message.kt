@@ -6,5 +6,5 @@ data class Message(
     val text: String,
     val timestamp: Timestamp,
     val user: Profile,
-    val ref: String
+    val id: String
 )

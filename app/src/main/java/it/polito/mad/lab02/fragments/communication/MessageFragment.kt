@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.okhttp.MediaType
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Message
 import it.polito.mad.lab02.models.Profile
@@ -26,17 +30,22 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Chat"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_gchat)
 
-        val chatRef = arguments?.getString("ref")
-        if (chatRef != null) {
-            vm.setMessagesListener(chatRef)
+        val chatId = arguments?.getString("id")
+        if (chatId != null) {
+            vm.setMessagesListener(chatId)
 
             val textView = view.findViewById<TextView>(R.id.text_no_messages)
 
-            vm.messageList.observe(viewLifecycleOwner){ messageList ->
+            vm.messageList.observe(viewLifecycleOwner) { messageList ->
                 if (messageList.isEmpty()) {
                     recyclerView.visibility = View.GONE
                     textView.visibility = View.VISIBLE
@@ -55,6 +64,14 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                         }
                         adapter = myAdapter
                     }
+                }
+            }
+
+            val composedMessage = view.findViewById<TextView>(R.id.edit_gchat_message)
+            val send = view.findViewById<Button>(R.id.button_gchat_send)
+            send.setOnClickListener{
+                if(vm.sendMessage(chatId, composedMessage.text.toString())){
+                    composedMessage.text = ""
                 }
             }
         }

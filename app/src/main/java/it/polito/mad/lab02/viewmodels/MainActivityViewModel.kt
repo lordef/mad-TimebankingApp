@@ -1,12 +1,10 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -323,7 +321,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             } else {
 
                 val newSkill = mapOf(
-                    "ref" to skillsRef.document(skill.toLowerCase()),
+                    "id" to skillsRef.document(skill.toLowerCase()),
                     "name" to skill.toLowerCase(),
                     "occurrences" to 1 as Number
                 )
@@ -334,7 +332,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         } else {
             val newSkill = mapOf(
-                "ref" to skillsRef.document(skill.toLowerCase()),
+                "id" to skillsRef.document(skill.toLowerCase()),
                 "name" to skill.toLowerCase(),
                 "occurrences" to 1 as Number
             )
@@ -441,8 +439,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-
-
     /******** end - Logged user timeslots ********/
 
     /******** Chat functionalities ********/
@@ -453,15 +449,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         runBlocking {
             chat = chatsRef
                 .whereEqualTo("publisher", db.document(ts.user))
-                .whereEqualTo("requester", usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()))
+                .whereEqualTo(
+                    "requester",
+                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                )
                 .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
                 .get().await()
-            if (chat.documents.size >= 1){
+            if (chat.documents.size >= 1) {
                 exists = true
             }
         }
 
-        if(exists){
+        if (exists) {
             return chat.documents.first().id
         }
 
@@ -473,6 +472,29 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         )
         newChat.set(data)
         return newChat.id
+    }
+
+    fun sendMessage(chatId: String, message: String): Boolean {
+        return if (message != "") {
+            val data = hashMapOf(
+                "text" to message,
+                "timestamp" to Timestamp(Calendar.getInstance().time),
+                "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+            )
+
+            if (_messageList.value?.isEmpty() == true) {
+                chatsRef.document(chatId).collection("messages").document("1").set(data)
+            } else {
+                _messageList.value?.last()
+                    ?.let {
+                        chatsRef.document(chatId).collection("messages").document((it.id.toInt()+1).toString()).set(data)
+                    }
+            }
+
+            true
+        } else {
+            false
+        }
     }
 
     /******** end - Chat functionalities ********/
@@ -489,5 +511,4 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             loggedUserTimeSlotsListener.remove()
         }
     }
-
 }

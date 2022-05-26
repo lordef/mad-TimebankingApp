@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigator
@@ -23,6 +24,7 @@ import it.polito.mad.lab02.models.Message
 import java.util.*
 
 import it.polito.mad.lab02.databinding.ItemChatOtherBinding
+import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.text.SimpleDateFormat
 
 

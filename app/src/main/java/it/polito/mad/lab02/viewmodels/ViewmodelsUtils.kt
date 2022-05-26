@@ -5,7 +5,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import it.polito.mad.lab02.models.*
-import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 
 object ViewmodelsUtils {
     @JvmStatic
@@ -107,7 +106,7 @@ object ViewmodelsUtils {
                     publisher = publisher,
                     requester = requester,
                     timeSlot = timeSlot,
-                    ref = this.id
+                    id = this.id
                 )
             }
             else{
@@ -131,7 +130,7 @@ object ViewmodelsUtils {
                     text = text,
                     timestamp = timestamp,
                     user = user,
-                    ref = this.id
+                    id = this.id
                 )
             }
             else{
