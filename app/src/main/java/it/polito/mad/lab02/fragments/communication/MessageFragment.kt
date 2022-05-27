@@ -1,6 +1,5 @@
 package it.polito.mad.lab02.fragments.communication
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,25 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
-import com.squareup.okhttp.MediaType
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.models.Message
-import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
-import org.w3c.dom.Text
-import java.util.*
 
 class MessageFragment : Fragment(R.layout.message_chat_list) {
 
@@ -95,8 +88,13 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                             if (timeSlotObs.state == "AVAILABLE") {
                                                 requestButton.text = "Accept offer"
                                                 requestButton.setOnClickListener {
-                                                    vm.setTimeSlotState("ACCEPTED", timeSlotObs)
-                                                    vm.setTimeSlotAssignee(messageList[0].user.uid, timeSlotObs)
+                                                    if(!(vm.setTimeSlotAssignee(messageList[0].user.uid, timeSlotObs, messageList[0].user))){
+                                                        vm.removeTimeSlotRequest(
+                                                            messageList[0].user.uid,
+                                                            timeSlotObs
+                                                        )
+                                                        Toast.makeText(this.context, "The user has not enough money", Toast.LENGTH_SHORT).show()
+                                                    }
                                                 }
                                                 refuseButton.text = "Reject offer"
                                                 refuseButton.setOnClickListener {

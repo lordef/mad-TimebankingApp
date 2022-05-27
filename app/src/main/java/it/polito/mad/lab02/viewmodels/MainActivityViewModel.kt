@@ -107,7 +107,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .addSnapshotListener { r, e ->
                 _profile.value = if (e != null)
-                    Profile("", "", "", "", "", emptyList(), "", "")
+                    Profile("", "", "", "", "", emptyList(), "", "", 0)
                 else r!!.toProfile()
             }
 
@@ -233,10 +233,38 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .update("state", s)
     }
 
-    fun setTimeSlotAssignee(a: String, ts: TimeSlot) {
-        timeslotsRef
-            .document(ts.id)
-            .update("assignee", usersRef.document(a))
+    fun setTimeSlotAssignee(a: String, ts: TimeSlot, payer: Profile): Boolean {
+        val durationTmp = ts.duration.split(":")[0].toInt() * 60 + ts.duration.split(":")[1].toInt()
+        var outcome = false
+        if (payer.balance - durationTmp >= 0) {
+            runBlocking {
+                db.runTransaction { transaction ->
+                    transaction.update(
+                        timeslotsRef.document(ts.id),
+                        "assignee",
+                        usersRef.document(a)
+                    )
+                    transaction
+                        .update(
+                            usersRef.document(payer.uid),
+                            "balance",
+                            (payer.balance - durationTmp) as Number
+                        )
+                    transaction
+                        .update(
+                            usersRef.document(FirebaseAuth.getInstance().currentUser!!.uid),
+                            "balance", FieldValue.increment(durationTmp.toLong())
+                        )
+                    transaction
+                        .update(
+                            timeslotsRef
+                                .document(ts.id), "state", "ACCEPTED"
+                        )
+                    outcome = true
+                }.await()
+            }
+        }
+        return outcome
     }
 
     fun setTimeSlotRequest(a: String, ts: TimeSlot) {
@@ -354,7 +382,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removePublicAdvsListener() {
-        if (areTSsAndUsersListenersSetted){
+        if (areTSsAndUsersListenersSetted) {
             timeslotsListener.remove()
             usersListener.remove()
 
@@ -463,7 +491,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _loggedUserTimeSlotList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
-                    d.toTimeslot(Profile("", "", "", "", "", emptyList(), "", ""))
+                    d.toTimeslot(Profile("", "", "", "", "", emptyList(), "", "", 0))
                 }
             }
             .also {

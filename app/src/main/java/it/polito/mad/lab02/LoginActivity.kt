@@ -125,7 +125,8 @@ class LoginActivity : AppCompatActivity() {
                                     "",
                                     emptyList(),
                                     "",
-                                    mAuth?.currentUser?.uid!!
+                                    mAuth?.currentUser?.uid!!,
+                                    5*60 //5 free hours gifted
                                 )
 
                                 db
