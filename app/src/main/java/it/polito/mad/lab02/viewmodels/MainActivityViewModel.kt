@@ -125,20 +125,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
 
     /******** Chats and Messages ********/
-    fun setTimeSlotListener(ts: TimeSlot) {
-        timeslotListener = timeslotsRef
-            .document(ts.id)
-            .addSnapshotListener { r, e ->
-                if (e != null)
-                    _timeSlot.value = null
-                else {
-                    if (r != null) {
-                        _timeSlot.value = r.toTimeslot(ts.userProfile)
-                    }
-                }
-            }
-    }
-
     fun setChatsListener() {
         // Setting up timeslotsListener
 
@@ -226,6 +212,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     /******** end - Chats and Messages ********/
 
     /******** Single timeslot ********/
+
+    fun setTimeSlotListener(ts: TimeSlot) {
+        timeslotListener = timeslotsRef
+            .document(ts.id)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _timeSlot.value = null
+                else {
+                    if (r != null) {
+                        _timeSlot.value = r.toTimeslot(ts.userProfile)
+                    }
+                }
+            }
+    }
 
     fun setTimeSlotState(s: String, ts: TimeSlot) {
         timeslotsRef
@@ -527,12 +527,22 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return returnedId
     }
 
-
     fun deleteTimeSlot(timeslotId: String) {
         if (isLoggedUserTSsListenerSetted) {
             timeslotsRef.document(timeslotId).delete()
         }
     }
+
+    fun removeAdvsListenerByCurrentUser() {
+        if (isLoggedUserTSsListenerSetted){
+            isLoggedUserTSsListenerSetted = false
+
+            loggedUserTimeSlotsListener.remove()
+
+            _loggedUserTimeSlotList.value = emptyList()
+        }
+    }
+
 
 
     /******** end - Logged user timeslots ********/
@@ -683,6 +693,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             timeslotsListener.remove()
             usersListener.remove()
         }
+
         loggedUserListener.remove()
         skillsListener.remove()
 
