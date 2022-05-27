@@ -1,5 +1,6 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
+import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 
 
@@ -38,7 +41,18 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val timeslot = values[position]
-        holder.bind(timeslot, {}, {})
+        holder.bind(timeslot,
+        {
+            val bundle = Bundle()
+            val json = Gson().toJson(timeslot.userProfile)
+            bundle.putString("profileRater", json)
+            bundle.putString("profileRated", json)
+             it.findNavController()
+                .navigate(
+                    R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
+                    bundle
+                )
+        }, {})
 
     }
 
@@ -61,6 +75,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
             if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)){
                 rateButton.visibility = View.VISIBLE
+                rateButton.setOnClickListener(action1)
             }else{
                 rateButton.visibility = View.GONE
             }
