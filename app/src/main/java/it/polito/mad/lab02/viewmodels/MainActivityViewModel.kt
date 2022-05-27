@@ -382,14 +382,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removePublicAdvsListener() {
-        if (areTSsAndUsersListenersSetted){
+        if (areTSsAndUsersListenersSetted) {
             areTSsAndUsersListenersSetted = false
 
-        if (areTSsAndUsersListenersSetted) {
-            timeslotsListener.remove()
-            usersListener.remove()
+            if (areTSsAndUsersListenersSetted) {
+                timeslotsListener.remove()
+                usersListener.remove()
 
-            _timeSlotList.value = emptyList()
+                _timeSlotList.value = emptyList()
+            }
         }
     }
 
