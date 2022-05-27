@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
@@ -28,6 +30,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private var isEdit = false
     private var tempID = "0" //useful when isEdit and we must retrieve an existing id
+    private var timeSlotState = ""
+    private var timeSlotAssignee = ""
 
     private var fieldsOk = false
 
@@ -227,6 +231,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             tempID = id
 
             vm.loggedUserTimeSlotList.observe(viewLifecycleOwner){
+                timeSlotAssignee = it.first { t -> id == t.id }.assignee
+                timeSlotState = it.first { t -> id == t.id }.state
                 if (savedInstanceState == null) {
                     val ts = it.first { t -> id == t.id }
                     title?.text = ts?.title
@@ -319,6 +325,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             }
 
             val id = if (!isEdit) "1" else tempID
+            val state = if(!isEdit) "AVAILABLE" else timeSlotState
+            val assignee = if(!isEdit) FirebaseAuth.getInstance().currentUser!!.uid else timeSlotAssignee
+
             val newTimeSlot = TimeSlot(
                 id,
                 title?.text.toString(),
@@ -328,7 +337,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 location?.text.toString(),
                 skillTextTmp,
                 "user",
-                Profile("", "", "", "", "", emptyList(), "", "")
+                Profile("", "", "", "", "", emptyList(), "", ""),
+                assignee,
+                state
             )
             val bundle = Bundle()
             val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)

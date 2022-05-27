@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,6 +38,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingNumber = MutableLiveData<Float>()
     private val _ratingList = MutableLiveData<List<Rating>>()
 
+    private val _isChatListenerSet = MutableLiveData<Boolean>(false)
+
+    private val _timeSlot = MutableLiveData<TimeSlot?>()
+
+
 
     private val _publisherChatList = MutableLiveData<List<Chat>>()
     private val _requesterChatList = MutableLiveData<List<Chat>>()
@@ -54,6 +60,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
 
+    val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
+
+    val timeSlot: LiveData<TimeSlot?> = _timeSlot
 
     //Creation of a Firebase db instance
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -89,6 +98,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var messagesListener: ListenerRegistration
 
+    private lateinit var timeslotListener: ListenerRegistration
+
+
     init {
         // Creating listener for logged user
         loggedUserListener = usersRef
@@ -109,6 +121,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
 
+    }
+
+    fun setTimeSlotListener(ts: TimeSlot){
+        timeslotListener = timeslotsRef
+            .document(ts.id)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _timeSlot.value = null
+                else {
+                    if (r != null) {
+                        _timeSlot.value = r.toTimeslot(ts.userProfile)
+                    }
+                }
+            }
     }
 
     fun setChatsListener() {
@@ -168,6 +194,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }.also {
                 isChatsListenerSetted = true
+                _isChatListenerSet.value = true
             }
     }
 
@@ -194,6 +221,21 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
+    /******** Single timeslot ********/
+
+    fun setTimeSlotState(s: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("state", s)
+    }
+
+    fun setTimeSlotAssignee(a: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("assignee", usersRef.document(a))
+    }
+
+    /******** end - Single timeslot ********/
 
     /******** All timeslots ********/
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
@@ -231,7 +273,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     r!!.forEach { d ->
                         val tmpProfile = d.toProfile()
                         _timeSlotList.value?.filter {
-                            it.user == d.reference.path
+                            it.user == d.reference.id
                         }?.forEach {
                             val tmpTimeslot = TimeSlot(
                                 it.id,
@@ -242,7 +284,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 it.location,
                                 it.skill,
                                 it.user,
-                                tmpProfile!!
+                                tmpProfile!!,
+                                it.assignee,
+                                it.state
                             )
                             tmpList.add(tmpTimeslot)
                         }
@@ -416,7 +460,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "dateTime" to newTS.dateTime,
                     "duration" to newTS.duration,
                     "location" to newTS.location,
-                    "user" to currentUser
+                    "user" to currentUser,
+                    "assignee" to usersRef.document(newTS.assignee),
+                    "state" to newTS.state
                 )
             } else {
                 val skillRef = skillsRef
@@ -428,7 +474,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "duration" to newTS.duration,
                     "location" to newTS.location,
                     "skill" to skillRef,
-                    "user" to currentUser
+                    "user" to currentUser,
+                    "assignee" to usersRef.document(newTS.assignee),
+                    "state" to newTS.state
                 )
             }
 
@@ -460,12 +508,34 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** Chat functionalities ********/
 
+    fun getChat(ts: TimeSlot): String? {
+        var exists = false
+        var chat: QuerySnapshot
+        runBlocking {
+            chat = chatsRef
+                .whereEqualTo("publisher", usersRef.document(ts.user))
+                .whereEqualTo(
+                    "requester",
+                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                )
+                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
+                .get().await()
+            if (chat.documents.size >= 1) {
+                exists = true
+            }
+        }
+        if (exists) {
+            return chat.documents.first().id
+        }
+        else return null
+    }
+
     fun createChat(ts: TimeSlot): String {
         var exists = false
         var chat: QuerySnapshot
         runBlocking {
             chat = chatsRef
-                .whereEqualTo("publisher", db.document(ts.user))
+                .whereEqualTo("publisher", usersRef.document(ts.user))
                 .whereEqualTo(
                     "requester",
                     usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
@@ -483,7 +553,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
         val newChat = chatsRef.document()
         val data = hashMapOf(
-            "publisher" to db.document(ts.user),
+            "publisher" to usersRef.document(ts.user),
             "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
             "timeslot" to timeslotsRef.document(ts.id)
         )
@@ -499,8 +569,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
             )
 
-            if (_messageList.value?.isEmpty() == true) {
+            if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
                 chatsRef.document(chatId).collection("messages").document("1").set(data)
+                setMessagesListener(chatId)
             } else {
                 _messageList.value?.last()
                     ?.let {
@@ -513,6 +584,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         } else {
             false
         }
+    }
+
+    fun clearChat(){
+        _messageList.value = emptyList()
     }
 
     /******** end - Chat functionalities ********/

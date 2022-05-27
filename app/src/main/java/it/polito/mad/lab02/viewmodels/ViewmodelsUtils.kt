@@ -45,11 +45,14 @@ object ViewmodelsUtils {
             val location = get("location") as String
             val skill = get("skill")
             val user = get("user") as DocumentReference
+            val assignee = get("assignee") as DocumentReference
+            val state = get("state") as String
+
 
             val skillTmp = if (skill == null) {
                 ""
             } else {
-                (skill as DocumentReference).path.split("/").last()
+                (skill as DocumentReference).id
             }
 
             if (profile != null) {
@@ -61,8 +64,10 @@ object ViewmodelsUtils {
                     duration,
                     location,
                     skillTmp,
-                    user.path,
-                    profile
+                    user.id,
+                    profile,
+                    assignee.id,
+                    state
                 )
             }
             else{

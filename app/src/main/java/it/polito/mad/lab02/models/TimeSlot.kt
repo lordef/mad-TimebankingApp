@@ -9,5 +9,7 @@ data class TimeSlot(
     val location: String,
     val skill: String,
     val user: String,
-    val userProfile: Profile
+    val userProfile: Profile,
+    val assignee: String,
+    val state: String
 )
