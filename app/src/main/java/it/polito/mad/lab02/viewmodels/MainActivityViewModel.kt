@@ -287,6 +287,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         // Setting up timeslotsListener
         timeslotsListener = timeslotsRef
             .whereEqualTo("skill", db.document(skillRefToString))
+            .whereNotEqualTo("state", "ACCEPTED")
             .addSnapshotListener { r, e ->
                 if (e != null)
                     _timeSlotList.value = emptyList()
