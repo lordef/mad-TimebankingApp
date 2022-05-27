@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -25,21 +26,26 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val profileRatedJson = arguments?.getString("profileRated")
+        val profileRated = Gson().fromJson(profileRatedJson, Profile::class.java)
+
         val rated = view.findViewById<TextView>(R.id.userRated)
-        val timeslot = view.findViewById<TextView>(R.id.timeslotTitle)
+//        val timeslot = view.findViewById<TextView>(R.id.timeslotTitle)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
         val comment = view.findViewById<EditText>(R.id.comment)
         val button = view.findViewById<Button>(R.id.button3)
+
+        rated.text = profileRated.nickname
 
         var stars = 0
 
         ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             stars = fl.roundToInt()
         }
-        val rd = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
+        val rr = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
 
         button.setOnClickListener{
-            val newRating = Rating(rd, null, stars, comment.text.toString(), Date().toString())
+            val newRating = Rating(profileRated, rr, stars, comment.text.toString(), Date().toString())
             vm.postRating(newRating)
         }
     }

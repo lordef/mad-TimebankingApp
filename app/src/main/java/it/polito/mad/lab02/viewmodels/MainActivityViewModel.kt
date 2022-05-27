@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -428,18 +429,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 //        if (exists) {
 //            return
 //        }
+        val currentUser = usersRef
+            .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
         val newRating = ratingsRef.document()
         val data = hashMapOf(
-            "rater" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
+            "rater" to currentUser,
             "rated" to db.document(rating.rated.uid),
             "starsNum" to rating.starsNum,
             "comment" to rating.comment,
             "timestamp" to rating.timestamp
         )
+        Log.d("mytaggg", data.toString())
         newRating.set(data)
         return
-//        ratingsRef.document().set(rating)
 
     }
 
