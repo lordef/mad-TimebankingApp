@@ -33,15 +33,16 @@ class MyChatRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
             displayData[position],
-         {
-            val bundle = Bundle()
-            bundle.putString("id", displayData[position].id)
-            it.findNavController()
-                .navigate(
-                    R.id.action_chatFragment_to_nav_single_message,
-                    bundle
-                )
-        }
+            {
+                val bundle = Bundle()
+                bundle.putString("id", displayData[position].id)
+                bundle.putString("timeslot", Gson().toJson(displayData[position].timeSlot))
+                it.findNavController()
+                    .navigate(
+                        R.id.action_chatFragment_to_nav_single_message,
+                        bundle
+                    )
+            }
         ) {
             val bundle = Bundle()
             if (displayData[position].publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
@@ -72,8 +73,7 @@ class MyChatRecyclerViewAdapter(
             cardProfile.setOnClickListener(action2)
             if (chat.publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
                 cardProfile.text = chat.requester.nickname
-            }
-            else{
+            } else {
                 cardProfile.text = chat.publisher.nickname
             }
         }

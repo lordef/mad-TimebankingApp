@@ -31,4 +31,6 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="cards_messages_timeslot_header">#D98A84</color>
+    <color name="card_messages_timeslot_header">#D9817A</color>
 </resources>

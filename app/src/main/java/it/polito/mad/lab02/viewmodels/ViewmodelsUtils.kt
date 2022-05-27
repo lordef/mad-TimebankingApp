@@ -11,6 +11,7 @@ import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.models.*
+import okhttp3.internal.wait
 
 object ViewmodelsUtils {
     @JvmStatic
@@ -45,11 +46,15 @@ object ViewmodelsUtils {
             val location = get("location") as String
             val skill = get("skill")
             val user = get("user") as DocumentReference
+            val assignee = get("assignee") as DocumentReference
+            val state = get("state") as String
+            val pendingRequests = get("pendingRequests") as List<DocumentReference>
+
 
             val skillTmp = if (skill == null) {
                 ""
             } else {
-                (skill as DocumentReference).path.split("/").last()
+                (skill as DocumentReference).id
             }
 
             if (profile != null) {
@@ -61,8 +66,11 @@ object ViewmodelsUtils {
                     duration,
                     location,
                     skillTmp,
-                    user.path,
-                    profile
+                    user.id,
+                    profile,
+                    assignee.id,
+                    state,
+                    pendingRequests.map { it.id }
                 )
             }
             else{
