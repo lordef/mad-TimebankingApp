@@ -89,7 +89,7 @@ class PublicShowProfileFragment : Fragment() {
                 description.text = ts.userProfile.description
 
                 userUid = ts.userProfile.uid
-                vm.setRatingNumberByUserUid(userUid)
+                vm.setRatingNumberListenerByUserUid(userUid)
                 vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                     ratingValue.text = avgRatingNum.toString()
                 }

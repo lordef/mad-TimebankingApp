@@ -33,7 +33,6 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
     private val vm by activityViewModels<MainActivityViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 

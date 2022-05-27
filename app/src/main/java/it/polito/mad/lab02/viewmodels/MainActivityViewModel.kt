@@ -635,7 +635,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** Ratings ********/
 
-    fun setRatingNumberByUserUid(ratedProfileUid: String) {
+    fun setRatingNumberListenerByUserUid(ratedProfileUid: String) {
         val userRef = usersRef
             .document(ratedProfileUid)
 
@@ -662,11 +662,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
-
     fun setRatingsListenerByUserUid(ratedProfileUid: String) {
-//        val userRef = usersRef
-//            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
-
         val userRef = usersRef
             .document(ratedProfileUid)
 
@@ -682,6 +678,26 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .also {
                 isRatingsListenerSetted = true
             }
+    }
+
+    fun removeRatingNumberListener() {
+        if (isRatingNumbersListenerSetted){
+            isRatingNumbersListenerSetted = false
+
+            ratingNumbersListener.remove()
+
+            _ratingNumber.value = 0f
+        }
+    }
+
+    fun removeRatingsListener() {
+        if (isRatingsListenerSetted){
+            isRatingsListenerSetted = false
+
+            ratingsListener.remove()
+
+            _ratingList.value = emptyList()
+        }
     }
 
 
