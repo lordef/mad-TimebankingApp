@@ -38,7 +38,9 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     var sort = "No sorting"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onViewCreated(view, savedInstanceState)
+
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
@@ -97,6 +99,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             val callback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     view.findNavController().navigateUp()
+                    vm.removePublicAdvsListener()
                 }
             }
             requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -338,8 +341,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-
             android.R.id.home -> {
+                vm.removePublicAdvsListener()
                 findNavController().navigateUp()
                 true
             }
@@ -347,4 +350,5 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         }
 
     }
+
 }

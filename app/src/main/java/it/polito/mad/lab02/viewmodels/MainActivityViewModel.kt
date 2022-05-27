@@ -71,6 +71,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var usersListener: ListenerRegistration
     var areTSsAndUsersListenersSetted = false
 
+
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
 
@@ -111,6 +112,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+
+    /******** Chats and Messages ********/
     fun setChatsListener() {
         // Setting up timeslotsListener
 
@@ -193,6 +196,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 isChatsListenerSetted = true
             }
     }
+
+
+    /******** end - Chats and Messages ********/
 
 
     /******** All timeslots ********/
@@ -289,6 +295,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         }//TODO: handle exception - no initialization of the ListenerRegistration
 
+    }
+
+    fun removePublicAdvsListener() {
+        if (areTSsAndUsersListenersSetted){
+            timeslotsListener.remove()
+            usersListener.remove()
+
+            _timeSlotList.value = emptyList()
+        }
     }
 
     /******** end - All timeslots ********/
