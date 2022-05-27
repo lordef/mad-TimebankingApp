@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -28,6 +29,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val title = view.findViewById<TextView>(R.id.titleTextView)
         val description = view.findViewById<TextView>(R.id.descriptionTextView)
@@ -37,7 +39,8 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val skill = view.findViewById<TextView>(R.id.skillTextView)
         val profileCard = view.findViewById<CardView>(R.id.profileCardView)
         val profileImage = view.findViewById<ImageView>(R.id.imageView2)
-
+        val menuMessage = view.findViewById<View>(R.id.messageItem)
+        menuMessage?.visibility = View.VISIBLE
         val profile = view.findViewById<TextView>(R.id.profileTextView)
 
         val id = arguments?.getString("id")
@@ -49,9 +52,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
             val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
 
             if (ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid) {
-                setHasOptionsMenu(false)
-            } else {
-                setHasOptionsMenu(true)
+                menuMessage?.visibility = View.GONE
             }
             title.text = ts.title
             description.text = ts.description

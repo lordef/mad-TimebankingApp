@@ -43,6 +43,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_gchat)
         val timeslotCard = view.findViewById<CardView>(R.id.gchat_timeslot_card)
@@ -216,7 +217,9 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                 findNavController().navigateUp()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
 
     }
