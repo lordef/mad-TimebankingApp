@@ -59,11 +59,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
 
-            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)
-//                <
-//                SimpleDateFormat("yy/mm/dd").format(Calendar.getInstance().time) + " " +
-//                SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
-            ){
+            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)){
                 rateButton.visibility = View.VISIBLE
             }else{
                 rateButton.visibility = View.GONE
@@ -83,22 +79,29 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val hh = time.split(":")[0].toInt() + duration.split(":")[0].toInt()
         val min = time.split(":")[1].toInt() + duration.split(":")[1].toInt()
 
-        Log.d("mytaggg", ""+ dd +" "+mm+" "+yy+"" +hh+" "+min)
 
         val todayDate = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
         val nowTime = SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
 
-        val todayDD = todayDate.split("/")[0].toInt()
+        val todayDD = todayDate.split("/")[2].toInt()
         val todayMM = todayDate.split("/")[1].toInt()
-        val todayYY = todayDate.split("/")[2].toInt()
+        val todayYY = todayDate.split("/")[0].toInt()
         val nowHH = nowTime.split(":")[0].toInt()
         val nowMIN = nowTime.split(":")[1].toInt()
-        Log.d("mytaggg", ""+ todayDD +" "+todayMM+" "+todayYY+"" +nowHH+" "+nowMIN)
-        if(todayYY>yy) return true
-        else if(todayMM>mm) return true
-        else if(todayDD>dd) return true
-        else if(nowHH>hh) return true
-        else return nowMIN>min
+
+        return if(todayYY>yy) true
+        else if (todayYY==yy){
+            if(todayMM>mm) true
+            else if (todayMM==mm){
+                if(todayDD>dd) true
+                else if (todayDD==dd){
+                    if(nowHH>hh) true
+                    else if (nowHH==hh){
+                        nowMIN>min
+                    }else false
+                }else false
+            }else false
+        }else false
 
 
 
