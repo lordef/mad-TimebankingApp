@@ -16,6 +16,8 @@ import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toStarsNumber
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toTimeslot
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 
@@ -408,7 +410,36 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun postRating(rating: Rating){
 
-        ratingsRef.document().set(rating)
+//        var exists = false
+//        var rate: QuerySnapshot
+//        runBlocking {
+//            rate = ratingsRef
+//                .whereEqualTo("rated", db.document(rating.rater!!.uid))
+//                .whereEqualTo(
+//                    "rater",
+//                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+//                )
+//                .get().await()
+//            if (rate.documents.size >= 1) {
+//                exists = true
+//            }
+//        }
+//
+//        if (exists) {
+//            return
+//        }
+
+        val newRating = ratingsRef.document()
+        val data = hashMapOf(
+            "rater" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
+            "rated" to db.document(rating.rated.uid),
+            "starsNum" to rating.starsNum,
+            "comment" to rating.comment,
+            "timestamp" to rating.timestamp
+        )
+        newRating.set(data)
+        return
+//        ratingsRef.document().set(rating)
 
     }
 

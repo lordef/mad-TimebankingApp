@@ -12,6 +12,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.util.*
 import kotlin.math.roundToInt
@@ -35,9 +36,10 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             stars = fl.roundToInt()
         }
+        val rd = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
 
         button.setOnClickListener{
-            val newRating = Rating("", rated.text.toString(), "", stars, comment.text.toString(), Date().toString())
+            val newRating = Rating(rd, null, stars, comment.text.toString(), Date().toString())
             vm.postRating(newRating)
         }
     }

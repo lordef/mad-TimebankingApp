@@ -127,11 +127,11 @@ object ViewmodelsUtils {
 //            } else {
 //                (skill as DocumentReference).path.split("/").last()
 //            }
-
+// TODO: ?
             Rating(
-                "",
-                rated.toString(),
-                rater.path,
+//                "",
+                Profile("", "",rated.toString(), "", "", listOf<String>(), "", ""),
+                Profile("", "",rater.toString(), "", "", listOf<String>(), "", ""),
                 starsNum.toInt(),
                 comment,
                 timestamp.toString()
