@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -71,6 +72,7 @@ class ShowProfileFragment : Fragment() {
         val description = binding.descriptionTextView
         val ratingCard = binding.ratingCardView
         val ratingValue = binding.ratingValueTextView
+        val balance = binding.balanceValueTextView
 
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
@@ -84,6 +86,7 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
+            balance.text = profile.balance.toString() + " m"
 
             userUid = profile.uid
             vm.setRatingNumberListenerByUserUid(userUid)

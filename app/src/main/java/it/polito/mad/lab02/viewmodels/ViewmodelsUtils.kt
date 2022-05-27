@@ -26,8 +26,9 @@ object ViewmodelsUtils {
             val description = get("description") as String
             val uid = get("uid") as String
             val tmpList = skills.map { s -> s.path.split("/").last() }
+            val balance = get("balance") as Number
 
-            Profile(imageUri, fullName, nickname, email, location, tmpList, description, uid)
+            Profile(imageUri, fullName, nickname, email, location, tmpList, description, uid, balance.toInt())
         } catch (e: Exception) {
             e.printStackTrace()
             null

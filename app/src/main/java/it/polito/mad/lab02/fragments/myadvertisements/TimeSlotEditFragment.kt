@@ -337,7 +337,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 location?.text.toString(),
                 skillTextTmp,
                 "user",
-                Profile("", "", "", "", "", emptyList(), "", ""),
+                Profile("", "", "", "", "", emptyList(), "", "", 0),
                 assignee,
                 state,
                 listOf(assignee)

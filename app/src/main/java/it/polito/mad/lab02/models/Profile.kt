@@ -8,5 +8,6 @@ data class Profile(
     val location: String,
     val skills: List<String>,
     val description: String,
-    val uid: String
+    val uid: String,
+    val balance: Int //minutes available
 )
