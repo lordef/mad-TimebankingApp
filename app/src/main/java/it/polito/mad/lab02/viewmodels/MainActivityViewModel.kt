@@ -37,6 +37,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _loggedUserTimeSlotList = MutableLiveData<List<TimeSlot>>()
     private val _ratingNumber = MutableLiveData<Float>()
     private val _ratingList = MutableLiveData<List<Rating>>()
+    private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
+
 
     private val _isChatListenerSet = MutableLiveData<Boolean>(false)
 
@@ -58,6 +60,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val publisherChatList: LiveData<List<Chat>> = _publisherChatList
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
+    val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
 
@@ -79,6 +82,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var usersListener: ListenerRegistration
     var areTSsAndUsersListenersSetted = false
 
+    private lateinit var myAssignedTimeSlotListListener: ListenerRegistration
 
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
@@ -283,6 +287,30 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
 
     /******** All timeslots ********/
+
+    fun setMyAssignedTimeSlotListListener(){
+        myAssignedTimeSlotListListener = timeslotsRef
+            .whereEqualTo("assignee", FirebaseAuth.getInstance().currentUser?.uid)
+            .whereEqualTo("state", "ACCEPTED")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _myAssignedTimeSlotList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<TimeSlot>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val userProfile = (d.get("user") as DocumentReference)
+                                .get().await().toProfile()
+
+                            d.toTimeslot(userProfile)?.let { tmpList.add(it) }
+                        }
+                        _myAssignedTimeSlotList.postValue(tmpList)
+                    }
+                }
+            }
+    }
+
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
         // Setting up timeslotsListener
         timeslotsListener = timeslotsRef
