@@ -10,6 +10,7 @@ data class TimeSlot(
     val skill: String,
     val user: String,
     val userProfile: Profile,
-    val assignee: String,
-    val state: String
+    val assignee: String, //reference to assignee (user)
+    val state: String, //AVAILABLE, ACCEPTED
+    val pendingRequests: List<String> //reference to requesters (user)
 )

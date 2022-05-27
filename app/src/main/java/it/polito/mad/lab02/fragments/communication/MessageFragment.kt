@@ -90,23 +90,27 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                     refuseButton.visibility = View.VISIBLE
                                     if (timeSlotObs.user == FirebaseAuth.getInstance().currentUser?.uid.toString()) {
                                         //case in which the timeslot is requested by the other user
-                                        if (timeSlotObs.assignee == messageList[0].user.uid) {
-                                            if (timeSlotObs.state == "REQUESTED") {
+                                        if (timeSlotObs.pendingRequests.contains(messageList[0].user.uid)) {
+                                            if (timeSlotObs.state == "AVAILABLE") {
                                                 requestButton.text = "Accept offer"
                                                 requestButton.setOnClickListener {
                                                     vm.setTimeSlotState("ACCEPTED", timeSlotObs)
+                                                    vm.setTimeSlotAssignee(messageList[0].user.uid, timeSlotObs)
                                                 }
                                                 refuseButton.text = "Reject offer"
                                                 refuseButton.setOnClickListener {
-                                                    vm.setTimeSlotState("AVAILABLE", timeSlotObs)
-                                                    vm.setTimeSlotAssignee(
-                                                        FirebaseAuth.getInstance().currentUser?.uid.toString(),
+                                                    vm.removeTimeSlotRequest(
+                                                        messageList[0].user.uid,
                                                         timeSlotObs
                                                     )
                                                 }
                                             }
-                                            if (timeSlotObs.state == "ACCEPTED") {
+                                            if (timeSlotObs.state == "ACCEPTED" && timeSlotObs.assignee == messageList[0].user.uid) {
                                                 requestButton.text = "Accepted"
+                                                refuseButton.visibility = View.GONE
+                                            }
+                                            else if(timeSlotObs.state == "ACCEPTED"){
+                                                requestButton.text = "Accepted other user"
                                                 refuseButton.visibility = View.GONE
                                             }
                                         } else {
@@ -114,27 +118,36 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                             refuseButton.visibility = View.GONE
                                         }
                                     } else {
-                                        if (timeSlotObs.state == "AVAILABLE") {
-                                            refuseButton.visibility = View.GONE
-                                            requestButton.text = "Send offer"
-                                            requestButton.setOnClickListener {
-                                                vm.setTimeSlotState("REQUESTED", timeSlotObs)
-                                                vm.setTimeSlotAssignee(
-                                                    FirebaseAuth.getInstance().currentUser?.uid.toString(),
-                                                    timeSlotObs
-                                                )
+                                        if (!timeSlotObs.pendingRequests.contains(messageList[0].user.uid)) {
+                                            if(timeSlotObs.state == "AVAILABLE") {
+                                                refuseButton.visibility = View.GONE
+                                                requestButton.text = "Send offer"
+                                                requestButton.setOnClickListener {
+                                                    vm.setTimeSlotRequest(
+                                                        FirebaseAuth.getInstance().currentUser?.uid.toString(),
+                                                        timeSlotObs
+                                                    )
+                                                }
                                             }
-                                        } else if (timeSlotObs.assignee == messageList[0].user.uid) {
+                                            else{
+                                                requestButton.visibility = View.GONE
+                                                refuseButton.text = "Not available"
+                                            }
+                                        } else {
                                             refuseButton.visibility = View.GONE
-                                            if (timeSlotObs.state == "REQUESTED") {
+                                            if (timeSlotObs.state == "AVAILABLE") {
                                                 requestButton.text = "Requested"
                                             }
                                             if (timeSlotObs.state == "ACCEPTED") {
-                                                requestButton.text = "Accepted"
+                                                if(timeSlotObs.assignee == FirebaseAuth.getInstance().currentUser?.uid){
+                                                    requestButton.text = "Accepted"
+                                                }
+                                                else{
+                                                    requestButton.visibility = View.GONE
+                                                    refuseButton.visibility = View.VISIBLE
+                                                    refuseButton.text = "Not available"
+                                                }
                                             }
-                                        } else {
-                                            requestButton.visibility = View.GONE
-                                            refuseButton.text = "Not available"
                                         }
                                     }
                                 }
@@ -171,6 +184,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                         val send = view.findViewById<Button>(R.id.button_gchat_send)
                         send.setOnClickListener {
                             if (timeSlotObs != null) {
+                                vm.clearChat()
                                 val id = vm.createChat(timeSlotObs)
                                 chatIdReal = id
                                 Log.d("MYTAG", chatIdReal)

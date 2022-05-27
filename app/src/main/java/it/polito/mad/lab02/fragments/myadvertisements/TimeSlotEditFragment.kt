@@ -339,7 +339,8 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 "user",
                 Profile("", "", "", "", "", emptyList(), "", ""),
                 assignee,
-                state
+                state,
+                listOf(assignee)
             )
             val bundle = Bundle()
             val bundleId = vm.updateTimeSlot(newTimeSlot, isEdit)

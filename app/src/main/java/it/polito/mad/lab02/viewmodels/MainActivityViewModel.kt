@@ -43,7 +43,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _timeSlot = MutableLiveData<TimeSlot?>()
 
 
-
     private val _publisherChatList = MutableLiveData<List<Chat>>()
     private val _requesterChatList = MutableLiveData<List<Chat>>()
     private val _messageList = MutableLiveData<List<Message>>()
@@ -123,7 +122,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
-    fun setTimeSlotListener(ts: TimeSlot){
+    fun setTimeSlotListener(ts: TimeSlot) {
         timeslotListener = timeslotsRef
             .document(ts.id)
             .addSnapshotListener { r, e ->
@@ -235,6 +234,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .update("assignee", usersRef.document(a))
     }
 
+    fun setTimeSlotRequest(a: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("pendingRequests", FieldValue.arrayUnion(usersRef.document(a)))
+    }
+
+    fun removeTimeSlotRequest(a: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("pendingRequests", FieldValue.arrayRemove(usersRef.document(a)))
+    }
+
     /******** end - Single timeslot ********/
 
     /******** All timeslots ********/
@@ -286,7 +297,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 it.user,
                                 tmpProfile!!,
                                 it.assignee,
-                                it.state
+                                it.state,
+                                it.pendingRequests
                             )
                             tmpList.add(tmpTimeslot)
                         }
@@ -462,7 +474,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "location" to newTS.location,
                     "user" to currentUser,
                     "assignee" to usersRef.document(newTS.assignee),
-                    "state" to newTS.state
+                    "state" to newTS.state,
+                    "pendingRequests" to newTS.pendingRequests.map { usersRef.document(it) }
                 )
             } else {
                 val skillRef = skillsRef
@@ -476,7 +489,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "skill" to skillRef,
                     "user" to currentUser,
                     "assignee" to usersRef.document(newTS.assignee),
-                    "state" to newTS.state
+                    "state" to newTS.state,
+                    "pendingRequests" to newTS.pendingRequests.map { usersRef.document(it) }
                 )
             }
 
@@ -526,8 +540,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
         if (exists) {
             return chat.documents.first().id
-        }
-        else return null
+        } else return null
     }
 
     fun createChat(ts: TimeSlot): String {
@@ -572,6 +585,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
                 chatsRef.document(chatId).collection("messages").document("1").set(data)
                 setMessagesListener(chatId)
+                _isChatListenerSet.value = true
             } else {
                 _messageList.value?.last()
                     ?.let {
@@ -586,7 +600,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun clearChat(){
+    fun clearChat() {
         _messageList.value = emptyList()
     }
 
