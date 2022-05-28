@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -22,22 +23,26 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
-    private var selector = 0
+    private var selector = 1
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
         showAssignedOrAccepted()
 
         val acceptedButton = view.findViewById<Button>(R.id.requesterButton)
         val assignedButton = view.findViewById<Button>(R.id.publisherButton)
 
+
         acceptedButton.setOnClickListener{
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
             selector = 0
             showAssignedOrAccepted()
         }
         assignedButton.setOnClickListener{
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
             selector = 1
             showAssignedOrAccepted()
         }
@@ -45,7 +50,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     }
 
-    fun showAssignedOrAccepted(){
+    private fun showAssignedOrAccepted(){
         val nAccText = view?.findViewById<TextView>(R.id.text_no_adv_accepted)
         val nAssTxt = view?.findViewById<TextView>(R.id.text_no_adv_assigned)
         val recyclerView = view?.findViewById<RecyclerView>(R.id.aaAdvlist)

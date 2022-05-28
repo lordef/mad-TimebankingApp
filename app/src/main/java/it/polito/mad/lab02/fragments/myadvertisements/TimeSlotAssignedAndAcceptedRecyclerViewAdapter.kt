@@ -56,6 +56,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                 } else {
                     val isLoggedUserPublisher = true
                     val rated = timeslot.assignee // questa è una ref
+                    Log.d("mytaggg", timeslot.assignee)
                     bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
                     bundle.putString("profileRated", rated)
                 }
@@ -87,9 +88,15 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
-            cardProfile.text = timeSlot.userProfile.nickname
+
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
+
+            if(selector == 0){
+                cardProfile.text = timeSlot.userProfile.nickname
+            }else{
+                cardProfile.visibility = View.GONE
+            }
 
             if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {
                 rateButton.visibility = View.VISIBLE
@@ -122,9 +129,6 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val nowHH = nowTime.split(":")[0].toInt()
         val nowMIN = nowTime.split(":")[1].toInt()
 
-        Log.d("mytaggg", todayDate + " " + nowTime)
-        Log.d("mytaggg", date + " " + time)
-
         return if (todayYY > yy) true
         else if (todayYY == yy) {
             if (todayMM > mm) true
@@ -133,8 +137,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                 else if (todayDD == dd) {
                     if (nowHH > hh) true
                     else if (nowHH == hh) {
-                        if (nowMIN > min) true
-                        else false
+                        nowMIN > min
                     } else false
                 } else false
             } else false
