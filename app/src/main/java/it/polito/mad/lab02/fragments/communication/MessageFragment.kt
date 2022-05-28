@@ -166,6 +166,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                             else -> GridLayoutManager(context, columnCount)
                                         }
                                         adapter = myAdapter
+                                        recyclerView.scrollToPosition((adapter as MessageRecyclerViewAdapter).itemCount - 1)
                                     }
                                 }
                             }
@@ -209,7 +210,6 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                 vm.clearChat()
                                 val id = vm.createChat(timeSlotObs)
                                 chatIdReal = id
-                                Log.d("MYTAG", chatIdReal)
                                 if (vm.sendMessage(
                                         id,
                                         composedMessage.text.toString(),

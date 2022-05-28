@@ -151,9 +151,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 if (user1?.uid == FirebaseAuth.getInstance().currentUser!!.uid) {
                                     when (dc.type) {
                                         DocumentChange.Type.ADDED -> {
-                                            Log.d("MYTAG", "New message: ${dc.document}")
                                             dc.document.toMessage(user, user1)?.let {
-                                                Log.d("MYTAG", "New message: ${it}")
                                                 _newMessage.postValue(it)
                                             }
                                         }
@@ -233,6 +231,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun setMessagesListener(chatId: String) {
         messagesListener = chatsRef.document(chatId)
             .collection("messages")
+            .orderBy("timestamp")
             .addSnapshotListener { r, e ->
                 if (e != null)
                     _messageList.value = emptyList()
