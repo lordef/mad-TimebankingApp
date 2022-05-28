@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.communication.MyChatRecyclerViewAdapter
 import it.polito.mad.lab02.fragments.myadvertisements.placeholder.PlaceholderContent
@@ -35,9 +38,11 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
-        vm.setChatsListener()
+
 
         val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
+
+        vm.setRequesterChatsListener()
 
         vm.requesterChatList.observe(viewLifecycleOwner) { chatList ->
             if (selector == 0) {
@@ -61,7 +66,22 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
                 }
             }
         }
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                view.findNavController().navigateUp()
+                onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
 
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removePublicAdvsListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
     }
 
 }

@@ -40,6 +40,7 @@ class TimeSlotsOfInterestRecyclerViewAdapter(
             {
                 val bundle = Bundle()
                 bundle.putString("id", displayData[position].id)
+                bundle.putString("timeslot", Gson().toJson(displayData[position]))
                 it.findNavController()
                     .navigate(
                         R.id.publicTimeSlotDetailsFragment,

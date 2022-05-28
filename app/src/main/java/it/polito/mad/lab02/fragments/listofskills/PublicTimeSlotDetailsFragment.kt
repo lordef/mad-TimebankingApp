@@ -139,21 +139,38 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 Toast.makeText(this.context, "Contact publisher", Toast.LENGTH_SHORT)
                     .show()
                 view?.let { view ->
+                    val timeslot = arguments?.getString("timeslot")
                     val id = arguments?.getString("id")
-                    vm.timeslotList
-                        .observe(viewLifecycleOwner) { listTs ->
-                            val bundle = Bundle()
-                            val ts = listTs.first { it.id == id }
-                            val id = vm.getChat(ts)
-                            if(id != null){
-                                bundle.putString("id", id)
-                            }
-                            bundle.putString("timeslot", Gson().toJson(ts))
-                            Navigation.findNavController(view).navigate(
+                    //coming from the chat
+                    if (timeslot != null) {
+                        val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
+                        val bundle = Bundle()
+                        val id = vm.getChat(ts)
+                        if (id != null) {
+                            bundle.putString("id", id)
+                        }
+                        bundle.putString("timeslot", Gson().toJson(ts))
+                        findNavController()
+                            .navigate(
                                 R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
                                 bundle
                             )
-                        }
+                    } else {
+                        vm.timeslotList
+                            .observe(viewLifecycleOwner) { listTs ->
+                                val bundle = Bundle()
+                                val ts = listTs.first { it.id == id }
+                                val id = vm.getChat(ts)
+                                if (id != null) {
+                                    bundle.putString("id", id)
+                                }
+                                bundle.putString("timeslot", Gson().toJson(ts))
+                                Navigation.findNavController(view).navigate(
+                                    R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
+                                    bundle
+                                )
+                            }
+                    }
                 }
                 true
             }
