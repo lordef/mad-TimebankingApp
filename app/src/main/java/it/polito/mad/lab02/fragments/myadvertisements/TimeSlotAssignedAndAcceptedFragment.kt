@@ -27,7 +27,9 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         showAssignedOrAccepted()
+
         val acceptedButton = view.findViewById<Button>(R.id.requesterButton)
         val assignedButton = view.findViewById<Button>(R.id.publisherButton)
 
@@ -71,7 +73,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                     }
                 }
             }
-        }else { //timeslot accettai -> timeslot miei che io ho acettao di fare ad altri
+        }else { //timeslot accettati -> timeslot miei che io ho acettato di fare ad altri
             nAssTxt?.visibility = View.GONE
             vm.setAdvsListenerByCurrentUser()
             vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) { timeSlotList ->

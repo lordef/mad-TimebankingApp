@@ -49,15 +49,15 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
             {
                 val bundle = Bundle()
                 if (selector == 0) {
-                    val isRatedAProfile = true
+                    val isLoggedUserPublisher = false
                     val rated = Gson().toJson(timeslot.userProfile) // questo è un profile
-                    bundle.putBoolean("isRatedAProfile", isRatedAProfile)
+                    bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
                     bundle.putString("profileRated", rated)
                 } else {
-                    val isRatedAProfile = false
-                    val rated = timeslot.assignee
-                    bundle.putBoolean("isRatedAProfile", isRatedAProfile)
-                    bundle.putString("profileRated", rated) // questa è una ref
+                    val isLoggedUserPublisher = true
+                    val rated = timeslot.assignee // questa è una ref
+                    bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
+                    bundle.putString("profileRated", rated)
                 }
 //            val userProfileJson = Gson().toJson(timeslot.userProfile)
 //            val assigneeProfileJson = Gson().toJson(timeslot.assignee)

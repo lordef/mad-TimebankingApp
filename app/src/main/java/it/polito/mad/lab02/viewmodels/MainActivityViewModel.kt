@@ -67,7 +67,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val messageList: LiveData<List<Message>> = _messageList
     val newMessage: LiveData<Message?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
-    private val userProfile : LiveData<Profile> = _userProfile
+    val userProfile : LiveData<Profile> = _userProfile
 
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
@@ -872,7 +872,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
         userProfileListener = db.document(userRefToString)
             .addSnapshotListener { r, e ->
-                _profile.value = if (e != null)
+                _userProfile.value = if (e != null)
                     Profile("", "", "", "", "", emptyList(), "", "", 0)
                 else r!!.toProfile()
             }.also {

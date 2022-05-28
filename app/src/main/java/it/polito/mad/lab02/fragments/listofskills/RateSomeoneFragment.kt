@@ -26,14 +26,30 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val profileRatedJson = arguments?.getString("profileRated")
-        val profileRated = Gson().fromJson(profileRatedJson, Profile::class.java)
-        val profileRateRef = arguments?.getString("profileRater")
+        val isLoggedUserPublisher = arguments?.getBoolean("isLoggedUserPublisher")
+        val profileRatedIncoming = arguments?.getString("profileRated")
+
+        lateinit var profileRated: Profile
+        lateinit var profileRater: Profile
+
+        vm.profile.observe(viewLifecycleOwner){profile ->
+            profileRater = profile
+        }
+
+        if(isLoggedUserPublisher == false){
+            profileRated = Gson().fromJson(profileRatedIncoming, Profile::class.java)
+        }else{
+            vm.setUserListenerByUserUid(profileRatedIncoming!!)
+            vm.userProfile.observe(viewLifecycleOwner){ profile ->
+                profileRated = profile
+            }
+        }
+
+
 
 
 
         val rated = view.findViewById<TextView>(R.id.userRated)
-//        val timeslot = view.findViewById<TextView>(R.id.timeslotTitle)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
         val comment = view.findViewById<EditText>(R.id.comment)
         val button = view.findViewById<Button>(R.id.button3)
@@ -45,10 +61,9 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             stars = fl.roundToInt()
         }
-//        val rr = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
 
         button.setOnClickListener{
-            val newRating = Rating(profileRated, profileRated, stars, comment.text.toString(), Date().toString())
+            val newRating = Rating(profileRated, profileRater, stars, comment.text.toString(), Date().toString())
             vm.postRating(newRating)
         }
     }
