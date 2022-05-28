@@ -25,8 +25,10 @@ import java.util.*
  * TODO: Replace the implementation with code for your data type.
  */
 class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
-    private val values: List<TimeSlot>
+    private val values: List<TimeSlot>,
+    private val selector: Int
 ) : RecyclerView.Adapter<TimeSlotAssignedAndAcceptedRecyclerViewAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -44,18 +46,29 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val timeslot = values[position]
 
         holder.bind(timeslot,
-        {
-            val bundle = Bundle()
+            {
+                val bundle = Bundle()
+                if (selector == 0) {
+                    val isRatedAProfile = true
+                    val rated = Gson().toJson(timeslot.userProfile) // questo è un profile
+                    bundle.putBoolean("isRatedAProfile", isRatedAProfile)
+                    bundle.putString("profileRated", rated)
+                } else {
+                    val isRatedAProfile = false
+                    val rated = timeslot.assignee
+                    bundle.putBoolean("isRatedAProfile", isRatedAProfile)
+                    bundle.putString("profileRated", rated) // questa è una ref
+                }
 //            val userProfileJson = Gson().toJson(timeslot.userProfile)
 //            val assigneeProfileJson = Gson().toJson(timeslot.assignee)
 //            bundle.putString("profileRater", userProfileJson)
 //            bundle.putString("profileRated", assigneeProfileJson)
-             it.findNavController()
-                .navigate(
-                    R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
-                    bundle
-                )
-        }, {})
+                it.findNavController()
+                    .navigate(
+                        R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
+                        bundle
+                    )
+            }, {})
 
     }
 
@@ -71,17 +84,17 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val cardDuration: TextView = binding.cardDuration
         val rateButton: ImageButton = binding.rateButton
 
-        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit){
+        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardProfile.text = timeSlot.userProfile.nickname
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
 
-            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)){
+            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {
                 rateButton.visibility = View.VISIBLE
                 rateButton.setOnClickListener(action1)
-            }else{
+            } else {
                 rateButton.visibility = View.GONE
             }
 
@@ -89,7 +102,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
     }
 
-    fun isTimeslotPassed(dateTime: String, duration: String): Boolean{
+    fun isTimeslotPassed(dateTime: String, duration: String): Boolean {
         val date = dateTime.split(" ")[0]
         val time = dateTime.split(" ")[1]
 
@@ -109,24 +122,23 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val nowHH = nowTime.split(":")[0].toInt()
         val nowMIN = nowTime.split(":")[1].toInt()
 
-        Log.d("mytaggg", todayDate+" "+nowTime)
-        Log.d("mytaggg", date+" "+time)
+        Log.d("mytaggg", todayDate + " " + nowTime)
+        Log.d("mytaggg", date + " " + time)
 
-        return if(todayYY>yy) true
-        else if (todayYY==yy){
-            if(todayMM>mm) true
-            else if (todayMM==mm){
-                if(todayDD>dd) true
-                else if (todayDD==dd){
-                    if(nowHH>hh) true
-                    else if (nowHH==hh){
-                        if(nowMIN>min) true
+        return if (todayYY > yy) true
+        else if (todayYY == yy) {
+            if (todayMM > mm) true
+            else if (todayMM == mm) {
+                if (todayDD > dd) true
+                else if (todayDD == dd) {
+                    if (nowHH > hh) true
+                    else if (nowHH == hh) {
+                        if (nowMIN > min) true
                         else false
-                    }else false
-                }else false
-            }else false
-        }else false
-
+                    } else false
+                } else false
+            } else false
+        } else false
 
 
     }

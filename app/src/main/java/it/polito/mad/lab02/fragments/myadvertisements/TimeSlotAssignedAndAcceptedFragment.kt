@@ -47,7 +47,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
         val nAccText = view?.findViewById<TextView>(R.id.text_no_adv_accepted)
         val nAssTxt = view?.findViewById<TextView>(R.id.text_no_adv_assigned)
         val recyclerView = view?.findViewById<RecyclerView>(R.id.aaAdvlist)
-        if (selector == 0) {
+        if (selector == 0) { //timeslot assegnati -> timeslot di altri che io ho prenotato e loro hanno accettato di farmi
             nAccText?.visibility = View.GONE
             vm.setMyAssignedTimeSlotListListener()
 
@@ -67,17 +67,15 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                             else -> GridLayoutManager(context, columnCount)
                         }
                         adapter =
-                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotList.toMutableList())
+                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotList.toMutableList(), selector)
                     }
                 }
             }
-        }else {
+        }else { //timeslot accettai -> timeslot miei che io ho acettao di fare ad altri
             nAssTxt?.visibility = View.GONE
             vm.setAdvsListenerByCurrentUser()
             vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) { timeSlotList ->
-                Log.d("mytaggg", timeSlotList.toString())
                 val timeSlotsAccepted = timeSlotList.filter { ts -> ts.state == "ACCEPTED" }
-                Log.d("mytaggg", "accepted "+timeSlotsAccepted.toString())
                 if (timeSlotsAccepted.isEmpty()) {
                     recyclerView?.visibility = View.GONE
                     nAccText?.visibility = View.VISIBLE
@@ -93,7 +91,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                             else -> GridLayoutManager(context, columnCount)
                         }
                         adapter =
-                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotsAccepted.toMutableList())
+                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotsAccepted.toMutableList(), selector)
                     }
                 }
             }
