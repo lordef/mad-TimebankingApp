@@ -3,6 +3,7 @@ package it.polito.mad.lab02.fragments.listofskills
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,9 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     var sort = "No sorting"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onViewCreated(view, savedInstanceState)
+
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.public_time_slot_list)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
@@ -97,6 +100,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             val callback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     view.findNavController().navigateUp()
+                    onBackPressed()
                 }
             }
             requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -338,13 +342,23 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-
             android.R.id.home -> {
                 findNavController().navigateUp()
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
     }
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removePublicAdvsListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
+    }
+
 }

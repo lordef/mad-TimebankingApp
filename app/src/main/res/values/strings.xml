@@ -86,5 +86,6 @@
     <!-- skills constraint Menu-->
     <string name="title_skillsConstraint"> Wait a minute </string>
     <string name="body_skillsConstraint"> You can not create a new timeslot without define a set of skills in your profile. Click on the button below to add it! </string>
+    <string name="timeslot_message_title">Timeslot:</string>
 
 </resources>

@@ -37,6 +37,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _loggedUserTimeSlotList = MutableLiveData<List<TimeSlot>>()
     private val _ratingNumber = MutableLiveData<Float>()
     private val _ratingList = MutableLiveData<List<Rating>>()
+    private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
+
+
+    private val _isChatListenerSet = MutableLiveData<Boolean>(false)
+
+    private val _timeSlot = MutableLiveData<TimeSlot?>()
 
 
     private val _publisherChatList = MutableLiveData<List<Chat>>()
@@ -54,7 +60,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val publisherChatList: LiveData<List<Chat>> = _publisherChatList
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
+    val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
 
+    val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
+
+    val timeSlot: LiveData<TimeSlot?> = _timeSlot
 
     //Creation of a Firebase db instance
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -71,6 +81,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var timeslotsListener: ListenerRegistration
     private lateinit var usersListener: ListenerRegistration
     var areTSsAndUsersListenersSetted = false
+
+    private lateinit var myAssignedTimeSlotListListener: ListenerRegistration
 
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
@@ -90,13 +102,16 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var messagesListener: ListenerRegistration
 
+    private lateinit var timeslotListener: ListenerRegistration
+
+
     init {
         // Creating listener for logged user
         loggedUserListener = usersRef
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .addSnapshotListener { r, e ->
                 _profile.value = if (e != null)
-                    Profile("", "", "", "", "", emptyList(), "", "")
+                    Profile("", "", "", "", "", emptyList(), "", "", 0)
                 else r!!.toProfile()
             }
 
@@ -112,6 +127,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+
+    /******** Chats and Messages ********/
     fun setChatsListener() {
         // Setting up timeslotsListener
 
@@ -169,6 +186,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }.also {
                 isChatsListenerSetted = true
+                _isChatListenerSet.value = true
             }
     }
 
@@ -195,12 +213,109 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
+    /******** end - Chats and Messages ********/
+
+    /******** Single timeslot ********/
+
+    fun setTimeSlotListener(ts: TimeSlot) {
+        timeslotListener = timeslotsRef
+            .document(ts.id)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _timeSlot.value = null
+                else {
+                    if (r != null) {
+                        _timeSlot.value = r.toTimeslot(ts.userProfile)
+                    }
+                }
+            }
+    }
+
+    fun setTimeSlotState(s: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("state", s)
+    }
+
+    fun setTimeSlotAssignee(a: String, ts: TimeSlot, payer: Profile): Boolean {
+        val durationTmp = ts.duration.split(":")[0].toInt() * 60 + ts.duration.split(":")[1].toInt()
+        var outcome = false
+        if (payer.balance - durationTmp >= 0) {
+            runBlocking {
+                db.runTransaction { transaction ->
+                    transaction.update(
+                        timeslotsRef.document(ts.id),
+                        "assignee",
+                        usersRef.document(a)
+                    )
+                    transaction
+                        .update(
+                            usersRef.document(payer.uid),
+                            "balance",
+                            (payer.balance - durationTmp) as Number
+                        )
+                    transaction
+                        .update(
+                            usersRef.document(FirebaseAuth.getInstance().currentUser!!.uid),
+                            "balance", FieldValue.increment(durationTmp.toLong())
+                        )
+                    transaction
+                        .update(
+                            timeslotsRef
+                                .document(ts.id), "state", "ACCEPTED"
+                        )
+                    outcome = true
+                }.await()
+            }
+        }
+        return outcome
+    }
+
+    fun setTimeSlotRequest(a: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("pendingRequests", FieldValue.arrayUnion(usersRef.document(a)))
+    }
+
+    fun removeTimeSlotRequest(a: String, ts: TimeSlot) {
+        timeslotsRef
+            .document(ts.id)
+            .update("pendingRequests", FieldValue.arrayRemove(usersRef.document(a)))
+    }
+
+    /******** end - Single timeslot ********/
+
 
     /******** All timeslots ********/
+
+    fun setMyAssignedTimeSlotListListener(){
+        myAssignedTimeSlotListListener = timeslotsRef
+            .whereEqualTo("assignee", FirebaseAuth.getInstance().currentUser?.uid)
+            .whereEqualTo("state", "ACCEPTED")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _myAssignedTimeSlotList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<TimeSlot>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val userProfile = (d.get("user") as DocumentReference)
+                                .get().await().toProfile()
+
+                            d.toTimeslot(userProfile)?.let { tmpList.add(it) }
+                        }
+                        _myAssignedTimeSlotList.postValue(tmpList)
+                    }
+                }
+            }
+    }
+
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
         // Setting up timeslotsListener
         timeslotsListener = timeslotsRef
             .whereEqualTo("skill", db.document(skillRefToString))
+            .whereNotEqualTo("state", "ACCEPTED")
             .addSnapshotListener { r, e ->
                 if (e != null)
                     _timeSlotList.value = emptyList()
@@ -232,7 +347,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     r!!.forEach { d ->
                         val tmpProfile = d.toProfile()
                         _timeSlotList.value?.filter {
-                            it.user == d.reference.path
+                            it.user == d.reference.id
                         }?.forEach {
                             val tmpTimeslot = TimeSlot(
                                 it.id,
@@ -243,7 +358,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 it.location,
                                 it.skill,
                                 it.user,
-                                tmpProfile!!
+                                tmpProfile!!,
+                                it.assignee,
+                                it.state,
+                                it.pendingRequests
                             )
                             tmpList.add(tmpTimeslot)
                         }
@@ -290,6 +408,19 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         }//TODO: handle exception - no initialization of the ListenerRegistration
 
+    }
+
+    fun removePublicAdvsListener() {
+        if (areTSsAndUsersListenersSetted) {
+            areTSsAndUsersListenersSetted = false
+
+            if (areTSsAndUsersListenersSetted) {
+                timeslotsListener.remove()
+                usersListener.remove()
+
+                _timeSlotList.value = emptyList()
+            }
+        }
     }
 
     /******** end - All timeslots ********/
@@ -393,7 +524,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _loggedUserTimeSlotList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
-                    d.toTimeslot(Profile("", "", "", "", "", emptyList(), "", ""))
+                    d.toTimeslot(Profile("", "", "", "", "", emptyList(), "", "", 0))
                 }
             }
             .also {
@@ -417,7 +548,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "dateTime" to newTS.dateTime,
                     "duration" to newTS.duration,
                     "location" to newTS.location,
-                    "user" to currentUser
+                    "user" to currentUser,
+                    "assignee" to usersRef.document(newTS.assignee),
+                    "state" to newTS.state,
+                    "pendingRequests" to newTS.pendingRequests.map { usersRef.document(it) }
                 )
             } else {
                 val skillRef = skillsRef
@@ -429,7 +563,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     "duration" to newTS.duration,
                     "location" to newTS.location,
                     "skill" to skillRef,
-                    "user" to currentUser
+                    "user" to currentUser,
+                    "assignee" to usersRef.document(newTS.assignee),
+                    "state" to newTS.state,
+                    "pendingRequests" to newTS.pendingRequests.map { usersRef.document(it) }
                 )
             }
 
@@ -449,24 +586,55 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return returnedId
     }
 
-
     fun deleteTimeSlot(timeslotId: String) {
         if (isLoggedUserTSsListenerSetted) {
             timeslotsRef.document(timeslotId).delete()
         }
     }
 
+    fun removeAdvsListenerByCurrentUser() {
+        if (isLoggedUserTSsListenerSetted){
+            isLoggedUserTSsListenerSetted = false
+
+            loggedUserTimeSlotsListener.remove()
+
+            _loggedUserTimeSlotList.value = emptyList()
+        }
+    }
+
+
 
     /******** end - Logged user timeslots ********/
 
     /******** Chat functionalities ********/
+
+    fun getChat(ts: TimeSlot): String? {
+        var exists = false
+        var chat: QuerySnapshot
+        runBlocking {
+            chat = chatsRef
+                .whereEqualTo("publisher", usersRef.document(ts.user))
+                .whereEqualTo(
+                    "requester",
+                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                )
+                .whereEqualTo("timeslot", timeslotsRef.document(ts.id))
+                .get().await()
+            if (chat.documents.size >= 1) {
+                exists = true
+            }
+        }
+        if (exists) {
+            return chat.documents.first().id
+        } else return null
+    }
 
     fun createChat(ts: TimeSlot): String {
         var exists = false
         var chat: QuerySnapshot
         runBlocking {
             chat = chatsRef
-                .whereEqualTo("publisher", db.document(ts.user))
+                .whereEqualTo("publisher", usersRef.document(ts.user))
                 .whereEqualTo(
                     "requester",
                     usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
@@ -484,7 +652,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
         val newChat = chatsRef.document()
         val data = hashMapOf(
-            "publisher" to db.document(ts.user),
+            "publisher" to usersRef.document(ts.user),
             "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
             "timeslot" to timeslotsRef.document(ts.id)
         )
@@ -500,8 +668,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
             )
 
-            if (_messageList.value?.isEmpty() == true) {
+            if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
                 chatsRef.document(chatId).collection("messages").document("1").set(data)
+                setMessagesListener(chatId)
+                _isChatListenerSet.value = true
             } else {
                 _messageList.value?.last()
                     ?.let {
@@ -516,11 +686,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun clearChat() {
+        _messageList.value = emptyList()
+    }
+
     /******** end - Chat functionalities ********/
 
     /******** Ratings ********/
 
-    fun setRatingNumberByUserUid(ratedProfileUid: String) {
+    fun setRatingNumberListenerByUserUid(ratedProfileUid: String) {
         val userRef = usersRef
             .document(ratedProfileUid)
 
@@ -547,11 +721,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
-
     fun setRatingsListenerByUserUid(ratedProfileUid: String) {
-//        val userRef = usersRef
-//            .document("${FirebaseAuth.getInstance().currentUser?.uid}") //TODO: import from input parameter
-
         val userRef = usersRef
             .document(ratedProfileUid)
 
@@ -606,6 +776,26 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+    fun removeRatingNumberListener() {
+        if (isRatingNumbersListenerSetted){
+            isRatingNumbersListenerSetted = false
+
+            ratingNumbersListener.remove()
+
+            _ratingNumber.value = 0f
+        }
+    }
+
+    fun removeRatingsListener() {
+        if (isRatingsListenerSetted){
+            isRatingsListenerSetted = false
+
+            ratingsListener.remove()
+
+            _ratingList.value = emptyList()
+        }
+    }
+
 
     /******** end - Ratings ********/
 
@@ -615,6 +805,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             timeslotsListener.remove()
             usersListener.remove()
         }
+
         loggedUserListener.remove()
         skillsListener.remove()
 

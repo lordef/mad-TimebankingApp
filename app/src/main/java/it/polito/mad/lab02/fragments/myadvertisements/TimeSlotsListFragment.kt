@@ -2,6 +2,8 @@ package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -87,7 +90,11 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (!view.findNavController().navigateUp()) {
+                val ret = view.findNavController().navigateUp()
+                if (ret){
+                    onBackPressed()
+                }
+                else {
                     exitProcess(1)
                 }
             }
@@ -102,6 +109,15 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
     ) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
+    }
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removeAdvsListenerByCurrentUser()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
     }
 }
 

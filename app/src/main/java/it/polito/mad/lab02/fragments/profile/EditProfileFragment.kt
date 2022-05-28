@@ -50,6 +50,8 @@ class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
 
+    private var balance = 0
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -244,6 +246,7 @@ class EditProfileFragment : Fragment() {
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
             if (savedInstanceState != null) {
+                balance = savedInstanceState.getInt("balance")
                 imgUri = Uri.parse(savedInstanceState.getString("imgUri"))
                 profileImage?.load(imgUri)
                 imgUriOld = imgUri
@@ -257,6 +260,7 @@ class EditProfileFragment : Fragment() {
                 listOfSkills = profile?.skills!!
                 if (listOfSkills.isEmpty()) listOfSkills = emptyList()
             } else {
+                balance = profile.balance
                 imgUri = Uri.parse(profile?.imageUri)
                 imgUriOld = imgUri
                 profileImage?.load(imgUri)
@@ -297,7 +301,8 @@ class EditProfileFragment : Fragment() {
                     locationEditText?.text.toString(),
                     skillList,
                     descriptionEditText?.text.toString(),
-                    FirebaseAuth.getInstance().currentUser?.uid!!
+                    FirebaseAuth.getInstance().currentUser?.uid!!,
+                    balance
                 )
                 vm.updateProfile(obj)
             } else {
@@ -325,7 +330,8 @@ class EditProfileFragment : Fragment() {
                             locationEditText?.text.toString(),
                             listOfSkills,
                             descriptionEditText?.text.toString(),
-                            FirebaseAuth.getInstance().currentUser?.uid!!
+                            FirebaseAuth.getInstance().currentUser?.uid!!,
+                            balance
                         )
                         vm.updateProfile(obj)
                     }
@@ -629,6 +635,7 @@ class EditProfileFragment : Fragment() {
         val skillsEditText = view?.findViewById<TextView>(R.id.skillEditText)
         val descriptionEditText = view?.findViewById<TextView>(R.id.descriptionEditText)
 
+        outState.putInt("balance", balance)
         outState.putString("fullName", fullNameEditText?.text.toString())
         outState.putString("nickname", nickNameEditText?.text.toString())
         outState.putString("email", emailEditText?.text.toString())

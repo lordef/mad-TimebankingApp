@@ -3,7 +3,9 @@ package it.polito.mad.lab02.fragments.profile
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -70,6 +72,7 @@ class ShowProfileFragment : Fragment() {
         val description = binding.descriptionTextView
         val ratingCard = binding.ratingCardView
         val ratingValue = binding.ratingValueTextView
+        val balance = binding.balanceValueTextView
 
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
@@ -83,9 +86,10 @@ class ShowProfileFragment : Fragment() {
             location.text = profile.location
             skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
             description.text = profile.description
+            balance.text = profile.balance.toString() + " m"
 
             userUid = profile.uid
-            vm.setRatingNumberByUserUid(userUid)
+            vm.setRatingNumberListenerByUserUid(userUid)
 
             vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
                 ratingValue.text = avgRatingNum.toString()
@@ -105,6 +109,7 @@ class ShowProfileFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
+                onBackPressed()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -147,5 +152,15 @@ class ShowProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removeRatingNumberListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
     }
 }

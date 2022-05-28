@@ -42,7 +42,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
         vm.publisherChatList.observe(viewLifecycleOwner) { chatList ->
             if (selector == 0) {
                 (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as publisher"
-                Log.d("MYTAG", "${chatList}")
                 if (chatList.isEmpty()) {
                     recyclerView.visibility = View.GONE
                     textView.visibility = View.VISIBLE
