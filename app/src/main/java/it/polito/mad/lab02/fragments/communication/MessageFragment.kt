@@ -88,12 +88,21 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                             if (timeSlotObs.state == "AVAILABLE") {
                                                 requestButton.text = "Accept offer"
                                                 requestButton.setOnClickListener {
-                                                    if(!(vm.setTimeSlotAssignee(messageList[0].user.uid, timeSlotObs, messageList[0].user))){
+                                                    if (!(vm.setTimeSlotAssignee(
+                                                            messageList[0].user.uid,
+                                                            timeSlotObs,
+                                                            messageList[0].user
+                                                        ))
+                                                    ) {
                                                         vm.removeTimeSlotRequest(
                                                             messageList[0].user.uid,
                                                             timeSlotObs
                                                         )
-                                                        Toast.makeText(this.context, "The user has not enough money", Toast.LENGTH_SHORT).show()
+                                                        Toast.makeText(
+                                                            this.context,
+                                                            "The user has not enough money",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
                                                     }
                                                 }
                                                 refuseButton.text = "Reject offer"
@@ -107,8 +116,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                             if (timeSlotObs.state == "ACCEPTED" && timeSlotObs.assignee == messageList[0].user.uid) {
                                                 requestButton.text = "Accepted"
                                                 refuseButton.visibility = View.GONE
-                                            }
-                                            else if(timeSlotObs.state == "ACCEPTED"){
+                                            } else if (timeSlotObs.state == "ACCEPTED") {
                                                 requestButton.text = "Accepted other user"
                                                 refuseButton.visibility = View.GONE
                                             }
@@ -118,7 +126,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                         }
                                     } else {
                                         if (!timeSlotObs.pendingRequests.contains(messageList[0].user.uid)) {
-                                            if(timeSlotObs.state == "AVAILABLE") {
+                                            if (timeSlotObs.state == "AVAILABLE") {
                                                 refuseButton.visibility = View.GONE
                                                 requestButton.text = "Send offer"
                                                 requestButton.setOnClickListener {
@@ -127,8 +135,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                                         timeSlotObs
                                                     )
                                                 }
-                                            }
-                                            else{
+                                            } else {
                                                 requestButton.visibility = View.GONE
                                                 refuseButton.text = "Not available"
                                             }
@@ -138,10 +145,9 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                                 requestButton.text = "Requested"
                                             }
                                             if (timeSlotObs.state == "ACCEPTED") {
-                                                if(timeSlotObs.assignee == FirebaseAuth.getInstance().currentUser?.uid){
+                                                if (timeSlotObs.assignee == FirebaseAuth.getInstance().currentUser?.uid) {
                                                     requestButton.text = "Accepted"
-                                                }
-                                                else{
+                                                } else {
                                                     requestButton.visibility = View.GONE
                                                     refuseButton.visibility = View.VISIBLE
                                                     refuseButton.text = "Not available"
@@ -163,20 +169,30 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                     }
                                 }
                             }
-                        }
-                    }
 
-                    val composedMessage = view.findViewById<TextView>(R.id.edit_gchat_message)
-                    val send = view.findViewById<Button>(R.id.button_gchat_send)
-                    send.setOnClickListener {
-                        if(ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid){
-                            if (vm.sendMessage(chatIdReal, composedMessage.text.toString(), ts.user)) {
-                                composedMessage.text = ""
-                            }
-                        }
-                        else{
-                            if (vm.sendMessage(chatIdReal, composedMessage.text.toString(), FirebaseAuth.getInstance().currentUser!!.uid)) {
-                                composedMessage.text = ""
+                            val composedMessage =
+                                view.findViewById<TextView>(R.id.edit_gchat_message)
+                            val send = view.findViewById<Button>(R.id.button_gchat_send)
+                            send.setOnClickListener {
+                                if (ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid) {
+                                    if (vm.sendMessage(
+                                            chatIdReal,
+                                            composedMessage.text.toString(),
+                                            messageList[0].user.uid
+                                        )
+                                    ) {
+                                        composedMessage.text = ""
+                                    }
+                                } else {
+                                    if (vm.sendMessage(
+                                            chatIdReal,
+                                            composedMessage.text.toString(),
+                                            ts.user
+                                        )
+                                    ) {
+                                        composedMessage.text = ""
+                                    }
+                                }
                             }
                         }
                     }
@@ -194,7 +210,12 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                 val id = vm.createChat(timeSlotObs)
                                 chatIdReal = id
                                 Log.d("MYTAG", chatIdReal)
-                                if (vm.sendMessage(id, composedMessage.text.toString(), timeSlotObs.user)) {
+                                if (vm.sendMessage(
+                                        id,
+                                        composedMessage.text.toString(),
+                                        timeSlotObs.user
+                                    )
+                                ) {
                                     composedMessage.text = ""
                                 }
                             }
