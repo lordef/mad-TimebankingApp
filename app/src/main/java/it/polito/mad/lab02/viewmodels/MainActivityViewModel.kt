@@ -852,7 +852,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-    fun setUserListenerByUserUid(userRefToString: String) {
+    fun setUserListenerByUserUid(userUid: String) {
 
 //        timeslotsListener = timeslotsRef
 //            .whereEqualTo("skill", db.document(userRefToString))
@@ -870,17 +870,24 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 //                isUserProfileListenerSet = true
 //            }
 
-        userProfileListener = db.document(userRefToString)
+//        .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+
+        userProfileListener = usersRef
+            .document(userUid)
             .addSnapshotListener { r, e ->
                 _userProfile.value = if (e != null)
                     Profile("", "", "", "", "", emptyList(), "", "", 0)
-                else r!!.toProfile()
+                else {
+                    Log.d("MYTAG", r!!.toProfile().toString()) //TODO
+                    r!!.toProfile()
+
+                }
             }.also {
                 isUserProfileListenerSet = true
             }
     }
 
-    fun setUserListenerByUserUid() {
+    fun removeUserProfileListener() {
         if (isUserProfileListenerSet) {
             isUserProfileListenerSet = false
 
