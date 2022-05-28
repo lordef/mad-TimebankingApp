@@ -6,31 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all_advertisements"
-            android:icon="@drawable/ic_advertisements"
+            android:icon="@drawable/ic_all_advertisement_official"
             android:title="@string/menu_all_advertisement" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_user"
+            android:icon="@drawable/ic_profile_official"
             android:title="@string/menu_profile" />
         <item
             android:id="@+id/nav_advertisement"
-            android:icon="@drawable/ic_advertisements"
+            android:icon="@drawable/ic_my_advertisement"
             android:title="@string/menu_advertisement" />
         <item
-            android:id="@+id/nav_single_message"
-            android:icon="@drawable/ic_advertisements"
-            android:title="Single message test" />
-        <item
             android:id="@+id/nav_timeSlotsOfInterestFragment"
-            android:icon="@drawable/ic_advertisements"
+            android:icon="@drawable/ic_interests_official"
             android:title="@string/menu_interest" />
         <item
             android:id="@+id/nav_chats"
-            android:icon="@drawable/ic_baseline_message"
+            android:icon="@drawable/ic_message_center_official"
             android:title="@string/menu_chats" />
         <item
             android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
-            android:icon="@drawable/ic_advertisements"
+            android:icon="@drawable/ic_time_invested_official"
             android:title="@string/menu_active_timeslot" />
     </group>
 </menu>
