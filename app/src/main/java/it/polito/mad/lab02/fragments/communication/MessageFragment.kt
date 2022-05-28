@@ -169,8 +169,15 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                     val composedMessage = view.findViewById<TextView>(R.id.edit_gchat_message)
                     val send = view.findViewById<Button>(R.id.button_gchat_send)
                     send.setOnClickListener {
-                        if (vm.sendMessage(chatIdReal, composedMessage.text.toString())) {
-                            composedMessage.text = ""
+                        if(ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid){
+                            if (vm.sendMessage(chatIdReal, composedMessage.text.toString(), ts.user)) {
+                                composedMessage.text = ""
+                            }
+                        }
+                        else{
+                            if (vm.sendMessage(chatIdReal, composedMessage.text.toString(), FirebaseAuth.getInstance().currentUser!!.uid)) {
+                                composedMessage.text = ""
+                            }
                         }
                     }
                 } else { //new chat
@@ -187,7 +194,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                 val id = vm.createChat(timeSlotObs)
                                 chatIdReal = id
                                 Log.d("MYTAG", chatIdReal)
-                                if (vm.sendMessage(id, composedMessage.text.toString())) {
+                                if (vm.sendMessage(id, composedMessage.text.toString(), timeSlotObs.user)) {
                                     composedMessage.text = ""
                                 }
                             }
