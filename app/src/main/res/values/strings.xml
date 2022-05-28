@@ -45,6 +45,8 @@
     <string name="menu_all_advertisement">All advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_chats">Message center</string>
+    <string name="menu_interest"> Interests </string>
+    <string name="menu_active_timeslot"> Time invested </string>
 
     <!-- TimeSlotDetailsFragment labels -->
     <string name="timeslotTitleLabel">Title</string>

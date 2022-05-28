@@ -103,6 +103,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var requesterChatsListener: ListenerRegistration
     var isChatsListenerSetted = false
 
+    var isRequesterChatsListenerSet = false
+
     private lateinit var messagesListener: ListenerRegistration
 
     private lateinit var timeslotListener: ListenerRegistration
@@ -227,6 +229,47 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _isChatListenerSet.value = true
             }
     }
+
+    fun setRequesterChatsListener() {
+        requesterChatsListener = chatsRef
+            .whereEqualTo(
+                "requester",
+                usersRef.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            )
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _requesterChatList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Chat>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val requester = (d.get("requester") as DocumentReference)
+                                .get().await().toProfile()
+                            val publisher = (d.get("publisher") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = (d.get("timeslot") as DocumentReference)
+                                .get().await().toTimeslot(publisher)
+
+                            d.toChat(requester, publisher, timeSlot)?.let { tmpList.add(it) }
+                        }
+                        _requesterChatList.postValue(tmpList)
+                    }
+                }
+            }.also {
+                isRequesterChatsListenerSet = true
+            }
+    }
+
+    fun removeRequesterChatsListener() {
+        if (isRequesterChatsListenerSet) {
+            isRequesterChatsListenerSet = false
+            requesterChatsListener.remove()
+
+            _requesterChatList.value = emptyList()
+        }
+    }
+
 
     fun setMessagesListener(chatId: String) {
         messagesListener = chatsRef.document(chatId)

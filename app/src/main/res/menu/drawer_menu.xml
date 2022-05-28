@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_all_advertisements"
+            android:icon="@drawable/ic_advertisements"
+            android:title="@string/menu_all_advertisement" />
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_user"
             android:title="@string/menu_profile" />
@@ -13,12 +17,20 @@
             android:icon="@drawable/ic_advertisements"
             android:title="@string/menu_advertisement" />
         <item
-            android:id="@+id/nav_all_advertisements"
+            android:id="@+id/nav_single_message"
             android:icon="@drawable/ic_advertisements"
-            android:title="@string/menu_all_advertisement" />
+            android:title="Single message test" />
+        <item
+            android:id="@+id/nav_timeSlotsOfInterestFragment"
+            android:icon="@drawable/ic_advertisements"
+            android:title="@string/menu_interest" />
         <item
             android:id="@+id/nav_chats"
             android:icon="@drawable/ic_baseline_message"
             android:title="@string/menu_chats" />
+        <item
+            android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
+            android:icon="@drawable/ic_advertisements"
+            android:title="@string/menu_active_timeslot" />
     </group>
 </menu>

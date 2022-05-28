@@ -173,4 +173,21 @@
         android:name="it.polito.mad.lab02.fragments.profile.RatingsFragment"
         android:label="fragment_ratings_list"
         tools:layout="@layout/fragment_ratings_list" />
+    <fragment
+        android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
+        android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotAssignedAndAcceptedFragment"
+        android:label="fragment_time_slot_assigned_and_accepted_list"
+        tools:layout="@layout/fragment_time_slot_assigned_and_accepted_list" />
+    <fragment
+        android:id="@+id/nav_timeSlotsOfInterestFragment"
+        android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotsOfInterestFragment"
+        android:label="fragment_time_slots_of_interest_list"
+        tools:layout="@layout/fragment_time_slots_of_interest" >
+        <action
+            android:id="@+id/action_nav_timeSlotsOfInterestFragment_to_publicTimeSlotDetailsFragment"
+            app:destination="@id/publicTimeSlotDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_timeSlotsOfInterestFragment_to_publicShowProfileFragment"
+            app:destination="@id/publicShowProfileFragment" />
+    </fragment>
 </navigation>
