@@ -42,24 +42,20 @@ class TimeSlotsOfInterestRecyclerViewAdapter(
                 bundle.putString("id", displayData[position].id)
                 it.findNavController()
                     .navigate(
-                        R.id.action_chatFragment_to_nav_single_message,
+                        R.id.publicTimeSlotDetailsFragment,
+                        bundle
+                    )
+            },
+            {
+                val bundle = Bundle()
+                bundle.putString("id", displayData[position].id)
+                it.findNavController()
+                    .navigate(
+                        R.id.action_nav_timeSlotsOfInterestFragment_to_publicShowProfileFragment,
                         bundle
                     )
             }
-        ) {
-            val bundle = Bundle()
-//            if (displayData[position].publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
-//                bundle.putString("user", Gson().toJson(displayData[position].requester))
-//            } else {
-//                bundle.putString("user", Gson().toJson(displayData[position].publisher))
-//            }
-
-            it.findNavController()
-                .navigate(
-                    R.id.action_nav_chats_to_publicShowProfileFragment,
-                    bundle
-                )
-        }
+        )
     }
 
     override fun getItemCount(): Int = displayData.size

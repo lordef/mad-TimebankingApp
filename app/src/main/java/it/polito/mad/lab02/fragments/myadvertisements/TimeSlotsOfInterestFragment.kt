@@ -28,6 +28,8 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
 
     private var columnCount = 1
 
+    private var selector = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -38,29 +40,27 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
         val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
 
         vm.requesterChatList.observe(viewLifecycleOwner) { chatList ->
-
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as requester"
-            if (chatList.isEmpty()) {
-                recyclerView.visibility = View.GONE
-                textView.visibility = View.VISIBLE
-            } else {
-                textView.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-            }
-
-            if (recyclerView is RecyclerView) {
-                with(recyclerView) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    adapter = TimeSlotsOfInterestRecyclerViewAdapter(chatList.map { it.timeSlot })
+            if (selector == 0) {
+                (activity as AppCompatActivity?)?.supportActionBar?.title = "Advertisement you are interested in"
+                if (chatList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
                 }
 
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = TimeSlotsOfInterestRecyclerViewAdapter(chatList.map{it.timeSlot})
+                    }
+                }
             }
         }
-
-
 
     }
 
