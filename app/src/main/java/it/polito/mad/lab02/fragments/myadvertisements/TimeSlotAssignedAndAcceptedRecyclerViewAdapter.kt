@@ -16,6 +16,7 @@ import it.polito.mad.lab02.R
 
 import it.polito.mad.lab02.databinding.FragmentTimeSlotAssignedAndAcceptedBinding
 import it.polito.mad.lab02.models.TimeSlot
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,12 +42,14 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val timeslot = values[position]
+
         holder.bind(timeslot,
         {
             val bundle = Bundle()
-            val json = Gson().toJson(timeslot.userProfile)
-            bundle.putString("profileRater", json)
-            bundle.putString("profileRated", json)
+//            val userProfileJson = Gson().toJson(timeslot.userProfile)
+//            val assigneeProfileJson = Gson().toJson(timeslot.assignee)
+//            bundle.putString("profileRater", userProfileJson)
+//            bundle.putString("profileRated", assigneeProfileJson)
              it.findNavController()
                 .navigate(
                     R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
@@ -63,6 +66,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
         val cardTitle: TextView = binding.cardTitle
         val cardLocation: TextView = binding.cardLocation
+        val cardProfile: TextView = binding.profilePublicAdv
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val rateButton: ImageButton = binding.rateButton
@@ -70,6 +74,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit){
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
+            cardProfile.text = timeSlot.userProfile.nickname
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
 

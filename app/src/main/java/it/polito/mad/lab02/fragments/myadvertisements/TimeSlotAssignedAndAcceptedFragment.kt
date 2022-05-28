@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import it.polito.mad.lab02.R
@@ -21,43 +22,46 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
-    private var selector = 1
+    private var selector = 0
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val view = inflater.inflate(
-//            R.layout.fragment_time_slot_assigned_and_accepted_list,
-//            container,
-//            false
-//        )
-//
-//
-//        return view
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val nAccText = view.findViewById<TextView>(R.id.text_no_adv_accepted)
-        val nAssTxt = view.findViewById<TextView>(R.id.text_no_adv_assigned)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.aaAdvlist)
+        showAssignedOrAccepted()
+        val acceptedButton = view.findViewById<Button>(R.id.requesterButton)
+        val assignedButton = view.findViewById<Button>(R.id.publisherButton)
 
+        acceptedButton.setOnClickListener{
+            selector = 0
+            showAssignedOrAccepted()
+        }
+        assignedButton.setOnClickListener{
+            selector = 1
+            showAssignedOrAccepted()
+        }
+
+
+    }
+
+    fun showAssignedOrAccepted(){
+        val nAccText = view?.findViewById<TextView>(R.id.text_no_adv_accepted)
+        val nAssTxt = view?.findViewById<TextView>(R.id.text_no_adv_assigned)
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.aaAdvlist)
         if (selector == 0) {
-            nAccText.visibility = View.GONE
+            nAccText?.visibility = View.GONE
             vm.setMyAssignedTimeSlotListListener()
 
             vm.myAssignedTimeSlotList.observe(viewLifecycleOwner) { timeSlotList ->
                 if (timeSlotList.isEmpty()) {
-                    recyclerView.visibility = View.GONE
-                    nAssTxt.visibility = View.VISIBLE
+                    recyclerView?.visibility = View.GONE
+                    nAssTxt?.visibility = View.VISIBLE
                 } else {
-                    nAssTxt.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+                    nAssTxt?.visibility = View.GONE
+                    recyclerView?.visibility = View.VISIBLE
                 }
 
-                if (view is RecyclerView) {
-                    with(view) {
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
                         layoutManager = when {
                             columnCount <= 1 -> LinearLayoutManager(context)
                             else -> GridLayoutManager(context, columnCount)
@@ -68,31 +72,33 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                 }
             }
         }else {
-            nAssTxt.visibility = View.GONE
+            nAssTxt?.visibility = View.GONE
+            vm.setAdvsListenerByCurrentUser()
             vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) { timeSlotList ->
-
-                if (timeSlotList.isEmpty()) {
-                    recyclerView.visibility = View.GONE
-                    nAccText.visibility = View.VISIBLE
+                Log.d("mytaggg", timeSlotList.toString())
+                val timeSlotsAccepted = timeSlotList.filter { ts -> ts.state == "ACCEPTED" }
+                Log.d("mytaggg", "accepted "+timeSlotsAccepted.toString())
+                if (timeSlotsAccepted.isEmpty()) {
+                    recyclerView?.visibility = View.GONE
+                    nAccText?.visibility = View.VISIBLE
                 } else {
-                    nAccText.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+                    nAccText?.visibility = View.GONE
+                    recyclerView?.visibility = View.VISIBLE
                 }
-                timeSlotList.filter { ts -> ts.state == "ACCEPTED" }
 
-                if (view is RecyclerView) {
-                    with(view) {
+                if (recyclerView is RecyclerView) {
+                    with(recyclerView) {
                         layoutManager = when {
                             columnCount <= 1 -> LinearLayoutManager(context)
                             else -> GridLayoutManager(context, columnCount)
                         }
                         adapter =
-                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotList.toMutableList())
+                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotsAccepted.toMutableList())
                     }
                 }
             }
         }
     }
 
-
+// TODO: ci va il remove
 }

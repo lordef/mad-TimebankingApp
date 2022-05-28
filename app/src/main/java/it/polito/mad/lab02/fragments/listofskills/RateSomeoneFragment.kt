@@ -28,8 +28,9 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         val profileRatedJson = arguments?.getString("profileRated")
         val profileRated = Gson().fromJson(profileRatedJson, Profile::class.java)
-        val profileRaterJson = arguments?.getString("profileRater")
-        val profileRater = Gson().fromJson(profileRaterJson, Profile::class.java)
+        val profileRateRef = arguments?.getString("profileRater")
+
+
 
         val rated = view.findViewById<TextView>(R.id.userRated)
 //        val timeslot = view.findViewById<TextView>(R.id.timeslotTitle)
@@ -47,7 +48,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 //        val rr = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
 
         button.setOnClickListener{
-            val newRating = Rating(profileRated, profileRater, stars, comment.text.toString(), Date().toString())
+            val newRating = Rating(profileRated, profileRated, stars, comment.text.toString(), Date().toString())
             vm.postRating(newRating)
         }
     }
