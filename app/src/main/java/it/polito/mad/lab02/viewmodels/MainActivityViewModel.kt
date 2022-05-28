@@ -458,15 +458,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun removePublicAdvsListener() {
         if (areTSsAndUsersListenersSetted) {
             areTSsAndUsersListenersSetted = false
+            timeslotsListener.remove()
+            usersListener.remove()
 
-            if (areTSsAndUsersListenersSetted) {
-                timeslotsListener.remove()
-                usersListener.remove()
-
-                _timeSlotList.value = emptyList()
-            }
+            _timeSlotList.value = emptyList()
         }
     }
+
 
     /******** end - All timeslots ********/
 
