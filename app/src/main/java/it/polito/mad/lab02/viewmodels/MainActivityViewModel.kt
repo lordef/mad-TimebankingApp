@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import java.util.EventListener
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -38,6 +39,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingNumber = MutableLiveData<Float>()
     private val _ratingList = MutableLiveData<List<Rating>>()
     private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
+    private val _userProfile = MutableLiveData<Profile>()
+
 
 
     private val _isChatListenerSet = MutableLiveData<Boolean>(false)
@@ -64,6 +67,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val messageList: LiveData<List<Message>> = _messageList
     val newMessage: LiveData<Message?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
+    private val userProfile : LiveData<Profile> = _userProfile
+
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
 
@@ -108,6 +113,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var timeslotListener: ListenerRegistration
 
     private lateinit var newMessageListener: ListenerRegistration
+
+
+    private lateinit var userProfileListener: ListenerRegistration
+    var isUserProfileListenerSet = false
+
 
     init {
         setNewMessageListener()
@@ -838,6 +848,45 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             ratingsListener.remove()
 
             _ratingList.value = emptyList()
+        }
+    }
+
+
+    fun setUserListenerByUserUid(userRefToString: String) {
+
+//        timeslotsListener = timeslotsRef
+//            .whereEqualTo("skill", db.document(userRefToString))
+
+//        val userUid = userRefToString.
+
+        // Creating listener for logged user
+//        userProfileListener = usersRef
+//            .document(userUid)
+//            .addSnapshotListener { r, e ->
+//                _profile.value = if (e != null)
+//                    Profile("", "", "", "", "", emptyList(), "", "", 0)
+//                else r!!.toProfile()
+//            }.also {
+//                isUserProfileListenerSet = true
+//            }
+
+        userProfileListener = db.document(userRefToString)
+            .addSnapshotListener { r, e ->
+                _profile.value = if (e != null)
+                    Profile("", "", "", "", "", emptyList(), "", "", 0)
+                else r!!.toProfile()
+            }.also {
+                isUserProfileListenerSet = true
+            }
+    }
+
+    fun setUserListenerByUserUid() {
+        if (isUserProfileListenerSet) {
+            isUserProfileListenerSet = false
+
+            userProfileListener.remove()
+
+            _userProfile.value = Profile("", "", "", "", "", emptyList(), "", "", 0)
         }
     }
 
