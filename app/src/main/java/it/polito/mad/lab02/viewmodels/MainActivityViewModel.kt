@@ -16,6 +16,7 @@ import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.models.*
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toChat
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toMessage
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toNotification
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toRating
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
@@ -48,7 +49,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _publisherChatList = MutableLiveData<List<Chat>>()
     private val _requesterChatList = MutableLiveData<List<Chat>>()
     private val _messageList = MutableLiveData<List<Message>>()
-    private val _newMessage = MutableLiveData<Message?>()
+    private val _newMessage = MutableLiveData<Notification?>()
 
 
     //LiveData passed to our fragments
@@ -62,7 +63,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val publisherChatList: LiveData<List<Chat>> = _publisherChatList
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
-    val newMessage: LiveData<Message?> = _newMessage
+    val newMessage: LiveData<Notification?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
@@ -110,6 +111,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private lateinit var timeslotListener: ListenerRegistration
 
     private lateinit var newMessageListener: ListenerRegistration
+    var isNewMessageListenerSet = false
 
     init {
         setNewMessageListener()
@@ -145,21 +147,73 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     if (r != null) {
 
                         viewModelScope.launch(Dispatchers.IO) {
-                            for (dc in r!!.documentChanges) {
+                            if (r.documentChanges.isNotEmpty()) {
+                                val dc = r.documentChanges.last()
                                 val user = (dc.document.get("user") as DocumentReference)
                                     .get().await().toProfile()
                                 val user1 = (dc.document.get("user1") as DocumentReference)
                                     .get().await().toProfile()
-                                if (user1?.uid == FirebaseAuth.getInstance().currentUser!!.uid) {
-                                    when (dc.type) {
-                                        DocumentChange.Type.ADDED -> {
-                                            dc.document.toMessage(user, user1)?.let {
+                                if (user1?.uid == FirebaseAuth.getInstance().currentUser?.uid) {
+                                    val chat = chatsRef
+                                        .document(dc.document.reference.parent.parent!!.id)
+                                        .get().await()
+                                    val publisher = (chat.get("publisher") as DocumentReference).id
+                                    var timeslot: TimeSlot?
+                                    if(publisher == user?.uid){
+                                        timeslot = (chat
+                                            .get("timeslot") as DocumentReference).get().await()
+                                            .toTimeslot(user)
+                                    }
+                                    else{
+                                        timeslot = (chat
+                                            .get("timeslot") as DocumentReference).get().await()
+                                            .toTimeslot(user1)
+                                    }
+
+                                    dc.document.toNotification(user, user1, timeslot)?.let {
+                                        if (isNewMessageListenerSet) {
+                                            if (_newMessage.value != null) {
+                                                if (it.timestamp > _newMessage.value!!.timestamp) {
+                                                    _newMessage.postValue(it)
+                                                }
+                                            } else {
                                                 _newMessage.postValue(it)
                                             }
                                         }
                                     }
+
                                 }
                             }
+//                            for (dc in r!!.documentChanges) {
+//                                val user = (dc.document.get("user") as DocumentReference)
+//                                    .get().await().toProfile()
+//                                val user1 = (dc.document.get("user1") as DocumentReference)
+//                                    .get().await().toProfile()
+//                                if (user1?.uid == FirebaseAuth.getInstance().currentUser?.uid) {
+//                                    when (dc.type) {
+//                                        DocumentChange.Type.ADDED -> {
+//                                            val timeslot = (chatsRef
+//                                                .document(dc.document.reference.parent.parent!!.id)
+//                                                .get().await()
+//                                                .get("timeslot") as DocumentReference).get().await().toTimeslot(user)
+//                                            dc.document.toNotification(user, user1, timeslot)?.let {
+//                                                if(isNewMessageListenerSet){
+//                                                    if(_newMessage.value != null ){
+//                                                        if( it.timestamp > _newMessage.value!!.timestamp){
+//                                                            _newMessage.postValue(it)
+//                                                        }
+//                                                    }
+//                                                    else{
+//                                                        _newMessage.postValue(it)
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                        else -> Unit
+//                                    }
+//                                }
+//                            }
+                            isNewMessageListenerSet = true
                         }
                     }
                 }

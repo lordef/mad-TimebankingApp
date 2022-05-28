@@ -159,6 +159,32 @@ object ViewmodelsUtils {
 
     }
 
+    @JvmStatic
+    fun DocumentSnapshot.toNotification(user: Profile?, user1: Profile?, timeSlot: TimeSlot?): Notification? {
+        val text = get("text") as String
+        val timestamp = get("timestamp") as Timestamp
+
+        return try {
+            if ( user != null && user1 != null && timeSlot != null) {
+                Notification(
+                    text = text,
+                    timestamp = timestamp,
+                    user = user,
+                    user1 = user1,
+                    id = this.reference.parent.parent!!.id,
+                    timeSlot = timeSlot
+                )
+            }
+            else{
+                throw Exception()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    }
+
     //TODO
     @JvmStatic
     fun DocumentSnapshot.toStarsNumber(): Int? {

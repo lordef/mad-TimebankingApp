@@ -1,27 +1,31 @@
 package it.polito.mad.lab02.fragments.communication
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
+
 
 class MessageFragment : Fragment(R.layout.message_chat_list) {
 
@@ -183,6 +187,10 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                         )
                                     ) {
                                         composedMessage.text = ""
+                                        (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(
+                                            composedMessage.windowToken,
+                                            InputMethodManager.RESULT_UNCHANGED_SHOWN
+                                        )
                                     }
                                 } else {
                                     if (vm.sendMessage(
@@ -192,6 +200,10 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                         )
                                     ) {
                                         composedMessage.text = ""
+                                        (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(
+                                            composedMessage.windowToken,
+                                            InputMethodManager.RESULT_UNCHANGED_SHOWN
+                                        )
                                     }
                                 }
                             }
@@ -217,6 +229,10 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                     )
                                 ) {
                                     composedMessage.text = ""
+                                    (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(
+                                        composedMessage.windowToken,
+                                        InputMethodManager.RESULT_UNCHANGED_SHOWN
+                                    )
                                 }
                             }
                         }
