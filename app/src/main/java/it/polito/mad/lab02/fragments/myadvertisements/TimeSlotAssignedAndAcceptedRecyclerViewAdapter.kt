@@ -104,6 +104,9 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val nowHH = nowTime.split(":")[0].toInt()
         val nowMIN = nowTime.split(":")[1].toInt()
 
+        Log.d("mytaggg", todayDate+" "+nowTime)
+        Log.d("mytaggg", date+" "+time)
+
         return if(todayYY>yy) true
         else if (todayYY==yy){
             if(todayMM>mm) true
@@ -112,7 +115,8 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                 else if (todayDD==dd){
                     if(nowHH>hh) true
                     else if (nowHH==hh){
-                        nowMIN>min
+                        if(nowMIN>min) true
+                        else false
                     }else false
                 }else false
             }else false

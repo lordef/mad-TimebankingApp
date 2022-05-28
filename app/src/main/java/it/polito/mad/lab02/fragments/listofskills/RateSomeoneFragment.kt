@@ -44,7 +44,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             stars = fl.roundToInt()
         }
-        val rr = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
+//        val rr = Profile("", "aaa",rated.text.toString(), "mail", "loc", listOf<String>(), "desc", "uid")
 
         button.setOnClickListener{
             val newRating = Rating(profileRated, profileRater, stars, comment.text.toString(), Date().toString())

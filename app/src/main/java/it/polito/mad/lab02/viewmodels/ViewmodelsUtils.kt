@@ -190,8 +190,8 @@ object ViewmodelsUtils {
 // TODO: ?
             Rating(
 //                "",
-                Profile("", "",rated.toString(), "", "", listOf<String>(), "", ""),
-                Profile("", "",rater.toString(), "", "", listOf<String>(), "", ""),
+                Profile("", "",rated.toString(), "", "", listOf<String>(), "", "", 5),
+                Profile("", "",rater.toString(), "", "", listOf<String>(), "", "", 5),
                 starsNum.toInt(),
                 comment,
                 timestamp.toString()

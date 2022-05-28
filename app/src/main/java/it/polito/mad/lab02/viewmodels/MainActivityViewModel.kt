@@ -288,9 +288,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     /******** All timeslots ********/
 
-    fun setMyAssignedTimeSlotListListener(){
+    fun setMyAssignedTimeSlotListListener() {
         myAssignedTimeSlotListListener = timeslotsRef
-            .whereEqualTo("assignee", FirebaseAuth.getInstance().currentUser?.uid)
+            .whereEqualTo(
+                "assignee",
+                usersRef.document(FirebaseAuth.getInstance().currentUser!!.uid)
+            )
             .whereEqualTo("state", "ACCEPTED")
             .addSnapshotListener { r, e ->
                 if (e != null)
@@ -306,10 +309,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                             d.toTimeslot(userProfile)?.let { tmpList.add(it) }
                         }
                         _myAssignedTimeSlotList.postValue(tmpList)
+
                     }
                 }
             }
     }
+
 
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
         // Setting up timeslotsListener
@@ -414,12 +419,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         if (areTSsAndUsersListenersSetted) {
             areTSsAndUsersListenersSetted = false
 
-            if (areTSsAndUsersListenersSetted) {
-                timeslotsListener.remove()
-                usersListener.remove()
+            timeslotsListener.remove()
+            usersListener.remove()
 
-                _timeSlotList.value = emptyList()
-            }
+            _timeSlotList.value = emptyList()
+
         }
     }
 
@@ -593,7 +597,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeAdvsListenerByCurrentUser() {
-        if (isLoggedUserTSsListenerSetted){
+        if (isLoggedUserTSsListenerSetted) {
             isLoggedUserTSsListenerSetted = false
 
             loggedUserTimeSlotsListener.remove()
@@ -601,7 +605,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             _loggedUserTimeSlotList.value = emptyList()
         }
     }
-
 
 
     /******** end - Logged user timeslots ********/
@@ -739,7 +742,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
-    fun postRating(rating: Rating){
+    fun postRating(rating: Rating) {
 
 //        var exists = false
 //        var rate: QuerySnapshot
@@ -777,7 +780,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeRatingNumberListener() {
-        if (isRatingNumbersListenerSetted){
+        if (isRatingNumbersListenerSetted) {
             isRatingNumbersListenerSetted = false
 
             ratingNumbersListener.remove()
@@ -787,7 +790,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeRatingsListener() {
-        if (isRatingsListenerSetted){
+        if (isRatingsListenerSetted) {
             isRatingsListenerSetted = false
 
             ratingsListener.remove()
