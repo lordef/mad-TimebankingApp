@@ -135,16 +135,17 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toMessage(user: Profile?): Message? {
+    fun DocumentSnapshot.toMessage(user: Profile?, user1: Profile?): Message? {
         val text = get("text") as String
         val timestamp = get("timestamp") as Timestamp
 
         return try {
-            if (user != null) {
+            if (user != null && user1 != null) {
                 Message(
                     text = text,
                     timestamp = timestamp,
                     user = user,
+                    user1 = user1,
                     id = this.id
                 )
             }

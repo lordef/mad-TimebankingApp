@@ -48,6 +48,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _publisherChatList = MutableLiveData<List<Chat>>()
     private val _requesterChatList = MutableLiveData<List<Chat>>()
     private val _messageList = MutableLiveData<List<Message>>()
+    private val _newMessage = MutableLiveData<Message?>()
+
 
     //LiveData passed to our fragments
     val timeslotList: LiveData<List<TimeSlot>> = _timeSlotList
@@ -60,6 +62,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val publisherChatList: LiveData<List<Chat>> = _publisherChatList
     val requesterChatList: LiveData<List<Chat>> = _requesterChatList
     val messageList: LiveData<List<Message>> = _messageList
+    val newMessage: LiveData<Message?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
@@ -104,8 +107,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var timeslotListener: ListenerRegistration
 
+    private lateinit var newMessageListener: ListenerRegistration
 
     init {
+        setNewMessageListener()
         // Creating listener for logged user
         loggedUserListener = usersRef
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
@@ -127,6 +132,41 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+    /******** new Messages notification ********/
+
+    fun setNewMessageListener() {
+        newMessageListener = db.collectionGroup("messages")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    _newMessage.value = null
+                else {
+                    if (r != null) {
+
+                        viewModelScope.launch(Dispatchers.IO) {
+                            for (dc in r!!.documentChanges) {
+                                val user = (dc.document.get("user") as DocumentReference)
+                                    .get().await().toProfile()
+                                val user1 = (dc.document.get("user1") as DocumentReference)
+                                    .get().await().toProfile()
+                                if (user1?.uid == FirebaseAuth.getInstance().currentUser!!.uid) {
+                                    when (dc.type) {
+                                        DocumentChange.Type.ADDED -> {
+                                            Log.d("MYTAG", "New message: ${dc.document}")
+                                            dc.document.toMessage(user, user1)?.let {
+                                                Log.d("MYTAG", "New message: ${it}")
+                                                _newMessage.postValue(it)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    /******** end new Messages notification ********/
 
     /******** Chats and Messages ********/
     fun setChatsListener() {
@@ -203,7 +243,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                         r!!.forEach { d ->
                             val user = (d.get("user") as DocumentReference)
                                 .get().await().toProfile()
-                            d.toMessage(user)?.let { tmpList.add(it) }
+                            val user1 = (d.get("user1") as DocumentReference)
+                                .get().await().toProfile()
+                            d.toMessage(user, user1)?.let { tmpList.add(it) }
                         }
                         _messageList.postValue(tmpList)
                     }
@@ -320,7 +362,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         // Setting up timeslotsListener
         timeslotsListener = timeslotsRef
             .whereEqualTo("skill", db.document(skillRefToString))
-            .whereNotEqualTo("state", "ACCEPTED")
+            .whereEqualTo("state", "AVAILABLE")
             .addSnapshotListener { r, e ->
                 if (e != null)
                     _timeSlotList.value = emptyList()
@@ -418,14 +460,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun removePublicAdvsListener() {
         if (areTSsAndUsersListenersSetted) {
             areTSsAndUsersListenersSetted = false
-
             timeslotsListener.remove()
             usersListener.remove()
 
             _timeSlotList.value = emptyList()
-
         }
     }
+
 
     /******** end - All timeslots ********/
 
@@ -663,12 +704,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return newChat.id
     }
 
-    fun sendMessage(chatId: String, message: String): Boolean {
+    fun sendMessage(chatId: String, message: String, user1: String): Boolean {
         return if (message != "") {
             val data = hashMapOf(
                 "text" to message,
                 "timestamp" to Timestamp(Calendar.getInstance().time),
-                "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
+                "user1" to usersRef.document(user1)
             )
 
             if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
