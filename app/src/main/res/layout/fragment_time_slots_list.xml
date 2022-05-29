@@ -21,56 +21,73 @@
         android:layout_height="wrap_content">
 
 
-        <TextView
-            android:id="@+id/card_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:maxLength="30"
-            android:text="@string/title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            card_view:autoSizeTextType="uniform"
             card_view:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            card_view:layout_constraintEnd_toStartOf="@+id/edit_timeSlot_button"
-            card_view:layout_constraintHorizontal_bias="0.5"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/edit_timeSlot_button"
-            style="@style/Widget.Material3.Button.TextButton.Dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/edit_timeSlot"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            card_view:srcCompat="@drawable/ic_pencil_icon"
-            card_view:iconGravity="textStart"
-            card_view:iconPadding="8dp"
-            card_view:layout_constraintEnd_toStartOf="@+id/delete_timeSlot_imageButton"
-            card_view:layout_constraintStart_toEndOf="@+id/card_title"
-            card_view:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TextContrastCheck" />
-
-        <ImageButton
-            android:id="@+id/delete_timeSlot_imageButton"
-            style="@style/Widget.Material3.Button.TextButton.Dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/delete_timeSlot"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@android:drawable/ic_delete" />
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/card_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLength="30"
+                android:text="@string/title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                card_view:autoSizeTextType="uniform"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/assigned_timeslot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/edit_timeSlot_button"
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/edit_timeSlot"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                card_view:iconGravity="textStart"
+                card_view:iconPadding="8dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/delete_timeSlot_imageButton"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/ic_pencil_icon"
+                tools:ignore="TextContrastCheck" />
+
+            <ImageButton
+                android:id="@+id/delete_timeSlot_imageButton"
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/delete_timeSlot"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@android:drawable/ic_delete" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/edit_timeSlot_button">
+            card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <TextView
                 android:id="@+id/card_location"

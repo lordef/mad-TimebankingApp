@@ -130,7 +130,18 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.message_menu, menu)
+
+        val timeslot = arguments?.getString("timeslot")
+
+        //coming from the chat
+        if (timeslot != null) {
+
+            val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
+
+            if (ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid) {
+                inflater.inflate(R.menu.message_menu, menu)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

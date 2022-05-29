@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null && !isFirstAuthentication) {
-                Log.d("MYTAG", "Logged in as ${mAuth?.currentUser?.displayName}")
                 Toast.makeText(
                     applicationContext,
                     "Logged in as ${mAuth?.currentUser?.displayName}",

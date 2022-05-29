@@ -1,14 +1,15 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
@@ -18,7 +19,7 @@ import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
-
+    private var optionsMenu: Menu? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,6 +38,11 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 val timeSlotTmp = it.filter { ts -> id == ts.id }
                 if(timeSlotTmp.isNotEmpty()){
                     val timeSlot = timeSlotTmp.first()
+                    if(timeSlot.state == "ACCEPTED"){
+                        Log.d("MYTAG", "Hello")
+                        Log.d("MYTAG", "Hello ${optionsMenu}")
+                        optionsMenu?.findItem(R.id.editItem)?.isVisible = false
+                    }
                     title.text = timeSlot.title
                     description.text = timeSlot.description
                     dateTime.text = timeSlot.dateTime
@@ -64,7 +70,18 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.pencil_menu, menu)
+        val id = arguments?.getString("id")
+        if(id != null) {
+            vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) {
+                val timeSlotTmp = it.filter { ts -> id == ts.id }
+                if (timeSlotTmp.isNotEmpty()) {
+                    val timeSlot = timeSlotTmp.first()
+                    if (timeSlot.state != "ACCEPTED") {
+                        inflater.inflate(R.menu.pencil_menu, menu)
+                    }
+                }
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

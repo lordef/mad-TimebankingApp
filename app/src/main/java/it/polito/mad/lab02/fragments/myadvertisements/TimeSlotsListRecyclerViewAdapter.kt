@@ -97,7 +97,7 @@ class TimeSlotsListRecyclerViewAdapter(
         val card: CardView = binding.cardAdvertisement
         val editButton: ImageButton = binding.editTimeSlotButton
         val deleteButton: ImageButton = binding.deleteTimeSlotImageButton //TODO: delete from recycler + vm for firebase
-
+        val assignedText: TextView = binding.assignedTimeslot
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
             card.setOnClickListener(action1)
@@ -107,6 +107,17 @@ class TimeSlotsListRecyclerViewAdapter(
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
             deleteButton.setOnClickListener(action3)
+            if(timeSlot.state == "ACCEPTED"){
+                assignedText.text = "ACCEPTED"
+                editButton.visibility = View.GONE
+                deleteButton.visibility = View.GONE
+                assignedText.visibility = View.VISIBLE
+            }
+            else{
+                editButton.visibility = View.VISIBLE
+                deleteButton.visibility = View.VISIBLE
+                assignedText.visibility = View.GONE
+            }
 
         }
 
