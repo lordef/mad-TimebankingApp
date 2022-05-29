@@ -190,5 +190,9 @@
         android:id="@+id/rateSomeoneFragment"
         android:name="it.polito.mad.lab02.fragments.listofskills.RateSomeoneFragment"
         android:label="What do you think about..."
-        tools:layout="@layout/fragment_rate_someone" />
+        tools:layout="@layout/fragment_rate_someone" >
+        <action
+            android:id="@+id/action_rateSomeoneFragment_to_nav_timeSlotAssignedAndAcceptedFragment"
+            app:destination="@id/nav_timeSlotAssignedAndAcceptedFragment" />
+    </fragment>
 </navigation>

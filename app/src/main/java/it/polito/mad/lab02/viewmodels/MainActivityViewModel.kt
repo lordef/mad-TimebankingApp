@@ -798,24 +798,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun postRating(rating: Rating) {
 
-//        var exists = false
-//        var rate: QuerySnapshot
-//        runBlocking {
-//            rate = ratingsRef
-//                .whereEqualTo("rated", db.document(rating.rater!!.uid))
-//                .whereEqualTo(
-//                    "rater",
-//                    usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-//                )
-//                .get().await()
-//            if (rate.documents.size >= 1) {
-//                exists = true
-//            }
-//        }
-//
-//        if (exists) {
-//            return
-//        }
         val currentUser = usersRef
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
         val otherUser = usersRef
@@ -858,33 +840,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun setUserListenerByUserUid(userUid: String) {
 
-//        timeslotsListener = timeslotsRef
-//            .whereEqualTo("skill", db.document(userRefToString))
-
-//        val userUid = userRefToString.
-
-        // Creating listener for logged user
-//        userProfileListener = usersRef
-//            .document(userUid)
-//            .addSnapshotListener { r, e ->
-//                _profile.value = if (e != null)
-//                    Profile("", "", "", "", "", emptyList(), "", "", 0)
-//                else r!!.toProfile()
-//            }.also {
-//                isUserProfileListenerSet = true
-//            }
-
-//        .document(FirebaseAuth.getInstance().currentUser?.uid!!)
-
         userProfileListener = usersRef
             .document(userUid)
             .addSnapshotListener { r, e ->
                 _userProfile.value = if (e != null)
                     Profile("", "", "", "", "", emptyList(), "", "", 0)
                 else {
-                    Log.d("MYTAG", r!!.toProfile().toString()) //TODO
                     r!!.toProfile()
-
                 }
             }.also {
                 isUserProfileListenerSet = true
