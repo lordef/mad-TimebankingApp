@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -216,23 +217,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
                             val timeSlot = (d.get("timeslot") as DocumentReference)
                                 .get().await().toTimeslot(publisher)
-                            val messageCollection = d.reference
-                                .collection("messages")
-                                .orderBy("timestamp", Query.Direction.DESCENDING)
-                                .get().await()
-                            val lastMessageSnap: DocumentSnapshot
+
+                            val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-                            if (messageCollection.documents.size >= 1) {
-                                lastMessageSnap = messageCollection.documents.first()
-                                val user = (lastMessageSnap.get("user") as DocumentReference)
-                                    .get().await().toProfile()
-                                val user1 = (lastMessageSnap.get("user1") as DocumentReference)
-                                    .get().await().toProfile()
-                                lastMessage = lastMessageSnap.toMessage(user, user1)
-                                if (lastMessage != null) {
-                                    d.toChat(requester, publisher, timeSlot, lastMessage)
-                                        ?.let { tmpList.add(it) }
-                                }
+
+                            val user = (lastMessageMap["user"] as DocumentReference)
+                                .get().await().toProfile()
+                            val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                .get().await().toProfile()
+                            lastMessage = lastMessageMap.toMessage(user, user1)
+                            if (lastMessage != null) {
+                                d.toChat(requester, publisher, timeSlot, lastMessage)
+                                    ?.let { tmpList.add(it) }
                             }
                         }
                         _publisherChatList.postValue(tmpList)
@@ -259,23 +255,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
                             val timeSlot = (d.get("timeslot") as DocumentReference)
                                 .get().await().toTimeslot(publisher)
-                            val messageCollection = d.reference
-                                .collection("messages")
-                                .orderBy("timestamp", Query.Direction.DESCENDING)
-                                .get().await()
-                            val lastMessageSnap: DocumentSnapshot
+
+                            val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-                            if (messageCollection.documents.size >= 1) {
-                                lastMessageSnap = messageCollection.documents.first()
-                                val user = (lastMessageSnap.get("user") as DocumentReference)
-                                    .get().await().toProfile()
-                                val user1 = (lastMessageSnap.get("user1") as DocumentReference)
-                                    .get().await().toProfile()
-                                lastMessage = lastMessageSnap.toMessage(user, user1)
-                                if (lastMessage != null) {
-                                    d.toChat(requester, publisher, timeSlot, lastMessage)
-                                        ?.let { tmpList.add(it) }
-                                }
+
+                            val user = (lastMessageMap["user"] as DocumentReference)
+                                .get().await().toProfile()
+                            val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                .get().await().toProfile()
+                            lastMessage = lastMessageMap.toMessage(user, user1)
+                            if (lastMessage != null) {
+                                d.toChat(requester, publisher, timeSlot, lastMessage)
+                                    ?.let { tmpList.add(it) }
                             }
                         }
                         _requesterChatList.postValue(tmpList)
@@ -307,23 +298,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
                             val timeSlot = (d.get("timeslot") as DocumentReference)
                                 .get().await().toTimeslot(publisher)
-                            val messageCollection = d.reference
-                                .collection("messages")
-                                .orderBy("timestamp", Query.Direction.DESCENDING)
-                                .get().await()
-                            val lastMessageSnap: DocumentSnapshot
+
+                            val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-                            if (messageCollection.documents.size >= 1) {
-                                lastMessageSnap = messageCollection.documents.first()
-                                val user = (lastMessageSnap.get("user") as DocumentReference)
-                                    .get().await().toProfile()
-                                val user1 = (lastMessageSnap.get("user1") as DocumentReference)
-                                    .get().await().toProfile()
-                                lastMessage = lastMessageSnap.toMessage(user, user1)
-                                if (lastMessage != null) {
-                                    d.toChat(requester, publisher, timeSlot, lastMessage)
-                                        ?.let { tmpList.add(it) }
-                                }
+
+                            val user = (lastMessageMap["user"] as DocumentReference)
+                                .get().await().toProfile()
+                            val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                .get().await().toProfile()
+                            lastMessage = lastMessageMap.toMessage(user, user1)
+                            if (lastMessage != null) {
+                                d.toChat(requester, publisher, timeSlot, lastMessage)
+                                    ?.let { tmpList.add(it) }
                             }
                         }
                         _requesterChatList.postValue(tmpList)
@@ -829,12 +815,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
                 chatsRef.document(chatId).collection("messages").document("1").set(data)
                 setMessagesListener(chatId)
+                chatsRef.document(chatId).update("lastMessage", data)
                 _isChatListenerSet.value = true
             } else {
                 _messageList.value?.last()
                     ?.let {
                         chatsRef.document(chatId).collection("messages")
                             .document((it.id.toInt() + 1).toString()).set(data)
+                        chatsRef.document(chatId).update("lastMessage", data)
                     }
             }
 
