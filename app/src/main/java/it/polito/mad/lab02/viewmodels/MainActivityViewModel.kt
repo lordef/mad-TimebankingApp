@@ -220,15 +220,16 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
                             val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-
-                            val user = (lastMessageMap["user"] as DocumentReference)
-                                .get().await().toProfile()
-                            val user1 = (lastMessageMap["user1"] as DocumentReference)
-                                .get().await().toProfile()
-                            lastMessage = lastMessageMap.toMessage(user, user1)
-                            if (lastMessage != null) {
-                                d.toChat(requester, publisher, timeSlot, lastMessage)
-                                    ?.let { tmpList.add(it) }
+                            if (lastMessageMap.isNotEmpty()) {
+                                val user = (lastMessageMap["user"] as DocumentReference)
+                                    .get().await().toProfile()
+                                val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                    .get().await().toProfile()
+                                lastMessage = lastMessageMap.toMessage(user, user1)
+                                if (lastMessage != null) {
+                                    d.toChat(requester, publisher, timeSlot, lastMessage)
+                                        ?.let { tmpList.add(it) }
+                                }
                             }
                         }
                         _publisherChatList.postValue(tmpList)
@@ -258,15 +259,16 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
                             val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-
-                            val user = (lastMessageMap["user"] as DocumentReference)
-                                .get().await().toProfile()
-                            val user1 = (lastMessageMap["user1"] as DocumentReference)
-                                .get().await().toProfile()
-                            lastMessage = lastMessageMap.toMessage(user, user1)
-                            if (lastMessage != null) {
-                                d.toChat(requester, publisher, timeSlot, lastMessage)
-                                    ?.let { tmpList.add(it) }
+                            if (lastMessageMap.isNotEmpty()) {
+                                val user = (lastMessageMap["user"] as DocumentReference)
+                                    .get().await().toProfile()
+                                val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                    .get().await().toProfile()
+                                lastMessage = lastMessageMap.toMessage(user, user1)
+                                if (lastMessage != null) {
+                                    d.toChat(requester, publisher, timeSlot, lastMessage)
+                                        ?.let { tmpList.add(it) }
+                                }
                             }
                         }
                         _requesterChatList.postValue(tmpList)
@@ -301,15 +303,16 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
                             val lastMessageMap = (d.get("lastMessage") as HashMap<String, Any>)
                             val lastMessage: Message?
-
-                            val user = (lastMessageMap["user"] as DocumentReference)
-                                .get().await().toProfile()
-                            val user1 = (lastMessageMap["user1"] as DocumentReference)
-                                .get().await().toProfile()
-                            lastMessage = lastMessageMap.toMessage(user, user1)
-                            if (lastMessage != null) {
-                                d.toChat(requester, publisher, timeSlot, lastMessage)
-                                    ?.let { tmpList.add(it) }
+                            if (lastMessageMap.isNotEmpty()) {
+                                val user = (lastMessageMap["user"] as DocumentReference)
+                                    .get().await().toProfile()
+                                val user1 = (lastMessageMap["user1"] as DocumentReference)
+                                    .get().await().toProfile()
+                                lastMessage = lastMessageMap.toMessage(user, user1)
+                                if (lastMessage != null) {
+                                    d.toChat(requester, publisher, timeSlot, lastMessage)
+                                        ?.let { tmpList.add(it) }
+                                }
                             }
                         }
                         _requesterChatList.postValue(tmpList)
@@ -797,7 +800,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         val data = hashMapOf(
             "publisher" to usersRef.document(ts.user),
             "requester" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
-            "timeslot" to timeslotsRef.document(ts.id)
+            "timeslot" to timeslotsRef.document(ts.id),
+            "lastMessage" to emptyMap<String, Any>()
+//                    hashMapOf(
+//                        "text" to "",
+//                        "timestamp" to Timestamp(Calendar.getInstance().time),
+//                        "user" to usersRef,
+//                        "user1" to usersRef
+//                    )
         )
         newChat.set(data)
         return newChat.id
@@ -813,30 +823,35 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             )
 
             if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
-                chatsRef.document(chatId).collection("messages").document("1").set(data)
-                setMessagesListener(chatId)
                 chatsRef.document(chatId).update("lastMessage", data)
-                _isChatListenerSet.value = true
+                    .addOnSuccessListener {
+                        chatsRef.document(chatId).collection("messages").document("1").set(data)
+                        setMessagesListener(chatId)
+                        _isChatListenerSet.value = true
+                    }
             } else {
                 _messageList.value?.last()
                     ?.let {
-                        if(it.user.uid == FirebaseAuth.getInstance().currentUser?.uid.toString()){
-                            _messageList.value = _messageList.value!!.plus(Message(
-                                text = message,
-                                timestamp = Timestamp(Calendar.getInstance().time),
-                                user = it.user,
-                                user1 = it.user1,
-                                id = ""
-                            ))
-                        }
-                        else{
-                            _messageList.value = _messageList.value!!.plus(Message(
-                                text = message,
-                                timestamp = Timestamp(Calendar.getInstance().time),
-                                user = it.user1,
-                                user1 = it.user,
-                                id = ""
-                            ))
+                        if (it.user.uid == FirebaseAuth.getInstance().currentUser?.uid.toString()) {
+                            _messageList.value = _messageList.value!!.plus(
+                                Message(
+                                    text = message,
+                                    timestamp = Timestamp(Calendar.getInstance().time),
+                                    user = it.user,
+                                    user1 = it.user1,
+                                    id = ""
+                                )
+                            )
+                        } else {
+                            _messageList.value = _messageList.value!!.plus(
+                                Message(
+                                    text = message,
+                                    timestamp = Timestamp(Calendar.getInstance().time),
+                                    user = it.user1,
+                                    user1 = it.user,
+                                    id = ""
+                                )
+                            )
                         }
                         chatsRef.document(chatId).collection("messages")
                             .document((it.id.toInt() + 1).toString()).set(data)
