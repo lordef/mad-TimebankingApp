@@ -109,6 +109,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var isRequesterChatsListenerSet = false
 
     private lateinit var messagesListener: ListenerRegistration
+    var isMessageListenerSet = false
 
     private lateinit var timeslotListener: ListenerRegistration
 
@@ -356,6 +357,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }.also {
                 isChatsListenerSetted = true
+                isMessageListenerSet = true
             }
     }
 
@@ -865,7 +867,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun clearChat() {
+    fun removeMessagesListener() {
+            if (isMessageListenerSet) {
+                isMessageListenerSet = false
+
+                messagesListener.remove()
+
+                _messageList.value = emptyList()
+            }
         _messageList.value = emptyList()
     }
 

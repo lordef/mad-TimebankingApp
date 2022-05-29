@@ -2,7 +2,6 @@ package it.polito.mad.lab02.fragments.communication
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -219,7 +217,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                         val send = view.findViewById<Button>(R.id.button_gchat_send)
                         send.setOnClickListener {
                             if (timeSlotObs != null) {
-                                vm.clearChat()
+                                vm.removeMessagesListener()
                                 val id = vm.createChat(timeSlotObs)
                                 chatIdReal = id
                                 if (vm.sendMessage(
@@ -243,7 +241,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                vm.clearChat()
+                vm.removeMessagesListener()
                 view.findNavController().navigateUp()
             }
         }
@@ -255,7 +253,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
 
         return when (item.itemId) {
             android.R.id.home -> {
-                vm.clearChat()
+                vm.removeMessagesListener()
                 findNavController().navigateUp()
                 true
             }

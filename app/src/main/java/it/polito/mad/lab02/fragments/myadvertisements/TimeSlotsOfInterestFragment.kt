@@ -17,7 +17,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.communication.MyChatRecyclerViewAdapter
-import it.polito.mad.lab02.fragments.myadvertisements.placeholder.PlaceholderContent
 import it.polito.mad.lab02.fragments.profile.RatingRecyclerViewAdapter
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel

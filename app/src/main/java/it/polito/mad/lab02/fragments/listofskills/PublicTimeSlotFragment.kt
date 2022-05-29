@@ -355,7 +355,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
     private fun onBackPressed(){
         val runnable = Runnable {
             // useful to call interaction with viewModel
-            vm.removeRequesterChatsListener()
+            vm.removePublicAdvsListener()
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)

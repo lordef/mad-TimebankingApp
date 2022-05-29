@@ -53,13 +53,12 @@
                 android:maxLength="65"
                 android:text="From:"
                 android:textSize="18sp"
-                card_view:layout_constraintEnd_toStartOf="@+id/card_profile"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/card_profile"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:drawablePadding="8dp"
@@ -70,8 +69,7 @@
                 android:textSize="18sp"
                 card_view:drawableStartCompat="@drawable/ic_user_icon"
                 card_view:layout_constraintBottom_toBottomOf="@+id/card_from"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@id/card_from"
+                card_view:layout_constraintStart_toEndOf="@+id/card_from"
                 card_view:layout_constraintTop_toTopOf="@+id/card_from"
                 card_view:layout_constraintVertical_bias="0.0"
                 tools:text="@string/menu_profile" />

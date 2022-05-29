@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     android:label="Chats"
-    app:startDestination="@id/nav_chats">
+    app:startDestination="@id/nav_all_advertisements">
 
     <fragment
         android:id="@+id/nav_profile"
@@ -48,7 +48,11 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_nav_advertisement_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
     <fragment
         android:id="@+id/nav_timeSlotEdit"
@@ -76,8 +80,10 @@
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_nav_advertisement"
             app:destination="@id/nav_advertisement"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -87,8 +93,10 @@
         <action
             android:id="@+id/action_editProfileFragment_to_nav_profile"
             app:destination="@id/nav_profile"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_all_advertisements"
@@ -136,7 +144,11 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_publicTimeSlotDetailsFragment_to_nav_single_message"
-            app:destination="@id/nav_single_message" />
+            app:destination="@id/nav_single_message"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
     <fragment
         android:id="@+id/publicShowProfileFragment"
@@ -148,10 +160,18 @@
         tools:layout="@layout/message_chat_list" >
         <action
             android:id="@+id/action_nav_single_message_to_publicShowProfileFragment2"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_nav_single_message_to_publicTimeSlotDetailsFragment"
-            app:destination="@id/publicTimeSlotDetailsFragment" />
+            app:destination="@id/publicTimeSlotDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
     <fragment
         android:id="@+id/nav_chats"
@@ -159,15 +179,27 @@
         >
         <action
             android:id="@+id/action_chatFragment_to_nav_single_message"
-            app:destination="@id/nav_single_message" />
+            app:destination="@id/nav_single_message"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_nav_chats_to_publicShowProfileFragment"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
         android:label="Publisher profile" >
         <action
             android:id="@+id/action_publicShowProfileFragment_to_ratingsFragment"
-            app:destination="@id/ratingsFragment" />
+            app:destination="@id/ratingsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     <fragment
         android:id="@+id/ratingsFragment"
         android:name="it.polito.mad.lab02.fragments.profile.RatingsFragment"
@@ -185,9 +217,17 @@
         tools:layout="@layout/fragment_time_slots_of_interest" >
         <action
             android:id="@+id/action_nav_timeSlotsOfInterestFragment_to_publicTimeSlotDetailsFragment"
-            app:destination="@id/publicTimeSlotDetailsFragment" />
+            app:destination="@id/publicTimeSlotDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_nav_timeSlotsOfInterestFragment_to_publicShowProfileFragment"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
