@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
+        android:stepSize="1"
         android:isIndicator="false"
         tools:ignore="SpeakableTextPresentCheck" />
 

@@ -56,7 +56,6 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                 } else {
                     val isLoggedUserPublisher = true
                     val rated = timeslot.assignee // questa è una ref
-                    Log.d("mytaggg", timeslot.assignee)
                     bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
                     bundle.putString("profileRated", rated)
                 }

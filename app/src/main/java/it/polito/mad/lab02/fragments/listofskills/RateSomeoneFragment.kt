@@ -2,6 +2,7 @@ package it.polito.mad.lab02.fragments.listofskills
 
 import it.polito.mad.lab02.models.Rating
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -51,7 +53,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         val rated = view.findViewById<TextView>(R.id.userRated)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
-        val comment = view.findViewById<EditText>(R.id.comment)
+        val comment = view.findViewById<EditText>(R.id.commentEditText)
         val button = view.findViewById<Button>(R.id.button3)
 
         rated.text = profileRated.nickname
@@ -60,13 +62,21 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             stars = fl.roundToInt()
+            Log.d("mytaggg", stars.toString())
         }
 
         button.setOnClickListener{
-            val newRating = Rating(profileRated, profileRater, stars, comment.text.toString(), Date().toString())
+            Log.d("mytaggg", "rs1")
+            var commentString = comment.text.toString()
+            val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
+
+            val newRating = Rating(profileRated, profileRater, stars, commentString, date)
+            Log.d("mytaggg", "rs2")
             vm.postRating(newRating)
         }
     }
+
+
 
 
 

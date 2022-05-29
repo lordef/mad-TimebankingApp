@@ -780,12 +780,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         val userRef = usersRef
             .document(ratedProfileUid)
 
+
         ratingsListener = ratingsRef
             .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
                 _ratingList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
+                    // TODO: da una reference a un profilo?
                     d.toRating()
                 }
             }
@@ -816,16 +818,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 //        }
         val currentUser = usersRef
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
+        val otherUser = usersRef
+            .document(rating.rated.uid)
 
         val newRating = ratingsRef.document()
+
         val data = hashMapOf(
             "rater" to currentUser,
-            "rated" to db.document(rating.rated.uid),
+            "rated" to otherUser,
             "starsNum" to rating.starsNum,
             "comment" to rating.comment,
             "timestamp" to rating.timestamp
         )
-        Log.d("mytaggg", data.toString())
         newRating.set(data)
         return
 
