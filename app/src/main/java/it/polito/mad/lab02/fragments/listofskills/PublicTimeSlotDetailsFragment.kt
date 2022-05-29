@@ -53,10 +53,12 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
             val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
 
-            optionsMenu.observe(viewLifecycleOwner){ menu ->
-                if(menu != null){
-                    menu!!.findItem(R.id.messageItem).isVisible =
-                        ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+            optionsMenu.observe(viewLifecycleOwner) { menu ->
+                if (menu != null) {
+                    if (menu.findItem(R.id.messageItem) != null) {
+                        menu.findItem(R.id.messageItem).isVisible =
+                            ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                    }
                 }
             }
             title.text = ts.title
@@ -90,10 +92,12 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
 
-                    optionsMenu.observe(viewLifecycleOwner){ menu ->
-                        if(menu != null){
-                            menu!!.findItem(R.id.messageItem).isVisible =
-                                ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                    optionsMenu.observe(viewLifecycleOwner) { menu ->
+                        if (menu != null) {
+                            if (menu.findItem(R.id.messageItem) != null) {
+                                menu.findItem(R.id.messageItem).isVisible =
+                                    ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                            }
                         }
                     }
 

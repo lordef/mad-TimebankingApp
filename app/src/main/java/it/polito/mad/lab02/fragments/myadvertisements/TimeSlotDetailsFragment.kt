@@ -43,11 +43,11 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                     val timeSlot = timeSlotTmp.first()
 
                     optionsMenu.observe(viewLifecycleOwner){ menu ->
-                        if(timeSlot.state == "ACCEPTED" && menu != null){
-                            menu!!.findItem(R.id.editItem).isVisible = false
+                        if(timeSlot.state == "ACCEPTED" && menu != null && menu.findItem(R.id.editItem) != null){
+                            menu.findItem(R.id.editItem).isVisible = false
                         }
-                        else if(timeSlot.state == "AVAILABLE" && menu != null){
-                            menu!!.findItem(R.id.editItem).isVisible = true
+                        else if(timeSlot.state == "AVAILABLE" && menu != null && menu.findItem(R.id.editItem) != null){
+                            menu.findItem(R.id.editItem).isVisible = true
                         }
                     }
 
