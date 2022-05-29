@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -127,8 +128,8 @@ class EditProfileFragment : Fragment() {
                         columnCount <= 1 -> LinearLayoutManager(context)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    if(listOfSkills?.contains("") != true)
-                        adapter = SkillRecyclerViewAdapter(listOfSkills!!){
+                    if (listOfSkills?.contains("") != true)
+                        adapter = SkillRecyclerViewAdapter(listOfSkills!!) {
                             vm.deleteSkillFromLoggedUser(it)
                             vm.deleteSkillFromSkills(it)
                         }
@@ -173,13 +174,16 @@ class EditProfileFragment : Fragment() {
         }
 
         addSkillsButton.setOnClickListener {
-            if (skillsText.text.toString().toLowerCase() == null || skillsText.text.toString() == "")
+            if (skillsText.text.toString()
+                    .toLowerCase() == null || skillsText.text.toString() == ""
+            )
                 Toast.makeText(this.context, "You should insert a skill", Toast.LENGTH_SHORT).show()
             else if (skillsText.text.toString().toLowerCase().split(" ").size != 1)
-                Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT)
+                    .show()
             else if (skillList.contains(skillsText.text.toString().toLowerCase()))
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
-            else{
+            else {
                 vm.addSkillInLoggedUser(skillsText.text.toString().toLowerCase())
                 vm.addSkillInSkills(skillsText.text.toString().toLowerCase())
                 skillsText.text = ""
@@ -261,16 +265,28 @@ class EditProfileFragment : Fragment() {
                 if (listOfSkills.isEmpty()) listOfSkills = emptyList()
             } else {
                 balance = profile.balance
-                imgUri = Uri.parse(profile?.imageUri)
-                imgUriOld = imgUri
-                profileImage?.load(imgUri)
-                fullNameEditText?.text = profile?.fullName
-                nickNameEditText?.text = profile?.nickname
-                emailEditText?.text = profile?.email
-                locationEditText?.text = profile?.location
+                if (imgUri == Uri.parse(profile?.imageUri) || imgUri == Uri.parse("android.resource://it.polito.mad.lab02/drawable/profile_image")) {
+                    imgUri = Uri.parse(profile?.imageUri)
+                    imgUriOld = imgUri
+                    profileImage?.load(imgUri)
+                }
+                if (fullNameEditText?.text?.isBlank() == true) {
+                    fullNameEditText?.text = profile?.fullName
+                }
+                if (nickNameEditText?.text?.isBlank() == true) {
+                    nickNameEditText?.text = profile?.nickname
+                }
+                if(emailEditText?.text?.isBlank() == true){
+                    emailEditText?.text = profile?.email
+                }
+                if (locationEditText?.text?.isBlank() == true) {
+                    locationEditText?.text = profile?.location
+                }
                 listOfSkills = profile?.skills!!
                 if (listOfSkills.isEmpty()) listOfSkills = emptyList()
-                descriptionEditText?.text = profile?.description
+                if(descriptionEditText?.text?.isBlank() == true){
+                    descriptionEditText?.text = profile?.description
+                }
             }
 
         }
@@ -360,7 +376,8 @@ class EditProfileFragment : Fragment() {
                 val l = view?.findViewById<TextInputLayout>(R.id.skillTextInputLabel)
                 l?.error = "Add at least one skill"
             }
-            Toast.makeText(this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "Be sure to fill the mandatory fields", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
