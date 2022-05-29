@@ -820,6 +820,24 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             } else {
                 _messageList.value?.last()
                     ?.let {
+                        if(it.user.uid == FirebaseAuth.getInstance().currentUser?.uid.toString()){
+                            _messageList.value = _messageList.value!!.plus(Message(
+                                text = message,
+                                timestamp = Timestamp(Calendar.getInstance().time),
+                                user = it.user,
+                                user1 = it.user1,
+                                id = ""
+                            ))
+                        }
+                        else{
+                            _messageList.value = _messageList.value!!.plus(Message(
+                                text = message,
+                                timestamp = Timestamp(Calendar.getInstance().time),
+                                user = it.user1,
+                                user1 = it.user,
+                                id = ""
+                            ))
+                        }
                         chatsRef.document(chatId).collection("messages")
                             .document((it.id.toInt() + 1).toString()).set(data)
                         chatsRef.document(chatId).update("lastMessage", data)
