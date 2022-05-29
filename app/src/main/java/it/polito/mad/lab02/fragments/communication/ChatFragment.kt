@@ -56,7 +56,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
                             columnCount <= 1 -> LinearLayoutManager(context)
                             else -> GridLayoutManager(context, columnCount)
                         }
-                        adapter = MyChatRecyclerViewAdapter(chatList)
+                        adapter = MyChatRecyclerViewAdapter(chatList.sortedByDescending { it.lastMessage.timestamp })
                     }
                 }
             }
@@ -80,7 +80,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
                             columnCount <= 1 -> LinearLayoutManager(context)
                             else -> GridLayoutManager(context, columnCount)
                         }
-                        adapter = MyChatRecyclerViewAdapter(chatList)
+                        adapter = MyChatRecyclerViewAdapter(chatList.sortedByDescending { it.lastMessage.timestamp })
                     }
                 }
             }
@@ -99,7 +99,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
                         else -> GridLayoutManager(context, columnCount)
                     }
                     if(vm.publisherChatList.value != null) {
-                        adapter = MyChatRecyclerViewAdapter(vm.publisherChatList.value!!)
+                        adapter = MyChatRecyclerViewAdapter(vm.publisherChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
                         if (vm.publisherChatList.value!!.isEmpty()) {
                             recyclerView.visibility = View.GONE
                             textView.visibility = View.VISIBLE
@@ -127,7 +127,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
                         else -> GridLayoutManager(context, columnCount)
                     }
                     if(vm.requesterChatList.value != null) {
-                        adapter = MyChatRecyclerViewAdapter(vm.requesterChatList.value!!)
+                        adapter = MyChatRecyclerViewAdapter(vm.requesterChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
                         if (vm.requesterChatList.value!!.isEmpty()) {
                             recyclerView.visibility = View.GONE
                             textView.visibility = View.VISIBLE

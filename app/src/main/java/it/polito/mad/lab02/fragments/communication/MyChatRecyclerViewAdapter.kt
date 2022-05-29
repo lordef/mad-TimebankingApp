@@ -66,11 +66,13 @@ class MyChatRecyclerViewAdapter(
         val cardTitle: TextView = binding.cardTitle
         val cardProfile: TextView = binding.cardProfile
         val cardChat: CardView = binding.cardChat
+        val lastMessage: TextView = binding.lastMessage
 
         fun bind(chat: Chat, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardChat.setOnClickListener(action1)
             cardTitle.text = chat.timeSlot.title
             cardProfile.setOnClickListener(action2)
+            lastMessage.text = chat.lastMessage.text
             if (chat.publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
                 cardProfile.text = chat.requester.nickname
             } else {

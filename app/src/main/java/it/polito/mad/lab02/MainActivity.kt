@@ -20,6 +20,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.drawerlayout.widget.DrawerLayout
@@ -44,6 +45,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.internal.notify
 import java.net.URL
 
 
@@ -83,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             // Create the NotificationChannel
             val name = "myNotificationChannel"
             val descriptionText = "New messages"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel("9999", name, importance)
             mChannel.description = descriptionText
             // Register the channel with the system; you can't change the importance
@@ -127,41 +129,17 @@ class MainActivity : AppCompatActivity() {
                                     .bigText(it.text)
                             )
                             .setContentIntent(pendingIntent)
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
                             .setAutoCancel(true)
                             .build()
 
-                        val mNotificationManager =
-                            applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                        mNotificationManager.notify(100, notification)
-                    } else {
-//                        Log.d("MYTAG", "Null")
+                        val notificationManagerCompat = NotificationManagerCompat.from(applicationContext)
+                        notificationManagerCompat.notify(100, notification)
                     }
                 }
 
+                //Toast.makeText(this, "New message from: ${it.user.nickname}", Toast.LENGTH_SHORT).show()
 
-//                runBlocking {
-//                    val request = ImageRequest.Builder(context)
-//                        .data(url)
-//                        .build()
-//                    image = imageLoader.execute(request).drawable!!.toBitmap()
-//                }
-
-                Toast.makeText(this, "New message from: ${it.user.nickname}", Toast.LENGTH_SHORT).show()
-
-//                var notification = NotificationCompat.Builder(context, "9999")
-//                    .setSmallIcon(IconCompat.createWithBitmap(image))
-//                    .setContentTitle("Message from: ${it.user}")
-//                    .setContentText(it.text)
-//                    .setLargeIcon(image)
-//                    .setStyle(
-//                        NotificationCompat.BigTextStyle()
-//                            .bigText(it.text)
-//                    )
-//                    .build()
-
-//                val mNotificationManager =
-//                    context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-//                mNotificationManager.notify(100, notification)
             }
         }
 

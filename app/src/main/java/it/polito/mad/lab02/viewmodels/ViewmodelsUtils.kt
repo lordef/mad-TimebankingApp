@@ -113,7 +113,7 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toChat(publisher: Profile?, requester: Profile?, timeSlot: TimeSlot?): Chat? {
+    fun DocumentSnapshot.toChat(publisher: Profile?, requester: Profile?, timeSlot: TimeSlot?, lastMessage: Message): Chat? {
 
         return try {
             if (publisher != null && requester != null && timeSlot != null) {
@@ -121,7 +121,8 @@ object ViewmodelsUtils {
                     publisher = publisher,
                     requester = requester,
                     timeSlot = timeSlot,
-                    id = this.id
+                    id = this.id,
+                    lastMessage = lastMessage
                 )
             }
             else{
