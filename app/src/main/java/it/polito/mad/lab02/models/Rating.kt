@@ -6,6 +6,7 @@ data class Rating(
     val rater: Profile, //reference
     val starsNum: Int, //number
     val comment: String, //text
-    val timestamp: String //Timestamp
+    val timestamp: String, //Timestamp
+    val timeslot: TimeSlot
 
 )

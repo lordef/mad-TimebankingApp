@@ -40,7 +40,7 @@ class RatingsFragment : Fragment(R.layout.fragment_ratings_list_with_no_ratings_
 
         if (userUid != null) {
 
-            vm.setRatingsListenerByUserUid(userUid)
+            vm.setRatingsListenerByUserUid(userUid,)
 
             vm.ratingList.observe(viewLifecycleOwner) { ratings ->
                 if (recyclerView is RecyclerView) {

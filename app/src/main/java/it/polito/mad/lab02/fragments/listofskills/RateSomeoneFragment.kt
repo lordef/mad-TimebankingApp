@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
+import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +36,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         val isLoggedUserPublisher = arguments?.getBoolean("isLoggedUserPublisher")
         val profileRatedIncoming = arguments?.getString("profileRated")
+        val timeslotRatedJson = arguments?.getString("timeslotRated")
+        val timeslotRated = Gson().fromJson(timeslotRatedJson, TimeSlot::class.java)
 
         val rated = view.findViewById<TextView>(R.id.userRated)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
@@ -43,6 +46,14 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         lateinit var profileRated: Profile
         lateinit var profileRater: Profile
+
+
+        vm.setRatingsListenerByTimeslotId(timeslotRated)
+        vm.timeslotRatings.observe(viewLifecycleOwner){ rating ->
+            Log.d("mytaggg", "fragment: "+rating.toString())
+
+        }
+
 
         vm.profile.observe(viewLifecycleOwner){profile ->
             profileRater = profile
@@ -68,7 +79,9 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         button.setOnClickListener{
             var commentString = comment.text.toString()
             val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
-            val newRating = Rating(profileRated, profileRater, stars, commentString, date)
+            val timeSlot = TimeSlot("","","","","","","","",profileRater!!, "", "", emptyList())
+
+            val newRating = Rating(profileRated, profileRater, stars, commentString, date, timeSlot)
             vm.postRating(newRating)
 
             view.findNavController().navigateUp()

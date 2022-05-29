@@ -43,6 +43,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingList = MutableLiveData<List<Rating>>()
     private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
     private val _userProfile = MutableLiveData<Profile>()
+    private val _timeslotRatings = MutableLiveData<List<Rating>>()
 
 
 
@@ -71,7 +72,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val newMessage: LiveData<Notification?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
     val userProfile : LiveData<Profile> = _userProfile
-
+    val timeslotRatings: LiveData<List<Rating>> = _timeslotRatings
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
 
@@ -124,6 +125,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var userProfileListener: ListenerRegistration
     var isUserProfileListenerSet = false
+
+    private lateinit var timeslotRatingsListener: ListenerRegistration
+    private var isTimeslotRatingsListenerSet = false
 
 
     init {
@@ -940,8 +944,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
 //                            val timeSlot = (d.get("timeslot") as DocumentReference)
 //                                .get().await().toTimeslot(publisher)
+                            val timeSlot = TimeSlot("","","","","","","","",rater!!, "", "", emptyList())
 
-                            d.toRating(rater, rated)?.let { tmpList.add(it) }
+                            d.toRating(rater, rated, timeSlot)?.let { tmpList.add(it) }
                         }
                         _ratingList.postValue(tmpList)
                     }
@@ -949,6 +954,38 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
             .also {
                 isRatingsListenerSetted = true
+            }
+    }
+
+    fun setRatingsListenerByTimeslotId(timeslotRated: TimeSlot) {
+
+        val timeslotRef = timeslotsRef.document(timeslotRated.id)
+        timeslotRatingsListener = ratingsRef
+            .whereEqualTo("timeslot", timeslotRef)
+            .addSnapshotListener { r, e ->
+                if (e != null) {
+                    _timeslotRatings.value = emptyList()
+                }else {
+                    val tmpList = mutableListOf<Rating>()
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            // TODO: ???
+                            Log.d("mytaggg", d.toString())
+
+                            val rater = (d.get("rater") as DocumentReference)
+                                .get().await().toProfile()
+                            val rated = (d.get("rated") as DocumentReference)
+                                .get().await().toProfile()
+                            Log.d("mytaggg", "vm: "+d.toRating(rater, rated, timeslotRated).toString())
+
+                            d.toRating(rater, rated, timeslotRated)?.let { tmpList.add(it) }
+                        }
+                        _timeslotRatings.postValue(tmpList)
+                    }
+                }
+            }
+            .also {
+                isTimeslotRatingsListenerSet = true
             }
     }
 

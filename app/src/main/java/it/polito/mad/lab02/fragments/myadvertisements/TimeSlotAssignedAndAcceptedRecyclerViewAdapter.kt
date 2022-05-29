@@ -48,6 +48,9 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         holder.bind(timeslot,
             {
                 val bundle = Bundle()
+                val ts = Gson().toJson(timeslot)
+                bundle.putString("timeslotRated", ts)
+
                 if (selector == 0) {
                     val isLoggedUserPublisher = false
                     val rated = Gson().toJson(timeslot.userProfile) // questo è un profile

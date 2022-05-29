@@ -227,7 +227,7 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toRating(rater: Profile?, rated: Profile?): Rating? {
+    fun DocumentSnapshot.toRating(rater: Profile?, rated: Profile?, timeSlot: TimeSlot?): Rating? {
         val starsNum = get("starsNum") as Number
         val comment = get("comment") as String //TODO: check if empty
         val timestamp = get("timestamp") as String //Timestamp on FB
@@ -239,7 +239,8 @@ object ViewmodelsUtils {
                     rated = rated!!,
                     starsNum = starsNum.toInt(),
                     comment = comment,
-                    timestamp = timestamp
+                    timestamp = timestamp,
+                    timeslot = timeSlot!!
                 )
             }
             else{
