@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import it.polito.mad.lab02.models.Profile
+import okhttp3.internal.notify
 import java.util.*
 
 
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null && !isFirstAuthentication) {
+                Log.d("MYTAG", "Logged in as ${mAuth?.currentUser?.displayName}")
                 Toast.makeText(
                     applicationContext,
                     "Logged in as ${mAuth?.currentUser?.displayName}",
@@ -143,7 +145,13 @@ class LoginActivity : AppCompatActivity() {
                                         finish()
                                     }
                             } else {
-                                isFirstAuthentication = false
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Logged in as ${mAuth?.currentUser?.displayName}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
                             }
                         }
                         .addOnFailureListener {
