@@ -1,5 +1,6 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
+import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 
 
 import it.polito.mad.lab02.databinding.FragmentTimeSlotAssignedAndAcceptedBinding
 import it.polito.mad.lab02.models.TimeSlot
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,8 +25,10 @@ import java.util.*
  * TODO: Replace the implementation with code for your data type.
  */
 class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
-    private val values: List<TimeSlot>
+    private val values: List<TimeSlot>,
+    private val selector: Int
 ) : RecyclerView.Adapter<TimeSlotAssignedAndAcceptedRecyclerViewAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -38,7 +44,31 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val timeslot = values[position]
-        holder.bind(timeslot, {}, {})
+
+        holder.bind(timeslot,
+            {
+                val bundle = Bundle()
+                if (selector == 0) {
+                    val isLoggedUserPublisher = false
+                    val rated = Gson().toJson(timeslot.userProfile) // questo è un profile
+                    bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
+                    bundle.putString("profileRated", rated)
+                } else {
+                    val isLoggedUserPublisher = true
+                    val rated = timeslot.assignee // questa è una ref
+                    bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
+                    bundle.putString("profileRated", rated)
+                }
+//            val userProfileJson = Gson().toJson(timeslot.userProfile)
+//            val assigneeProfileJson = Gson().toJson(timeslot.assignee)
+//            bundle.putString("profileRater", userProfileJson)
+//            bundle.putString("profileRated", assigneeProfileJson)
+                it.findNavController()
+                    .navigate(
+                        R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
+                        bundle
+                    )
+            }, {})
 
     }
 
@@ -49,19 +79,28 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
         val cardTitle: TextView = binding.cardTitle
         val cardLocation: TextView = binding.cardLocation
+        val cardProfile: TextView = binding.profilePublicAdv
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val rateButton: ImageButton = binding.rateButton
 
-        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit){
+        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
+
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
 
-            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)){
-                rateButton.visibility = View.VISIBLE
+            if(selector == 0){
+                cardProfile.text = timeSlot.userProfile.nickname
             }else{
+                cardProfile.visibility = View.GONE
+            }
+
+            if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {
+                rateButton.visibility = View.VISIBLE
+                rateButton.setOnClickListener(action1)
+            } else {
                 rateButton.visibility = View.GONE
             }
 
@@ -69,7 +108,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
     }
 
-    fun isTimeslotPassed(dateTime: String, duration: String): Boolean{
+    fun isTimeslotPassed(dateTime: String, duration: String): Boolean {
         val date = dateTime.split(" ")[0]
         val time = dateTime.split(" ")[1]
 
@@ -89,20 +128,19 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val nowHH = nowTime.split(":")[0].toInt()
         val nowMIN = nowTime.split(":")[1].toInt()
 
-        return if(todayYY>yy) true
-        else if (todayYY==yy){
-            if(todayMM>mm) true
-            else if (todayMM==mm){
-                if(todayDD>dd) true
-                else if (todayDD==dd){
-                    if(nowHH>hh) true
-                    else if (nowHH==hh){
-                        nowMIN>min
-                    }else false
-                }else false
-            }else false
-        }else false
-
+        return if (todayYY > yy) true
+        else if (todayYY == yy) {
+            if (todayMM > mm) true
+            else if (todayMM == mm) {
+                if (todayDD > dd) true
+                else if (todayDD == dd) {
+                    if (nowHH > hh) true
+                    else if (nowHH == hh) {
+                        nowMIN > min
+                    } else false
+                } else false
+            } else false
+        } else false
 
 
     }

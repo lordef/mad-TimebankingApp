@@ -64,6 +64,8 @@
     <string name="edit_timeSlot">Edit</string>
     <string name="delete_timeSlot">Delete</string>
     <string name="empty_adv_msg">No advertisements present</string>
+    <string name="empty_adv_assigned_msg">No advertisements assigned present</string>
+    <string name="empty_adv_accepted_msg">No advertisements accepted present</string>
     <string name="empty_chats_msg">No chats present</string>
     <string name="empty_messages_msg">No messages present</string>
     <string name="nav_logout">Logout</string>

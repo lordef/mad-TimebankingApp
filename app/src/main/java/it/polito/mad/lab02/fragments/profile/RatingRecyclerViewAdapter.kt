@@ -43,7 +43,7 @@ class RatingRecyclerViewAdapter(
 
         fun bind(rating: Rating){
             ratingBar.rating = rating.starsNum.toFloat()
-            rater.text = rating.rater
+            rater.text = rating.rater!!.nickname
             if(rating.comment.isNotEmpty())
                 comment.text = rating.comment
             else
