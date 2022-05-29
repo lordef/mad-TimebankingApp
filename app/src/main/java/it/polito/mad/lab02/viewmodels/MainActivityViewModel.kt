@@ -29,6 +29,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import kotlin.collections.HashMap
+import java.util.EventListener
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -41,6 +42,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingNumber = MutableLiveData<Float>()
     private val _ratingList = MutableLiveData<List<Rating>>()
     private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
+    private val _userProfile = MutableLiveData<Profile>()
+
 
 
     private val _isChatListenerSet = MutableLiveData<Boolean>(false)
@@ -67,6 +70,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val messageList: LiveData<List<Message>> = _messageList
     val newMessage: LiveData<Notification?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
+    val userProfile : LiveData<Profile> = _userProfile
+
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
 
@@ -115,6 +120,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var newMessageListener: ListenerRegistration
     var isNewMessageListenerSet = false
+
+
+    private lateinit var userProfileListener: ListenerRegistration
+    var isUserProfileListenerSet = false
+
 
     init {
         setNewMessageListener()
@@ -457,10 +467,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                             d.toTimeslot(userProfile)?.let { tmpList.add(it) }
                         }
                         _myAssignedTimeSlotList.postValue(tmpList)
+
                     }
                 }
             }
     }
+
 
     fun setPublicAdvsListenerBySkill(skillRefToString: String) {
         // Setting up timeslotsListener
@@ -913,18 +925,41 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         val userRef = usersRef
             .document(ratedProfileUid)
 
+
         ratingsListener = ratingsRef
             .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
                 _ratingList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
+                    // TODO: da una reference a un profilo?
                     d.toRating()
                 }
             }
             .also {
                 isRatingsListenerSetted = true
             }
+    }
+
+    fun postRating(rating: Rating) {
+
+        val currentUser = usersRef
+            .document("${FirebaseAuth.getInstance().currentUser?.uid}")
+        val otherUser = usersRef
+            .document(rating.rated.uid)
+
+        val newRating = ratingsRef.document()
+
+        val data = hashMapOf(
+            "rater" to currentUser,
+            "rated" to otherUser,
+            "starsNum" to rating.starsNum,
+            "comment" to rating.comment,
+            "timestamp" to rating.timestamp
+        )
+        newRating.set(data)
+        return
+
     }
 
     fun removeRatingNumberListener() {
@@ -944,6 +979,32 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             ratingsListener.remove()
 
             _ratingList.value = emptyList()
+        }
+    }
+
+
+    fun setUserListenerByUserUid(userUid: String) {
+
+        userProfileListener = usersRef
+            .document(userUid)
+            .addSnapshotListener { r, e ->
+                _userProfile.value = if (e != null)
+                    Profile("", "", "", "", "", emptyList(), "", "", 0)
+                else {
+                    r!!.toProfile()
+                }
+            }.also {
+                isUserProfileListenerSet = true
+            }
+    }
+
+    fun removeUserProfileListener() {
+        if (isUserProfileListenerSet) {
+            isUserProfileListenerSet = false
+
+            userProfileListener.remove()
+
+            _userProfile.value = Profile("", "", "", "", "", emptyList(), "", "", 0)
         }
     }
 

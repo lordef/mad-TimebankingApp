@@ -11,6 +11,8 @@ import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toSkill
 import it.polito.mad.lab02.models.*
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toMessage
+import it.polito.mad.lab02.viewmodels.ViewmodelsUtils.toProfile
 import okhttp3.internal.wait
 
 object ViewmodelsUtils {
@@ -227,28 +229,27 @@ object ViewmodelsUtils {
     @JvmStatic
     fun DocumentSnapshot.toRating(): Rating? {
         //if it is an adv of the loggedUser, the profile can be passed as empty Profile
+        val rated = get("rated") as DocumentReference
+        val rater = get("rater") as DocumentReference
+        val starsNum = get("starsNum") as Number
+        val comment = get("comment") as String //TODO: check if empty
+        val timestamp = get("timestamp") as String //Timestamp on FB
+        val dummyProfile1 = Profile("", "", "", "", "", listOf(), "", rater.toString(), 0)
+        val dummyProfile2 = Profile("", "", "", "", "", listOf(), "", rated.toString(), 0)
 
         return try {
-            val rated = get("rated") as DocumentReference
-            val rater = get("rater") as DocumentReference
-            val starsNum = get("starsNum") as Number
-            val comment = get("comment") as String //TODO: check if empty
-            val timestamp = get("timestamp") as Timestamp //Timestamp on FB
-            //TODO: useful example of code?
-//            val skillTmp = if (skill == null) {
-//                ""
-//            } else {
-//                (skill as DocumentReference).path.split("/").last()
-//            }
-
-            Rating(
-                "",
-                rated.toString(),
-                rater.path,
-                starsNum.toInt(),
-                comment,
-                timestamp.toString()
-            )
+            if (rated != null) {
+                Rating(
+                    rater = dummyProfile1,
+                    rated = dummyProfile2,
+                    starsNum = starsNum.toInt(),
+                    comment = comment,
+                    timestamp = timestamp
+                )
+            }
+            else{
+                throw Exception()
+            }
 
         } catch (e: Exception) {
             e.printStackTrace()
