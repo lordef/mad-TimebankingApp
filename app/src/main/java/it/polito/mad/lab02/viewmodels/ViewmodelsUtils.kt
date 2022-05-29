@@ -227,21 +227,16 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toRating(): Rating? {
-        //if it is an adv of the loggedUser, the profile can be passed as empty Profile
-        val rated = get("rated") as DocumentReference
-        val rater = get("rater") as DocumentReference
+    fun DocumentSnapshot.toRating(rater: Profile?, rated: Profile?): Rating? {
         val starsNum = get("starsNum") as Number
         val comment = get("comment") as String //TODO: check if empty
         val timestamp = get("timestamp") as String //Timestamp on FB
-        val dummyProfile1 = Profile("", "", "", "", "", listOf(), "", rater.toString(), 0)
-        val dummyProfile2 = Profile("", "", "", "", "", listOf(), "", rated.toString(), 0)
 
         return try {
             if (rated != null) {
                 Rating(
-                    rater = dummyProfile1,
-                    rated = dummyProfile2,
+                    rater = rater!!,
+                    rated = rated!!,
                     starsNum = starsNum.toInt(),
                     comment = comment,
                     timestamp = timestamp

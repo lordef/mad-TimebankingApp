@@ -924,16 +924,27 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun setRatingsListenerByUserUid(ratedProfileUid: String) {
         val userRef = usersRef
             .document(ratedProfileUid)
-
-
         ratingsListener = ratingsRef
             .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
-                _ratingList.value = if (e != null)
-                    emptyList()
-                else r!!.mapNotNull { d ->
-                    // TODO: da una reference a un profilo?
-                    d.toRating()
+                if (e != null)
+                    _ratingList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Rating>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val rater = (d.get("rater") as DocumentReference)
+                                .get().await().toProfile()
+                            val rated = (d.get("rated") as DocumentReference)
+                                .get().await().toProfile()
+//                            val timeSlot = (d.get("timeslot") as DocumentReference)
+//                                .get().await().toTimeslot(publisher)
+
+                            d.toRating(rater, rated)?.let { tmpList.add(it) }
+                        }
+                        _ratingList.postValue(tmpList)
+                    }
                 }
             }
             .also {
