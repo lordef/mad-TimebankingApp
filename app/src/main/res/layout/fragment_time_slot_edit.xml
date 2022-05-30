@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_description_icon"
+                android:drawableStart="@drawable/ic_description_official"
                 android:drawablePadding="10dp"
                 android:hint=""
                 android:inputType="text"
@@ -112,7 +112,7 @@
                         android:paddingBottom="8dp"
                         android:textColor="#5B5E71"
                         android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_calendar_icon"
+                        app:drawableStartCompat="@drawable/ic_calendar_official"
                         app:errorEnabled="true" />
                 </androidx.cardview.widget.CardView>
 
@@ -140,7 +140,7 @@
                         android:paddingBottom="8dp"
                         android:textColor="@color/color_text"
                         android:textSize="20sp"
-                        app:drawableStartCompat="@drawable/ic_clock_icon"
+                        app:drawableStartCompat="@drawable/ic_clock_official"
                         app:errorEnabled="true" />
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,7 +166,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_timer_24"
+                android:drawableStart="@drawable/ic_duration_official"
                 android:drawablePadding="10dp"
                 android:hint="Select duration"
                 android:paddingTop="8dp"
@@ -194,7 +194,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_skills_icon"
+                android:drawableStart="@drawable/ic_skills_official"
                 android:drawablePadding="10dp"
                 android:hint="@string/timeslotSkillLabel"
                 android:paddingTop="8dp"
@@ -226,7 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:drawableStart="@drawable/ic_location_icon"
+                android:drawableStart="@drawable/ic_location_official"
                 android:drawablePadding="10dp"
                 android:hint="@string/timeslotLocationLabel"
                 android:inputType="textMultiLine|text"

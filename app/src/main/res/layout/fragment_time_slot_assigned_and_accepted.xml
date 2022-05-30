@@ -51,7 +51,6 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="@+id/card_title"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/ic_rating_icon"
                 tools:ignore="TextContrastCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -71,7 +70,7 @@
                 android:maxLength="65"
                 android:text="@string/timeslotLocationLabel"
                 android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_location_icon"
+                card_view:drawableStartCompat="@drawable/ic_location_official"
                 card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
                 card_view:layout_constraintEnd_toStartOf="@+id/profile_public_adv"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -88,7 +87,7 @@
                 android:paddingStart="16dp"
                 android:text="TextView"
                 android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_user_icon"
+                card_view:drawableStartCompat="@drawable/ic_person_official"
                 card_view:layout_constraintBottom_toBottomOf="@+id/card_location"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@id/card_location"
@@ -104,7 +103,7 @@
                 android:paddingStart="16dp"
                 android:text="@string/timeslotDurationLabel"
                 android:textSize="18sp"
-                card_view:drawableLeftCompat="@drawable/ic_timer_24"
+                card_view:drawableLeftCompat="@drawable/ic_duration_official"
                 card_view:layout_constraintBottom_toBottomOf="@+id/card_date"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.5"
@@ -119,7 +118,7 @@
                 android:drawablePadding="8dp"
                 android:text="@string/timeslotDateTimeLabel"
                 android:textSize="18sp"
-                card_view:drawableLeftCompat="@drawable/calendar_24"
+                card_view:drawableLeftCompat="@drawable/ic_calendar_official"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/card_duration"
                 card_view:layout_constraintHorizontal_bias="0.5"
