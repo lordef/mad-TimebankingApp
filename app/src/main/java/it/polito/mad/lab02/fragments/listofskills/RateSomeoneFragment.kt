@@ -4,6 +4,7 @@ import android.net.Uri
 import it.polito.mad.lab02.models.Rating
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import android.view.View
@@ -28,10 +29,13 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
+    private var isLoggedUserPublisherRateFrag : Boolean? = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val isLoggedUserPublisher = arguments?.getBoolean("isLoggedUserPublisher")
+        isLoggedUserPublisherRateFrag = isLoggedUserPublisher
         val profileRatedIncoming = arguments?.getString("profileRated")
         val timeslotRatedJson = arguments?.getString("timeslotRated")
         val timeslotRated = Gson().fromJson(timeslotRatedJson, TimeSlot::class.java)
@@ -49,10 +53,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         lateinit var otherProfile: Profile //their profile
         lateinit var ownerProfile: Profile //your profile
-
-
-
-
 
         vm.profile.observe(viewLifecycleOwner){profile ->
             ownerProfile = profile
@@ -153,7 +153,14 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     private fun onBackPressed(){
         val runnable = Runnable {
             // useful to call interaction with viewModel
-            vm.removeUserProfileListener()
+            if(isLoggedUserPublisherRateFrag == true){
+                vm.removeUserProfileListener()
+                Log.d("mytaggg", "remove1")
+            }
+
+            vm.removeRatingsListenerByTimeslot()
+            Log.d("mytaggg", "remove2")
+
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)

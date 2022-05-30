@@ -897,7 +897,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
             _messageList.value = emptyList()
         }
-        _messageList.value = emptyList()
     }
 
     /******** end - Chat functionalities ********/
@@ -988,6 +987,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 isTimeslotRatingsListenerSet = true
             }
     }
+
+    fun removeRatingsListenerByTimeslot(){
+        if(isTimeslotRatingsListenerSet){
+            isTimeslotRatingsListenerSet = false
+
+            timeslotRatingsListener.remove()
+
+            _timeslotRatings.value = emptyList()
+        }
+    }
+
 
     fun postRating(rating: Rating) {
 
