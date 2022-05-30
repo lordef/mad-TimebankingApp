@@ -1,24 +1,28 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot
 import androidx.recyclerview.widget.DiffUtil
-import kotlinx.coroutines.delay
 
 
 class TimeSlotsListRecyclerViewAdapter(
+    private val context: Context,
     private val values: MutableList<TimeSlot>,
     private val itemClickListener: (timeslot: String) -> Unit
 ) : RecyclerView.Adapter<TimeSlotsListRecyclerViewAdapter.ViewHolder>() {
@@ -48,9 +52,23 @@ class TimeSlotsListRecyclerViewAdapter(
                 bundle.putString("id", timeslot.id)
                 it.findNavController()
                     .navigate(R.id.action_nav_advertisement_to_timeSlotEditFragment, bundle)
-            }, {
-                val pos = values.indexOf(timeslot)
-                if (pos != -1){
+            }) {
+            val pos = values.indexOf(timeslot)
+            if (pos != -1) {
+                /* Dialog before deletion */
+                val builder: AlertDialog.Builder =
+                    AlertDialog.Builder(context, R.style.AlertDialogTheme)
+
+                builder.setCancelable(true)
+                builder.setTitle("Delete advertisement?")
+                builder.setMessage("This will permanently delete this advertisement and ALL related chats, if any. ")
+
+                builder.setNegativeButton("Cancel"
+                ) { dialogInterface, i -> dialogInterface.cancel() }
+
+                //TODO: this button must be red
+                builder.setPositiveButton("Delete"
+                ) { dialogInterface, i ->
                     this.animationOnDelete(timeslot.id).also {
                         val handler = Handler()
                         val runnable = Runnable {
@@ -59,20 +77,21 @@ class TimeSlotsListRecyclerViewAdapter(
                         }
                         handler.postDelayed(runnable, 250)
                     }
-
                 }
-            })
+                builder.show()
+            }
+        }
 
     }
 
-    private fun animationOnDelete(timeslotId: String){
+    private fun animationOnDelete(timeslotId: String) {
         val oldData = displayData
         displayData = values.filter { it.id != timeslotId }.toMutableList()
         val diffs = DiffUtil.calculateDiff(MyDiffCallback(oldData, displayData))
         diffs.dispatchUpdatesTo(this)
     }
 
-    class MyDiffCallback(val old: List<TimeSlot>, val new: List<TimeSlot>): DiffUtil.Callback() {
+    class MyDiffCallback(val old: List<TimeSlot>, val new: List<TimeSlot>) : DiffUtil.Callback() {
         override fun getOldListSize(): Int = old.size
 
         override fun getNewListSize(): Int = new.size
@@ -96,24 +115,29 @@ class TimeSlotsListRecyclerViewAdapter(
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
         val editButton: ImageButton = binding.editTimeSlotButton
-        val deleteButton: ImageButton = binding.deleteTimeSlotImageButton //TODO: delete from recycler + vm for firebase
+        val deleteButton: ImageButton = binding.deleteTimeSlotImageButton
         val assignedText: TextView = binding.assignedTimeslot
 
-        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
-            card.setOnClickListener(action1)
-            editButton.setOnClickListener(action2)
+        fun bind(
+            timeSlot: TimeSlot,
+            action_toTimeSlotDetailsFragment: (v: View) -> Unit,
+            action_toTimeSlotEditFragment: (v: View) -> Unit,
+            action_deleteTimeSlot: (v: View) -> Unit
+        ) {
+            card.setOnClickListener(action_toTimeSlotDetailsFragment)
+            editButton.setOnClickListener(action_toTimeSlotEditFragment)
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardDate.text = timeSlot.dateTime
             cardDuration.text = timeSlot.duration
-            deleteButton.setOnClickListener(action3)
-            if(timeSlot.state == "ACCEPTED"){
+            deleteButton.setOnClickListener(action_deleteTimeSlot)
+
+            if (timeSlot.state == "ACCEPTED") {
                 assignedText.text = "ACCEPTED"
                 editButton.visibility = View.GONE
                 deleteButton.visibility = View.GONE
                 assignedText.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 editButton.visibility = View.VISIBLE
                 deleteButton.visibility = View.VISIBLE
                 assignedText.visibility = View.GONE
