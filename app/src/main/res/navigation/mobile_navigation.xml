@@ -208,8 +208,7 @@
     <fragment
         android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
         android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotAssignedAndAcceptedFragment"
-        android:label="fragment_time_slot_assigned_and_accepted_list"
-        tools:layout="@layout/fragment_time_slot_assigned_and_accepted_list" >
+        tools:layout="@layout/fragment_time_slot_assigned_and_accepted_list">
         <action
             android:id="@+id/action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment"
             app:destination="@id/rateSomeoneFragment"

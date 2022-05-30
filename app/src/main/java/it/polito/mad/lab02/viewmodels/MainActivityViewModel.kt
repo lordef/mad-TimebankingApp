@@ -688,7 +688,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _loggedUserTimeSlotList.value = if (e != null)
                     emptyList()
                 else r!!.mapNotNull { d ->
-                    d.toTimeslot(Profile("", "", "", "", "", emptyList(), "", "", 0))
+                    d.toTimeslot(profile.value)
                 }
             }
             .also {

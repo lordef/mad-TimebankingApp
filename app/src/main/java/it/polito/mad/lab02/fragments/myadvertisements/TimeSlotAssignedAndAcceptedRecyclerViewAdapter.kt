@@ -66,6 +66,10 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                 val bundle = Bundle()
                 bundle.putString("id", values[position].id)
                 bundle.putString("timeslot", Gson().toJson(values[position]))
+                if(selector == 0)
+                    bundle.putString("origin", "assigned")
+                else
+                    bundle.putString("origin", "accepted")
                 it.findNavController()
                     .navigate(
                         R.id.publicTimeSlotDetailsFragment,

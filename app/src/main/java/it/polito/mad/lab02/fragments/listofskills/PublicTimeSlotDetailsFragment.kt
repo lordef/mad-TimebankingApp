@@ -47,6 +47,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
         val id = arguments?.getString("id")
         val timeslot = arguments?.getString("timeslot")
+        val origin = arguments?.getString("origin")
 
         //coming from the chat
         if (timeslot != null) {
@@ -80,7 +81,12 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
             profileCard.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("id", ts.id)
-                bundle.putString("origin", "interests")
+
+                if(origin != null)
+                    bundle.putString("origin", origin)
+                else
+                    bundle.putString("origin", "interests")
+
                 findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment,
@@ -91,41 +97,46 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         } else if (id != null) {
             vm.timeslotList
                 .observe(viewLifecycleOwner) {
-                    val ts = it.filter { t -> t.id == id }[0]
+                    var tsList = it.filter { t -> t.id == id }
+                    if (tsList.isEmpty()){
+                        view.findNavController().navigateUp()
+                    }else {
+                        val ts = it.filter { t -> t.id == id }[0]
 
-                    optionsMenu.observe(viewLifecycleOwner) { menu ->
-                        if (menu != null) {
-                            if (menu.findItem(R.id.messageItem) != null) {
-                                menu.findItem(R.id.messageItem).isVisible =
-                                    ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                        optionsMenu.observe(viewLifecycleOwner) { menu ->
+                            if (menu != null) {
+                                if (menu.findItem(R.id.messageItem) != null) {
+                                    menu.findItem(R.id.messageItem).isVisible =
+                                        ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                                }
                             }
                         }
-                    }
 
-                    title.text = ts.title
-                    description.text = ts.description
-                    dateTime.text = ts.dateTime
-                    val d = ts.duration.split(":")
+                        title.text = ts.title
+                        description.text = ts.description
+                        dateTime.text = ts.dateTime
+                        val d = ts.duration.split(":")
 
-                    if (d.size == 2) {
-                        duration.text = "" + d[0] + "h " + d[1] + "min"
-                    } else {
-                        duration.text = ""
-                    }
-                    location.text = ts.location
+                        if (d.size == 2) {
+                            duration.text = "" + d[0] + "h " + d[1] + "min"
+                        } else {
+                            duration.text = ""
+                        }
+                        location.text = ts.location
 
-                    profile.text = ts.userProfile.nickname
-                    profileImage.load(ts.userProfile.imageUri)
-                    skill.text = ts.skill.split("/").last()
+                        profile.text = ts.userProfile.nickname
+                        profileImage.load(ts.userProfile.imageUri)
+                        skill.text = ts.skill.split("/").last()
 
-                    profileCard.setOnClickListener {
-                        val bundle = Bundle()
-                        bundle.putString("id", ts.id)
-                        findNavController()
-                            .navigate(
-                                R.id.action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment,
-                                bundle
-                            )
+                        profileCard.setOnClickListener {
+                            val bundle = Bundle()
+                            bundle.putString("id", ts.id)
+                            findNavController()
+                                .navigate(
+                                    R.id.action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment,
+                                    bundle
+                                )
+                        }
                     }
 
                 }

@@ -96,8 +96,50 @@ class PublicShowProfileFragment : Fragment() {
                         ratingValue.text = avgRatingNum.toString()
                     }
                 }
+            }
+            if (origin == "assigned") {
+                setHasOptionsMenu(false)
+                vm.myAssignedTimeSlotList.observe(viewLifecycleOwner) {
+                    val ts = it.filter { t -> t.id == id }[0]
+                    // update UI
+                    profileImageUri = ts.userProfile.imageUri
+                    profileImage.load(Uri.parse(profileImageUri))
+                    //profileImage.setImageURI(Uri.parse(profileImageUri))
+                    fullName.text = ts.userProfile.fullName
+                    nickname.text = ts.userProfile.nickname
+                    email.text = ts.userProfile.email
+                    location.text = ts.userProfile.location
+                    skills.text = ts.userProfile.skills.joinToString(", ")
+                    description.text = ts.userProfile.description
 
+                    userUid = ts.userProfile.uid
+                    vm.setRatingNumberListenerByUserUid(userUid)
+                    vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
+                        ratingValue.text = avgRatingNum.toString()
+                    }
+                }
+            }
+            if (origin == "accepted") {
+                setHasOptionsMenu(false)
+                vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) {
+                    val ts = it.filter { t -> t.id == id }[0]
+                    // update UI
+                    profileImageUri = ts.userProfile.imageUri
+                    profileImage.load(Uri.parse(profileImageUri))
+                    //profileImage.setImageURI(Uri.parse(profileImageUri))
+                    fullName.text = ts.userProfile.fullName
+                    nickname.text = ts.userProfile.nickname
+                    email.text = ts.userProfile.email
+                    location.text = ts.userProfile.location
+                    skills.text = ts.userProfile.skills.joinToString(", ")
+                    description.text = ts.userProfile.description
 
+                    userUid = ts.userProfile.uid
+                    vm.setRatingNumberListenerByUserUid(userUid)
+                    vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
+                        ratingValue.text = avgRatingNum.toString()
+                    }
+                }
             }
 
             if (origin == null) {
@@ -125,7 +167,7 @@ class PublicShowProfileFragment : Fragment() {
             }
         }
 
-        //TODO: vedere come funziona la navigation, non funiona il pulsante indietro in basso
+        //TODO: vedere come funziona la navigation, non funziona il pulsante indietro in basso
         ratingCard.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userUid", userUid)
