@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/review_given"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -154,8 +154,11 @@
             android:id="@+id/textViewReviewGivenToUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:text="TextView"
             android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewReviewGiven"
             app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"
             app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />
 
@@ -245,7 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/review_received_1"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView"
             app:layout_constraintStart_toStartOf="parent"
@@ -258,6 +261,7 @@
             android:layout_marginStart="4dp"
             android:text="TextView"
             android:textSize="24sp"
+            android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView"
             app:layout_constraintStart_toEndOf="@+id/textViewReviewReceived1" />
@@ -268,7 +272,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/review_received_2"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView"
             app:layout_constraintStart_toEndOf="@+id/textViewUsername" />
