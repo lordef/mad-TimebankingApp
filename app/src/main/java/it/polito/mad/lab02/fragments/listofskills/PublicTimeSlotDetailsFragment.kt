@@ -80,6 +80,7 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
             profileCard.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("id", ts.id)
+                bundle.putString("origin", "interests")
                 findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotDetailsFragment_to_publicShowProfileFragment,
