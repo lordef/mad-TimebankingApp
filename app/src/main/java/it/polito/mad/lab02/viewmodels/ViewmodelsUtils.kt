@@ -30,7 +30,17 @@ object ViewmodelsUtils {
             val tmpList = skills.map { s -> s.path.split("/").last() }
             val balance = get("balance") as Number
 
-            Profile(imageUri, fullName, nickname, email, location, tmpList, description, uid, balance.toInt())
+            Profile(
+                imageUri,
+                fullName,
+                nickname,
+                email,
+                location,
+                tmpList,
+                description,
+                uid,
+                balance.toInt()
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -75,8 +85,7 @@ object ViewmodelsUtils {
                     state,
                     pendingRequests.map { it.id }
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
         } catch (e: Exception) {
@@ -115,7 +124,12 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toChat(publisher: Profile?, requester: Profile?, timeSlot: TimeSlot?, lastMessage: Message): Chat? {
+    fun DocumentSnapshot.toChat(
+        publisher: Profile?,
+        requester: Profile?,
+        timeSlot: TimeSlot?,
+        lastMessage: Message
+    ): Chat? {
 
         return try {
             if (publisher != null && requester != null && timeSlot != null) {
@@ -126,8 +140,7 @@ object ViewmodelsUtils {
                     id = this.id,
                     lastMessage = lastMessage
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
         } catch (e: Exception) {
@@ -141,6 +154,11 @@ object ViewmodelsUtils {
     fun DocumentSnapshot.toMessage(user: Profile?, user1: Profile?): Message? {
         val text = get("text") as String
         val timestamp = get("timestamp") as Timestamp
+        val system = if (get("system") != null) {
+            get("system") as Boolean
+        } else {
+            false
+        }
 
         return try {
             if (user != null && user1 != null) {
@@ -149,10 +167,10 @@ object ViewmodelsUtils {
                     timestamp = timestamp,
                     user = user,
                     user1 = user1,
+                    system = system,
                     id = this.id
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
         } catch (e: Exception) {
@@ -166,6 +184,11 @@ object ViewmodelsUtils {
     fun HashMap<String, Any>.toMessage(user: Profile?, user1: Profile?): Message? {
         val text = get("text") as String
         val timestamp = get("timestamp") as Timestamp
+        val system = if (get("system") != null) {
+            get("system") as Boolean
+        } else {
+            false
+        }
 
         return try {
             if (user != null && user1 != null) {
@@ -174,10 +197,10 @@ object ViewmodelsUtils {
                     timestamp = timestamp,
                     user = user,
                     user1 = user1,
+                    system = system,
                     id = ""
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
         } catch (e: Exception) {
@@ -188,12 +211,16 @@ object ViewmodelsUtils {
     }
 
     @JvmStatic
-    fun DocumentSnapshot.toNotification(user: Profile?, user1: Profile?, timeSlot: TimeSlot?): Notification? {
+    fun DocumentSnapshot.toNotification(
+        user: Profile?,
+        user1: Profile?,
+        timeSlot: TimeSlot?
+    ): Notification? {
         val text = get("text") as String
         val timestamp = get("timestamp") as Timestamp
 
         return try {
-            if ( user != null && user1 != null && timeSlot != null) {
+            if (user != null && user1 != null && timeSlot != null) {
                 Notification(
                     text = text,
                     timestamp = timestamp,
@@ -202,8 +229,7 @@ object ViewmodelsUtils {
                     id = this.reference.parent.parent!!.id,
                     timeSlot = timeSlot
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
         } catch (e: Exception) {
@@ -241,8 +267,7 @@ object ViewmodelsUtils {
                     timestamp = timestamp,
                     timeslot = timeSlot!!
                 )
-            }
-            else{
+            } else {
                 throw Exception()
             }
 

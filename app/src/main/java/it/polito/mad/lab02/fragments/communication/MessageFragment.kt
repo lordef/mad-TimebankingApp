@@ -101,11 +101,17 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                                             messageList[0].user.uid,
                                                             timeSlotObs
                                                         )
-                                                        Toast.makeText(
-                                                            this.context,
+                                                        vm.sendMessage(
+                                                            chatIdReal,
                                                             "The user has not enough money",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
+                                                            messageList[0].user.uid,
+                                                            true
+                                                        )
+//                                                        Toast.makeText(
+//                                                            this.context,
+//                                                            "The user has not enough money",
+//                                                            Toast.LENGTH_SHORT
+//                                                        ).show()
                                                     }
                                                 }
                                                 refuseButton.text = "Reject offer"
@@ -182,7 +188,8 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                     if (vm.sendMessage(
                                             chatIdReal,
                                             composedMessage.text.toString(),
-                                            messageList[0].user.uid
+                                            messageList[0].user.uid,
+                                            false
                                         )
                                     ) {
                                         composedMessage.text = ""
@@ -195,7 +202,8 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                     if (vm.sendMessage(
                                             chatIdReal,
                                             composedMessage.text.toString(),
-                                            ts.user
+                                            ts.user,
+                                            false
                                         )
                                     ) {
                                         composedMessage.text = ""
@@ -224,7 +232,8 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
                                 if (vm.sendMessage(
                                         id,
                                         composedMessage.text.toString(),
-                                        timeSlotObs.user
+                                        timeSlotObs.user,
+                                        false
                                     )
                                 ) {
                                     composedMessage.text = ""

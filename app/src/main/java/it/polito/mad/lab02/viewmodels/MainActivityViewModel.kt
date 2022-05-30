@@ -849,13 +849,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return newChat.id
     }
 
-    fun sendMessage(chatId: String, message: String, user1: String): Boolean {
+    fun sendMessage(chatId: String, message: String, user1: String, system: Boolean): Boolean {
         return if (message != "") {
             val data = hashMapOf(
                 "text" to message,
                 "timestamp" to Timestamp(Calendar.getInstance().time),
                 "user" to usersRef.document(FirebaseAuth.getInstance().currentUser?.uid.toString()),
-                "user1" to usersRef.document(user1)
+                "user1" to usersRef.document(user1),
+                "system" to system
             )
 
             if (_messageList.value == null || _messageList.value?.isEmpty() == true) {
@@ -875,6 +876,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                     timestamp = Timestamp(Calendar.getInstance().time),
                                     user = it.user,
                                     user1 = it.user1,
+                                    system = system,
                                     id = ""
                                 )
                             )
@@ -885,6 +887,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                     timestamp = Timestamp(Calendar.getInstance().time),
                                     user = it.user1,
                                     user1 = it.user,
+                                    system = system,
                                     id = ""
                                 )
                             )

@@ -24,6 +24,7 @@ import it.polito.mad.lab02.models.Message
 import java.util.*
 
 import it.polito.mad.lab02.databinding.ItemChatOtherBinding
+import it.polito.mad.lab02.databinding.ItemChatSystemBinding
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.text.SimpleDateFormat
 
@@ -36,6 +37,7 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
     companion object {
         private const val VIEW_TYPE_MESSAGE_SENT = 1
         private const val VIEW_TYPE_MESSAGE_RECEIVED = 2
+        private const val VIEW_TYPE_MESSAGE_SYSTEM = 3
     }
 
     init {
@@ -50,23 +52,47 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
     // Determines the appropriate ViewType according to the sender of the message.
     override fun getItemViewType(position: Int): Int {
         val message: Message = mMessageList[position]
-        return if (message.user.uid == FirebaseAuth.getInstance().currentUser?.uid) {
-            // If the current user is the sender of the message
-            VIEW_TYPE_MESSAGE_SENT
+        return if (message.system) {
+            VIEW_TYPE_MESSAGE_SYSTEM
         } else {
-            // If some other user sent the message
-            VIEW_TYPE_MESSAGE_RECEIVED
+            if (message.user.uid == FirebaseAuth.getInstance().currentUser?.uid) {
+                // If the current user is the sender of the message
+                VIEW_TYPE_MESSAGE_SENT
+            } else {
+                // If some other user sent the message
+                VIEW_TYPE_MESSAGE_RECEIVED
+            }
         }
     }
 
     // Inflates the appropriate layout according to the ViewType.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
-            return SentMessageHolder(ItemChatMeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            return SentMessageHolder(
+                ItemChatMeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
-            return ReceivedMessageHolder(ItemChatOtherBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            return ReceivedMessageHolder(
+                ItemChatOtherBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        } else if (viewType == VIEW_TYPE_MESSAGE_SYSTEM) {
+            return SystemMessageHolder(
+                ItemChatSystemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
-         return SentMessageHolder(ItemChatMeBinding.inflate(LayoutInflater.from(parent.context)))
+        return SentMessageHolder(ItemChatMeBinding.inflate(LayoutInflater.from(parent.context)))
 
     }
 
@@ -75,21 +101,27 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
         val message: Message = mMessageList[position]
         when (holder!!.itemViewType) {
             VIEW_TYPE_MESSAGE_SENT -> (holder as SentMessageHolder?)!!.bind(message)
+            VIEW_TYPE_MESSAGE_SYSTEM -> (holder as SystemMessageHolder?)!!.bind(message)
             VIEW_TYPE_MESSAGE_RECEIVED -> (holder as ReceivedMessageHolder?)!!
-                .bind(message){
+                .bind(message) {
                     val bundle = Bundle()
                     bundle.putString("user", Gson().toJson(mMessageList[position].user))
                     it.findNavController()
                         .navigate(
-                            it.resources.getIdentifier("publicShowProfileFragment","id", "it.polito.mad.lab02"),
+                            it.resources.getIdentifier(
+                                "publicShowProfileFragment",
+                                "id",
+                                "it.polito.mad.lab02"
+                            ),
                             bundle
                         )
-            }
+                }
+
         }
     }
 
 
-    private inner class SentMessageHolder (binding: ItemChatMeBinding) :
+    private inner class SentMessageHolder(binding: ItemChatMeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var messageText: TextView = binding.textGchatMessageMe
         var timeText: TextView = binding.textGchatTimestampMe
@@ -105,7 +137,7 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
         }
     }
 
-    private inner class ReceivedMessageHolder (binding: ItemChatOtherBinding) :
+    private inner class ReceivedMessageHolder(binding: ItemChatOtherBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var messageText: TextView = binding.textGchatMessageOther
         var timeText: TextView = binding.textGchatTimestampOther
@@ -124,6 +156,15 @@ class MessageRecyclerViewAdapter(messageList: List<Message>) :
             // Insert the profile image from the URL into the ImageView.
             profileImage.load(Uri.parse(message.user.imageUri))
             profileImage.setOnClickListener(action1)
+        }
+    }
+
+    private inner class SystemMessageHolder(binding: ItemChatSystemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        var messageText: TextView = binding.textGchatMessageSystem
+
+        fun bind(message: Message) {
+            messageText.text = message.text
         }
     }
 

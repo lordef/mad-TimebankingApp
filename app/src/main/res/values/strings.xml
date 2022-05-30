@@ -99,6 +99,7 @@
     <string name="review_received_1"> What does</string>
     <string name="review_received_username">  </string>
     <string name="review_received_2">think  </string>
+    <string name="system_message_text">Message from the system</string>
 
 
 </resources>
