@@ -94,7 +94,8 @@
     <string name="last_message_text">Last:</string>
 
     <!-- Rating strings -->
-    <string name="review_given"> Your review </string>
+    <string name="review_given"> What do you think about </string>
+    <string name="review_given_to_username"> receiver </string>
     <string name="review_received_1"> What does</string>
     <string name="review_received_username">  </string>
     <string name="review_received_2">think  </string>
