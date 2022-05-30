@@ -3,7 +3,10 @@ package it.polito.mad.lab02.fragments.myadvertisements
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -12,11 +15,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
+import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
@@ -27,6 +35,8 @@ import java.util.*
 class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
+    private val _optionsMenu = MutableLiveData<Menu?>()
+    private val optionsMenu: LiveData<Menu?> = _optionsMenu
 
     private var isEdit = false
     private var tempID = "0" //useful when isEdit and we must retrieve an existing id
@@ -160,7 +170,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+
+
+        override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val date = view?.findViewById<TextView>(R.id.dateEdit)
         val time = view?.findViewById<TextView>(R.id.timeEdit)
@@ -188,11 +200,35 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                     bundle
                 )
             }
-
             return true
+        } else {
+            val builder: androidx.appcompat.app.AlertDialog.Builder =
+                androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
+
+            builder.setCancelable(true)
+            builder.setTitle("Warning")
+            builder.setMessage("Are you sure you want to go back? Your modifications will be lost")
+
+            builder.setNeutralButton("Cancel",
+                DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
+
+            builder.setPositiveButton("GO BACK",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                        findNavController().navigate(
+                            R.id.action_nav_timeSlotEdit_to_nav_advertisement)
+                })
+            builder.show()
+
         }
         return true
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.exit_menu, menu)
+        _optionsMenu.value = menu
+    }
+
 
     private fun getTimeSlotFromTimeSlotDetailsFragment(savedInstanceState: Bundle?) {
 

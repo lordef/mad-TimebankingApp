@@ -2,7 +2,9 @@ package it.polito.mad.lab02.fragments.communication
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.myadvertisements.TimeSlotsListRecyclerViewAdapter
@@ -33,6 +36,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.chat_list)
 
@@ -148,9 +152,33 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
+                onBackPressed()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController().navigateUp()
+                onBackPressed()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+
+    }
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removeChatsListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
+    }
 }

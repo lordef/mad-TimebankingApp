@@ -2,6 +2,7 @@ package it.polito.mad.lab02.fragments.communication
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -241,7 +242,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                vm.removeMessagesListener()
+                onBackPressed()
                 view.findNavController().navigateUp()
             }
         }
@@ -253,7 +254,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
 
         return when (item.itemId) {
             android.R.id.home -> {
-                vm.removeMessagesListener()
+                onBackPressed()
                 findNavController().navigateUp()
                 true
             }
@@ -262,6 +263,15 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
             }
         }
 
+    }
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removeMessagesListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
     }
 
 }

@@ -189,7 +189,19 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_baseline_message.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_close_official.xml" value="0.2345" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_commit_icon.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_message_center_official.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/dialog_skills.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.2722222222222222" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.2722222222222222" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.4" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/camera_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/commit_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/exit_menu.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/filter_criteria_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/message_menu.xml" value="0.3625" />
         <entry key="app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.1145" />

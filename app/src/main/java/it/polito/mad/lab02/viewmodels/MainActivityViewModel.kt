@@ -911,6 +911,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun removeChatsListener() {
+        if (isChatsListenerSetted) {
+            isChatsListenerSetted = false
+
+            requesterChatsListener.remove()
+            publisherChatsListener.remove()
+
+            _requesterChatList.value = emptyList()
+            _publisherChatList.value = emptyList()
+        }
+    }
+
     /******** end - Chat functionalities ********/
 
     /******** Ratings ********/
