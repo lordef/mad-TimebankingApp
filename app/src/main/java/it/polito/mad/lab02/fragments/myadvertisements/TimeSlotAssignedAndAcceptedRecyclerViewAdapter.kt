@@ -1,13 +1,11 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
@@ -17,7 +15,6 @@ import it.polito.mad.lab02.R
 
 import it.polito.mad.lab02.databinding.FragmentTimeSlotAssignedAndAcceptedBinding
 import it.polito.mad.lab02.models.TimeSlot
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,16 +56,31 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                     bundle.putBoolean("isLoggedUserPublisher", isLoggedUserPublisher)
                     bundle.putString("profileRated", rated)
                 }
-//            val userProfileJson = Gson().toJson(timeslot.userProfile)
-//            val assigneeProfileJson = Gson().toJson(timeslot.assignee)
-//            bundle.putString("profileRater", userProfileJson)
-//            bundle.putString("profileRated", assigneeProfileJson)
+
                 it.findNavController()
                     .navigate(
                         R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_rateSomeoneFragment,
                         bundle
                     )
-            }, {})
+            }, {
+//                val bundle = Bundle()
+//                bundle.putString("id", values[position].id)
+//                bundle.putString("timeslot", Gson().toJson(values[position]))
+//                it.findNavController()
+//                    .navigate(
+//                        R.id.publicTimeSlotDetailsFragment,
+//                        bundle
+//                    )
+            },
+            {
+//                val bundle = Bundle()
+//                bundle.putString("id", values[position].id)
+//                it.findNavController()
+//                    .navigate(
+//                        R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_publicShowProfileFragment,
+//                        bundle
+//                    )
+            })
 
     }
 
@@ -77,14 +89,19 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
     inner class ViewHolder(binding: FragmentTimeSlotAssignedAndAcceptedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val cardTitle: TextView = binding.cardTitle
-        val cardLocation: TextView = binding.cardLocation
-        val cardProfile: TextView = binding.profilePublicAdv
-        val cardDate: TextView = binding.cardDate
-        val cardDuration: TextView = binding.cardDuration
-        val rateButton: Button = binding.rateButton
+        private val cardTitle: TextView = binding.cardTitle
+        private val cardLocation: TextView = binding.cardLocation
+        private val cardProfile: TextView = binding.profilePublicAdv
+        private val cardDate: TextView = binding.cardDate
+        private val cardDuration: TextView = binding.cardDuration
+        private val rateButton: Button = binding.rateButton
+        private val cardAdvertisement: CardView = binding.cardAdvertisement
+        private val publisher: TextView = binding.profilePublicAdv
 
-        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
+        fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
+            cardAdvertisement.setOnClickListener(action2)
+            publisher.setOnClickListener(action3)
+
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
 

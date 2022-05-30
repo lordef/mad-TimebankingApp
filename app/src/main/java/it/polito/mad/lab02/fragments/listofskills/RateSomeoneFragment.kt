@@ -144,7 +144,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // TODO: chiedere a Fabiano
+        // TODO: chiedere a Fabiano x il listener quando si torna indietro cn la freccia in alto
         return when (item.itemId) {
             android.R.id.home -> {
                 findNavController().navigateUp()
@@ -204,8 +204,10 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         val ratingBarFR = view?.findViewById<RatingBar>(R.id.ratingBarFirstReview)!!
         val dateFR = view?.findViewById<TextView>(R.id.textViewDateFirstReview)!!
         val commentFR = view?.findViewById<TextView>(R.id.textViewCommentFirstReview)!!
+        val otherNameFR = view?.findViewById<TextView>(R.id.textViewReviewGivenToUser)!!
 
         // second review
+        val nameTitleSR = view?.findViewById<TextView>(R.id.textViewUsername)!!
         val imageSR = view?.findViewById<ImageView>(R.id.imageViewSecondReview)!!
         val nameSR = view?.findViewById<TextView>(R.id.textViewSecondReview)!!
         val ratingBarSR = view?.findViewById<RatingBar>(R.id.ratingBarSecondReview)!!
@@ -219,7 +221,9 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             ratingBarFR.rating = ratings[0].starsNum.toFloat()
             dateFR.text = ratings[0].timestamp
             commentFR.text = ratings[0].comment
+            otherNameFR.text = ratings[0].rated.nickname
 
+            nameTitleSR.text = ratings[1].rater.nickname
             imageSR.load(Uri.parse(ratings[1].rater.imageUri))
             nameSR.text = ratings[1].rater.nickname
             ratingBarSR.rating = ratings[1].starsNum.toFloat()
@@ -233,7 +237,9 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             ratingBarFR.rating = ratings[1].starsNum.toFloat()
             dateFR.text = ratings[1].timestamp
             commentFR.text = ratings[1].comment
+            otherNameFR.text = ratings[1].rated.nickname
 
+            nameTitleSR.text = ratings[0].rater.nickname
             imageSR.load(Uri.parse(ratings[0].rater.imageUri))
             nameSR.text = ratings[0].rater.nickname
             ratingBarSR.rating = ratings[0].starsNum.toFloat()
@@ -243,7 +249,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
     }
 
-    fun oneRatingPresent(rating: Rating, yourProfile: Boolean){
+    private fun oneRatingPresent(rating: Rating, yourProfile: Boolean){
 
         if(yourProfile){  // first review
 
@@ -252,21 +258,25 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             val ratingBarFR = view?.findViewById<RatingBar>(R.id.ratingBarFirstReview)!!
             val dateFR = view?.findViewById<TextView>(R.id.textViewDateFirstReview)!!
             val commentFR = view?.findViewById<TextView>(R.id.textViewCommentFirstReview)!!
+            val otherNameFR = view?.findViewById<TextView>(R.id.textViewReviewGivenToUser)!!
 
             imageFR.load(Uri.parse(rating.rater.imageUri))
             nameFR.text = rating.rater.nickname
             ratingBarFR.rating = rating.starsNum.toFloat()
             dateFR.text = rating.timestamp
             commentFR.text = rating.comment
+            otherNameFR.text = rating.rated.nickname
 
         }else{  // second review
 
+            val nameTitleSR = view?.findViewById<TextView>(R.id.textViewUsername)!!
             val imageSR = view?.findViewById<ImageView>(R.id.imageViewSecondReview)!!
             val nameSR = view?.findViewById<TextView>(R.id.textViewSecondReview)!!
             val ratingBarSR = view?.findViewById<RatingBar>(R.id.ratingBarSecondReview)!!
             val dateSR = view?.findViewById<TextView>(R.id.textViewDateSecondReview)!!
             val commentSR = view?.findViewById<TextView>(R.id.textViewCommentSecondReview)!!
 
+            nameTitleSR.text = rating.rater.nickname
             imageSR.load(Uri.parse(rating.rater.imageUri))
             nameSR.text = rating.rater.nickname
             ratingBarSR.rating = rating.starsNum.toFloat()
