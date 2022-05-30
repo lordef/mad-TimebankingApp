@@ -33,6 +33,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val isLoggedUserPublisher = arguments?.getBoolean("isLoggedUserPublisher")
         isLoggedUserPublisherRateFrag = isLoggedUserPublisher
@@ -42,9 +43,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         val rated = view.findViewById<TextView>(R.id.userRated)
         val ratedImageView = view.findViewById<ImageView>(R.id.imageView3)
-//        val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
-//        val comment = view.findViewById<EditText>(R.id.commentEditText)
-//        val button = view.findViewById<Button>(R.id.button3)
 
         val yourReview = view.findViewById<ConstraintLayout>(R.id.constraintLayoutFirstReview)
         val theirReview = view.findViewById<ConstraintLayout>(R.id.constraintLayoutSecondReview)
@@ -72,7 +70,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             }
         }
 
-
         vm.setRatingsListenerByTimeslot(timeslotRated)
         vm.timeslotRatings.observe(viewLifecycleOwner){ ratings ->
 
@@ -84,7 +81,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
                 twoRatingsPresent(ratings, ownerProfile)
 
-
             }else if(ratings.isEmpty()){
                 yourReviewEmpty.visibility = View.VISIBLE
                 theirReviewEmpty.visibility = View.VISIBLE
@@ -93,22 +89,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
                 giveARating(otherProfile, ownerProfile, timeslotRated)
 
-//                var stars = 0
-//
-//                ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
-//                    stars = fl.roundToInt()
-//                }
-//
-//                button.setOnClickListener{
-//                    var commentString = comment.text.toString()
-//                    val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
-//
-//                    val newRating = Rating(otherProfile, ownerProfile, stars, commentString, date, timeslotRated)
-//                    vm.postRating(newRating)
-//
-//                    view.findNavController().navigateUp()
-//                    onBackPressed()
-//                }
             }else{
                 if(ratings[0].rater == ownerProfile){
                     yourReviewEmpty.visibility = View.INVISIBLE
@@ -144,7 +124,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // TODO: chiedere a Fabiano x il listener quando si torna indietro cn la freccia in alto
         return when (item.itemId) {
             android.R.id.home -> {
                 findNavController().navigateUp()

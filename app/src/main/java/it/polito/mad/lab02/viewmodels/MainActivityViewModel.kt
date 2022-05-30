@@ -94,6 +94,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var areTSsAndUsersListenersSetted = false
 
     private lateinit var myAssignedTimeSlotListListener: ListenerRegistration
+    var isMyAssignedTimeSlotListListenerSetted = false
 
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
@@ -473,6 +474,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
                     }
                 }
+            }.also {
+                isMyAssignedTimeSlotListListenerSetted = true
             }
     }
 
@@ -583,6 +586,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             usersListener.remove()
 
             _timeSlotList.value = emptyList()
+        }
+    }
+
+    fun removeMyAssignedTimeSlotListListener(){
+        if(isMyAssignedTimeSlotListListenerSetted){
+            isMyAssignedTimeSlotListListenerSetted = false
+            myAssignedTimeSlotListListener.remove()
+
+            _myAssignedTimeSlotList.value = emptyList()
         }
     }
 

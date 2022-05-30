@@ -1,20 +1,22 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import com.google.firebase.Timestamp
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
+import java.util.*
 
 
 class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot_assigned_and_accepted_list) {
@@ -47,6 +49,13 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
             showAssignedOrAccepted()
         }
 
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                view.findNavController().navigateUp()
+                onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
     }
 
@@ -74,7 +83,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                             else -> GridLayoutManager(context, columnCount)
                         }
                         adapter =
-                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotList.toMutableList(), selector)
+                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotList.toMutableList().sortedByDescending { Timestamp(Date(it.dateTime)) }, selector)
                     }
                 }
             }
@@ -98,12 +107,21 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
                             else -> GridLayoutManager(context, columnCount)
                         }
                         adapter =
-                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotsAccepted.toMutableList(), selector)
+                            TimeSlotAssignedAndAcceptedRecyclerViewAdapter(timeSlotsAccepted.toMutableList().sortedByDescending { Timestamp(Date(it.dateTime))}, selector)
                     }
                 }
             }
         }
     }
 
-// TODO: ci va il remove
+
+    private fun onBackPressed(){
+        val runnable = Runnable {
+            // useful to call interaction with viewModel
+            vm.removeAdvsListenerByCurrentUser()
+            vm.removeMyAssignedTimeSlotListListener()
+        }
+        // Perform persistence changes after 250 millis
+        Handler().postDelayed(runnable, 250)
+    }
 }

@@ -193,7 +193,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:contentDescription="@string/balanceLabel"
-                                app:srcCompat="@drawable/ic_bank_official" />
+                                app:srcCompat="@drawable/ic_savings_official" />
 
                             <TextView
                                 android:id="@+id/balanceLabeltextView"
