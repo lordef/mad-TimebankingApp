@@ -66,7 +66,6 @@ class TimeSlotsListRecyclerViewAdapter(
                 builder.setNeutralButton("Cancel"
                 ) { dialogInterface, i -> dialogInterface.cancel() }
 
-                //TODO: this button must be red
                 builder.setNegativeButton("Delete"
                 ) { dialogInterface, i ->
                     this.animationOnDelete(timeslot.id).also {
