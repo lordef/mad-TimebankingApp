@@ -144,7 +144,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        // TODO: chiedere a Fabiano
         return when (item.itemId) {
             android.R.id.home -> {
                 findNavController().navigateUp()

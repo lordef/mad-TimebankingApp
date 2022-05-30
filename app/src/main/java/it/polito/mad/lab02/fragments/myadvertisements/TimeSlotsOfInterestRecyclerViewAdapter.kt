@@ -14,10 +14,6 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotOfInterestBinding
 import it.polito.mad.lab02.models.TimeSlot
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class TimeSlotsOfInterestRecyclerViewAdapter(
     private val values: List<TimeSlot>
 ) : RecyclerView.Adapter<TimeSlotsOfInterestRecyclerViewAdapter.ViewHolder>() {
