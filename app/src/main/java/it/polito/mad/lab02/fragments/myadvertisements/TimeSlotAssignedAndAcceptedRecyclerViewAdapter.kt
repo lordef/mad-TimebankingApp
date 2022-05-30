@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -81,7 +82,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val cardProfile: TextView = binding.profilePublicAdv
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
-        val rateButton: ImageButton = binding.rateButton
+        val rateButton: Button = binding.rateButton
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardTitle.text = timeSlot.title
