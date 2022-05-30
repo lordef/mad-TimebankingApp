@@ -178,9 +178,6 @@ class EditProfileFragment : Fragment() {
                     .toLowerCase() == null || skillsText.text.toString() == ""
             )
                 Toast.makeText(this.context, "You should insert a skill", Toast.LENGTH_SHORT).show()
-            else if (skillsText.text.toString().toLowerCase().split(" ").size != 1)
-                Toast.makeText(this.context, "Skill cannot contain spaces", Toast.LENGTH_SHORT)
-                    .show()
             else if (skillList.contains(skillsText.text.toString().toLowerCase()))
                 Toast.makeText(this.context, "Skill already existent", Toast.LENGTH_SHORT).show()
             else {
@@ -276,7 +273,7 @@ class EditProfileFragment : Fragment() {
                 if (nickNameEditText?.text?.isBlank() == true) {
                     nickNameEditText?.text = profile?.nickname
                 }
-                if(emailEditText?.text?.isBlank() == true){
+                if (emailEditText?.text?.isBlank() == true) {
                     emailEditText?.text = profile?.email
                 }
                 if (locationEditText?.text?.isBlank() == true) {
@@ -284,7 +281,7 @@ class EditProfileFragment : Fragment() {
                 }
                 listOfSkills = profile?.skills!!
                 if (listOfSkills.isEmpty()) listOfSkills = emptyList()
-                if(descriptionEditText?.text?.isBlank() == true){
+                if (descriptionEditText?.text?.isBlank() == true) {
                     descriptionEditText?.text = profile?.description
                 }
             }
