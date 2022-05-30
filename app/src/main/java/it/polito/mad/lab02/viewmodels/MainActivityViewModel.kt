@@ -46,7 +46,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _timeslotRatings = MutableLiveData<List<Rating>>()
 
 
-
     private val _isChatListenerSet = MutableLiveData<Boolean>(false)
 
     private val _timeSlot = MutableLiveData<TimeSlot?>()
@@ -753,6 +752,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun deleteTimeSlot(timeslotId: String) {
         if (isLoggedUserTSsListenerSetted) {
+            chatsRef.whereEqualTo("timeslot", timeslotsRef.document(timeslotId))
+                .get()
+                .addOnSuccessListener {
+                    for (d in it.documents) {
+                        d.reference.delete()
+                    }
+                }
             timeslotsRef.document(timeslotId).delete()
         }
     }
@@ -884,13 +890,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeMessagesListener() {
-            if (isMessageListenerSet) {
-                isMessageListenerSet = false
+        if (isMessageListenerSet) {
+            isMessageListenerSet = false
 
-                messagesListener.remove()
+            messagesListener.remove()
 
-                _messageList.value = emptyList()
-            }
+            _messageList.value = emptyList()
+        }
         _messageList.value = emptyList()
     }
 

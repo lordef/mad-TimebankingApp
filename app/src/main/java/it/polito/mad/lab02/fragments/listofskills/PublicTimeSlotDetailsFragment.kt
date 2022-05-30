@@ -12,6 +12,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -26,7 +28,8 @@ import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slot_details) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
-
+    private val _optionsMenu = MutableLiveData<Menu?>()
+    private val optionsMenu: LiveData<Menu?> = _optionsMenu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,8 +43,6 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         val skill = view.findViewById<TextView>(R.id.skillTextView)
         val profileCard = view.findViewById<CardView>(R.id.profileCardView)
         val profileImage = view.findViewById<ImageView>(R.id.imageView2)
-        val menuMessage = view.findViewById<View>(R.id.messageItem)
-        menuMessage?.visibility = View.VISIBLE
         val profile = view.findViewById<TextView>(R.id.profileTextView)
 
         val id = arguments?.getString("id")
@@ -52,8 +53,13 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
             val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
 
-            if (ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid) {
-                menuMessage?.visibility = View.GONE
+            optionsMenu.observe(viewLifecycleOwner) { menu ->
+                if (menu != null) {
+                    if (menu.findItem(R.id.messageItem) != null) {
+                        menu.findItem(R.id.messageItem).isVisible =
+                            ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                    }
+                }
             }
             title.text = ts.title
             description.text = ts.description
@@ -86,11 +92,15 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 .observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
 
-                    if (ts.userProfile.uid == FirebaseAuth.getInstance().currentUser?.uid) {
-                        setHasOptionsMenu(false)
-                    } else {
-                        setHasOptionsMenu(true)
+                    optionsMenu.observe(viewLifecycleOwner) { menu ->
+                        if (menu != null) {
+                            if (menu.findItem(R.id.messageItem) != null) {
+                                menu.findItem(R.id.messageItem).isVisible =
+                                    ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid
+                            }
+                        }
                     }
+
                     title.text = ts.title
                     description.text = ts.description
                     dateTime.text = ts.dateTime
@@ -130,18 +140,8 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-
-        val timeslot = arguments?.getString("timeslot")
-
-        //coming from the chat
-        if (timeslot != null) {
-
-            val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
-
-            if (ts.userProfile.uid != FirebaseAuth.getInstance().currentUser?.uid) {
-                inflater.inflate(R.menu.message_menu, menu)
-            }
-        }
+        inflater.inflate(R.menu.message_menu, menu)
+        _optionsMenu.value = menu
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

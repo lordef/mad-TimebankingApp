@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -19,6 +21,8 @@ import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
+    private val _optionsMenu = MutableLiveData<Menu?>()
+    private val optionsMenu: LiveData<Menu?> = _optionsMenu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,6 +41,17 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 val timeSlotTmp = it.filter { ts -> id == ts.id }
                 if(timeSlotTmp.isNotEmpty()){
                     val timeSlot = timeSlotTmp.first()
+
+                    optionsMenu.observe(viewLifecycleOwner){ menu ->
+                        if(timeSlot.state == "ACCEPTED" && menu != null && menu.findItem(R.id.editItem) != null){
+                            menu.findItem(R.id.editItem).isVisible = false
+                        }
+                        else if(timeSlot.state == "AVAILABLE" && menu != null && menu.findItem(R.id.editItem) != null){
+                            menu.findItem(R.id.editItem).isVisible = true
+                        }
+                    }
+
+
                     title.text = timeSlot.title
                     description.text = timeSlot.description
                     dateTime.text = timeSlot.dateTime
@@ -64,19 +79,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        var menu = menu
-        val id = arguments?.getString("id")
-        if(id != null) {
-            vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) {
-                val timeSlotTmp = it.filter { ts -> id == ts.id }
-                if (timeSlotTmp.isNotEmpty()) {
-                    val timeSlot = timeSlotTmp.first()
-                    if (timeSlot.state != "ACCEPTED" && menu.findItem(R.id.editItem) == null) {
-                        inflater.inflate(R.menu.pencil_menu, menu)
-                    }
-                }
-            }
-        }
+        inflater.inflate(R.menu.pencil_menu, menu)
+        _optionsMenu.value = menu
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

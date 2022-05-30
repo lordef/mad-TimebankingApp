@@ -3,7 +3,6 @@ package it.polito.mad.lab02.fragments.myadvertisements
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -13,7 +12,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +34,9 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
+        val fragContext = requireContext()
+
+
         //Creating listener from this fragment
         vm.setAdvsListenerByCurrentUser()
 
@@ -44,10 +45,10 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
+                        columnCount <= 1 -> LinearLayoutManager(fragContext)
+                        else -> GridLayoutManager(fragContext, columnCount)
                     }
-                    adapter = TimeSlotsListRecyclerViewAdapter(timeSlotList.toMutableList()) {
+                    adapter = TimeSlotsListRecyclerViewAdapter(fragContext, timeSlotList.toMutableList()) {
                         vm.deleteTimeSlot(it)
                     }
                 }

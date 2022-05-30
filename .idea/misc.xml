@@ -42,6 +42,7 @@
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_all_skills.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat.xml" value="0.6368316591156438" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat_list.xml" value="0.39658119658119656" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.42052144659377627" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_message.xml" value="0.21196581196581196" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_message_list.xml" value="0.32008547008547006" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.39658119658119656" />
@@ -178,6 +179,7 @@
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13069908814589665" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.1831831831831832" />
         <entry key="app/src/main/res/layout/fragment_time_slot_details.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.26875" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
