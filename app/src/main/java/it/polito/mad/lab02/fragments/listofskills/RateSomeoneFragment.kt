@@ -206,6 +206,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         val commentFR = view?.findViewById<TextView>(R.id.textViewCommentFirstReview)!!
 
         // second review
+        val nameTitleSR = view?.findViewById<TextView>(R.id.textViewUsername)!!
         val imageSR = view?.findViewById<ImageView>(R.id.imageViewSecondReview)!!
         val nameSR = view?.findViewById<TextView>(R.id.textViewSecondReview)!!
         val ratingBarSR = view?.findViewById<RatingBar>(R.id.ratingBarSecondReview)!!
@@ -220,6 +221,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             dateFR.text = ratings[0].timestamp
             commentFR.text = ratings[0].comment
 
+            nameTitleSR.text = ratings[1].rater.nickname
             imageSR.load(Uri.parse(ratings[1].rater.imageUri))
             nameSR.text = ratings[1].rater.nickname
             ratingBarSR.rating = ratings[1].starsNum.toFloat()
@@ -234,6 +236,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             dateFR.text = ratings[1].timestamp
             commentFR.text = ratings[1].comment
 
+            nameTitleSR.text = ratings[0].rater.nickname
             imageSR.load(Uri.parse(ratings[0].rater.imageUri))
             nameSR.text = ratings[0].rater.nickname
             ratingBarSR.rating = ratings[0].starsNum.toFloat()
@@ -261,12 +264,14 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         }else{  // second review
 
+            val nameTitleSR = view?.findViewById<TextView>(R.id.textViewUsername)!!
             val imageSR = view?.findViewById<ImageView>(R.id.imageViewSecondReview)!!
             val nameSR = view?.findViewById<TextView>(R.id.textViewSecondReview)!!
             val ratingBarSR = view?.findViewById<RatingBar>(R.id.ratingBarSecondReview)!!
             val dateSR = view?.findViewById<TextView>(R.id.textViewDateSecondReview)!!
             val commentSR = view?.findViewById<TextView>(R.id.textViewCommentSecondReview)!!
 
+            nameTitleSR.text = rating.rater.nickname
             imageSR.load(Uri.parse(rating.rater.imageUri))
             nameSR.text = rating.rater.nickname
             ratingBarSR.rating = rating.starsNum.toFloat()
