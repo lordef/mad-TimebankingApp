@@ -150,6 +150,15 @@
             app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/textViewReviewGivenToUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"
+            app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
             android:layout_width="0dp"
