@@ -63,6 +63,9 @@
             app:destination="@id/timeSlotDetailsFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_nav_timeSlotEdit_to_nav_advertisement"
+            app:destination="@id/nav_advertisement" />
     </fragment>
 
     <fragment
