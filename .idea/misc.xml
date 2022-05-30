@@ -112,6 +112,7 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_edit_tmeslot_official.xml" value="0.3055" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_interests_official.xml" value="0.1435" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_location_official.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_logout_official.xml" value="0.1435" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_mail_official.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_message_official.xml" value="0.1435" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_pencil_official.xml" value="0.1435" />
@@ -124,6 +125,9 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_timebanking_home.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.2625" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_show_profile.xml" value="0.5" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/activity_main.xml" value="0.35462962962962963" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/content_main.xml" value="0.35462962962962963" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/drawer_header.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_chat.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_chat_list.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.3452054794520548" />
@@ -154,6 +158,7 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/item_chat_other.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/message_chat_list.xml" value="0.3289817232375979" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/exit_menu.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/pencil_menu.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3285" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/border_shape.xml" value="0.1" />
