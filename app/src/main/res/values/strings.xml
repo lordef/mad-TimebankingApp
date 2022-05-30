@@ -82,6 +82,7 @@
     <string name="no_sorting">No sorting</string>
     <string name="dialog_text_filters">Type a keyword</string>
     <string name="empty_ratings_msg">No ratings present</string>
+    <string name="empty_rating_msg">No rating received yet</string>
 
     <!--string name="location">Location</string-->
 
@@ -91,5 +92,12 @@
     <string name="timeslot_message_title">Timeslot:</string>
     <string name="last_message">Last message</string>
     <string name="last_message_text">Last:</string>
+
+    <!-- Rating strings -->
+    <string name="review_given"> Your review </string>
+    <string name="review_received_1"> What does</string>
+    <string name="review_received_username">  </string>
+    <string name="review_received_2">think  </string>
+
 
 </resources>

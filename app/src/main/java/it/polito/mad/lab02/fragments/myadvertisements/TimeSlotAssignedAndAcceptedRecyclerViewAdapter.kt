@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -20,10 +21,6 @@ import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
     private val values: List<TimeSlot>,
     private val selector: Int
@@ -48,6 +45,9 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         holder.bind(timeslot,
             {
                 val bundle = Bundle()
+                val ts = Gson().toJson(timeslot)
+                bundle.putString("timeslotRated", ts)
+
                 if (selector == 0) {
                     val isLoggedUserPublisher = false
                     val rated = Gson().toJson(timeslot.userProfile) // questo è un profile
@@ -82,7 +82,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         val cardProfile: TextView = binding.profilePublicAdv
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
-        val rateButton: ImageButton = binding.rateButton
+        val rateButton: Button = binding.rateButton
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardTitle.text = timeSlot.title

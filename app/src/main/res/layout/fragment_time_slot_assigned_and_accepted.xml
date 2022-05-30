@@ -37,13 +37,15 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/rate_button"
                 style="@style/Widget.Material3.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/edit_timeSlot"
+                android:text="Go to ratings"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20sp"
                 card_view:iconGravity="textStart"
                 card_view:iconPadding="8dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"

@@ -43,6 +43,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val _ratingList = MutableLiveData<List<Rating>>()
     private val _myAssignedTimeSlotList = MutableLiveData<List<TimeSlot>>()
     private val _userProfile = MutableLiveData<Profile>()
+    private val _timeslotRatings = MutableLiveData<List<Rating>>()
 
 
     private val _isChatListenerSet = MutableLiveData<Boolean>(false)
@@ -69,8 +70,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val messageList: LiveData<List<Message>> = _messageList
     val newMessage: LiveData<Notification?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
-    val userProfile: LiveData<Profile> = _userProfile
-
+    val userProfile : LiveData<Profile> = _userProfile
+    val timeslotRatings: LiveData<List<Rating>> = _timeslotRatings
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
 
@@ -123,6 +124,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var userProfileListener: ListenerRegistration
     var isUserProfileListenerSet = false
+
+    private lateinit var timeslotRatingsListener: ListenerRegistration
+    private var isTimeslotRatingsListenerSet = false
 
 
     init {
@@ -893,7 +897,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
             _messageList.value = emptyList()
         }
-        _messageList.value = emptyList()
     }
 
     /******** end - Chat functionalities ********/
@@ -930,16 +933,25 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun setRatingsListenerByUserUid(ratedProfileUid: String) {
         val userRef = usersRef
             .document(ratedProfileUid)
-
-
         ratingsListener = ratingsRef
             .whereEqualTo("rated", userRef)
             .addSnapshotListener { r, e ->
-                _ratingList.value = if (e != null)
-                    emptyList()
-                else r!!.mapNotNull { d ->
-                    // TODO: da una reference a un profilo?
-                    d.toRating()
+                if (e != null)
+                    _ratingList.value = emptyList()
+                else {
+                    val tmpList = mutableListOf<Rating>()
+
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+                            val rater = (d.get("rater") as DocumentReference)
+                                .get().await().toProfile()
+                            val rated = (d.get("rated") as DocumentReference)
+                                .get().await().toProfile()
+                            val timeSlot = TimeSlot("","","","","","","","",rater!!, "", "", emptyList())
+                            d.toRating(rater, rated, timeSlot)?.let { tmpList.add(it) }
+                        }
+                        _ratingList.postValue(tmpList)
+                    }
                 }
             }
             .also {
@@ -947,12 +959,54 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
+    fun setRatingsListenerByTimeslot(timeslotRated: TimeSlot) {
+
+        val timeslotRef = timeslotsRef.document(timeslotRated.id)
+        timeslotRatingsListener = ratingsRef
+            .whereEqualTo("timeslot", timeslotRef)
+            .addSnapshotListener { r, e ->
+                if (e != null) {
+                    _timeslotRatings.value = emptyList()
+                }else {
+                    val tmpList = mutableListOf<Rating>()
+                    viewModelScope.launch(Dispatchers.IO) {
+                        r!!.forEach { d ->
+
+                            val rater = (d.get("rater") as DocumentReference)
+                                .get().await().toProfile()
+                            val rated = (d.get("rated") as DocumentReference)
+                                .get().await().toProfile()
+
+                            d.toRating(rater, rated, timeslotRated)?.let { tmpList.add(it) }
+                        }
+                        _timeslotRatings.postValue(tmpList)
+                    }
+                }
+            }
+            .also {
+                isTimeslotRatingsListenerSet = true
+            }
+    }
+
+    fun removeRatingsListenerByTimeslot(){
+        if(isTimeslotRatingsListenerSet){
+            isTimeslotRatingsListenerSet = false
+
+            timeslotRatingsListener.remove()
+
+            _timeslotRatings.value = emptyList()
+        }
+    }
+
+
     fun postRating(rating: Rating) {
 
         val currentUser = usersRef
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
         val otherUser = usersRef
             .document(rating.rated.uid)
+        val timeslot = timeslotsRef
+            .document(rating.timeslot.id)
 
         val newRating = ratingsRef.document()
 
@@ -961,7 +1015,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             "rated" to otherUser,
             "starsNum" to rating.starsNum,
             "comment" to rating.comment,
-            "timestamp" to rating.timestamp
+            "timestamp" to rating.timestamp,
+            "timeslot" to timeslot
         )
         newRating.set(data)
         return
