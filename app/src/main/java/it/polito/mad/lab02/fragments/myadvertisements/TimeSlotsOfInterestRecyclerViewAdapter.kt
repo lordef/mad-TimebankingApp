@@ -46,6 +46,7 @@ class TimeSlotsOfInterestRecyclerViewAdapter(
             {
                 val bundle = Bundle()
                 bundle.putString("id", displayData[position].id)
+                bundle.putString("origin", "interests")
                 it.findNavController()
                     .navigate(
                         R.id.action_nav_timeSlotsOfInterestFragment_to_publicShowProfileFragment,

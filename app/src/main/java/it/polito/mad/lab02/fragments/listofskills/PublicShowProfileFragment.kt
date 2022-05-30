@@ -75,25 +75,52 @@ class PublicShowProfileFragment : Fragment() {
         val origin = arguments?.getString("origin")
 
         if (id != null) {
-            setHasOptionsMenu(false)
-            vm.timeslotList.observe(viewLifecycleOwner) {
-                val ts = it.filter { t -> t.id == id }[0]
+            if (origin == "interests") {
+                setHasOptionsMenu(false)
+                vm.requesterChatList.observe(viewLifecycleOwner) {
+                    val ts = it.filter { t -> t.timeSlot.id == id }[0].timeSlot
+                    // update UI
+                    profileImageUri = ts.userProfile.imageUri
+                    profileImage.load(Uri.parse(profileImageUri))
+                    //profileImage.setImageURI(Uri.parse(profileImageUri))
+                    fullName.text = ts.userProfile.fullName
+                    nickname.text = ts.userProfile.nickname
+                    email.text = ts.userProfile.email
+                    location.text = ts.userProfile.location
+                    skills.text = ts.userProfile.skills.joinToString(", ")
+                    description.text = ts.userProfile.description
 
-                // update UI
-                profileImageUri = ts.userProfile.imageUri
-                profileImage.load(Uri.parse(profileImageUri))
-                //profileImage.setImageURI(Uri.parse(profileImageUri))
-                fullName.text = ts.userProfile.fullName
-                nickname.text = ts.userProfile.nickname
-                email.text = ts.userProfile.email
-                location.text = ts.userProfile.location
-                skills.text = ts.userProfile.skills.joinToString(", ")
-                description.text = ts.userProfile.description
+                    userUid = ts.userProfile.uid
+                    vm.setRatingNumberListenerByUserUid(userUid)
+                    vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
+                        ratingValue.text = avgRatingNum.toString()
+                    }
+                }
 
-                userUid = ts.userProfile.uid
-                vm.setRatingNumberListenerByUserUid(userUid)
-                vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                    ratingValue.text = avgRatingNum.toString()
+
+            }
+
+            if (origin == null) {
+                setHasOptionsMenu(false)
+                vm.timeslotList.observe(viewLifecycleOwner) {
+                    val ts = it.filter { t -> t.id == id }[0]
+
+                    // update UI
+                    profileImageUri = ts.userProfile.imageUri
+                    profileImage.load(Uri.parse(profileImageUri))
+                    //profileImage.setImageURI(Uri.parse(profileImageUri))
+                    fullName.text = ts.userProfile.fullName
+                    nickname.text = ts.userProfile.nickname
+                    email.text = ts.userProfile.email
+                    location.text = ts.userProfile.location
+                    skills.text = ts.userProfile.skills.joinToString(", ")
+                    description.text = ts.userProfile.description
+
+                    userUid = ts.userProfile.uid
+                    vm.setRatingNumberListenerByUserUid(userUid)
+                    vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
+                        ratingValue.text = avgRatingNum.toString()
+                    }
                 }
             }
         }

@@ -105,33 +105,15 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1799163179916318" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.253125" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_skills_icon.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_skills_official.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_timebanking_home.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.2625" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_chat_list.xml" value="0.35462962962962963" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.3452054794520548" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.5" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.33" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.11666666666666667" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_show_profile.xml" value="0.32222222222222224" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_skill_list.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_skills.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_accepted.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted.xml" value="0.2953703703703704" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted_list.xml" value="0.3181818181818182" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.33" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_assigned_accepted_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_of_interest_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3285" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/border_shape.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
@@ -166,7 +148,13 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.2722222222222222" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.2722222222222222" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.4" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/camera_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/commit_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/exit_menu.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/menu/message_menu.xml" value="0.3625" />
         <entry key="app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.1145" />
@@ -175,11 +163,18 @@
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_user_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/plus_24.xml" value="0.1145" />
+        <entry key="app/src/main/res/layout/activity_base.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13069908814589665" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.1831831831831832" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_ratings.xml" value="0.17527173913043478" />
+        <entry key="app/src/main/res/layout/fragment_ratings_list.xml" value="0.1693840579710145" />
+        <entry key="app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/fragment_ratings_list_with_no_ratings_2.xml" value="0.1111111111111111" />
         <entry key="app/src/main/res/layout/fragment_time_slot_details.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.26875" />
