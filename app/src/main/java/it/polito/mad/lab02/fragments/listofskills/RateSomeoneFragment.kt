@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -44,15 +45,17 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         val comment = view.findViewById<EditText>(R.id.commentEditText)
         val button = view.findViewById<Button>(R.id.button3)
 
+        val yourReview = view.findViewById<ConstraintLayout>(R.id.constraintLayoutFirstReview)
+        val theirReview = view.findViewById<ConstraintLayout>(R.id.constraintLayoutSecondReview)
+
+        val yourReviewEmpty = view.findViewById<ConstraintLayout>(R.id.giveARatingConstraintLayout)
+        val theirReviewEmpty = view.findViewById<TextView>(R.id.noRatingReceivedTextView)
+
         lateinit var profileRated: Profile
         lateinit var profileRater: Profile
 
 
-        vm.setRatingsListenerByTimeslotId(timeslotRated)
-        vm.timeslotRatings.observe(viewLifecycleOwner){ rating ->
-            Log.d("mytaggg", "fragment: "+rating.toString())
 
-        }
 
 
         vm.profile.observe(viewLifecycleOwner){profile ->
@@ -68,6 +71,26 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
                 profileRated = profile
                 rated.text = profileRated.nickname
             }
+        }
+
+
+        vm.setRatingsListenerByTimeslotId(timeslotRated)
+        vm.timeslotRatings.observe(viewLifecycleOwner){ ratings ->
+            Log.d("mytaggg", "fragment: "+ratings.toString())
+            if(ratings.size == 2){
+                yourReviewEmpty.visibility = View.GONE
+                theirReviewEmpty.visibility = View.GONE
+                yourReview.visibility = View.VISIBLE
+                theirReview.visibility = View.VISIBLE
+
+
+            }else if(ratings.isEmpty()){
+                yourReviewEmpty.visibility = View.VISIBLE
+                theirReviewEmpty.visibility = View.VISIBLE
+                yourReview.visibility = View.GONE
+                theirReview.visibility = View.GONE
+            }
+
         }
 
         var stars = 0
@@ -117,6 +140,10 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)
+    }
+
+    fun twoRatingsPresent(ratings: List<Rating>){
+
     }
 
 
