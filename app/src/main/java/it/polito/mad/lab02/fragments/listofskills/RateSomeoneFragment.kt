@@ -41,6 +41,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         val timeslotRated = Gson().fromJson(timeslotRatedJson, TimeSlot::class.java)
 
         val rated = view.findViewById<TextView>(R.id.userRated)
+        val ratedImageView = view.findViewById<ImageView>(R.id.imageView3)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingbar)
         val comment = view.findViewById<EditText>(R.id.commentEditText)
         val button = view.findViewById<Button>(R.id.button3)
@@ -61,11 +62,13 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         if(isLoggedUserPublisher == false){
             otherProfile = Gson().fromJson(profileRatedIncoming, Profile::class.java)
             rated.text = otherProfile.nickname
+            ratedImageView.load(Uri.parse(otherProfile.imageUri))
         }else{
             vm.setUserListenerByUserUid(profileRatedIncoming!!)
             vm.userProfile.observe(viewLifecycleOwner){ profile ->
                 otherProfile = profile
                 rated.text = otherProfile.nickname
+                ratedImageView.load(Uri.parse(otherProfile.imageUri))
             }
         }
 
@@ -88,22 +91,24 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
                 yourReview.visibility = View.INVISIBLE
                 theirReview.visibility = View.INVISIBLE
 
-                var stars = 0
+                giveARating(otherProfile, ownerProfile, timeslotRated)
 
-                ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
-                    stars = fl.roundToInt()
-                }
-
-                button.setOnClickListener{
-                    var commentString = comment.text.toString()
-                    val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
-
-                    val newRating = Rating(otherProfile, ownerProfile, stars, commentString, date, timeslotRated)
-                    vm.postRating(newRating)
-
-                    view.findNavController().navigateUp()
-                    onBackPressed()
-                }
+//                var stars = 0
+//
+//                ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
+//                    stars = fl.roundToInt()
+//                }
+//
+//                button.setOnClickListener{
+//                    var commentString = comment.text.toString()
+//                    val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
+//
+//                    val newRating = Rating(otherProfile, ownerProfile, stars, commentString, date, timeslotRated)
+//                    vm.postRating(newRating)
+//
+//                    view.findNavController().navigateUp()
+//                    onBackPressed()
+//                }
             }else{
                 if(ratings[0].rater == ownerProfile){
                     yourReviewEmpty.visibility = View.INVISIBLE
@@ -120,6 +125,7 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
                     theirReview.visibility = View.VISIBLE
 
                     oneRatingPresent(ratings[0], false)
+                    giveARating(otherProfile, ownerProfile, timeslotRated)
 
                 }
             }
@@ -164,6 +170,30 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)
+    }
+
+    private fun giveARating(otherProfile: Profile, ownerProfile: Profile, timeslotRated: TimeSlot){
+
+        val ratingBar = view?.findViewById<RatingBar>(R.id.ratingbar)!!
+        val comment = view?.findViewById<EditText>(R.id.commentEditText)!!
+        val button = view?.findViewById<Button>(R.id.button3)!!
+
+        var stars = 0
+
+        ratingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
+            stars = fl.roundToInt()
+        }
+
+        button.setOnClickListener{
+            var commentString = comment.text.toString()
+            val date = SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().time)
+
+            val newRating = Rating(otherProfile, ownerProfile, stars, commentString, date, timeslotRated)
+            vm.postRating(newRating)
+
+            view?.findNavController()?.navigateUp()
+            onBackPressed()
+        }
     }
 
     private fun twoRatingsPresent(ratings: List<Rating>, yourProfile: Profile){
