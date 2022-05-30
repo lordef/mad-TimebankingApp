@@ -63,11 +63,11 @@ class TimeSlotsListRecyclerViewAdapter(
                 builder.setTitle("Delete advertisement?")
                 builder.setMessage("This will permanently delete this advertisement and ALL related chats, if any. ")
 
-                builder.setNegativeButton("Cancel"
+                builder.setNeutralButton("Cancel"
                 ) { dialogInterface, i -> dialogInterface.cancel() }
 
                 //TODO: this button must be red
-                builder.setPositiveButton("Delete"
+                builder.setNegativeButton("Delete"
                 ) { dialogInterface, i ->
                     this.animationOnDelete(timeslot.id).also {
                         val handler = Handler()

@@ -67,10 +67,10 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                     builder.setTitle("Wait a minute!")
                     builder.setMessage("You can not create a new timeslot without define at least one skill in your profile. Click on the button below to add it!")
 
-                    builder.setNegativeButton("Cancel",
+                    builder.setNeutralButton("Cancel",
                         DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
 
-                    builder.setPositiveButton("ADD SKILL",
+                    builder.setPositiveButton("Add skill",
                         DialogInterface.OnClickListener { dialogInterface, i ->
                             view.findNavController()
                                 .navigate(R.id.action_nav_advertisement_to_editProfileFragment)
