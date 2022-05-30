@@ -13,7 +13,7 @@
         android:id="@+id/giveARatingConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/noRatingReceivedTextView"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutSecondReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:isIndicator="true"
                     app:layout_constraintEnd_toStartOf="@+id/textViewDateFirstReview"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +156,7 @@
                     app:layout_constraintTop_toTopOf="@+id/ratingBarFirstReview" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/textViewCommentFirstReview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -174,6 +175,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirstReview">
 
         <com.google.android.material.card.MaterialCardView
@@ -218,6 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:isIndicator="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageViewSecondReview" />
 
@@ -256,6 +260,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/giveARatingConstraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirstReview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

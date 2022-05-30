@@ -948,10 +948,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
                             val rated = (d.get("rated") as DocumentReference)
                                 .get().await().toProfile()
-//                            val timeSlot = (d.get("timeslot") as DocumentReference)
-//                                .get().await().toTimeslot(publisher)
                             val timeSlot = TimeSlot("","","","","","","","",rater!!, "", "", emptyList())
-
                             d.toRating(rater, rated, timeSlot)?.let { tmpList.add(it) }
                         }
                         _ratingList.postValue(tmpList)
@@ -963,7 +960,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
-    fun setRatingsListenerByTimeslotId(timeslotRated: TimeSlot) {
+    fun setRatingsListenerByTimeslot(timeslotRated: TimeSlot) {
 
         val timeslotRef = timeslotsRef.document(timeslotRated.id)
         timeslotRatingsListener = ratingsRef
@@ -975,14 +972,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     val tmpList = mutableListOf<Rating>()
                     viewModelScope.launch(Dispatchers.IO) {
                         r!!.forEach { d ->
-                            // TODO: ???
-                            Log.d("mytaggg", d.toString())
 
                             val rater = (d.get("rater") as DocumentReference)
                                 .get().await().toProfile()
                             val rated = (d.get("rated") as DocumentReference)
                                 .get().await().toProfile()
-                            Log.d("mytaggg", "vm: "+d.toRating(rater, rated, timeslotRated).toString())
 
                             d.toRating(rater, rated, timeslotRated)?.let { tmpList.add(it) }
                         }
@@ -1001,6 +995,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .document("${FirebaseAuth.getInstance().currentUser?.uid}")
         val otherUser = usersRef
             .document(rating.rated.uid)
+        val timeslot = timeslotsRef
+            .document(rating.timeslot.id)
 
         val newRating = ratingsRef.document()
 
@@ -1009,7 +1005,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             "rated" to otherUser,
             "starsNum" to rating.starsNum,
             "comment" to rating.comment,
-            "timestamp" to rating.timestamp
+            "timestamp" to rating.timestamp,
+            "timeslot" to timeslot
         )
         newRating.set(data)
         return
