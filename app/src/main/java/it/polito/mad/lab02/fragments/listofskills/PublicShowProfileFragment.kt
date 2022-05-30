@@ -72,6 +72,8 @@ class PublicShowProfileFragment : Fragment() {
 
 
         val id = arguments?.getString("id")
+        val origin = arguments?.getString("origin")
+
         if (id != null) {
             setHasOptionsMenu(false)
             vm.timeslotList.observe(viewLifecycleOwner) {

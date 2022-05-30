@@ -148,7 +148,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:contentDescription="@string/ratingLabel"
-                                app:srcCompat="@drawable/ic_rating_icon" />
+                                app:srcCompat="@drawable/ic_star_official" />
 
                             <TextView
                                 android:id="@+id/ratingLabelTextView"
@@ -200,7 +200,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:contentDescription="@string/balanceLabel"
-                                app:srcCompat="@drawable/ic_bank_icon24" />
+                                app:srcCompat="@drawable/ic_bank_official" />
 
                             <TextView
                                 android:id="@+id/balanceLabeltextView"
@@ -251,7 +251,7 @@
                             android:drawablePadding="10dp"
                             android:text="@string/emailLabel"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            app:drawableStartCompat="@drawable/ic_email_icon" />
+                            app:drawableStartCompat="@drawable/ic_mail_official" />
 
                         <TextView
                             android:id="@+id/emailTextView"
@@ -290,7 +290,7 @@
                             android:drawablePadding="10dp"
                             android:text="@string/locationLabel"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            app:drawableStartCompat="@drawable/ic_location_icon" />
+                            app:drawableStartCompat="@drawable/ic_location_official" />
 
                         <TextView
                             android:id="@+id/locationTextView"
@@ -329,7 +329,7 @@
                             android:drawablePadding="10dp"
                             android:text="@string/skillsLabel"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            app:drawableStartCompat="@drawable/ic_skills_icon" />
+                            app:drawableStartCompat="@drawable/ic_skills_official" />
 
                         <TextView
                             android:id="@+id/skillTextView"
@@ -369,7 +369,7 @@
                             android:drawablePadding="10dp"
                             android:text="@string/descriptionLabel"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            app:drawableStartCompat="@drawable/ic_description_icon" />
+                            app:drawableStartCompat="@drawable/ic_description_official" />
 
                         <TextView
                             android:id="@+id/descriptionTextView"

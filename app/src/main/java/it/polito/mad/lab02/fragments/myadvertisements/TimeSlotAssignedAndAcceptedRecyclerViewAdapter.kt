@@ -63,23 +63,29 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
                         bundle
                     )
             }, {
-//                val bundle = Bundle()
-//                bundle.putString("id", values[position].id)
-//                bundle.putString("timeslot", Gson().toJson(values[position]))
-//                it.findNavController()
-//                    .navigate(
-//                        R.id.publicTimeSlotDetailsFragment,
-//                        bundle
-//                    )
+                val bundle = Bundle()
+                bundle.putString("id", values[position].id)
+                bundle.putString("timeslot", Gson().toJson(values[position]))
+                it.findNavController()
+                    .navigate(
+                        R.id.publicTimeSlotDetailsFragment,
+                        bundle
+                    )
             },
             {
-//                val bundle = Bundle()
-//                bundle.putString("id", values[position].id)
-//                it.findNavController()
-//                    .navigate(
-//                        R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_publicShowProfileFragment,
-//                        bundle
-//                    )
+                val bundle = Bundle()
+                bundle.putString("id", values[position].id)
+
+                if(selector == 0)
+                    bundle.putString("origin", "assigned")
+                else
+                    bundle.putString("origin", "accepted")
+
+                it.findNavController()
+                    .navigate(
+                        R.id.action_nav_timeSlotAssignedAndAcceptedFragment_to_publicShowProfileFragment,
+                        bundle
+                    )
             })
 
     }
