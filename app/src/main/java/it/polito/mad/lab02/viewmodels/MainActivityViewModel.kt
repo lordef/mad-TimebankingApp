@@ -928,11 +928,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         if (isChatsListenerSet) {
             isChatsListenerSet = false
 
-            requesterChatsListener.remove()
-            publisherChatsListener.remove()
+            //requesterChatsListener.remove()
+            //publisherChatsListener.remove()
 
-            _requesterChatList.value = emptyList()
-            _publisherChatList.value = emptyList()
+            //_requesterChatList.value = emptyList()
+            //_publisherChatList.value = emptyList()
         }
     }
 
