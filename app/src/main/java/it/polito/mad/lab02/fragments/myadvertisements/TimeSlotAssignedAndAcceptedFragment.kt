@@ -27,7 +27,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
-    private var selector = 1
+    private var selector = 0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
