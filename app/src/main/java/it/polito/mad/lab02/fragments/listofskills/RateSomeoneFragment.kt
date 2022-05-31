@@ -175,8 +175,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             val newRating = Rating(otherProfile, ownerProfile, stars, commentString, date, timeslotRated)
             vm.postRating(newRating)
 
-            view?.findNavController()?.navigateUp()
-            onBackPressed()
+//            view?.findNavController()?.navigateUp()
+//            onBackPressed()
         }
     }
 

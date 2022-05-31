@@ -50,8 +50,6 @@
                         android:id="@+id/imageView3"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        app:layout_constraintEnd_toStartOf="@+id/userRated"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -66,11 +64,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ratingbar"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <RatingBar
@@ -79,14 +73,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
                         android:isIndicator="false"
                         android:stepSize="1"
                         app:layout_constraintBottom_toBottomOf="@+id/userRated"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/userRated"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/userRated"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
@@ -94,7 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="If you want, leave also a comment about your experience:"
+                        android:text="If you want, leave also a comment about\nyour experience:"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -145,10 +138,10 @@
             android:id="@+id/constraintLayoutFirstReview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="invisible"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayoutSecondReview"
+            app:layout_constraintEnd_toEndOf="@+id/giveARatingConstraintLayout"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -249,14 +242,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutSecondReview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutFirstReview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/giveARatingConstraintLayout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/constraintLayoutFirstReview">
 
             <TextView
                 android:id="@+id/textViewReviewReceived1"
@@ -294,7 +287,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/comment_review"
                 app:cardCornerRadius="8dp"
@@ -305,7 +298,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="16dp">
 
@@ -336,6 +329,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:layout_marginEnd="4dp"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewDateSecondReview"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageViewSecondReview" />
 
@@ -347,6 +342,7 @@
                         android:text="TextView"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/ratingBarSecondReview"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ratingBarSecondReview"
                         app:layout_constraintTop_toTopOf="@+id/ratingBarSecondReview" />
 
