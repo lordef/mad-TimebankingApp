@@ -50,9 +50,14 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
         if (skillRefToString != null) {
             vm.setPublicAdvsListenerBySkill(skillRefToString)
 
+            //Setting App bar heading
             (activity as AppCompatActivity?)?.supportActionBar?.title =
                 skillRefToString.split("/").last()
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            //Setting title of the page
+            var pageTitle = view.findViewById<TextView>(R.id.timeslotTileTextView)
+            pageTitle.text = skillRefToString.split("/").last()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() } +" "+pageTitle.text
 
             vm.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
 
@@ -62,6 +67,16 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                         true
                     }
                 }
+
+                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
+                if (timeSlotList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    textView.visibility = View.VISIBLE
+                } else {
+                    textView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
+
 
                 val myAdapter = PublicTimeSlotRecyclerViewAdapter(timeSlotList)
                 if (recyclerView is RecyclerView) {
@@ -87,14 +102,6 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
                 }
 
 
-                val textView = view.findViewById<TextView>(R.id.text_pub_advertisements)
-                if (timeSlotList.isEmpty()) {
-                    recyclerView.visibility = View.GONE
-                    textView.visibility = View.VISIBLE
-                } else {
-                    textView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                }
 
             }
 

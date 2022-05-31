@@ -25,6 +25,8 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)
 
+        val pageTitle = view.findViewById<TextView>(R.id.skillListTitleTextView)
+
         vm.skillList.observe(viewLifecycleOwner) { skillList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
@@ -39,6 +41,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
             val textView = view.findViewById<TextView>(R.id.text_skills)
             if (skillList.isEmpty()) {
                 recyclerView.visibility = View.GONE
+                pageTitle.visibility = View.GONE
                 textView.visibility = View.VISIBLE
             } else {
                 textView.visibility = View.GONE

@@ -49,8 +49,8 @@
     <string name="menu_active_timeslot"> Time invested </string>
 
     <!-- Suggestions to guide the user during navigation -->
-    <string name="skill_list_navigation">Title</string>
-    <string name="advertisements_navigation">Description</string>
+    <string name="skill_list_navigation"> Choose a skill that interests you</string>
+    <string name="advertisements_navigation">adverisements</string>
 
     <!-- TimeSlotDetailsFragment labels -->
     <string name="timeslotTitleLabel">Title</string>
