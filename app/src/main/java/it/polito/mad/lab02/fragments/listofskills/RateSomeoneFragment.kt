@@ -32,6 +32,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
     private var isLoggedUserPublisherRateFrag : Boolean? = false
 
+    private var fragmentLabel = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -54,7 +56,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         lateinit var otherProfile: Profile //their profile
         lateinit var ownerProfile: Profile //your profile
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Ratings about " + timeslotRated.title
+        fragmentLabel = "Ratings about " + timeslotRated.title
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
 
         vm.profile.observe(viewLifecycleOwner){profile ->
             ownerProfile = profile
@@ -152,6 +155,11 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
     }
 
     private fun giveARating(otherProfile: Profile, ownerProfile: Profile, timeslotRated: TimeSlot){
