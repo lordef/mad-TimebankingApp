@@ -14,7 +14,6 @@
 
     <string name="drawer_header_title">Android Studio</string>
 
-
     <!-- Labels -->
     <string name="fullNameLabel">Full Name</string>
     <string name="nicknameLabel">Nickname</string>
@@ -60,7 +59,6 @@
     <string name="timeslotLocationLabel">Location</string>
 
     <string name="title">Title</string>
-    <!--string name="description">Description</string-->
     <string name="dateTime">Date</string>
     <string name="dateAndTime">Date and Time</string>
     <string name="duration">Duration</string>
@@ -87,8 +85,6 @@
     <string name="dialog_text_filters">Type a keyword</string>
     <string name="empty_ratings_msg">No ratings present</string>
     <string name="empty_rating_msg">No rating received yet</string>
-
-    <!--string name="location">Location</string-->
 
     <!-- skills constraint Menu-->
     <string name="title_skillsConstraint"> Wait a minute </string>

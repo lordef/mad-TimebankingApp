@@ -65,7 +65,11 @@
             app:exitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_nav_timeSlotEdit_to_nav_advertisement"
-            app:destination="@id/nav_advertisement" />
+            app:destination="@id/nav_advertisement"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -210,7 +214,11 @@
         tools:layout="@layout/fragment_ratings_list" >
         <action
             android:id="@+id/action_ratingsFragment_to_publicShowProfileFragment"
-            app:destination="@id/publicShowProfileFragment" />
+            app:destination="@id/publicShowProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
