@@ -40,7 +40,7 @@
     <string name="useCameraOption">Use the camera to take a picture</string>
 
     <!-- section in side bar -->
-    <string name="menu_profile">Profile test</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_advertisement">My advertisements</string>
     <string name="menu_all_advertisement">All advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -50,7 +50,7 @@
 
     <!-- Suggestions to guide the user during navigation -->
     <string name="skill_list_navigation"> Choose a skill that interests you</string>
-    <string name="advertisements_navigation">adverisements</string>
+    <string name="advertisements_navigation">advertisements</string>
 
     <!-- TimeSlotDetailsFragment labels -->
     <string name="timeslotTitleLabel">Title</string>
@@ -92,7 +92,7 @@
 
     <!-- skills constraint Menu-->
     <string name="title_skillsConstraint"> Wait a minute </string>
-    <string name="body_skillsConstraint"> You can not create a new timeslot without define a set of skills in your profile. Click on the button below to add it! </string>
+    <string name="body_skillsConstraint"> You cannot create a new timeslot without define a set of skills in your profile. Click on the button below to add it! </string>
     <string name="timeslot_message_title">Timeslot:</string>
     <string name="last_message">Last message</string>
     <string name="last_message_text">Last:</string>
