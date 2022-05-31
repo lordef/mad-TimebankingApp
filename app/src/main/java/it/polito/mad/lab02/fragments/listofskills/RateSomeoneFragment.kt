@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -52,6 +53,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
         lateinit var otherProfile: Profile //their profile
         lateinit var ownerProfile: Profile //your profile
+
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Ratings about " + timeslotRated.title
 
         vm.profile.observe(viewLifecycleOwner){profile ->
             ownerProfile = profile

@@ -28,5 +28,9 @@
             android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
             android:icon="@drawable/ic_time_invested_official"
             android:title="@string/menu_active_timeslot" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout_official"
+            android:title="@string/nav_logout" />
     </group>
 </menu>
