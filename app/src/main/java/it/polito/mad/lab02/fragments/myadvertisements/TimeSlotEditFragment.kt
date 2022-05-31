@@ -22,6 +22,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils
+import it.polito.mad.lab02.Utils.fromHHMMToString
+import it.polito.mad.lab02.Utils.fromStringToHHMM
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -139,13 +142,13 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 h = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
-                durationTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
+                durationTextView.text = fromHHMMToString(SimpleDateFormat("HH:mm").format(calendar.time))
             })
             minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
                 m = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
-                durationTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
+                durationTextView.text = fromHHMMToString(SimpleDateFormat("HH:mm").format(calendar.time))
 
             })
             val alertDialog = builder.show()
@@ -253,7 +256,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
             date?.text = dateRestored
             time?.text = timeRestored
-            duration?.text = durationRestored
+            duration?.text = fromHHMMToString(durationRestored!!)
             skillText?.text = skillRestored
             location?.text = locationRestored
             description?.text = descriptionRestored
@@ -287,7 +290,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                     skillText?.text = ts.skill
                     date?.text = d
                     time?.text = t
-                    duration?.text = ts?.duration
+                    duration?.text = fromHHMMToString(ts?.duration)
                     location?.text = ts?.location
                 }
             }
@@ -371,7 +374,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                 title?.text.toString(),
                 description?.text.toString(),
                 dateTime,
-                duration?.text.toString(),
+                Utils.fromStringToHHMM(duration?.text.toString()),
                 location?.text.toString(),
                 skillTextTmp,
                 "user",

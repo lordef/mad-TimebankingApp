@@ -56,4 +56,14 @@ object Utils {
 
         }
     }
+
+    @JvmStatic
+    fun fromHHMMToString(time: String): String {
+        return "" + time.split(":")[0] + "h " + time.split(":")[1] + "min"
+    }
+
+    @JvmStatic
+    fun fromStringToHHMM(time: String): String {
+        return "" + time.split(" ")[0].split("h")[0] + ":" + time.split(" ")[1].split("min")[0]
+    }
 }

@@ -19,6 +19,7 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentTimeSlotsListBinding
 import it.polito.mad.lab02.models.TimeSlot
 import androidx.recyclerview.widget.DiffUtil
+import it.polito.mad.lab02.Utils.fromHHMMToString
 
 
 class TimeSlotsListRecyclerViewAdapter(
@@ -128,7 +129,7 @@ class TimeSlotsListRecyclerViewAdapter(
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardDate.text = timeSlot.dateTime
-            cardDuration.text = timeSlot.duration
+            cardDuration.text = fromHHMMToString(timeSlot.duration)
             deleteButton.setOnClickListener(action_deleteTimeSlot)
 
             if (timeSlot.state == "ACCEPTED") {

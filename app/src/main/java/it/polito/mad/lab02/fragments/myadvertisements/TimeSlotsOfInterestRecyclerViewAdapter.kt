@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils.fromHHMMToString
 import it.polito.mad.lab02.databinding.FragmentTimeSlotOfInterestBinding
 import it.polito.mad.lab02.models.TimeSlot
 
@@ -75,7 +76,7 @@ class TimeSlotsOfInterestRecyclerViewAdapter(
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardDate.text = timeSlot.dateTime
-            cardDuration.text = timeSlot.duration
+            cardDuration.text = fromHHMMToString(timeSlot.duration)
             cardProfile.text = timeSlot.userProfile.nickname
         }
 

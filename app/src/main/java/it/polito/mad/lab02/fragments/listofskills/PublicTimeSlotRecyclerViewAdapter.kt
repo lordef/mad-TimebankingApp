@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils.fromHHMMToString
 import it.polito.mad.lab02.databinding.FragmentPublicTimeSlotBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
@@ -122,7 +123,7 @@ class PublicTimeSlotRecyclerViewAdapter(
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
             cardDate.text = timeSlot.dateTime
-            cardDuration.text = timeSlot.duration
+            cardDuration.text = fromHHMMToString(timeSlot.duration)
             cardProfile.text = timeSlot.userProfile.nickname
         }
 

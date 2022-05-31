@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.Utils.fromHHMMToString
 
 
 import it.polito.mad.lab02.databinding.FragmentTimeSlotAssignedAndAcceptedBinding
@@ -116,7 +117,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
             cardLocation.text = timeSlot.location
 
             cardDate.text = timeSlot.dateTime
-            cardDuration.text = timeSlot.duration
+            cardDuration.text = fromHHMMToString(timeSlot.duration)
 
             if(selector == 0){
                 cardProfile.text = timeSlot.userProfile.nickname
