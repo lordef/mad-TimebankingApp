@@ -1,7 +1,6 @@
 package it.polito.mad.lab02.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -108,7 +107,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private lateinit var publisherChatsListener: ListenerRegistration
     private lateinit var requesterChatsListener: ListenerRegistration
-    var isChatsListenerSetted = false
+    var isChatsListenerSet = false
 
     var isRequesterChatsListenerSet = false
 
@@ -116,6 +115,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var isMessageListenerSet = false
 
     private lateinit var timeslotListener: ListenerRegistration
+    var isTimeslotListenerSet = false
+
 
     private lateinit var newMessageListener: ListenerRegistration
     var isNewMessageListenerSet = false
@@ -288,7 +289,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     }
                 }
             }.also {
-                isChatsListenerSetted = true
+                isChatsListenerSet = true
                 _isChatListenerSet.value = true
             }
     }
@@ -368,7 +369,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     }
                 }
             }.also {
-                isChatsListenerSetted = true
+                isChatsListenerSet = true
                 isMessageListenerSet = true
             }
     }
@@ -388,6 +389,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                         _timeSlot.value = r.toTimeslot(ts.userProfile)
                     }
                 }
+            }.also{
+                isTimeslotListenerSet = true
             }
     }
 
@@ -441,6 +444,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         timeslotsRef
             .document(ts.id)
             .update("pendingRequests", FieldValue.arrayRemove(usersRef.document(a)))
+    }
+
+    fun removeTimeSlotListener() {
+        if (isTimeslotListenerSet) {
+            isTimeslotListenerSet = false
+            timeslotListener.remove()
+
+            _timeSlot.value = null
+        }
     }
 
     /******** end - Single timeslot ********/
@@ -913,8 +925,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeChatsListener() {
-        if (isChatsListenerSetted) {
-            isChatsListenerSetted = false
+        if (isChatsListenerSet) {
+            isChatsListenerSet = false
 
             requesterChatsListener.remove()
             publisherChatsListener.remove()
@@ -1126,6 +1138,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         removeAdvsListenerByCurrentUser()
         removeRatingNumberListener()
         removeRatingsListener()
+        removeChatsListener()
+        removeRequesterChatsListener()
+        removeMessagesListener()
+        removeTimeSlotListener()
+
+
 
 
 

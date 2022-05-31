@@ -278,6 +278,7 @@ class MessageFragment : Fragment(R.layout.message_chat_list) {
         val runnable = Runnable {
             // useful to call interaction with viewModel
             vm.removeMessagesListener()
+            vm.removeTimeSlotListener()
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)
