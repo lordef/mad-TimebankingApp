@@ -207,7 +207,11 @@
         android:id="@+id/ratingsFragment"
         android:name="it.polito.mad.lab02.fragments.profile.RatingsFragment"
         android:label="Ratings"
-        tools:layout="@layout/fragment_ratings_list" />
+        tools:layout="@layout/fragment_ratings_list" >
+        <action
+            android:id="@+id/action_ratingsFragment_to_publicShowProfileFragment"
+            app:destination="@id/publicShowProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
         android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotAssignedAndAcceptedFragment"

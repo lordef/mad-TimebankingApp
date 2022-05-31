@@ -3,6 +3,7 @@ package it.polito.mad.lab02.fragments.listofskills
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,6 +19,7 @@ import it.polito.mad.lab02.Utils
 import it.polito.mad.lab02.Utils.minutesInHoursAndMinutesString
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
 import it.polito.mad.lab02.models.Profile
+import it.polito.mad.lab02.models.TimeSlot
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class PublicShowProfileFragment : Fragment() {
@@ -131,6 +133,17 @@ class PublicShowProfileFragment : Fragment() {
                 }
             }
 
+            if(origin == "ratings"){
+                val profileRaterJson = arguments?.getString("profileRater")
+                val profileRater = Gson().fromJson(profileRaterJson, Profile::class.java)
+                setUIFieldsByProfile(profileRater)
+
+                vm.setRatingNumberListenerByUserUid(userUid)
+                vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
+                    ratingValue.text = avgRatingNum.toString()
+                }
+            }
+
             if (origin == null) {
                 setHasOptionsMenu(false)
                 vm.timeslotList.observe(viewLifecycleOwner) {
@@ -146,7 +159,6 @@ class PublicShowProfileFragment : Fragment() {
             }
         }
 
-        //TODO: vedere come funziona la navigation, non funziona il pulsante indietro in basso
         ratingCard.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userUid", userUid)
