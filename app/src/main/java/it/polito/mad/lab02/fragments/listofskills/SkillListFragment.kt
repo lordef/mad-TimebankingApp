@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.*
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentAllSkillsBinding
 import it.polito.mad.lab02.databinding.FragmentSkillListListBinding
+import it.polito.mad.lab02.fragments.communication.MessageRecyclerViewAdapter
 import it.polito.mad.lab02.util.spring
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import kotlin.system.exitProcess
