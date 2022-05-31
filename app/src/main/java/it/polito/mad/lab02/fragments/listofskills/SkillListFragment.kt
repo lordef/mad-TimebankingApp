@@ -45,6 +45,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
                     adapter = SkillListRecyclerViewAdapter(skillList)
+                    scrollToPosition(0)
 //                    smoothScrollToPositionWithSpeed(skillList.size-1)
                     addOnScrollListener(
                         OscillatingScrollListener(resources.getDimensionPixelSize(R.dimen.grid_2))
