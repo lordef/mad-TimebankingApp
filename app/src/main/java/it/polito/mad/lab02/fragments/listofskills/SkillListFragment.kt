@@ -22,6 +22,7 @@ import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentAllSkillsBinding
 import it.polito.mad.lab02.databinding.FragmentSkillListListBinding
 import it.polito.mad.lab02.fragments.communication.MessageRecyclerViewAdapter
+import it.polito.mad.lab02.models.Skill
 import it.polito.mad.lab02.util.spring
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import kotlin.system.exitProcess
@@ -43,15 +44,8 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
         vm.skillList.observe(viewLifecycleOwner) { skillList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
-//                    layoutManager = when {
-//                        columnCount <= 1 -> {
-////                            LinearLayoutManager(fragContext)
-//                            StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.HORIZONTAL)
-//                        }
-//                        else -> GridLayoutManager(context, columnCount)
-//                    }
                     adapter = SkillListRecyclerViewAdapter(skillList)
-                    smoothScrollToPositionWithSpeed(skillList.size)
+//                    smoothScrollToPositionWithSpeed(skillList.size-1)
                     addOnScrollListener(
                         OscillatingScrollListener(resources.getDimensionPixelSize(R.dimen.grid_2))
                     )

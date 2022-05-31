@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="@string/advertisements_navigation"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout3"
