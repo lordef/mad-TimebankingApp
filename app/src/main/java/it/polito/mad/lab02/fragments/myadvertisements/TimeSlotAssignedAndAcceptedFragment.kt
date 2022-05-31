@@ -39,12 +39,12 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
 
         acceptedButton.setOnClickListener{
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
             selector = 0
             showAssignedOrAccepted()
         }
         assignedButton.setOnClickListener{
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
+            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
             selector = 1
             showAssignedOrAccepted()
         }
