@@ -158,21 +158,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            android.R.id.home -> {
-                findNavController().navigateUp()
-                onBackPressed()
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
-
-    }
-
     private fun onBackPressed(){
         val runnable = Runnable {
             // useful to call interaction with viewModel
