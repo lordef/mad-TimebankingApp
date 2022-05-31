@@ -39,31 +39,16 @@
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.301" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_message_center_official.xml" value="0.252" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_user_icon.xml" value="0.252" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/app_bar_main.xml" value="0.17777777777777778" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/fragment_all_skills.xml" value="0.21666666666666667" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/fragment_rate_someone.xml" value="0.5388888888888889" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/fragment_skill_list_list.xml" value="0.21666666666666667" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_base.xml" value="0.42052144659377627" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_login.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_main.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/app_bar_main.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/content_main.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_date_time.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_duration.xml" value="0.28076923076923077" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_filter_criteria_datepicker.xml" value="0.2910008410428932" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/drawer_header.xml" value="0.2910008410428932" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_all_skills.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat.xml" value="0.6368316591156438" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat_list.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.42052144659377627" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_item_list.xml" value="0.42735042735042733" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_message.xml" value="0.21196581196581196" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_message_list.xml" value="0.32008547008547006" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.39658119658119656" />
-        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.2910008410428932" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.42052144659377627" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings_list.xml" value="0.25213675213675213" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.25213675213675213" />
@@ -130,66 +115,15 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1799163179916318" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.253125" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab4/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/calendar_24.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/cicular_profile_image.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/default_profile_image.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/gradient.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_advertisements.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_bank_icon24.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_bank_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_baseline_message.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_calendar_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_camera_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_clock_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_commit_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_delete.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_description_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_email_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_launcher_background.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_location_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_logout.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_menu_camera.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_message_center_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_message_menu_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_message_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_my_advertisement.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_pencil_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_pencil_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_plus_official.xml" value="0.154" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_rating_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_remove_official.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_skills_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_time_fast.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_timebanking_home.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_timer_24.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_user.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_user_icon.xml" value="0.189" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/plus_24.xml" value="0.154" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/side_nav_bar.xml" value="0.189" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.33" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/dialog_duration.xml" value="0.5" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/dialog_skills.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_add_skills.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_add_skills_with_new_choice.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.33" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_edit_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.33" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_show_profile.xml" value="0.32222222222222224" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_skills.xml" value="0.5" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted.xml" value="0.1" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_skills.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.33" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_of_interest.xml" value="0.5" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_of_interest.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/item_add_skills.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/commit_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/menu/message_menu.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3285" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/border_shape.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group7/MAD_lab02/app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
@@ -224,28 +158,65 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="app/src/main/res/drawable/ic_all_advertisement_official.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_bank_official.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1145" />
+        <entry key="app/src/main/res/drawable/ic_calendar_official.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/ic_clock_icon.xml" value="0.1145" />
+        <entry key="app/src/main/res/drawable/ic_clock_official.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_close_official.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_commit_icon.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_handshake_logo.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/ic_interests_official.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_myadvertisement_official.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_pencil_official.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_person_official.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_plus_official.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_profile_official.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_time_invested_official.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_timebanking_home.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_user_icon.xml" value="0.1145" />
+        <entry key="app/src/main/res/drawable/logo_handshake.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/plus_24.xml" value="0.1145" />
+        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1475" />
+        <entry key="app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/activity_base.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/add_skills_list.xml" value="0.13069908814589665" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13069908814589665" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.1831831831831832" />
+        <entry key="app/src/main/res/layout/fragment_add_skill.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_skills.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_skills_with_new_choice.xml" value="0.13069908814589665" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.16168478260869565" />
-        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_ratings.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/fragment_ratings_list.xml" value="0.1693840579710145" />
         <entry key="app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.16168478260869565" />
         <entry key="app/src/main/res/layout/fragment_ratings_list_with_no_ratings_2.xml" value="0.1111111111111111" />
+        <entry key="app/src/main/res/layout/fragment_show_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_skill_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_skill_list_list.xml" value="0.13069908814589665" />
+        <entry key="app/src/main/res/layout/fragment_skills.xml" value="0.13069908814589665" />
+        <entry key="app/src/main/res/layout/fragment_skills_list.xml" value="0.13069908814589665" />
         <entry key="app/src/main/res/layout/fragment_time_slot_details.xml" value="0.26875" />
+        <entry key="app/src/main/res/layout/fragment_time_slot_list.xml" value="0.13069908814589665" />
+        <entry key="app/src/main/res/layout/fragment_time_slots_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.245018115942029" />
+        <entry key="app/src/main/res/layout/item_add_skill.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_add_skills.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/item_chat_me.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_chat_other.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_chat_system.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/message_chat_list.xml" value="0.1" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.26875" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.162" />
