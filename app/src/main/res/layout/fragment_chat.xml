@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,9 +14,8 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
-        card_view:cardBackgroundColor="@color/background_text_cards_show"
-        card_view:cardCornerRadius="8dp"
-        card_view:contentPadding="10dp">
+        app:cardBackgroundColor="@color/background_text_cards_show"
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,15 +37,15 @@
                     android:layout_height="wrap_content"
                     android:maxLength="30"
                     android:text="@string/title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    card_view:autoSizeTextType="uniform"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent" />
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,8 +64,8 @@
                     android:maxLength="65"
                     android:text="From:"
                     android:textSize="18sp"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/card_profile"
@@ -79,11 +78,11 @@
                     android:paddingStart="16dp"
                     android:text="@string/menu_profile"
                     android:textSize="18sp"
-                    card_view:drawableStartCompat="@drawable/ic_person_official"
-                    card_view:layout_constraintBottom_toBottomOf="@+id/card_from"
-                    card_view:layout_constraintStart_toEndOf="@+id/card_from"
-                    card_view:layout_constraintTop_toTopOf="@+id/card_from"
-                    card_view:layout_constraintVertical_bias="0.0"
+                    app:drawableStartCompat="@drawable/ic_person_official"
+                    app:layout_constraintBottom_toBottomOf="@+id/card_from"
+                    app:layout_constraintStart_toEndOf="@+id/card_from"
+                    app:layout_constraintTop_toTopOf="@+id/card_from"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:text="@string/menu_profile" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,9 +103,9 @@
                     android:maxLength="65"
                     android:text="Last:"
                     android:textSize="18sp"
-                    card_view:layout_constraintEnd_toStartOf="@+id/last_message"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@+id/last_message"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/last_message"
@@ -119,12 +118,12 @@
                     android:paddingStart="16dp"
                     android:text="@string/last_message"
                     android:textSize="18sp"
-                    card_view:drawableStartCompat="@drawable/ic_message_official"
-                    card_view:layout_constraintBottom_toBottomOf="@+id/last_message_text"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@id/last_message_text"
-                    card_view:layout_constraintTop_toTopOf="@+id/last_message_text"
-                    card_view:layout_constraintVertical_bias="0.0"
+                    app:drawableStartCompat="@drawable/ic_message_official"
+                    app:layout_constraintBottom_toBottomOf="@+id/last_message_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/last_message_text"
+                    app:layout_constraintTop_toTopOf="@+id/last_message_text"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:text="@string/last_message" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

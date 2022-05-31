@@ -333,6 +333,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:background="@color/background_edit"
+                                android:backgroundTint="@color/secondary_yellow"
                                 android:linksClickable="true"
                                 android:text="See the list of predefined skills"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"

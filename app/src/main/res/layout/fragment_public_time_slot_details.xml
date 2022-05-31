@@ -307,7 +307,7 @@
             android:clickable="true"
             android:contentDescription="@string/fab_contact_user"
             android:src="@drawable/ic_message_official"
-            app:backgroundTint="#4CAF50"
+            app:backgroundTint="@color/secondary_yellow"
             app:icon="@drawable/ic_message_official"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

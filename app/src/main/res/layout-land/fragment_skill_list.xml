@@ -20,7 +20,7 @@
             android:focusable="true"
             android:foreground="?selectableItemBackground"
             android:minWidth="80dp"
-            app:cardBackgroundColor="@color/background_text_cards_show"
+            app:cardBackgroundColor="@color/secondary_yellow"
             app:cardCornerRadius="16dp"
             app:contentPadding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
