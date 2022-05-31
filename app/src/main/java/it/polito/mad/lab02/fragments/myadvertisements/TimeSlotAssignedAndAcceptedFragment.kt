@@ -13,8 +13,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.firebase.Timestamp
 import it.polito.mad.lab02.R
+import it.polito.mad.lab02.fragments.communication.MyChatRecyclerViewAdapter
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.util.*
 
@@ -34,19 +36,28 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
         showAssignedOrAccepted()
 
-        val acceptedButton = view.findViewById<Button>(R.id.requesterButton)
-        val assignedButton = view.findViewById<Button>(R.id.publisherButton)
+        val toggleButton = view.findViewById<MaterialButtonToggleGroup>(R.id.toggleButton)
 
+        toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.publisherButton -> {
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
+                        selector = 0
+                        showAssignedOrAccepted()
+                    }
 
-        acceptedButton.setOnClickListener{
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
-            selector = 0
-            showAssignedOrAccepted()
-        }
-        assignedButton.setOnClickListener{
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
-            selector = 1
-            showAssignedOrAccepted()
+                    R.id.requesterButton -> {
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
+                        selector = 1
+                        showAssignedOrAccepted()
+                    }
+                }
+            } else {
+                if (toggleButton.checkedButtonId == View.NO_ID) {
+
+                }
+            }
         }
 
         val callback = object : OnBackPressedCallback(true) {

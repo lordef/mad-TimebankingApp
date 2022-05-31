@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.fragments.myadvertisements.TimeSlotsListRecyclerViewAdapter
@@ -90,61 +91,70 @@ class ChatFragment : Fragment(R.layout.fragment_chat_list) {
             }
         }
 
-        val publisherButton = view.findViewById<Button>(R.id.publisherButton)
-        val requesterButton = view.findViewById<Button>(R.id.requesterButton)
+        val toggleButton = view.findViewById<MaterialButtonToggleGroup>(R.id.toggleButton)
 
-        publisherButton.setOnClickListener{
-            selector = 0
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as publisher"
-            if (recyclerView is RecyclerView) {
-                with(recyclerView) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    if(vm.publisherChatList.value != null) {
-                        adapter = MyChatRecyclerViewAdapter(vm.publisherChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
-                        if (vm.publisherChatList.value!!.isEmpty()) {
-                            recyclerView.visibility = View.GONE
-                            textView.visibility = View.VISIBLE
-                        } else {
-                            textView.visibility = View.GONE
-                            recyclerView.visibility = View.VISIBLE
+        toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.publisherButton -> {
+                        selector = 0
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as publisher"
+                        if (recyclerView is RecyclerView) {
+                            with(recyclerView) {
+                                layoutManager = when {
+                                    columnCount <= 1 -> LinearLayoutManager(context)
+                                    else -> GridLayoutManager(context, columnCount)
+                                }
+                                if(vm.publisherChatList.value != null) {
+                                    adapter = MyChatRecyclerViewAdapter(vm.publisherChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
+                                    if (vm.publisherChatList.value!!.isEmpty()) {
+                                        recyclerView.visibility = View.GONE
+                                        textView.visibility = View.VISIBLE
+                                    } else {
+                                        textView.visibility = View.GONE
+                                        recyclerView.visibility = View.VISIBLE
+                                    }
+                                }
+                                else{
+                                    adapter = MyChatRecyclerViewAdapter(emptyList())
+                                    textView.visibility = View.VISIBLE
+                                    recyclerView.visibility = View.GONE
+                                }
+                            }
                         }
                     }
-                    else{
-                        adapter = MyChatRecyclerViewAdapter(emptyList())
-                        textView.visibility = View.VISIBLE
-                        recyclerView.visibility = View.GONE
+
+                    R.id.requesterButton -> {
+                        selector = 1
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as requester"
+                        if (recyclerView is RecyclerView) {
+                            with(recyclerView) {
+                                layoutManager = when {
+                                    columnCount <= 1 -> LinearLayoutManager(context)
+                                    else -> GridLayoutManager(context, columnCount)
+                                }
+                                if(vm.requesterChatList.value != null) {
+                                    adapter = MyChatRecyclerViewAdapter(vm.requesterChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
+                                    if (vm.requesterChatList.value!!.isEmpty()) {
+                                        recyclerView.visibility = View.GONE
+                                        textView.visibility = View.VISIBLE
+                                    } else {
+                                        textView.visibility = View.GONE
+                                        recyclerView.visibility = View.VISIBLE
+                                    }
+                                }
+                                else{
+                                    adapter = MyChatRecyclerViewAdapter(emptyList())
+                                    textView.visibility = View.VISIBLE
+                                    recyclerView.visibility = View.GONE
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
+            } else {
+                if (toggleButton.checkedButtonId == View.NO_ID) {
 
-        requesterButton.setOnClickListener{
-            selector = 1
-            (activity as AppCompatActivity?)?.supportActionBar?.title = "Chats as requester"
-            if (recyclerView is RecyclerView) {
-                with(recyclerView) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    if(vm.requesterChatList.value != null) {
-                        adapter = MyChatRecyclerViewAdapter(vm.requesterChatList.value!!.sortedByDescending { it.lastMessage.timestamp })
-                        if (vm.requesterChatList.value!!.isEmpty()) {
-                            recyclerView.visibility = View.GONE
-                            textView.visibility = View.VISIBLE
-                        } else {
-                            textView.visibility = View.GONE
-                            recyclerView.visibility = View.VISIBLE
-                        }
-                    }
-                    else{
-                        adapter = MyChatRecyclerViewAdapter(emptyList())
-                        textView.visibility = View.VISIBLE
-                        recyclerView.visibility = View.GONE
-                    }
                 }
             }
         }
