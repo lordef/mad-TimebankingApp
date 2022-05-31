@@ -40,13 +40,17 @@
     <string name="useCameraOption">Use the camera to take a picture</string>
 
     <!-- section in side bar -->
-    <string name="menu_profile">Profile</string>
+    <string name="menu_profile">Profile test</string>
     <string name="menu_advertisement">My advertisements</string>
     <string name="menu_all_advertisement">All advertisements</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_chats">Message center</string>
     <string name="menu_interest"> Interests </string>
     <string name="menu_active_timeslot"> Time invested </string>
+
+    <!-- Suggestions to guide the user during navigation -->
+    <string name="skill_list_navigation"> Choose a skill that interests you</string>
+    <string name="advertisements_navigation">adverisements</string>
 
     <!-- TimeSlotDetailsFragment labels -->
     <string name="timeslotTitleLabel">Title</string>
