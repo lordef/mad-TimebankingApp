@@ -76,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:backgroundTint="@color/secondary_yellow"
+                    android:backgroundTint="@color/primary_superlight"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:paddingStart="8dp"

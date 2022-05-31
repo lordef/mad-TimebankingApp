@@ -9,7 +9,7 @@
         android:id="@+id/header_gchat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
+        android:background="@color/primary_superlight"
         app:layout_constraintBottom_toTopOf="@+id/layout_chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
