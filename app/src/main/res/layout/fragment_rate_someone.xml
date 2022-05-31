@@ -21,14 +21,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Give a rate to"
-            android:textSize="24sp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/primary_dark"
+            android:textSize="28sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="User"
+                    android:textColor="@color/primary_medium"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -74,6 +79,8 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:isIndicator="false"
+                    android:progressTint="@color/secondary_yellow"
+                    android:secondaryProgressTint="@color/secondary_yellow"
                     android:stepSize="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/primary_medium"
                     android:backgroundTintMode="src_atop"
                     android:text="Send review"
                     android:textColor="@color/button_green_text"
@@ -136,6 +144,7 @@
         android:id="@+id/constraintLayoutFirstReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayoutSecondReview"
         app:layout_constraintEnd_toEndOf="@+id/giveARatingConstraintLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -146,28 +155,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/review_given"
+            android:textColor="@color/primary_dark"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewReviewGivenToUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="TextView"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewReviewGiven"
-            app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"
-            app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/comment_review"
+            app:cardBackgroundColor="@color/primary_dark"
             app:cardCornerRadius="8dp"
+            app:contentPadding="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +176,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/primary_superlight"
                 android:padding="16dp">
 
                 <ImageView
@@ -244,27 +245,16 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirstReview">
 
         <TextView
-            android:id="@+id/textViewReviewReceived1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/review_received_1"
-            android:textSize="20sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/textViewUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:text="TextView"
+            android:textColor="@color/primary_dark"
             android:textSize="24sp"
             android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-            app:layout_constraintStart_toEndOf="@+id/textViewReviewReceived1" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewReviewReceived2"
@@ -281,17 +271,18 @@
             android:id="@+id/materialCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/comment_review"
+            app:cardBackgroundColor="@color/primary_dark"
             app:cardCornerRadius="8dp"
+            app:contentPadding="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewReviewReceived1">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/primary_superlight"
                 android:padding="16dp">
 
                 <ImageView
