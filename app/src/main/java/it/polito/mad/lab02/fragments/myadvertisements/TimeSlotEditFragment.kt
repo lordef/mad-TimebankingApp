@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,14 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.TimeSlot
@@ -82,7 +78,9 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                     skillsPicker.maxValue = skills.size - 1
                     skillsPicker.displayedValues = skills.toTypedArray()
                     skillsPicker.wrapSelectorWheel = false
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        skillsPicker.textSize = 64F
+                    }
 
                     var temp = skills[0]
                     skillsPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
@@ -130,14 +128,18 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
             hoursPicker.value = h
             minutesPicker.value = m
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                hoursPicker.textSize = 56F
+                minutesPicker.textSize = 56F
+            }
+
             val durationTextView = view.findViewById<TextView>(R.id.durationEditText)
             val calendar = Calendar.getInstance()
             hoursPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
                 h = newVal
                 calendar.set(Calendar.HOUR_OF_DAY, h)
                 calendar.set(Calendar.MINUTE, m)
-                durationTextView.text =
-                    SimpleDateFormat("HH:mm").format(calendar.time)//"" + h + ":" + m
+                durationTextView.text = SimpleDateFormat("HH:mm").format(calendar.time)
             })
             minutesPicker.setOnValueChangedListener(NumberPicker.OnValueChangeListener { _, _, newVal ->
                 m = newVal

@@ -14,7 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import android.widget.*
@@ -154,6 +153,9 @@ class EditProfileFragment : Fragment() {
             skillsPicker.maxValue = skills.size - 1
             skillsPicker.displayedValues = skills
             skillsPicker.wrapSelectorWheel = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                skillsPicker.textSize = 64F
+            }
 
 
             var temp = skills[0]
