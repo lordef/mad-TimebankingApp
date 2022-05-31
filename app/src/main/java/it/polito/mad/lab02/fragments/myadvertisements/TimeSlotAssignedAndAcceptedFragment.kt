@@ -33,7 +33,7 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
         showAssignedOrAccepted()
 
         val toggleButton = view.findViewById<MaterialButtonToggleGroup>(R.id.toggleButton)
