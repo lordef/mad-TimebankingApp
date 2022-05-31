@@ -16,27 +16,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewRater"-->
-<!--            android:layout_width="25dp"-->
-<!--            android:layout_height="22dp"-->
-<!--            card_view:layout_constraintBottom_toBottomOf="parent"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:srcCompat="@tools:sample/avatars" />-->
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageViewRater"
+                android:layout_width="25dp"
+                android:layout_height="22dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/rater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="rater"
+                android:textAppearance="?attr/textAppearanceListItem"
+                card_view:layout_constraintBottom_toBottomOf="@+id/imageViewRater"
+                card_view:layout_constraintStart_toEndOf="@+id/imageViewRater" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            card_view:layout_constraintTop_toBottomOf="@+id/imageView4"
+            card_view:layout_constraintTop_toBottomOf="@+id/profileLayout"
             tools:layout_editor_absoluteX="16dp">
 
             <RatingBar
@@ -64,17 +76,6 @@
                 card_view:layout_constraintStart_toEndOf="@+id/ratingBar"
                 card_view:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/rater"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="rater"
-            android:textAppearance="?attr/textAppearanceListItem"
-            card_view:layout_constraintBottom_toBottomOf="@+id/imageView4"
-            card_view:layout_constraintStart_toEndOf="@+id/imageView4"
-            card_view:layout_constraintTop_toTopOf="@+id/imageView4" />
 
         <TextView
             android:id="@+id/comment"
