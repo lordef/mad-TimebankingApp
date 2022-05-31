@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/messageItem"
-        android:icon="@drawable/ic_baseline_message"
+        android:icon="@drawable/ic_message_menu_official"
         android:title="@string/messageItem"
         app:showAsAction="always" />
 </menu>
