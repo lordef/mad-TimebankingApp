@@ -283,6 +283,21 @@
 
         </androidx.cardview.widget.CardView>
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/contactUserFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true"
+            android:contentDescription="@string/fab_contact_user"
+            android:src="@drawable/ic_message_official"
+            android:text="@string/fab_contact_user"
+            app:icon="@drawable/ic_message_official"
+            tools:ignore="ImageContrastCheck" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -102,6 +102,7 @@
     <string name="system_message_text">Message from the system</string>
     <string name="assigned_button">ASSIGNED</string>
     <string name="accepted_button">ACCEPTED</string>
+    <string name="fab_contact_user">Contact</string>
 
 
 </resources>
