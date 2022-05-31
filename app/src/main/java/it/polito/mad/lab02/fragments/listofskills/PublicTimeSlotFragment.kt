@@ -51,7 +51,8 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             vm.setPublicAdvsListenerBySkill(skillRefToString)
 
             (activity as AppCompatActivity?)?.supportActionBar?.title =
-                "Skill: " + skillRefToString.split("/").last()
+                skillRefToString.split("/").last()
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
 
             vm.timeslotList.observe(viewLifecycleOwner) { timeSlotList ->
 
