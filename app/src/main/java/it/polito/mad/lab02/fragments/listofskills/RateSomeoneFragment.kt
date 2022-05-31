@@ -4,7 +4,6 @@ import android.net.Uri
 import it.polito.mad.lab02.models.Rating
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import android.view.View
@@ -24,7 +23,6 @@ import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
-
 
 class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
@@ -119,7 +117,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
 
 
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
@@ -146,11 +143,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             // useful to call interaction with viewModel
             if(isLoggedUserPublisherRateFrag == true){
                 vm.removeUserProfileListener()
-                Log.d("mytaggg", "remove1")
             }
-
             vm.removeRatingsListenerByTimeslot()
-            Log.d("mytaggg", "remove2")
 
         }
         // Perform persistence changes after 250 millis
