@@ -4,7 +4,10 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -12,6 +15,7 @@ import coil.load
 import it.polito.mad.lab02.R
 import com.google.gson.Gson
 import it.polito.mad.lab02.Utils
+import it.polito.mad.lab02.Utils.minutesInHoursAndMinutesString
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
@@ -27,6 +31,18 @@ class PublicShowProfileFragment : Fragment() {
     private val vm by activityViewModels<MainActivityViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
+
+    private lateinit var userUid : String
+    private lateinit var profileImage : ImageView
+    private lateinit var fullName : TextView
+    private lateinit var nickname : TextView
+    private lateinit var email : TextView
+    private lateinit var location : TextView
+    private lateinit var skills : TextView
+    private lateinit var description : TextView
+    private lateinit var ratingCard : CardView
+    private lateinit var ratingValue : TextView
+    private lateinit var balance : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,16 +75,16 @@ class PublicShowProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userUid = ""
-        val profileImage = binding.profileImageView
-        val fullName = binding.fullNameTextView
-        val nickname = binding.nicknameTextView
-        val email = binding.emailTextView
-        val location = binding.locationTextView
-        val skills = binding.skillTextView
-        val description = binding.descriptionTextView
-        val ratingCard = binding.ratingCardView
-        val ratingValue = binding.ratingValueTextView
+        profileImage = binding.profileImageView
+        fullName = binding.fullNameTextView
+        nickname = binding.nicknameTextView
+        email = binding.emailTextView
+        location = binding.locationTextView
+        skills = binding.skillTextView
+        description = binding.descriptionTextView
+        ratingCard = binding.ratingCardView
+        ratingValue = binding.ratingValueTextView
+        balance = binding.balanceValueTextView
 
 
         val id = arguments?.getString("id")
@@ -80,17 +96,8 @@ class PublicShowProfileFragment : Fragment() {
                 vm.requesterChatList.observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.timeSlot.id == id }[0].timeSlot
                     // update UI
-                    profileImageUri = ts.userProfile.imageUri
-                    profileImage.load(Uri.parse(profileImageUri))
-                    //profileImage.setImageURI(Uri.parse(profileImageUri))
-                    fullName.text = ts.userProfile.fullName
-                    nickname.text = ts.userProfile.nickname
-                    email.text = ts.userProfile.email
-                    location.text = ts.userProfile.location
-                    skills.text = ts.userProfile.skills.joinToString(", ")
-                    description.text = ts.userProfile.description
+                    setUIFieldsByProfile(ts.userProfile)
 
-                    userUid = ts.userProfile.uid
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                         ratingValue.text = avgRatingNum.toString()
@@ -102,17 +109,8 @@ class PublicShowProfileFragment : Fragment() {
                 vm.myAssignedTimeSlotList.observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
                     // update UI
-                    profileImageUri = ts.userProfile.imageUri
-                    profileImage.load(Uri.parse(profileImageUri))
-                    //profileImage.setImageURI(Uri.parse(profileImageUri))
-                    fullName.text = ts.userProfile.fullName
-                    nickname.text = ts.userProfile.nickname
-                    email.text = ts.userProfile.email
-                    location.text = ts.userProfile.location
-                    skills.text = ts.userProfile.skills.joinToString(", ")
-                    description.text = ts.userProfile.description
+                    setUIFieldsByProfile(ts.userProfile)
 
-                    userUid = ts.userProfile.uid
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                         ratingValue.text = avgRatingNum.toString()
@@ -124,17 +122,8 @@ class PublicShowProfileFragment : Fragment() {
                 vm.loggedUserTimeSlotList.observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
                     // update UI
-                    profileImageUri = ts.userProfile.imageUri
-                    profileImage.load(Uri.parse(profileImageUri))
-                    //profileImage.setImageURI(Uri.parse(profileImageUri))
-                    fullName.text = ts.userProfile.fullName
-                    nickname.text = ts.userProfile.nickname
-                    email.text = ts.userProfile.email
-                    location.text = ts.userProfile.location
-                    skills.text = ts.userProfile.skills.joinToString(", ")
-                    description.text = ts.userProfile.description
+                    setUIFieldsByProfile(ts.userProfile)
 
-                    userUid = ts.userProfile.uid
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                         ratingValue.text = avgRatingNum.toString()
@@ -146,19 +135,9 @@ class PublicShowProfileFragment : Fragment() {
                 setHasOptionsMenu(false)
                 vm.timeslotList.observe(viewLifecycleOwner) {
                     val ts = it.filter { t -> t.id == id }[0]
-
                     // update UI
-                    profileImageUri = ts.userProfile.imageUri
-                    profileImage.load(Uri.parse(profileImageUri))
-                    //profileImage.setImageURI(Uri.parse(profileImageUri))
-                    fullName.text = ts.userProfile.fullName
-                    nickname.text = ts.userProfile.nickname
-                    email.text = ts.userProfile.email
-                    location.text = ts.userProfile.location
-                    skills.text = ts.userProfile.skills.joinToString(", ")
-                    description.text = ts.userProfile.description
+                    setUIFieldsByProfile(ts.userProfile)
 
-                    userUid = ts.userProfile.uid
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
                         ratingValue.text = avgRatingNum.toString()
@@ -183,15 +162,7 @@ class PublicShowProfileFragment : Fragment() {
             setHasOptionsMenu(false)
             val userObj = Gson().fromJson(user, Profile::class.java)
             // update UI
-            profileImageUri = userObj.imageUri
-            profileImage.load(Uri.parse(profileImageUri))
-            //profileImage.setImageURI(Uri.parse(profileImageUri))
-            fullName.text = userObj.fullName
-            nickname.text = userObj.nickname
-            email.text = userObj.email
-            location.text = userObj.location
-            skills.text = userObj.skills.joinToString(", ")
-            description.text = userObj.description
+            setUIFieldsByProfile(userObj)
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -206,5 +177,20 @@ class PublicShowProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setUIFieldsByProfile(profile: Profile){
+        userUid = profile.uid
+
+        profileImageUri = profile.imageUri
+        profileImage.load(Uri.parse(profileImageUri))
+
+        fullName.text = profile.fullName
+        nickname.text = profile.nickname
+        email.text = profile.email
+        location.text = profile.location
+        skills.text = profile.skills.joinToString(", ")
+        description.text = profile.description
+        balance.text = minutesInHoursAndMinutesString(profile.balance)
     }
 }

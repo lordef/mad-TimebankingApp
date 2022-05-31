@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentSkillListBinding
 import it.polito.mad.lab02.models.Skill
+import java.util.*
 
 class SkillListRecyclerViewAdapter(
     private val values: List<Skill>
@@ -44,7 +45,7 @@ class SkillListRecyclerViewAdapter(
         val card: CardView = binding.cardSkillAdvertisement
 
         fun bind(skill: Skill, action1: (v: View) -> Unit){
-            skillName.text = skill.name
+            skillName.text = skill.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
             card.setOnClickListener(action1)
         }
 
