@@ -57,9 +57,7 @@ class SkillListRecyclerViewAdapter(
             skillName.text =
                 skill.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
             card.setOnClickListener(action1)
-            binding.run {
-//                executePendingBindings()
-            }
+            binding.executePendingBindings()
         }
     }
 

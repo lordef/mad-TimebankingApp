@@ -1,122 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_chat"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    android:layout_marginRight="16dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/background_text_cards_show"
-    card_view:cardCornerRadius="8dp"
-    card_view:contentPadding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_chat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        card_view:cardBackgroundColor="@color/background_text_cards_show"
+        card_view:cardCornerRadius="8dp"
+        card_view:contentPadding="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/card_title"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:text="@string/title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                card_view:autoSizeTextType="uniform"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:text="@string/title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    card_view:autoSizeTextType="uniform"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/card_from"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawablePadding="8dp"
-                android:maxLength="65"
-                android:text="From:"
-                android:textSize="18sp"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/card_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:drawablePadding="8dp"
-                android:focusable="auto"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingStart="16dp"
-                android:text="@string/menu_profile"
-                android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_person_official"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_from"
-                card_view:layout_constraintStart_toEndOf="@+id/card_from"
-                card_view:layout_constraintTop_toTopOf="@+id/card_from"
-                card_view:layout_constraintVertical_bias="0.0"
-                tools:text="@string/menu_profile" />
+                <TextView
+                    android:id="@+id/card_from"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="8dp"
+                    android:maxLength="65"
+                    android:text="From:"
+                    android:textSize="18sp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/card_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawablePadding="8dp"
+                    android:focusable="auto"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingStart="16dp"
+                    android:text="@string/menu_profile"
+                    android:textSize="18sp"
+                    card_view:drawableStartCompat="@drawable/ic_person_official"
+                    card_view:layout_constraintBottom_toBottomOf="@+id/card_from"
+                    card_view:layout_constraintStart_toEndOf="@+id/card_from"
+                    card_view:layout_constraintTop_toTopOf="@+id/card_from"
+                    card_view:layout_constraintVertical_bias="0.0"
+                    tools:text="@string/menu_profile" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ConstraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/last_message_text"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawablePadding="8dp"
-                android:maxLength="65"
-                android:text="Last:"
-                android:textSize="18sp"
-                card_view:layout_constraintEnd_toStartOf="@+id/last_message"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/last_message_text"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="8dp"
+                    android:maxLength="65"
+                    android:text="Last:"
+                    android:textSize="18sp"
+                    card_view:layout_constraintEnd_toStartOf="@+id/last_message"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/last_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:drawablePadding="8dp"
-                android:focusable="auto"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingStart="16dp"
-                android:text="@string/last_message"
-                android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_message_official"
-                card_view:layout_constraintBottom_toBottomOf="@+id/last_message_text"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@id/last_message_text"
-                card_view:layout_constraintTop_toTopOf="@+id/last_message_text"
-                card_view:layout_constraintVertical_bias="0.0"
-                tools:text="@string/last_message" />
+                <TextView
+                    android:id="@+id/last_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawablePadding="8dp"
+                    android:focusable="auto"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingStart="16dp"
+                    android:text="@string/last_message"
+                    android:textSize="18sp"
+                    card_view:drawableStartCompat="@drawable/ic_message_official"
+                    card_view:layout_constraintBottom_toBottomOf="@+id/last_message_text"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@id/last_message_text"
+                    card_view:layout_constraintTop_toTopOf="@+id/last_message_text"
+                    card_view:layout_constraintVertical_bias="0.0"
+                    tools:text="@string/last_message" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

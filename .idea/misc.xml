@@ -39,7 +39,17 @@
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.301" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_message_center_official.xml" value="0.252" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/drawable/ic_user_icon.xml" value="0.252" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/app_bar_main.xml" value="0.17777777777777778" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout-land/fragment_rate_someone.xml" value="0.5388888888888889" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_base.xml" value="0.42052144659377627" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_login.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/activity_main.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/app_bar_main.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/content_main.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_date_time.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_duration.xml" value="0.28076923076923077" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/dialog_filter_criteria_datepicker.xml" value="0.2910008410428932" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/drawer_header.xml" value="0.2910008410428932" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_all_skills.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat.xml" value="0.6368316591156438" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_chat_list.xml" value="0.39658119658119656" />
@@ -51,6 +61,7 @@
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.39658119658119656" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.39658119658119656" />
+        <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.2910008410428932" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.42052144659377627" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings_list.xml" value="0.25213675213675213" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.25213675213675213" />
