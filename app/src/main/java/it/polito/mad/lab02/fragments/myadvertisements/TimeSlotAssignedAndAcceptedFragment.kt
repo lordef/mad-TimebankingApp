@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.firebase.Timestamp
 import it.polito.mad.lab02.R
-import it.polito.mad.lab02.fragments.communication.MyChatRecyclerViewAdapter
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 import java.util.*
 

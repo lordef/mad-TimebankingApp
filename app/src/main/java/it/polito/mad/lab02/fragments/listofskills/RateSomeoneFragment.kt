@@ -4,7 +4,6 @@ import android.net.Uri
 import it.polito.mad.lab02.models.Rating
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import android.view.View
@@ -25,12 +24,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-
 class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
     private var isLoggedUserPublisherRateFrag : Boolean? = false
+
+    private var fragmentLabel = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +54,8 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         lateinit var otherProfile: Profile //their profile
         lateinit var ownerProfile: Profile //your profile
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Ratings about " + timeslotRated.title
+        fragmentLabel = "Ratings about " + timeslotRated.title
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
 
         vm.profile.observe(viewLifecycleOwner){profile ->
             ownerProfile = profile
@@ -116,7 +117,6 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
         }
 
 
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
@@ -143,15 +143,17 @@ class RateSomeoneFragment : Fragment(R.layout.fragment_rate_someone) {
             // useful to call interaction with viewModel
             if(isLoggedUserPublisherRateFrag == true){
                 vm.removeUserProfileListener()
-                Log.d("mytaggg", "remove1")
             }
-
             vm.removeRatingsListenerByTimeslot()
-            Log.d("mytaggg", "remove2")
 
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
     }
 
     private fun giveARating(otherProfile: Profile, ownerProfile: Profile, timeslotRated: TimeSlot){

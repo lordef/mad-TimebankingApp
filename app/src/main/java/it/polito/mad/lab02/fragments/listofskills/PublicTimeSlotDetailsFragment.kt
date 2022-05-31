@@ -1,15 +1,12 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
@@ -18,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
@@ -142,6 +140,46 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
                 }
         }
 
+        val fab = view.findViewById<FloatingActionButton>(R.id.contactUserFAB)
+        fab.setOnClickListener { view ->
+            Toast.makeText(this.context, "Contact publisher", Toast.LENGTH_SHORT)
+                .show()
+            view?.let { view ->
+                val timeslot = arguments?.getString("timeslot")
+                val id = arguments?.getString("id")
+                //coming from the chat
+                if (timeslot != null) {
+                    val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
+                    val bundle = Bundle()
+                    val id = vm.getChat(ts)
+                    if (id != null) {
+                        bundle.putString("id", id)
+                    }
+                    bundle.putString("timeslot", Gson().toJson(ts))
+                    findNavController()
+                        .navigate(
+                            R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
+                            bundle
+                        )
+                } else {
+                    vm.timeslotList
+                        .observe(viewLifecycleOwner) { listTs ->
+                            val bundle = Bundle()
+                            val ts = listTs.first { it.id == id }
+                            val id = vm.getChat(ts)
+                            if (id != null) {
+                                bundle.putString("id", id)
+                            }
+                            bundle.putString("timeslot", Gson().toJson(ts))
+                            Navigation.findNavController(view).navigate(
+                                R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
+                                bundle
+                            )
+                        }
+                }
+            }
+        }
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigateUp()
@@ -150,54 +188,9 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.message_menu, menu)
-        _optionsMenu.value = menu
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-            R.id.messageItem -> {
-                Toast.makeText(this.context, "Contact publisher", Toast.LENGTH_SHORT)
-                    .show()
-                view?.let { view ->
-                    val timeslot = arguments?.getString("timeslot")
-                    val id = arguments?.getString("id")
-                    //coming from the chat
-                    if (timeslot != null) {
-                        val ts = Gson().fromJson(timeslot, TimeSlot::class.java)
-                        val bundle = Bundle()
-                        val id = vm.getChat(ts)
-                        if (id != null) {
-                            bundle.putString("id", id)
-                        }
-                        bundle.putString("timeslot", Gson().toJson(ts))
-                        findNavController()
-                            .navigate(
-                                R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
-                                bundle
-                            )
-                    } else {
-                        vm.timeslotList
-                            .observe(viewLifecycleOwner) { listTs ->
-                                val bundle = Bundle()
-                                val ts = listTs.first { it.id == id }
-                                val id = vm.getChat(ts)
-                                if (id != null) {
-                                    bundle.putString("id", id)
-                                }
-                                bundle.putString("timeslot", Gson().toJson(ts))
-                                Navigation.findNavController(view).navigate(
-                                    R.id.action_publicTimeSlotDetailsFragment_to_nav_single_message,
-                                    bundle
-                                )
-                            }
-                    }
-                }
-                true
-            }
             android.R.id.home -> {
                 findNavController().navigateUp()
                 true
