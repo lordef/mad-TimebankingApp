@@ -7,19 +7,20 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
     android:layout_marginRight="16dp"
+    android:layout_marginBottom="6dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
     card_view:cardBackgroundColor="@color/background_text_cards_show"
-    card_view:cardCornerRadius="8dp"
-    card_view:contentPadding="10dp">
+    card_view:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/primary_medium"
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,8 +48,10 @@
                 android:contentDescription="@string/edit_timeSlot"
                 android:text="Go to ratings"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/secondary_yellow"
                 android:textSize="20sp"
                 card_view:iconGravity="textStart"
+                card_view:iconPadding="8dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="@+id/card_title"
                 card_view:layout_constraintTop_toTopOf="parent"
@@ -59,7 +62,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/card_location"

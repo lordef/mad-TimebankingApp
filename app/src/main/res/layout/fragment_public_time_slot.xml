@@ -14,18 +14,23 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
-        card_view:cardBackgroundColor="@color/background_text_cards_show"
+        card_view:cardBackgroundColor="@color/primary_medium"
         card_view:cardCornerRadius="8dp"
         card_view:contentPadding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/primary_medium"
+            android:padding="4dp">
 
             <TextView
                 android:id="@+id/card_title"
@@ -34,6 +39,9 @@
                 android:maxLength="30"
                 android:text="@string/title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 card_view:autoSizeTextType="uniform"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +52,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/card_location"
@@ -67,11 +76,13 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:backgroundTint="@color/secondary_yellow"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:textAllCaps="false"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 card_view:cornerRadius="8dp"
                 card_view:icon="@drawable/ic_person_official"
@@ -81,7 +92,7 @@
                 card_view:layout_constraintStart_toEndOf="@id/card_location"
                 card_view:layout_constraintTop_toTopOf="@+id/card_location"
                 card_view:strokeColor="@color/black"
-                card_view:strokeWidth="1dp"
+                card_view:strokeWidth="0.8dp"
                 tools:text="@string/menu_profile" />
 
             <TextView

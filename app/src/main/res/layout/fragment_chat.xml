@@ -21,11 +21,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/primary_medium"
+            android:orientation="vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/card_title"
@@ -33,6 +38,9 @@
                     android:layout_height="wrap_content"
                     android:maxLength="30"
                     android:text="@string/title"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     card_view:autoSizeTextType="uniform"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +53,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/card_from"
@@ -82,7 +91,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
 
                 <TextView
