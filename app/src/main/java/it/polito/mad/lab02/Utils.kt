@@ -6,11 +6,15 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.view.OrientationEventListener
+import androidx.databinding.BindingAdapter
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 object Utils {
     @JvmStatic
@@ -66,4 +70,5 @@ object Utils {
     fun fromStringToHHMM(time: String): String {
         return "" + time.split(" ")[0].split("h")[0] + ":" + time.split(" ")[1].split("min")[0]
     }
+
 }

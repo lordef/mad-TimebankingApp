@@ -23,8 +23,17 @@ class SkillListRecyclerViewAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ).apply {
+                root.setOnClickListener {
+                    it.isActivated = !it.isActivated
+                }
+            }
         )
+    }
+
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.itemView.rotation = 0f
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,16 +48,17 @@ class SkillListRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentSkillListBinding) :
+    inner class ViewHolder(private val binding: FragmentSkillListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val skillName: TextView = binding.skillName
         val card: CardView = binding.cardSkillAdvertisement
 
-        fun bind(skill: Skill, action1: (v: View) -> Unit){
-            skillName.text = skill.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+        fun bind(skill: Skill, action1: (v: View) -> Unit) {
+            skillName.text =
+                skill.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
             card.setOnClickListener(action1)
+            binding.executePendingBindings()
         }
-
     }
 
 }

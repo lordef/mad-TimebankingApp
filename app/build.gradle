@@ -4,6 +4,11 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdk 32
 
@@ -13,6 +18,8 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,6 +39,7 @@ android {
     }
 
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 }
@@ -39,7 +47,6 @@ android {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.0.0')
     implementation 'com.google.firebase:firebase-analytics'
-
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -76,4 +83,3 @@ dependencies {
     //Coil library for images for URL
     implementation("io.coil-kt:coil:2.0.0")
 }
-apply plugin: 'com.google.gms.google-services'

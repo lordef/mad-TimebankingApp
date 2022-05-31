@@ -22,6 +22,6 @@
         app:paddingLeftSystemWindowInsets="@{true}"
         app:paddingRightSystemWindowInsets="@{true}"
         app:reverseLayout="false"
-        app:spanCount="4"
+        app:spanCount="3"
         tools:listitem="@layout/fragment_skill_list" />
 </layout>
