@@ -45,7 +45,7 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
 
         vm.requesterChatList.observe(viewLifecycleOwner) { chatList ->
             if (selector == 0) {
-                (activity as AppCompatActivity?)?.supportActionBar?.title = "Advertisement you are interested in"
+                (activity as AppCompatActivity?)?.supportActionBar?.title = "What are you interested in"
                 if (chatList.isEmpty()) {
                     recyclerView.visibility = View.GONE
                     textView.visibility = View.VISIBLE

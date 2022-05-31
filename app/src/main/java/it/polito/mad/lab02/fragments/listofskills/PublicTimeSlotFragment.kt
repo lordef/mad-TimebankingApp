@@ -34,6 +34,7 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
+    private var fragmentLabel = ""
 
     var filter = "No filter"
     var sort = "No sorting"
@@ -51,9 +52,10 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             vm.setPublicAdvsListenerBySkill(skillRefToString)
 
             //Setting App bar heading
-            (activity as AppCompatActivity?)?.supportActionBar?.title =
-                skillRefToString.split("/").last()
-                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            fragmentLabel = skillRefToString.split("/").last()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
+
             //Setting title of the page
             var pageTitle = view.findViewById<TextView>(R.id.timeslotTileTextView)
             pageTitle.text = skillRefToString.split("/").last()
@@ -113,6 +115,11 @@ class PublicTimeSlotFragment : Fragment(R.layout.fragment_public_time_slot_list_
             }
             requireActivity().onBackPressedDispatcher.addCallback(callback)
         }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
     }
 
     private fun showSortMenu(

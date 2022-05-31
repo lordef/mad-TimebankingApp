@@ -245,7 +245,7 @@
     <fragment
         android:id="@+id/nav_timeSlotsOfInterestFragment"
         android:name="it.polito.mad.lab02.fragments.myadvertisements.TimeSlotsOfInterestFragment"
-        android:label="fragment_time_slots_of_interest_list"
+        android:label="What are you interested in"
         tools:layout="@layout/fragment_time_slots_of_interest" >
         <action
             android:id="@+id/action_nav_timeSlotsOfInterestFragment_to_publicTimeSlotDetailsFragment"

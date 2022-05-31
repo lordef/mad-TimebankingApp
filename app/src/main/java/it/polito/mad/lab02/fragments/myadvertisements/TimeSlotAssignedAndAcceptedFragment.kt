@@ -29,11 +29,13 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
 
     private var selector = 0
 
+    private var fragmentLabel = "Timeslots assigned to you"
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
         showAssignedOrAccepted()
 
         val toggleButton = view.findViewById<MaterialButtonToggleGroup>(R.id.toggleButton)
@@ -42,13 +44,15 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
             if (isChecked) {
                 when (checkedId) {
                     R.id.publisherButton -> {
-                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
+                        fragmentLabel = "Timeslots assigned to you"
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
                         selector = 0
                         showAssignedOrAccepted()
                     }
 
                     R.id.requesterButton -> {
-                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
+                        fragmentLabel = "Timeslots you accepted"
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
                         selector = 1
                         showAssignedOrAccepted()
                     }
@@ -125,6 +129,10 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
         }
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = fragmentLabel
+    }
 
     private fun onBackPressed(){
         val runnable = Runnable {

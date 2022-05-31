@@ -101,7 +101,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
         private val cardTitle: TextView = binding.cardTitle
         private val cardLocation: TextView = binding.cardLocation
-        private val cardProfile: TextView = binding.profilePublicAdv
+        private val cardProfile: Button = binding.profilePublicAdv
         private val cardDate: TextView = binding.cardDate
         private val cardDuration: TextView = binding.cardDuration
         private val rateButton: Button = binding.rateButton
