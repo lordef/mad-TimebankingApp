@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import it.polito.mad.lab02.fragments.communication.MessageRecyclerViewAdapter
 import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.models.Rating
 import it.polito.mad.lab02.models.Skill
@@ -29,7 +28,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import kotlin.collections.HashMap
-import java.util.EventListener
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -70,7 +68,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val messageList: LiveData<List<Message>> = _messageList
     val newMessage: LiveData<Notification?> = _newMessage
     val myAssignedTimeSlotList: LiveData<List<TimeSlot>> = _myAssignedTimeSlotList
-    val userProfile : LiveData<Profile> = _userProfile
+    val userProfile: LiveData<Profile> = _userProfile
     val timeslotRatings: LiveData<List<Rating>> = _timeslotRatings
 
     val isChatListenerSet: LiveData<Boolean> = _isChatListenerSet
@@ -91,22 +89,22 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     // Creating the ListenerRegistrations
     private lateinit var timeslotsListener: ListenerRegistration
     private lateinit var usersListener: ListenerRegistration
-    var areTSsAndUsersListenersSetted = false
+    var areTSsAndUsersListenersSet = false
 
     private lateinit var myAssignedTimeSlotListListener: ListenerRegistration
-    var isMyAssignedTimeSlotListListenerSetted = false
+    var isMyAssignedTimeSlotListListenerSet = false
 
     private var loggedUserListener: ListenerRegistration
     private var skillsListener: ListenerRegistration
 
     private lateinit var loggedUserTimeSlotsListener: ListenerRegistration
-    var isLoggedUserTSsListenerSetted = false
+    var isLoggedUserTSsListenerSet = false
 
     private lateinit var ratingNumbersListener: ListenerRegistration
-    private var isRatingNumbersListenerSetted = false
+    private var isRatingNumbersListenerSet = false
 
     private lateinit var ratingsListener: ListenerRegistration
-    private var isRatingsListenerSetted = false
+    private var isRatingsListenerSet = false
 
     private lateinit var publisherChatsListener: ListenerRegistration
     private lateinit var requesterChatsListener: ListenerRegistration
@@ -475,7 +473,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     }
                 }
             }.also {
-                isMyAssignedTimeSlotListListenerSetted = true
+                isMyAssignedTimeSlotListListenerSet = true
             }
     }
 
@@ -538,12 +536,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     _timeSlotList.value = tmpList
                 }
             }.also {
-                areTSsAndUsersListenersSetted = true
+                areTSsAndUsersListenersSet = true
             }
     }
 
     fun addFilter(filter: (TimeSlot) -> Boolean) {
-        if (areTSsAndUsersListenersSetted) { //guarantees the initialization of the ListenerRegistration
+        if (areTSsAndUsersListenersSet) { //guarantees the initialization of the ListenerRegistration
             if (filter != null) {
                 _filteredTimeSlotList.value = _timeSlotList.value?.filter(filter)
             } else {
@@ -555,7 +553,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun addOrder(order: String) {
-        if (areTSsAndUsersListenersSetted) { //guarantees the initialization of the ListenerRegistration
+        if (areTSsAndUsersListenersSet) { //guarantees the initialization of the ListenerRegistration
             if (order != null && _timeSlotList.value?.size!! >= 2) {
                 when (order) {
 
@@ -580,8 +578,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removePublicAdvsListener() {
-        if (areTSsAndUsersListenersSetted) {
-            areTSsAndUsersListenersSetted = false
+        if (areTSsAndUsersListenersSet) {
+            areTSsAndUsersListenersSet = false
             timeslotsListener.remove()
             usersListener.remove()
 
@@ -589,9 +587,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun removeMyAssignedTimeSlotListListener(){
-        if(isMyAssignedTimeSlotListListenerSetted){
-            isMyAssignedTimeSlotListListenerSetted = false
+    fun removeMyAssignedTimeSlotListListener() {
+        if (isMyAssignedTimeSlotListListenerSet) {
+            isMyAssignedTimeSlotListListenerSet = false
             myAssignedTimeSlotListListener.remove()
 
             _myAssignedTimeSlotList.value = emptyList()
@@ -704,14 +702,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
             .also {
-                isLoggedUserTSsListenerSetted = true
+                isLoggedUserTSsListenerSet = true
             }
     }
 
     fun updateTimeSlot(newTS: TimeSlot, isEdit: Boolean): String {
         var returnedId = ""
 
-        if (isLoggedUserTSsListenerSetted) {
+        if (isLoggedUserTSsListenerSet) {
             val currentUser = usersRef
                 .document("${FirebaseAuth.getInstance().currentUser?.uid}")
 
@@ -763,7 +761,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun deleteTimeSlot(timeslotId: String) {
-        if (isLoggedUserTSsListenerSetted) {
+        if (isLoggedUserTSsListenerSet) {
             chatsRef.whereEqualTo("timeslot", timeslotsRef.document(timeslotId))
                 .get()
                 .addOnSuccessListener {
@@ -776,8 +774,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeAdvsListenerByCurrentUser() {
-        if (isLoggedUserTSsListenerSetted) {
-            isLoggedUserTSsListenerSetted = false
+        if (isLoggedUserTSsListenerSet) {
+            isLoggedUserTSsListenerSet = false
 
             loggedUserTimeSlotsListener.remove()
 
@@ -953,7 +951,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
             .also {
-                isRatingNumbersListenerSetted = true
+                isRatingNumbersListenerSet = true
             }
     }
 
@@ -974,7 +972,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                                 .get().await().toProfile()
                             val rated = (d.get("rated") as DocumentReference)
                                 .get().await().toProfile()
-                            val timeSlot = TimeSlot("","","","","","","","",rater!!, "", "", emptyList())
+                            val timeSlot = TimeSlot(
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                rater!!,
+                                "",
+                                "",
+                                emptyList()
+                            )
                             d.toRating(rater, rated, timeSlot)?.let { tmpList.add(it) }
                         }
                         _ratingList.postValue(tmpList)
@@ -982,7 +993,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
             .also {
-                isRatingsListenerSetted = true
+                isRatingsListenerSet = true
             }
     }
 
@@ -994,7 +1005,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .addSnapshotListener { r, e ->
                 if (e != null) {
                     _timeslotRatings.value = emptyList()
-                }else {
+                } else {
                     val tmpList = mutableListOf<Rating>()
                     viewModelScope.launch(Dispatchers.IO) {
                         r!!.forEach { d ->
@@ -1015,8 +1026,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
     }
 
-    fun removeRatingsListenerByTimeslot(){
-        if(isTimeslotRatingsListenerSet){
+    fun removeRatingsListenerByTimeslot() {
+        if (isTimeslotRatingsListenerSet) {
             isTimeslotRatingsListenerSet = false
 
             timeslotRatingsListener.remove()
@@ -1051,8 +1062,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeRatingNumberListener() {
-        if (isRatingNumbersListenerSetted) {
-            isRatingNumbersListenerSetted = false
+        if (isRatingNumbersListenerSet) {
+            isRatingNumbersListenerSet = false
 
             ratingNumbersListener.remove()
 
@@ -1061,8 +1072,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun removeRatingsListener() {
-        if (isRatingsListenerSetted) {
-            isRatingsListenerSetted = false
+        if (isRatingsListenerSet) {
+            isRatingsListenerSet = false
 
             ratingsListener.remove()
 
@@ -1101,23 +1112,34 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     override fun onCleared() {
         super.onCleared()
-        if (areTSsAndUsersListenersSetted) {
-            timeslotsListener.remove()
-            usersListener.remove()
-        }
-
         loggedUserListener.remove()
         skillsListener.remove()
 
-        if (isLoggedUserTSsListenerSetted) {
+        /*
+        All the following related listeners are already removed,
+        once the fragment that use them comes out,
+        but, here,
+        this code ensures that all the listener are removed after the app closure
+        */
+        removePublicAdvsListener()
+        removeMyAssignedTimeSlotListListener()
+        removeAdvsListenerByCurrentUser()
+        removeRatingNumberListener()
+        removeRatingsListener()
+
+
+
+
+
+        if (isLoggedUserTSsListenerSet) {
             loggedUserTimeSlotsListener.remove()
         }
 
-        if (isRatingNumbersListenerSetted) {
+        if (isRatingNumbersListenerSet) {
             ratingNumbersListener.remove()
         }
 
-        if (isRatingsListenerSetted) {
+        if (isRatingsListenerSet) {
             ratingsListener.remove()
         }
     }
