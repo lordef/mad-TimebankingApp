@@ -32,48 +32,6 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 
     private val vm by activityViewModels<MainActivityViewModel>()
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val binding = FragmentAllSkillsBinding.inflate(inflater, container, false)
-////            .apply {
-////            val recyclerView = allSkillsList
-////            val pageTitle = skillListTitleTextView
-////
-////            vm.skillList.observe(viewLifecycleOwner) { skillList ->
-////                if (recyclerView is RecyclerView) {
-////                    with(recyclerView) {
-////                        layoutManager = when {
-////                            columnCount <= 1 -> {
-//////                            LinearLayoutManager(fragContext)
-////                                StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.HORIZONTAL)
-////                            }
-////                            else -> GridLayoutManager(context, columnCount)
-////                        }
-////                        adapter = SkillListRecyclerViewAdapter(skillList)
-////                        smoothScrollToPositionWithSpeed(skillList.size)
-////                        addOnScrollListener(
-////                            OscillatingScrollListener(resources.getDimensionPixelSize(R.dimen.grid_2))
-////                        )
-////                    }
-////                }
-////
-////                val textView = textSkills
-////                if (skillList.isEmpty()) {
-////                    recyclerView.visibility = View.GONE
-////                    pageTitle.visibility = View.GONE
-////                    textView.visibility = View.VISIBLE
-////                } else {
-////                    textView.visibility = View.GONE
-////                    recyclerView.visibility = View.VISIBLE
-////                }
-////            }
-//
-////        }
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -126,7 +84,7 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
 /**
  * Oscillates a [RecyclerView]'s children based on the horizontal scroll velocity.
  */
-private const val MAX_OSCILLATION_ANGLE = 6f // ±6º
+private const val MAX_OSCILLATION_ANGLE = 2f // ±2º
 
 class OscillatingScrollListener(
     @Px private val scrollDistance: Int
