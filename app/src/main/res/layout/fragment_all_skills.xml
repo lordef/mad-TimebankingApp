@@ -12,6 +12,7 @@
         android:padding="16dp"
         android:text="@string/skill_list_navigation"
         android:textAlignment="textEnd"
+        android:textColor="@color/primary_dark"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/allSkillsList"

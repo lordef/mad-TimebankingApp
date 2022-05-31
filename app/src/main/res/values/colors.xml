@@ -8,17 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="background_text_cards_show">#FFFFFF</color>
-    <color name="background_text_cards_edit">#FFFFFF</color>
-    <color name="background_edit">#d2dbe0</color>
-    <color name="background_show">#d2dbe0</color>
-    <color name="background_intermidiate_cards">#d2dbe0</color>
-    <color name="background_upper_layout">#d2dbe0</color>
-    <color name="background_menu">#d2dbe0</color>
-    <color name="background_upper_menu">#d2dbe0</color>
-    <color name="background_timeslot_list">#d2dbe0</color>
+    <color name="background_text_cards_show">#f9aa33</color>
+    <color name="background_text_cards_edit">#d2dbe0</color>
+    <color name="background_edit">#FFFFFF</color>
+    <color name="background_show">#FFFFFF</color>
+    <color name="background_intermidiate_cards">#FFFFFF</color>
+    <color name="background_upper_layout">#FFFFFF</color>
+    <color name="background_menu">#FFFFFF</color>
+    <color name="background_upper_menu">#FFFFFF</color>
+    <color name="background_timeslot_list">#f9be64</color>
     <color name="color_text_menu">#FFFFFF</color>
-    <color name="camera">#f9aa33</color>
+    <color name="camera">#f9be64</color>
     <color name="color_scrollView">#FFFFFF</color>
     <color name="color_text">#FF424242</color>
     <color name="color_icons">#FF424242</color>

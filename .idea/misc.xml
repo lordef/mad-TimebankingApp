@@ -161,15 +161,28 @@
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_delete_official.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/ic_edit_tmeslot_official.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/drawable/side_nav_bar.xml" value="0.103" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/font.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/rubik.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/rubik_bold.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/rubik_medium.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/work_sans_bold.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/work_sans_extrabold.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/work_sans_medium.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/font/work_sans_semibold.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/activity_base.xml" value="0.3569230769230769" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/app_bar_main.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/content_main.xml" value="0.3569230769230769" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_all_skills.xml" value="0.264" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.264" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_show_profile.xml" value="0.3569230769230769" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_skill_list.xml" value="0.2851851851851852" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.2851851851851852" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted.xml" value="0.3569230769230769" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted_list.xml" value="0.3569230769230769" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.3194444444444444" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.2611111111111111" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slot_of_interest.xml" value="0.3569230769230769" />
-        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.264" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.4" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.2611111111111111" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_of_interest.xml" value="0.3569230769230769" />
         <entry key="..\:/Users/ferdi/StudioProjects/group07_lab5/app/src/main/res/layout/fragment_time_slots_of_interest_list.xml" value="0.3569230769230769" />
