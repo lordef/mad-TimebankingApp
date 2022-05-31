@@ -1142,27 +1142,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         removeRequesterChatsListener()
         removeMessagesListener()
         removeTimeSlotListener()
-
-
-
-
-
-
-
-        if (isLoggedUserTSsListenerSet) {
-            loggedUserTimeSlotsListener.remove()
-        }
-
-        if (isRatingNumbersListenerSet) {
-            ratingNumbersListener.remove()
-        }
-
-        if (isRatingsListenerSet) {
-            ratingsListener.remove()
-        }
+        removeUserProfileListener()
+        removeRatingsListenerByTimeslot()
     }
-
-
 }
 
 
