@@ -60,23 +60,26 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <Button
                 android:id="@+id/profile_public_adv"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:drawablePadding="8dp"
-                android:focusable="auto"
-                android:paddingStart="16dp"
-                android:text="TextView"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:textAllCaps="false"
+                android:textColor="@color/secondary_text"
                 android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_person_official"
+                card_view:cornerRadius="8dp"
+                card_view:icon="@drawable/ic_person_official"
+                card_view:iconTint="@color/black"
                 card_view:layout_constraintBottom_toBottomOf="@+id/card_location"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@id/card_location"
                 card_view:layout_constraintTop_toTopOf="@+id/card_location"
-                card_view:layout_constraintVertical_bias="0.0"
+                card_view:strokeColor="@color/black"
+                card_view:strokeWidth="1dp"
                 tools:text="@string/menu_profile" />
 
             <TextView
@@ -84,7 +87,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
-                android:paddingStart="16dp"
+                android:paddingStart="8dp"
                 android:text="@string/timeslotDurationLabel"
                 android:textSize="18sp"
                 card_view:drawableLeftCompat="@drawable/ic_duration_official"
