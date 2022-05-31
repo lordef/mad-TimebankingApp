@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#c8e6c9"
+        android:background="#F9AA33"
         tools:context=".LoginActivity">
 
         <com.google.android.gms.common.SignInButton
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.25"
-            app:srcCompat="@drawable/ic_timebanking_home" />
+            app:srcCompat="@drawable/ic_handshake_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
