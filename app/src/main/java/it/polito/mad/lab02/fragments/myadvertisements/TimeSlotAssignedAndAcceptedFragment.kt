@@ -42,13 +42,13 @@ class TimeSlotAssignedAndAcceptedFragment : Fragment(R.layout.fragment_time_slot
             if (isChecked) {
                 when (checkedId) {
                     R.id.publisherButton -> {
-                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
                         selector = 0
                         showAssignedOrAccepted()
                     }
 
                     R.id.requesterButton -> {
-                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots assigned to you"
+                        (activity as AppCompatActivity?)?.supportActionBar?.title = "Timeslots you accepted"
                         selector = 1
                         showAssignedOrAccepted()
                     }

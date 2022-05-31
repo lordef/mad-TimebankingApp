@@ -77,7 +77,7 @@ class TimeSlotsOfInterestFragment : Fragment(R.layout.fragment_time_slots_of_int
     private fun onBackPressed(){
         val runnable = Runnable {
             // useful to call interaction with viewModel
-            vm.removePublicAdvsListener()
+            vm.removeRequesterChatsListener()
         }
         // Perform persistence changes after 250 millis
         Handler().postDelayed(runnable, 250)

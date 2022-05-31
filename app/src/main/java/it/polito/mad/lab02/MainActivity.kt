@@ -80,6 +80,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.menu.findItem(R.id.nav_logout).setOnMenuItemClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val loginActivity = Intent(applicationContext, LoginActivity::class.java)
+            loginActivity.putExtra("logout", true)
+            startActivity(loginActivity)
+            finish()
+            true
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel
@@ -161,14 +169,6 @@ class MainActivity : AppCompatActivity() {
             drawerNickname.text = profile.nickname
             drawerFullName.text = profile.fullName
 
-            val logout = findViewById<TextView>(R.id.logout)
-            logout.setOnClickListener {
-                FirebaseAuth.getInstance().signOut()
-                val loginActivity = Intent(applicationContext, LoginActivity::class.java)
-                loginActivity.putExtra("logout", true)
-                startActivity(loginActivity)
-                finish()
-            }
         }
 
         return super.onCreateView(name, context, attrs)
