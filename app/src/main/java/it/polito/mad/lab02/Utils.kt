@@ -14,14 +14,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 object Utils {
     @JvmStatic
-    fun setUriInImageView(imageView: ImageView, imageUri: Uri, contentResolver:ContentResolver) {
+    fun setUriInImageView(imageView: ImageView, imageUri: Uri, contentResolver: ContentResolver) {
         BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri)).also { bitmap ->
             imageView.setImageBitmap(bitmap)
         }
     }
 
     @JvmStatic
-    fun divideDisplayInPortion(firstLayout : ConstraintLayout, secondLayer : ViewGroup, orientation: Int){
+    fun divideDisplayInPortion(
+        firstLayout: ConstraintLayout,
+        secondLayer: ViewGroup,
+        orientation: Int
+    ) {
         secondLayer.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -37,5 +41,19 @@ object Utils {
                 secondLayer.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
+    }
+
+
+    @JvmStatic
+    fun minutesInHoursAndMinutesString(minutes: Int): String {
+        val hrs = minutes / 60
+        val min = minutes % 60
+
+        return if (hrs == 0) {
+            "${min}m"
+        } else {
+            "${hrs}h ${min}m"
+
+        }
     }
 }

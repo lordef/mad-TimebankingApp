@@ -5,9 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -15,7 +17,9 @@ import androidx.navigation.findNavController
 import coil.load
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils
+import it.polito.mad.lab02.Utils.minutesInHoursAndMinutesString
 import it.polito.mad.lab02.databinding.FragmentShowProfileBinding
+import it.polito.mad.lab02.models.Profile
 import it.polito.mad.lab02.viewmodels.MainActivityViewModel
 
 class ShowProfileFragment : Fragment() {
@@ -29,6 +33,18 @@ class ShowProfileFragment : Fragment() {
     private val vm by activityViewModels<MainActivityViewModel>()
 
     private var profileImageUri = "android.resource://it.polito.mad.lab02/drawable/profile_image"
+
+    private lateinit var userUid : String
+    private lateinit var profileImage : ImageView
+    private lateinit var fullName : TextView
+    private lateinit var nickname : TextView
+    private lateinit var email : TextView
+    private lateinit var location : TextView
+    private lateinit var skills : TextView
+    private lateinit var description : TextView
+    private lateinit var ratingCard : CardView
+    private lateinit var ratingValue : TextView
+    private lateinit var balance : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,33 +78,22 @@ class ShowProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        var userUid = ""
-        val profileImage = binding.profileImageView
-        val fullName = binding.fullNameTextView
-        val nickname = binding.nicknameTextView
-        val email = binding.emailTextView
-        val location = binding.locationTextView
-        val skills = binding.skillTextView
-        val description = binding.descriptionTextView
-        val ratingCard = binding.ratingCardView
-        val ratingValue = binding.ratingValueTextView
-        val balance = binding.balanceValueTextView
+        profileImage = binding.profileImageView
+        fullName = binding.fullNameTextView
+        nickname = binding.nicknameTextView
+        email = binding.emailTextView
+        location = binding.locationTextView
+        skills = binding.skillTextView
+        description = binding.descriptionTextView
+        ratingCard = binding.ratingCardView
+        ratingValue = binding.ratingValueTextView
+        balance = binding.balanceValueTextView
 
 
         vm.profile.observe(viewLifecycleOwner) { profile ->
             // update UI
-            profileImageUri = profile.imageUri
-            profileImage.load(Uri.parse(profileImageUri))
-            //profileImage.setImageURI(Uri.parse(profileImageUri))
-            fullName.text = profile.fullName
-            nickname.text = profile.nickname
-            email.text = profile.email
-            location.text = profile.location
-            skills.text = profile.skills.map { s -> s.split("/").last() }.joinToString(", ")
-            description.text = profile.description
-            balance.text = profile.balance.toString() + " m"
+            setUIFieldsByProfile(profile)
 
-            userUid = profile.uid
             vm.setRatingNumberListenerByUserUid(userUid)
 
             vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
@@ -152,6 +157,21 @@ class ShowProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setUIFieldsByProfile(profile: Profile){
+        userUid = profile.uid
+
+        profileImageUri = profile.imageUri
+        profileImage.load(Uri.parse(profileImageUri))
+
+        fullName.text = profile.fullName
+        nickname.text = profile.nickname
+        email.text = profile.email
+        location.text = profile.location
+        skills.text = profile.skills.joinToString(", ")
+        description.text = profile.description
+        balance.text = minutesInHoursAndMinutesString(profile.balance)
     }
 
 

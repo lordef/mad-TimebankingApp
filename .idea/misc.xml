@@ -124,9 +124,7 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_time_invested_official.xml" value="0.1435" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/drawable/ic_timebanking_home.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.2625" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_rate_someone.xml" value="0.5" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout-land/fragment_show_profile.xml" value="0.5" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/activity_login.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/activity_main.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/content_main.xml" value="0.35462962962962963" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/drawer_header.xml" value="0.35462962962962963" />
@@ -137,7 +135,7 @@
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.35294117647058826" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.35462962962962963" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.25301204819277107" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_rate_someone.xml" value="0.5" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings.xml" value="0.1" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab5/app/src/main/res/layout/fragment_ratings_list_with_no_ratings.xml" value="0.11666666666666667" />
