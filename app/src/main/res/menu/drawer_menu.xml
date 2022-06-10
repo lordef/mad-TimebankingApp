@@ -26,7 +26,7 @@
             android:title="@string/menu_chats" />
         <item
             android:id="@+id/nav_timeSlotAssignedAndAcceptedFragment"
-            android:icon="@drawable/ic_time_invested_official"
+            android:icon="@drawable/ic_handshake"
             android:title="@string/menu_active_timeslot" />
         <item
             android:id="@+id/nav_logout"

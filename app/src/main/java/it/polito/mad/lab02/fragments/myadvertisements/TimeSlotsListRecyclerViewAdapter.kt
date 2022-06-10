@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
@@ -114,9 +115,9 @@ class TimeSlotsListRecyclerViewAdapter(
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
-        val editButton: ImageButton = binding.editTimeSlotButton
-        val deleteButton: ImageButton = binding.deleteTimeSlotImageButton
-        val assignedText: TextView = binding.assignedTimeslot
+        val editButton: ConstraintLayout = binding.editConstraintLayout
+        val deleteButton: ConstraintLayout = binding.deleteConstraintLayout
+        val assignedText: TextView = binding.acceptedButton
 
         fun bind(
             timeSlot: TimeSlot,

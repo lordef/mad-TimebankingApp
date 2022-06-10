@@ -6,33 +6,121 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginBottom="16dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?selectableItemBackground"
     android:outlineProvider="background"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="20dp"
+    card_view:cardMaxElevation="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_medium"
-        android:paddingStart="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp">
+        android:layout_height="wrap_content">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_medium"
-            android:padding="10dp"
-            card_view:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@color/primary_dark"
+            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/acceptedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_dark"
+                android:clickable="false"
+                android:rotation="90"
+                card_view:icon="@drawable/ic_handshake_yellow"
+                card_view:iconTint="@color/secondary_yellow"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/assigned_timeslot"
+                android:layout_width="69dp"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:text="TextView"
+                android:textColor="@color/secondary_yellow"
+                android:visibility="gone"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/editConstraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/primary_medium"
+                android:padding="2dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/deleteConstraintLayout"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_chainStyle="packed">
+
+                <ImageButton
+                    android:id="@+id/edit_timeSlot_button"
+                    style="@style/Widget.Material3.Button.TextButton.Dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/edit_timeSlot"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    card_view:iconGravity="textStart"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:srcCompat="@drawable/ic_edit_tmeslot_official"
+                    tools:ignore="TextContrastCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deleteConstraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/primary_medium"
+                android:padding="2dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/editConstraintLayout">
+
+                <ImageButton
+                    android:id="@+id/delete_timeSlot_imageButton"
+                    style="@style/Widget.Material3.Button.TextButton.Dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/delete_timeSlot"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.0"
+                    card_view:srcCompat="@drawable/ic_remove_official" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="310dp"
+            android:layout_height="147dp"
+            android:background="@color/white"
+            android:outlineProvider="none"
+            android:padding="4dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent">
 
@@ -40,111 +128,63 @@
                 android:id="@+id/card_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:maxLength="30"
+                android:paddingStart="4dp"
                 android:text="@string/title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textColor="@color/primary_dark"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 card_view:autoSizeTextType="uniform"
-                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_location"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/assigned_timeslot"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/secondary_yellow"
-                android:visibility="gone"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/edit_timeSlot_button"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/edit_timeSlot"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                card_view:iconGravity="textStart"
-                card_view:iconPadding="8dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/delete_timeSlot_imageButton"
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/ic_edit_tmeslot_official"
-                tools:ignore="TextContrastCheck" />
-
-            <ImageButton
-                android:id="@+id/delete_timeSlot_imageButton"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/delete_timeSlot"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/ic_remove_official" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:outlineProvider="none"
-            android:padding="10dp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <TextView
                 android:id="@+id/card_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="2dp"
                 android:drawablePadding="8dp"
                 android:maxLength="65"
+                android:paddingStart="8dp"
                 android:text="@string/timeslotLocationLabel"
                 android:textSize="18sp"
                 card_view:drawableStartCompat="@drawable/ic_location_official"
-                card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_date"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toBottomOf="@+id/card_title" />
 
             <TextView
                 android:id="@+id/card_duration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:drawablePadding="8dp"
-                android:paddingStart="16dp"
+                android:paddingStart="8dp"
                 android:text="@string/timeslotDurationLabel"
                 android:textSize="18sp"
                 card_view:drawableLeftCompat="@drawable/ic_duration_official"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_date"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.5"
-                card_view:layout_constraintStart_toEndOf="@+id/card_date"
-                card_view:layout_constraintTop_toTopOf="@+id/card_date" />
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_date" />
 
             <TextView
                 android:id="@+id/card_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
                 android:drawablePadding="8dp"
+                android:paddingStart="8dp"
                 android:text="@string/timeslotDateTimeLabel"
                 android:textSize="18sp"
                 card_view:drawableLeftCompat="@drawable/ic_calendar_official"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/card_duration"
-                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/card_location" />
         </androidx.constraintlayout.widget.ConstraintLayout>

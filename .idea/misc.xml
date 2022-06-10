@@ -179,6 +179,41 @@
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.335" />
         <entry key="..\:/Users/ferdi/IdeaProjects/MAD_lab02/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.246" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/drawable/ic_bank_official.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/drawable/ic_handshake.xml" value="0.2135" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/drawable/ic_handshake_logo.xml" value="0.1" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/drawable/ic_handshake_yellow.xml" value="0.2135" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/app_bar_main.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/content_main.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/dialog_date_time.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/drawer_header.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_all_skills.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_chat.xml" value="0.536" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_chat_list.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_public_time_slot.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_public_time_slot_details.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_public_time_slot_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_public_time_slot_list_filter_sort.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_rate_someone.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_ratings.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_skill_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_skills.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_skills_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slot_of_interest.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slots_list.xml" value="0.7134670487106017" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slots_of_interest.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/fragment_time_slots_of_interest_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/item_chat_me.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/item_chat_other.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/item_chat_system.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/layout/message_chat_list.xml" value="0.3625" />
+        <entry key="..\:/Users/ferdi/StudioProjects/group07_final_project/app/src/main/res/menu/drawer_menu.xml" value="0.6" />
         <entry key="app/src/main/res/drawable/ic_bank_icon24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1145" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.1145" />
