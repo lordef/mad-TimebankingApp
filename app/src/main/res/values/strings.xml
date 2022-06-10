@@ -103,6 +103,11 @@
     <string name="assigned_button">ASSIGNED</string>
     <string name="accepted_button">ACCEPTED</string>
     <string name="fab_contact_user">Contact</string>
+    <string name="give_a_rate_to">Give a rate to</string>
+    <string name="user">User</string>
+    <string name="advice_experience">If you want, leave also a comment about your experience:</string>
+    <string name="type_here">Type here</string>
+    <string name="send_review">Send review</string>
 
 
 </resources>
