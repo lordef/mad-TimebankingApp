@@ -41,10 +41,36 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 card_view:autoSizeTextType="uniform"
-                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/publisherImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_title"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/profile_public_adv"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="TextView"
+                android:textAllCaps="false"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp"
+                card_view:cornerRadius="8dp"
+                card_view:iconTint="@color/black"
+                card_view:layout_constraintStart_toEndOf="@+id/publisherImageView"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_title"
+                card_view:strokeWidth="0dp"
+                tools:text="@string/menu_profile" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,33 +91,8 @@
                 android:textSize="18sp"
                 card_view:drawableStartCompat="@drawable/ic_location_official"
                 card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
-                card_view:layout_constraintEnd_toStartOf="@+id/profile_public_adv"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/profile_public_adv"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary_superlight"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:text="TextView"
-                android:textAllCaps="false"
-                android:textColor="@color/secondary_text"
-                android:textSize="18sp"
-                card_view:cornerRadius="8dp"
-                card_view:icon="@drawable/ic_person_official"
-                card_view:iconTint="@color/black"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_location"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@id/card_location"
-                card_view:layout_constraintTop_toTopOf="@+id/card_location"
-                card_view:strokeColor="@color/black"
-                card_view:strokeWidth="1dp"
-                tools:text="@string/menu_profile" />
 
             <TextView
                 android:id="@+id/card_duration"

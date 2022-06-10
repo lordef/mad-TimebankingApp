@@ -22,7 +22,7 @@
                 android:id="@+id/textViewGiveRateTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Give a rate to"
+                android:text="@string/give_a_rate_to"
                 android:textAlignment="textEnd"
                 android:textColor="@color/primary_dark"
                 android:textSize="28sp"
@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="User"
+                        android:text="@string/user"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/primary_medium"
@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="If you want, leave also a comment about your experience:"
+                        android:text="@string/advice_experience"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="start|top"
-                        android:hint="Type here"
+                        android:hint="@string/type_here"
                         android:inputType="textMultiLine"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +122,7 @@
                         android:backgroundTintMode="src_atop"
                         android:backgroundTint="@color/primary_medium"
                         android:textColor="@color/primary_superlight"
-                        android:text="Send review"
+                        android:text="@string/send_review"
                         android:theme="@style/Button.White"
                         app:cornerRadius="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -162,18 +162,6 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewReviewGivenToUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewReviewGiven"
-                app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"
-                app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView2"
@@ -260,28 +248,16 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirstReview">
 
             <TextView
-                android:id="@+id/textViewReviewReceived1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/review_received_1"
-                android:textSize="20sp"
-                android:textColor="@color/primary_dark"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/textViewUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:text="TextView"
+                android:textColor="@color/primary_dark"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-                app:layout_constraintStart_toEndOf="@+id/textViewReviewReceived1" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textViewReviewReceived2"
@@ -289,6 +265,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/review_received_2"
+                android:textColor="@color/primary_dark"
                 android:textSize="20sp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/materialCardView"
@@ -304,14 +281,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReviewReceived1">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="16dp"
-                    android:background="@color/primary_superlight">
+                    android:background="@color/primary_superlight"
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imageViewSecondReview"
