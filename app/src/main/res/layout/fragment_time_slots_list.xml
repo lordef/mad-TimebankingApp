@@ -34,16 +34,20 @@
 
             <Button
                 android:id="@+id/acceptedButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:backgroundTint="@color/primary_dark"
                 android:clickable="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:rotation="90"
                 card_view:icon="@drawable/ic_handshake_yellow"
                 card_view:iconTint="@color/secondary_yellow"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:strokeWidth="0dp" />
 
             <TextView
                 android:id="@+id/assigned_timeslot"
@@ -64,6 +68,7 @@
                 android:layout_marginBottom="1dp"
                 android:background="@color/primary_medium"
                 android:padding="2dp"
+                android:visibility="gone"
                 card_view:layout_constraintBottom_toTopOf="@+id/deleteConstraintLayout"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -93,6 +98,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/primary_medium"
                 android:padding="2dp"
+                android:visibility="gone"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"

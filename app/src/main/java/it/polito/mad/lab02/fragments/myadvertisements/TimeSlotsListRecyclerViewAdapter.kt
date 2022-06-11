@@ -7,6 +7,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -117,7 +118,7 @@ class TimeSlotsListRecyclerViewAdapter(
         val card: CardView = binding.cardAdvertisement
         val editButton: ConstraintLayout = binding.editConstraintLayout
         val deleteButton: ConstraintLayout = binding.deleteConstraintLayout
-        val assignedText: TextView = binding.acceptedButton
+        val assignedText: Button = binding.acceptedButton
 
         fun bind(
             timeSlot: TimeSlot,
@@ -134,7 +135,7 @@ class TimeSlotsListRecyclerViewAdapter(
             deleteButton.setOnClickListener(action_deleteTimeSlot)
 
             if (timeSlot.state == "ACCEPTED") {
-                assignedText.text = "ACCEPTED"
+                //assignedText.text = "ACCEPTED"
                 editButton.visibility = View.GONE
                 deleteButton.visibility = View.GONE
                 assignedText.visibility = View.VISIBLE
