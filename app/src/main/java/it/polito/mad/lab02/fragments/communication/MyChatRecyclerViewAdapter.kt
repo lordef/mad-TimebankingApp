@@ -1,13 +1,16 @@
 package it.polito.mad.lab02.fragments.communication
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
+import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
@@ -67,6 +70,7 @@ class MyChatRecyclerViewAdapter(
         val cardProfile: TextView = binding.cardProfile
         val cardChat: CardView = binding.cardChat
         val lastMessage: TextView = binding.lastMessage
+        val imageProfile: ImageView = binding.fromUserImageView
 
         fun bind(chat: Chat, action1: (v: View) -> Unit, action2: (v: View) -> Unit) {
             cardChat.setOnClickListener(action1)
@@ -75,8 +79,10 @@ class MyChatRecyclerViewAdapter(
             lastMessage.text = chat.lastMessage.text
             if (chat.publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
                 cardProfile.text = chat.requester.nickname
+                imageProfile.load(Uri.parse(chat.requester.imageUri))
             } else {
                 cardProfile.text = chat.publisher.nickname
+                imageProfile.load(Uri.parse(chat.publisher.imageUri))
             }
         }
 
