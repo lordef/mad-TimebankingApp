@@ -140,7 +140,9 @@ class LoginActivity : AppCompatActivity() {
                                             "Logged in as ${mAuth?.currentUser?.displayName}",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        startActivity(Intent(this, MainActivity::class.java))
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        intent.putExtra("newAccount", true)
+                                        startActivity(intent)
                                         finish()
                                     }
                             } else {

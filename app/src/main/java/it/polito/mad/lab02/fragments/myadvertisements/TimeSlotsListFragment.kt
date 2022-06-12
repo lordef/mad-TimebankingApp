@@ -96,7 +96,7 @@ class TimeSlotsListFragment : Fragment(R.layout.fragment_time_slot_list) {
                     onBackPressed()
                 }
                 else {
-                    exitProcess(1)
+                    activity?.finish()
                 }
             }
         }

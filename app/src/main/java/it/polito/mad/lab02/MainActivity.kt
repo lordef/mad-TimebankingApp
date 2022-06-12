@@ -3,6 +3,7 @@ package it.polito.mad.lab02
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -28,6 +29,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -59,6 +61,25 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val newAccount = intent.getBooleanExtra("newAccount", false)
+        if(newAccount){
+            val builder: androidx.appcompat.app.AlertDialog.Builder =
+                androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme)
+
+            builder.setCancelable(true)
+            builder.setTitle("Thank you!")
+            builder.setMessage("We are glad that you joined our community and as a welcome gift you earned 5 free hours to spend as you desire")
+
+//            builder.setNeutralButton("Cancel",
+//                DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
+
+            builder.setPositiveButton("OK",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.cancel()
+                })
+            builder.show()
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
