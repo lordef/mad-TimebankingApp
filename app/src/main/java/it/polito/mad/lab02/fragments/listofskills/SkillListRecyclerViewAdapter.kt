@@ -8,14 +8,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentSkillListBinding
 import it.polito.mad.lab02.models.Skill
+import it.polito.mad.lab02.models.TimeSlot
 import java.util.*
 
 class SkillListRecyclerViewAdapter(
-    private val values: List<Skill>
+    private var values: List<Skill>
 ) : RecyclerView.Adapter<SkillListRecyclerViewAdapter.ViewHolder>() {
+
+    private var displayData = values.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -31,22 +35,56 @@ class SkillListRecyclerViewAdapter(
         )
     }
 
+    fun setValues(newValues: List<Skill>){
+        values = newValues
+        displayData = newValues.toMutableList()
+    }
+
+    fun setFilter(filter: (Skill)->Boolean) {
+        val oldData = displayData
+        displayData = if(filter != null){
+            values.filter(filter).toMutableList()
+        } else{
+            values.toMutableList()
+        }
+        val diffs = DiffUtil.calculateDiff(
+            MyDiffCallback(
+                oldData,
+                displayData
+            )
+        )
+        diffs.dispatchUpdatesTo(this)
+    }
+
+    class MyDiffCallback(val old: List<Skill>, val new: List<Skill>): DiffUtil.Callback() {
+        override fun getOldListSize(): Int = old.size
+
+        override fun getNewListSize(): Int = new.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] === new[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return old[oldItemPosition] == new[newItemPosition]
+        }
+    }
 
     override fun onViewRecycled(holder: ViewHolder) {
         holder.itemView.rotation = 0f
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(values[position])
+        holder.bind(displayData[position])
         {
             val bundle = Bundle()
-            bundle.putString("skill", values[position].ref)
+            bundle.putString("skill", displayData[position].ref)
             it.findNavController()
                 .navigate(R.id.action_nav_all_advertisements_to_publicTimeSlotFragment, bundle)
         }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = displayData.size
 
     inner class ViewHolder(private val binding: FragmentSkillListBinding) :
         RecyclerView.ViewHolder(binding.root) {

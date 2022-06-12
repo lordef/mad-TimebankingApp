@@ -4,6 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/drawable/ic_message_menu_official.xml" value="0.381" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout-land/fragment_all_skills.xml" value="0.265625" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/activity_main.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_all_skills.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skill_list.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skills.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skills_list.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_time_slot_assigned_and_accepted.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_time_slots_list_list.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/menu/message_menu.xml" value="0.5208333333333334" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/menu/search_menu.xml" value="0.5208333333333334" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/drawable/ic_user.xml" value="0.296" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.29375" />
         <entry key="..\:/Polito/MAD/group07_lab4/app/src/main/res/layout-land/fragment_show_profile.xml" value="0.34322916666666664" />

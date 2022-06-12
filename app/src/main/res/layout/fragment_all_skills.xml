@@ -15,8 +15,8 @@
             android:padding="16dp"
             android:text="@string/skill_list_navigation"
             android:textAlignment="center"
-            android:textSize="36sp"
             android:textColor="@color/primary_dark"
+            android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/skills_layout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
                 android:id="@+id/allSkillsList"
                 layout="@layout/fragment_skill_list_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,25 +48,25 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/allSkillsList"-->
-<!--            android:name="it.polito.mad.lab02.fragments.placeholder.SkillListFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/skillListTitleTextView"-->
-<!--            android:layout_marginLeft="16dp"-->
-<!--            android:layout_marginRight="16dp"-->
-<!--            android:clipChildren="false"-->
-<!--            android:clipToPadding="false"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingHorizontal="8dp"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
-<!--            app:paddingLeftSystemWindowInsets="@{true}"-->
-<!--            app:paddingRightSystemWindowInsets="@{true}"-->
-<!--            app:hasFixedSize="@{true}"-->
-<!--            app:spanCount="8"-->
-<!--            tools:listitem="@layout/fragment_skill_list" />-->
+        <!--            android:id="@+id/allSkillsList"-->
+        <!--            android:name="it.polito.mad.lab02.fragments.placeholder.SkillListFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/skillListTitleTextView"-->
+        <!--            android:layout_marginLeft="16dp"-->
+        <!--            android:layout_marginRight="16dp"-->
+        <!--            android:clipChildren="false"-->
+        <!--            android:clipToPadding="false"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:paddingHorizontal="8dp"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+        <!--            app:paddingLeftSystemWindowInsets="@{true}"-->
+        <!--            app:paddingRightSystemWindowInsets="@{true}"-->
+        <!--            app:hasFixedSize="@{true}"-->
+        <!--            app:spanCount="8"-->
+        <!--            tools:listitem="@layout/fragment_skill_list" />-->
 
         <TextView
             android:id="@+id/text_skills"

@@ -14,6 +14,9 @@
 
     <string name="drawer_header_title">Android Studio</string>
 
+    <!-- Toolbar buttons -->
+    <string name="searchButton">Search</string>
+
     <!-- Labels -->
     <string name="fullNameLabel">Full Name</string>
     <string name="nicknameLabel">Nickname</string>

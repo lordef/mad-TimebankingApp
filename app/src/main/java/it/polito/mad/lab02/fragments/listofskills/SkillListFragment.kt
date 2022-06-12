@@ -2,14 +2,13 @@ package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.IdRes
 import androidx.annotation.Px
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.forEach
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.DynamicAnimation.ViewProperty
@@ -17,6 +16,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.databinding.FragmentAllSkillsBinding
@@ -32,10 +32,12 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
     private var columnCount = 1
 
     private val vm by activityViewModels<MainActivityViewModel>()
+    private val skillListAdapter = SkillListRecyclerViewAdapter(emptyList())
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.allSkillsList)
 
@@ -44,7 +46,8 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
         vm.skillList.observe(viewLifecycleOwner) { skillList ->
             if (recyclerView is RecyclerView) {
                 with(recyclerView) {
-                    adapter = SkillListRecyclerViewAdapter(skillList)
+                    adapter = skillListAdapter
+                    skillListAdapter.setValues(skillList.sortedBy { it.name })
                     scrollToPosition(0)
 //                    smoothScrollToPositionWithSpeed(skillList.size-1)
                     addOnScrollListener(
@@ -64,9 +67,9 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
             }
         }
 
-        val callback = object : OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(!view.findNavController().navigateUp()){
+                if (!view.findNavController().navigateUp()) {
                     exitProcess(1)
                 }
             }
@@ -74,6 +77,43 @@ class SkillListFragment : Fragment(R.layout.fragment_all_skills) {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.searchItem)
+        val searchView = menuItem.actionView as SearchView
+        searchView.queryHint = "Search a skill"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    skillListAdapter.setFilter {
+                        it.name.contains(newText)
+                    }
+                }
+                return false
+            }
+
+        }
+
+        )
+    }
+
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//
+//        return when (item.itemId) {
+//            R.id.searchItem -> {
+//
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//
+//    }
 }
 
 /**
