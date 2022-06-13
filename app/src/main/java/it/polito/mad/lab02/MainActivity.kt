@@ -68,11 +68,8 @@ class MainActivity : AppCompatActivity() {
                 androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme)
 
             builder.setCancelable(true)
-            builder.setTitle("Thank you!")
-            builder.setMessage("We are glad that you joined our community and as a welcome gift you earned 5 free hours to spend as you desire")
-
-//            builder.setNeutralButton("Cancel",
-//                DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
+            builder.setTitle("Welcome!")
+            builder.setMessage("You earned 5 free hours")
 
             builder.setPositiveButton("OK",
                 DialogInterface.OnClickListener { dialogInterface, i ->

@@ -35,9 +35,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/review_given"
-                    android:textStyle="bold"
                     android:textColor="@color/primary_dark"
                     android:textSize="24sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="TextContrastCheck" />
@@ -142,9 +142,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Give a rate to"
-                    android:textStyle="bold"
                     android:textColor="@color/primary_dark"
                     android:textSize="24sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/cardView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

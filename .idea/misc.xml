@@ -6,7 +6,13 @@
         <entry key="..\:/Polito/MAD/MAD_G07_lab02/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/drawable/ic_message_menu_official.xml" value="0.381" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout-land/fragment_all_skills.xml" value="0.265625" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout-land/fragment_rate_someone.xml" value="0.33" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/activity_main.xml" value="0.4722222222222222" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/dialog_date_time.xml" value="0.3333333333333333" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/dialog_duration.xml" value="0.3333333333333333" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/dialog_filter_criteria_datepicker.xml" value="0.3333333333333333" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/dialog_filter_criteria_string.xml" value="0.3333333333333333" />
+        <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/dialog_skills.xml" value="0.3333333333333333" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_all_skills.xml" value="0.4722222222222222" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skill_list.xml" value="0.4722222222222222" />
         <entry key="..\:/Polito/MAD/group07_final_project/app/src/main/res/layout/fragment_skill_list_list.xml" value="0.4722222222222222" />
@@ -105,8 +111,6 @@
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/menu/drawer_menu.xml" value="0.335042735042735" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/menu/message_menu.xml" value="0.31794871794871793" />
         <entry key="..\:/Polito/MAD/group07_lab5/app/src/main/res/menu/pencil_menu.xml" value="0.3243589743589744" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_final_project/app/src/main/res/layout-land/fragment_rate_someone.xml" value="0.32522522522522523" />
-        <entry key="..\:/Users/andre/AndroidStudioProjects/group07_final_project/app/src/main/res/layout/fragment_rate_someone.xml" value="0.33" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_calendar_icon.xml" value="0.1335" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_camera_icon.xml" value="0.1335" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/group07_lab3/app/src/main/res/drawable/ic_clock_icon.xml" value="0.319" />

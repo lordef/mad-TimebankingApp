@@ -14,7 +14,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -73,7 +75,17 @@ class PublicTimeSlotDetailsFragment : Fragment(R.layout.fragment_public_time_slo
             location.text = ts.location
 
             profile.text = ts.userProfile.nickname
+//            val circularProgressDrawable = CircularProgressDrawable(requireContext())
+//            circularProgressDrawable.strokeWidth = 5f
+//            circularProgressDrawable.centerRadius = 30f
+//            circularProgressDrawable.setTint(0)
+//            circularProgressDrawable.start()
             profileImage.load(ts.userProfile.imageUri)
+//            {
+//                crossfade(true)
+//                placeholder(circularProgressDrawable)
+//                transformations(CircleCropTransformation())
+//            }
             skill.text = ts.skill.split("/").last()
 
             profileCard.setOnClickListener {
