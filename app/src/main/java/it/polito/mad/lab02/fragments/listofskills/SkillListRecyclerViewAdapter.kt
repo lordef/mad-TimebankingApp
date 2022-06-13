@@ -1,6 +1,7 @@
 package it.polito.mad.lab02.fragments.listofskills
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -75,10 +76,10 @@ class SkillListRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(displayData[position])
+        holder.bind(values[position])
         {
             val bundle = Bundle()
-            bundle.putString("skill", displayData[position].ref)
+            bundle.putString("skill", values[position].ref)
             it.findNavController()
                 .navigate(R.id.action_nav_all_advertisements_to_publicTimeSlotFragment, bundle)
         }

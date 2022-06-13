@@ -35,10 +35,10 @@ class PublicTimeSlotRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            displayData[position],
+            values[position],
             {
                 val bundle = Bundle()
-                bundle.putString("id", displayData[position].id)
+                bundle.putString("id", values[position].id)
                 it.findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotFragment_to_publicTimeSlotDetailsFragment,
@@ -47,7 +47,7 @@ class PublicTimeSlotRecyclerViewAdapter(
             },
             {
                 val bundle = Bundle()
-                bundle.putString("id", displayData[position].id)
+                bundle.putString("id", values[position].id)
                 it.findNavController()
                     .navigate(
                         R.id.action_publicTimeSlotFragment_to_publicShowProfileFragment,
