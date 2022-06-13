@@ -12,364 +12,389 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/giveARatingConstraintLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/constraintLayout7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayoutSecondReview"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout6"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textViewGiveRateTo"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutFirstReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Give a rate to"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/cardView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textViewReviewGiven"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/comment_review"
-                    android:padding="16dp">
+                    android:text="@string/review_given"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="TextContrastCheck" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textViewReviewGivenToUser"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="4dp"-->
+                <!--                    android:text="TextView"-->
+                <!--                    android:textSize="24sp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/textViewReviewGiven"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />-->
 
-                    <TextView
-                        android:id="@+id/userRated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="User"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/comment_review"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <RatingBar
-                        android:id="@+id/ratingbar"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:isIndicator="false"
-                        android:stepSize="1"
-                        app:layout_constraintBottom_toBottomOf="@+id/userRated"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/userRated"
-                        app:layout_constraintTop_toTopOf="@+id/userRated"
-                        tools:ignore="SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/commentLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="If you want, leave also a comment about\nyour experience:"
-                        android:textAlignment="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ratingbar" />
-
-                    <EditText
-                        android:id="@+id/commentEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:hint="Type here"
-                        android:inputType="textMultiLine"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/commentLabel"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:backgroundTintMode="src_atop"
-                        android:text="Send review"
-                        android:textColor="@color/primary_superlight"                        android:theme="@style/Button.White"
-                        app:cornerRadius="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
-
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="16dp">
+                        android:padding="16dp">
 
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:id="@+id/imageViewFirstReview"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
 
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/textViewFirstReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="TextView"
+                            android:textSize="20sp"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewFirstReview"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewFirstReview"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewFirstReview" />
 
+                        <RatingBar
+                            android:id="@+id/ratingBarFirstReview"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewDateFirstReview"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewFirstReview" />
+
+                        <TextView
+                            android:id="@+id/textViewDateFirstReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="TextView"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ratingBarFirstReview"
+                            app:layout_constraintStart_toEndOf="@+id/ratingBarFirstReview"
+                            app:layout_constraintTop_toTopOf="@+id/ratingBarFirstReview" />
+
+                        <TextView
+                            android:id="@+id/textViewCommentFirstReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="@+id/ratingBarFirstReview"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingBarFirstReview" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/giveARatingConstraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewGiveRateTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Give a rate to"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/cardView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/comment_review"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/userRated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="User"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RatingBar
+                            android:id="@+id/ratingbar"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:isIndicator="false"
+                            android:stepSize="1"
+                            app:layout_constraintBottom_toBottomOf="@+id/userRated"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/userRated"
+                            app:layout_constraintTop_toTopOf="@+id/userRated"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/commentLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="If you want, leave also a comment about\nyour experience:"
+                            android:textAlignment="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingbar" />
+
+                        <EditText
+                            android:id="@+id/commentEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:hint="Type here"
+                            android:inputType="textMultiLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/commentLabel"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <Button
+                            android:id="@+id/button3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTintMode="src_atop"
+                            android:text="Send review"
+                            android:textColor="@color/primary_superlight"
+                            android:theme="@style/Button.White"
+                            app:cornerRadius="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="16dp">
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutFirstReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:id="@+id/constraintLayout6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/giveARatingConstraintLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout7"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textViewReviewGiven"
+                android:id="@+id/noRatingReceivedTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/review_given"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewReviewGivenToUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
+                android:text="@string/empty_rating_msg"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewReviewGiven"
-                app:layout_constraintStart_toEndOf="@+id/textViewReviewGiven"
-                app:layout_constraintTop_toTopOf="@+id/textViewReviewGiven" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/comment_review"
-                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/imageViewFirstReview"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/textViewFirstReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="TextView"
-                        android:textSize="20sp"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewFirstReview"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewFirstReview"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewFirstReview" />
-
-                    <RatingBar
-                        android:id="@+id/ratingBarFirstReview"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textViewDateFirstReview"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageViewFirstReview" />
-
-                    <TextView
-                        android:id="@+id/textViewDateFirstReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="TextView"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/ratingBarFirstReview"
-                        app:layout_constraintStart_toEndOf="@+id/ratingBarFirstReview"
-                        app:layout_constraintTop_toTopOf="@+id/ratingBarFirstReview" />
-
-                    <TextView
-                        android:id="@+id/textViewCommentFirstReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="TextView"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="@+id/ratingBarFirstReview"
-                        app:layout_constraintTop_toBottomOf="@+id/ratingBarFirstReview" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutSecondReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutFirstReview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/giveARatingConstraintLayout"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayoutFirstReview">
-
-            <TextView
-                android:id="@+id/textViewReviewReceived1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/review_received_1"
-                android:textSize="20sp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewUsername"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutSecondReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-                app:layout_constraintStart_toEndOf="@+id/textViewReviewReceived1" />
-
-            <TextView
-                android:id="@+id/textViewReviewReceived2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/review_received_2"
-                android:textSize="20sp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-                app:layout_constraintStart_toEndOf="@+id/textViewUsername" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/comment_review"
-                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textViewReviewReceived1"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="@string/review_received_1"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    android:visibility="visible"-->
+                <!--                    app:layout_constraintBottom_toTopOf="@+id/materialCardView"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+                <TextView
+                    android:id="@+id/textViewUsername"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageViewSecondReview"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+<!--                <TextView-->
+<!--                    android:id="@+id/textViewReviewReceived2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="4dp"-->
+<!--                    android:text="@string/review_received_2"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:visibility="visible"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/materialCardView"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textViewUsername" />-->
 
-                    <TextView
-                        android:id="@+id/textViewSecondReview"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/comment_review"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="TextView"
-                        android:textSize="20sp"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewSecondReview"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewSecondReview"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewSecondReview" />
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
 
-                    <RatingBar
-                        android:id="@+id/ratingBarSecondReview"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="4dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textViewDateSecondReview"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageViewSecondReview" />
+                        <ImageView
+                            android:id="@+id/imageViewSecondReview"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
 
-                    <TextView
-                        android:id="@+id/textViewDateSecondReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="TextView"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/ratingBarSecondReview"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ratingBarSecondReview"
-                        app:layout_constraintTop_toTopOf="@+id/ratingBarSecondReview" />
+                        <TextView
+                            android:id="@+id/textViewSecondReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="TextView"
+                            android:textSize="20sp"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewSecondReview"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewSecondReview"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewSecondReview" />
 
-                    <TextView
-                        android:id="@+id/textViewCommentSecondReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="TextView"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="@+id/ratingBarSecondReview"
-                        app:layout_constraintTop_toBottomOf="@+id/ratingBarSecondReview" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <RatingBar
+                            android:id="@+id/ratingBarSecondReview"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="4dp"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewDateSecondReview"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewSecondReview" />
 
-            </com.google.android.material.card.MaterialCardView>
+                        <TextView
+                            android:id="@+id/textViewDateSecondReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="TextView"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ratingBarSecondReview"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ratingBarSecondReview"
+                            app:layout_constraintTop_toTopOf="@+id/ratingBarSecondReview" />
+
+                        <TextView
+                            android:id="@+id/textViewCommentSecondReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="@+id/ratingBarSecondReview"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingBarSecondReview" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/noRatingReceivedTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_rating_msg"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayoutFirstReview"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
