@@ -57,7 +57,7 @@ class PublicTimeSlotRecyclerViewAdapter(
         )
     }
 
-    override fun getItemCount(): Int = displayData.size
+    override fun getItemCount(): Int = values.size
 
     fun setFilter(filter: (TimeSlot)->Boolean) {
         val oldData = displayData
