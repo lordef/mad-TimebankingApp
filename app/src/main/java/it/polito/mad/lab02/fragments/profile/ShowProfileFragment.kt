@@ -97,7 +97,7 @@ class ShowProfileFragment : Fragment() {
             vm.setRatingNumberListenerByUserUid(userUid)
 
             vm.ratingNumber.observe(viewLifecycleOwner){ avgRatingNum ->
-                ratingValue.text = avgRatingNum.toString()
+                ratingValue.text = avgRatingNum.toString().substring(0,3)
             }
         }
 

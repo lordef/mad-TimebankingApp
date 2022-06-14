@@ -102,7 +102,7 @@ class PublicShowProfileFragment : Fragment() {
 
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                        ratingValue.text = avgRatingNum.toString()
+                        ratingValue.text = avgRatingNum.toString().substring(0,3)
                     }
                 }
             }
@@ -115,7 +115,7 @@ class PublicShowProfileFragment : Fragment() {
 
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                        ratingValue.text = avgRatingNum.toString()
+                        ratingValue.text = avgRatingNum.toString().substring(0,3)
                     }
                 }
             }
@@ -128,7 +128,7 @@ class PublicShowProfileFragment : Fragment() {
 
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                        ratingValue.text = avgRatingNum.toString()
+                        ratingValue.text = avgRatingNum.toString().substring(0,3)
                     }
                 }
             }
@@ -140,7 +140,7 @@ class PublicShowProfileFragment : Fragment() {
 
                 vm.setRatingNumberListenerByUserUid(userUid)
                 vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                    ratingValue.text = avgRatingNum.toString()
+                    ratingValue.text = avgRatingNum.toString().substring(0,3)
                 }
             }
 
@@ -153,7 +153,7 @@ class PublicShowProfileFragment : Fragment() {
 
                     vm.setRatingNumberListenerByUserUid(userUid)
                     vm.ratingNumber.observe(viewLifecycleOwner) { avgRatingNum ->
-                        ratingValue.text = avgRatingNum.toString()
+                        ratingValue.text = avgRatingNum.toString().substring(0,3)
                     }
                 }
             }
