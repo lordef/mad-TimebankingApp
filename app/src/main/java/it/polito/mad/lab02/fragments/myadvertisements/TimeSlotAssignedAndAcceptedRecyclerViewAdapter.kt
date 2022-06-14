@@ -114,6 +114,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         private val cardAdvertisement: CardView = binding.cardAdvertisement
         val imageProfile: ImageView = binding.publisherImageView
         val ratingConstraint:ConstraintLayout = binding.ratingConstraint
+        val profileConstraint:ConstraintLayout = binding.constraintLayout6
         private val publisher: TextView = binding.profilePublicAdv
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
@@ -133,6 +134,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
             }else{
                 cardProfile.visibility = View.GONE
                 imageProfile.visibility = View.GONE
+                profileConstraint.visibility = View.GONE
             }
 
             if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {
