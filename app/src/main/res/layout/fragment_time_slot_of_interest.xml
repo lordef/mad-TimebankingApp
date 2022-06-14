@@ -11,7 +11,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/primary_dark"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="20dp"
     card_view:cardMaxElevation="20dp"
@@ -27,7 +26,8 @@
             android:id="@+id/constraintLayout6"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:backgroundTint="@color/primary_dark"
+            android:background="@color/primary_dark"
+            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/constraintLayout"
             card_view:layout_constraintTop_toTopOf="parent">
@@ -36,36 +36,28 @@
                 android:id="@+id/publisherImageView"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/profile_public_adv"
+                card_view:layout_constraintBottom_toTopOf="@+id/profilePublicAdv"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.5"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <Button
-                android:id="@+id/profile_public_adv"
-                style="?attr/materialButtonOutlinedStyle"
+            <TextView
+                android:id="@+id/profilePublicAdv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="0dp"
-                android:paddingLeft="0dp"
-                android:paddingTop="0dp"
-                android:paddingRight="0dp"
-                android:paddingBottom="0dp"
-                android:text="TextView"
+                android:layout_height="0dp"
+                android:padding="14dp"
+                android:text="@string/fullName"
                 android:textAlignment="center"
-                android:textAllCaps="false"
                 android:textColor="@color/primary_superlight"
-                android:textSize="12sp"
-                card_view:cornerRadius="8dp"
+                android:textSize="14sp"
+                card_view:autoSizeMaxTextSize="14sp"
+                card_view:autoSizeTextType="uniform"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/publisherImageView"
-                card_view:strokeWidth="0dp"
-                tools:text="@string/menu_profile" />
+                card_view:layout_constraintTop_toBottomOf="@+id/publisherImageView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

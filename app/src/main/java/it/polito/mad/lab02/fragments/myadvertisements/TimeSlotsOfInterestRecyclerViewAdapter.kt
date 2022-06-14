@@ -70,7 +70,7 @@ class TimeSlotsOfInterestRecyclerViewAdapter(
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
-        val cardProfile: Button = binding.profilePublicAdv
+        val cardProfile: TextView = binding.profilePublicAdv
         val imageProfile: ImageView = binding.publisherImageView
         val publisher: TextView = binding.profilePublicAdv
 
