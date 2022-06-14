@@ -121,7 +121,7 @@
             <TextView
                 android:id="@+id/card_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:maxLength="30"
                 android:padding="4dp"
                 android:text="@string/title"
@@ -130,6 +130,7 @@
                 android:textSize="28sp"
                 android:textStyle="bold"
                 card_view:autoSizeTextType="uniform"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_location"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
