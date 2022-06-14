@@ -116,8 +116,10 @@ class TimeSlotsListRecyclerViewAdapter(
         val cardDate: TextView = binding.cardDate
         val cardDuration: TextView = binding.cardDuration
         val card: CardView = binding.cardAdvertisement
-        val editButton: ConstraintLayout = binding.editConstraintLayout
-        val deleteButton: ConstraintLayout = binding.deleteConstraintLayout
+        val edit: ConstraintLayout = binding.editConstraintLayout
+        val delete: ConstraintLayout = binding.deleteConstraintLayout
+        val editButton: ImageButton = binding.editTimeSlotButton
+        val deleteButton: ImageButton = binding.deleteTimeSlotImageButton
         val assignedText: Button = binding.acceptedButton
 
         fun bind(
@@ -136,12 +138,12 @@ class TimeSlotsListRecyclerViewAdapter(
 
             if (timeSlot.state == "ACCEPTED") {
                 //assignedText.text = "ACCEPTED"
-                editButton.visibility = View.GONE
-                deleteButton.visibility = View.GONE
+                edit.visibility = View.GONE
+                delete.visibility = View.GONE
                 assignedText.visibility = View.VISIBLE
             } else {
-                editButton.visibility = View.VISIBLE
-                deleteButton.visibility = View.VISIBLE
+                edit.visibility = View.VISIBLE
+                delete.visibility = View.VISIBLE
                 assignedText.visibility = View.GONE
             }
 
