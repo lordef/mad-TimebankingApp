@@ -1,14 +1,17 @@
 package it.polito.mad.lab02.fragments.myadvertisements
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
+import coil.load
 import com.google.gson.Gson
 import it.polito.mad.lab02.R
 import it.polito.mad.lab02.Utils.fromHHMMToString
@@ -107,11 +110,13 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         private val cardDuration: TextView = binding.cardDuration
         private val rateButton: Button = binding.rateButton
         private val cardAdvertisement: CardView = binding.cardAdvertisement
+        val imageProfile: ImageView = binding.publisherImageView
         private val publisher: TextView = binding.profilePublicAdv
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
             cardAdvertisement.setOnClickListener(action2)
             publisher.setOnClickListener(action3)
+            imageProfile.setOnClickListener(action3)
 
             cardTitle.text = timeSlot.title
             cardLocation.text = timeSlot.location
@@ -121,8 +126,10 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
 
             if(selector == 0){
                 cardProfile.text = timeSlot.userProfile.nickname
+                imageProfile.load(Uri.parse(timeSlot.userProfile.imageUri))
             }else{
                 cardProfile.visibility = View.GONE
+                imageProfile.visibility = View.GONE
             }
 
             if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {

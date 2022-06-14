@@ -6,136 +6,155 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginBottom="6dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/background_text_cards_show"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardBackgroundColor="@color/primary_medium"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="20dp"
+    card_view:cardMaxElevation="20dp"
+    tools:ignore="TouchTargetSizeCheck">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primary_medium"
-        android:orientation="vertical"
-        android:padding="4dp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/card_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:text="@string/title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                card_view:autoSizeTextType="uniform"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/rate_button"
-                style="?attr/materialButtonOutlinedStyle"
-                android:textAllCaps="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/edit_timeSlot"
-                android:text="Go to ratings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/secondary_yellow"
-                android:textSize="20sp"
-                card_view:iconGravity="textStart"
-                card_view:iconPadding="8dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/card_title"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/rate_button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:backgroundTint="@color/primary_medium"
+            android:contentDescription="@string/edit_timeSlot"
+            android:text="Go to ratings"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/secondary_yellow"
+            android:textSize="20sp"
+            card_view:iconGravity="textStart"
+            card_view:iconPadding="8dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
-            <TextView
-                android:id="@+id/card_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:drawablePadding="8dp"
-                android:maxLength="65"
-                android:text="@string/timeslotLocationLabel"
-                android:textSize="18sp"
-                card_view:drawableStartCompat="@drawable/ic_location_official"
-                card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
-                card_view:layout_constraintEnd_toStartOf="@+id/profile_public_adv"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@color/primary_dark"
+            card_view:layout_constraintBottom_toTopOf="@+id/rate_button"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/publisherImageView"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/profile_public_adv"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <Button
                 android:id="@+id/profile_public_adv"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary_superlight"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
+                android:padding="0dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="TextView"
+                android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/secondary_text"
-                android:textSize="18sp"
+                android:textColor="@color/primary_superlight"
+                android:textSize="12sp"
                 card_view:cornerRadius="8dp"
-                card_view:icon="@drawable/ic_person_official"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_location"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@id/card_location"
-                card_view:layout_constraintTop_toTopOf="@+id/card_location"
-                card_view:strokeColor="@color/black"
-                card_view:strokeWidth="1dp"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/publisherImageView"
+                card_view:strokeWidth="0dp"
                 tools:text="@string/menu_profile" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="288dp"
+            android:layout_height="154dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            card_view:layout_constraintBottom_toTopOf="@+id/rate_button"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/card_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:maxLength="65"
+                android:text="@string/timeslotLocationLabel"
+                android:textSize="18sp"
+                card_view:drawableStartCompat="@drawable/ic_location_official"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_date"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_title" />
 
             <TextView
                 android:id="@+id/card_duration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
-                android:paddingStart="16dp"
                 android:text="@string/timeslotDurationLabel"
                 android:textSize="18sp"
                 card_view:drawableLeftCompat="@drawable/ic_duration_official"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_date"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.5"
-                card_view:layout_constraintStart_toEndOf="@+id/card_date"
-                card_view:layout_constraintTop_toTopOf="@+id/card_date" />
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_date" />
 
             <TextView
                 android:id="@+id/card_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:drawablePadding="8dp"
                 android:text="@string/timeslotDateTimeLabel"
                 android:textSize="18sp"
                 card_view:drawableLeftCompat="@drawable/ic_calendar_official"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/card_duration"
-                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintBottom_toTopOf="@+id/card_duration"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/card_location" />
+
+            <TextView
+                android:id="@+id/card_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="30"
+                android:padding="4dp"
+                android:text="@string/title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/primary_dark"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                card_view:autoSizeTextType="uniform"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

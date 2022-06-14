@@ -76,6 +76,7 @@ class MyChatRecyclerViewAdapter(
             cardChat.setOnClickListener(action1)
             cardTitle.text = chat.timeSlot.title
             cardProfile.setOnClickListener(action2)
+            imageProfile.setOnClickListener(action2)
             lastMessage.text = chat.lastMessage.text
             if (chat.publisher.uid == FirebaseAuth.getInstance().currentUser?.uid ?: false) {
                 cardProfile.text = chat.requester.nickname
