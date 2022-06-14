@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.findNavController
 import coil.load
 import com.google.gson.Gson
@@ -111,6 +113,7 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
         private val rateButton: Button = binding.rateButton
         private val cardAdvertisement: CardView = binding.cardAdvertisement
         val imageProfile: ImageView = binding.publisherImageView
+        val ratingConstraint:ConstraintLayout = binding.ratingConstraint
         private val publisher: TextView = binding.profilePublicAdv
 
         fun bind(timeSlot: TimeSlot, action1: (v: View) -> Unit, action2: (v: View) -> Unit, action3: (v: View) -> Unit) {
@@ -135,6 +138,8 @@ class TimeSlotAssignedAndAcceptedRecyclerViewAdapter(
             if (isTimeslotPassed(timeSlot.dateTime, timeSlot.duration)) {
                 rateButton.visibility = View.VISIBLE
                 rateButton.setOnClickListener(action1)
+                ratingConstraint.setOnClickListener(action1)
+
             } else {
                 rateButton.visibility = View.GONE
             }

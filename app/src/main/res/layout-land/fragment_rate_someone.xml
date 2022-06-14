@@ -194,11 +194,8 @@
                             android:layout_gravity="center_horizontal"
                             android:isIndicator="false"
                             android:stepSize="1"
-                            app:layout_constraintBottom_toBottomOf="@+id/userRated"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/userRated"
-                            app:layout_constraintTop_toTopOf="@+id/userRated"
+                            app:layout_constraintStart_toStartOf="@+id/userRated"
+                            app:layout_constraintTop_toBottomOf="@+id/userRated"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView

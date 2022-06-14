@@ -11,7 +11,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/primary_medium"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="20dp"
     card_view:cardMaxElevation="20dp"
@@ -23,33 +22,44 @@
         android:layout_height="wrap_content">
 
 
-        <Button
-            android:id="@+id/rate_button"
-            style="?attr/materialButtonOutlinedStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ratingConstraint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary_medium"
-            android:contentDescription="@string/edit_timeSlot"
-            android:text="Go to ratings"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/secondary_yellow"
-            android:textSize="20sp"
-            card_view:iconGravity="textStart"
-            card_view:iconPadding="8dp"
+            android:background="@color/primary_medium"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
-            card_view:strokeWidth="0dp"
-            tools:ignore="TextContrastCheck" />
+            card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <Button
+                android:id="@+id/rate_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_medium"
+                android:contentDescription="@string/edit_timeSlot"
+                android:text="Go to ratings"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/secondary_yellow"
+                android:textSize="20sp"
+                card_view:iconGravity="textStart"
+                card_view:iconPadding="8dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:strokeWidth="0dp"
+                tools:ignore="TextContrastCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout6"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/primary_dark"
-            card_view:layout_constraintBottom_toTopOf="@+id/rate_button"
+            card_view:layout_constraintBottom_toTopOf="@+id/ratingConstraint"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/constraintLayout"
             card_view:layout_constraintTop_toTopOf="parent">
@@ -67,8 +77,8 @@
 
             <TextView
                 android:id="@+id/profilePublicAdv"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:padding="14dp"
                 android:text="@string/fullName"
                 android:textAlignment="center"
@@ -78,6 +88,7 @@
                 card_view:autoSizeTextType="uniform"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/publisherImageView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -88,7 +99,6 @@
             android:layout_height="154dp"
             android:background="@color/white"
             android:padding="8dp"
-            card_view:layout_constraintBottom_toTopOf="@+id/rate_button"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent">
 
